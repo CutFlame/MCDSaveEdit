@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="MCDSaveEdit.ItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MCDSaveEdit"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="100">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Image x:Name="backImage" Source="../Images/rare_frame.png"/>
+        <Image x:Name="image" Source="../Images/Artifacts.png" Margin="10"/>
+        <Label x:Name="titleLabel" Content="*Boots of Swiftness*" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Center" FontSize="12" FontStretch="UltraCondensed"/>
+        <Image x:Name="enchantmentPointsImage" Source="../Images/Points.png" Width="12" Height="13" Margin="6,6,82,81"/>
+        <Label x:Name="enchantmentPointsLabel" Content="*12*" FontSize="12" Margin="21,3,52,81" Padding="0" VerticalContentAlignment="Center" Width="30" Height="16"/>
+        <Label x:Name="powerLabel" Content="*108*" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" FontSize="20"/>
+    </Grid>
+</UserControl>

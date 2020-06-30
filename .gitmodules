@@ -1,0 +1,7 @@
+[submodule "DungeonTools/DungeonTools"]
+	path = DungeonTools/DungeonTools
+	url = git@github.com:CutFlame/DungeonTools.git
+	branch = save-file-editor
+[submodule "PakReader/PakReader"]
+	path = PakReader/PakReader
+	url = https://github.com/WorkingRobot/PakReader

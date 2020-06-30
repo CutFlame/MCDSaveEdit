@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="MCDSaveEdit.EnchantmentSetControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MCDSaveEdit"
+             mc:Ignorable="d" Height="150" Width="150">
+    <Grid>
+        <Image x:Name="backgroundImage" Margin="0" />
+
+        <Grid Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="15"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="15"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="topEnchantmentSymbolImage" Grid.Column="2" Grid.Row="1" Source="../Images/Points.png" Margin="5"/>
+            <Button x:Name="enchantment3Button" Grid.Column="1" Grid.Row="2" Background="{x:Null}">
+                <Button.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="45"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.LayoutTransform>
+                <Image x:Name="enchantment3Image" Source="../Images/Enchantments.png" Margin="-40">
+                    <Image.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-45"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.LayoutTransform>
+                </Image>
+            </Button>
+            <Button x:Name="enchantment1Button" Grid.Column="2" Grid.Row="3" Background="{x:Null}">
+                <Button.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="45"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.LayoutTransform>
+                <Image x:Name="enchantment1Image" Source="../Images/Enchantments.png" Margin="-40">
+                    <Image.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-45"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.LayoutTransform>
+                </Image>
+            </Button>
+            <Button x:Name="enchantment2Button" Grid.Column="3" Grid.Row="2" Background="{x:Null}">
+                <Button.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="45"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.LayoutTransform>
+                <Image x:Name="enchantment2Image" Source="../Images/Enchantments.png" Margin="-40">
+                    <Image.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-45"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.LayoutTransform>
+                </Image>
+            </Button>
+        </Grid>
+        <Button x:Name="upgradedEnchantmentButton" Margin="0" Visibility="Hidden" Background="{x:Null}">
+            <Button.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="45"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.LayoutTransform>
+            <Image x:Name="upgradedEnchantmentImage" Source="../Images/Enchantments.png" Margin="-80">
+                <Image.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-45"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.LayoutTransform>
+            </Image>
+        </Button>
+    </Grid>
+</UserControl>
