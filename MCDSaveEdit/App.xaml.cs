@@ -1,8 +1,5 @@
 ﻿using FModel;
-using PakReader;
-using PakReader.Pak;
 using PakReader.Parsers.Objects;
-using System;
 using System.Windows;
 
 namespace MCDSaveEdit
@@ -17,28 +14,21 @@ namespace MCDSaveEdit
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            showBusyIndicator();
 
-            loadPakIndex();
+            Globals.Game = new FGame(EGame.MinecraftDungeons, EPakVersion.FNAME_BASED_COMPRESSION_METHOD);
 
-            doneLoading();
+            loadAsync();
         }
 
-        private void loadPakIndex()
+        private async void loadAsync()
         {
-            try
+            if (ImageUriHelper.canUseGameContent())
             {
-                Globals.Game = new FGame(EGame.MinecraftDungeons, EPakVersion.FNAME_BASED_COMPRESSION_METHOD);
+                showBusyIndicator();
+                await ImageUriHelper.loadGameContentAsync();
+            }
 
-                var filter = new PakFilter(new[] { "/dungeons/content" });
-                var pakIndex = new PakIndex(path: Constants.PAKS_FOLDER, cacheFiles: true, caseSensitive: false, filter: filter);
-                pakIndex.UseKey(BinaryHelper.ToBytesKey(Constants.PAKS_AES_KEY_STRING));
-                ImageUriHelper.instance = new PakImageResolver(pakIndex);
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine($"Could not load Minecraft Dungeons Paks: {e}");
-            }
+            doneLoading();
         }
 
         private void doneLoading()

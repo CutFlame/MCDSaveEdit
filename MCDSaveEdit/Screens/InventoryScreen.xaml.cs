@@ -26,10 +26,16 @@ namespace MCDSaveEdit
         public InventoryScreen()
         {
             InitializeComponent();
-
-            levelLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_LV_frame");
-
             translateStaticStrings();
+            if (ImageUriHelper.gameContentLoaded)
+            {
+                useGameContentImages();
+            }
+        }
+
+        private void useGameContentImages()
+        {
+            levelLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_LV_frame");
 
             tryLoadAndSetImage(allItemsButton, "/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_all_default");
             tryLoadAndSetImage(meleeItemsButton, "/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee_default");
@@ -41,9 +47,13 @@ namespace MCDSaveEdit
 
         private void tryLoadAndSetImage(Button button, string imagePath)
         {
-            var image = new Image();
-            image.Source = ImageUriHelper.instance.imageSource(imagePath);
-            if (image.Source != null) button.Content = image;
+            var imageSource = ImageUriHelper.instance.imageSource(imagePath);
+            if (imageSource != null)
+            {
+                var image = new Image();
+                image.Source = imageSource;
+                button.Content = image;
+            }
         }
 
         private void translateStaticStrings()

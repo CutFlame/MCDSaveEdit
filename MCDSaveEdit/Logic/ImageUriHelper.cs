@@ -1,6 +1,6 @@
 ﻿using DungeonTools.Save.Models.Enums;
 using DungeonTools.Save.Models.Profiles;
-using FModel;
+using PakReader;
 using PakReader.Pak;
 using PakReader.Parsers.Class;
 using SkiaSharp;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Cache;
 using System.Text;
-using System.Windows.Media;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 #nullable enable
 
@@ -280,6 +280,43 @@ namespace MCDSaveEdit
     public static class ImageUriHelper
     {
         public static IImageResolver instance = new LocalImageResolver();
+
+        public static bool canUseGameContent()
+        {
+            return Directory.Exists(Constants.PAKS_FOLDER);
+        }
+
+        public static bool gameContentLoaded { get; private set; } = false;
+        public static async Task loadGameContentAsync()
+        {
+            var pakIndex = await loadPakIndex();
+            if (pakIndex != null)
+            {
+                instance = new PakImageResolver(pakIndex);
+                gameContentLoaded = true;
+            }
+        }
+
+        private static Task<PakIndex?> loadPakIndex()
+        {
+            var tcs = new TaskCompletionSource<PakIndex?>();
+            Task.Run(() =>
+            {
+                try
+                {
+                    var filter = new PakFilter(new[] { "/dungeons/content" });
+                    var pakIndex = new PakIndex(path: Constants.PAKS_FOLDER, cacheFiles: true, caseSensitive: false, filter: filter);
+                    pakIndex.UseKey(BinaryHelper.ToBytesKey(Constants.PAKS_AES_KEY_STRING));
+                    tcs.SetResult(pakIndex);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Could not load Minecraft Dungeons Paks: {e}");
+                    tcs.SetResult(null);
+                }
+            });
+            return tcs.Task;
+        }
 
         /// <summary>
         /// Load a resource WPF-BitmapImage (png, bmp, ...) from embedded resource defined as 'Resource' not as 'Embedded resource'.

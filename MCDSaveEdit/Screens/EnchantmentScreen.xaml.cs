@@ -1,4 +1,5 @@
 ﻿using DungeonTools.Save.Models.Profiles;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,11 +16,20 @@ namespace MCDSaveEdit
         public EnchantmentScreen()
         {
             InitializeComponent();
-            enchantmentBackgroundImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv0_frame");
-            enchantmentPointsSymbolImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchant_counter");
+            if (ImageUriHelper.gameContentLoaded)
+            {
+                useGameContentImages();
+            }
+
             tierLabel.Content = R.TIER;
 
             updateUI();
+        }
+
+        private void useGameContentImages()
+        {
+            enchantmentBackgroundImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv0_frame");
+            enchantmentPointsSymbolImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchant_counter");
         }
 
         private Enchantment? _enchantment;
@@ -62,9 +72,10 @@ namespace MCDSaveEdit
         {
             if(_enchantment != null)
             {
-                var enchantmentLevelImage = imageForEnchantmentLevel(_enchantment!.Level);
-                var croppedImage = new CroppedBitmap(enchantmentLevelImage, new Int32Rect(0, 0, 976, 959));
-                enchantmentBackgroundImage.Source = croppedImage;
+                if (ImageUriHelper.gameContentLoaded)
+                {
+                    enchantmentBackgroundImage.Source = imageForEnchantmentLevel(_enchantment!.Level);
+                }
                 tierTextBox.Text = _enchantment!.Level.ToString();
                 pointsCostLabel.Content = _enchantment!.pointsCost().ToString();
             }
@@ -76,7 +87,14 @@ namespace MCDSaveEdit
             }
         }
 
-        private BitmapImage? imageForEnchantmentLevel(int level)
+        private BitmapSource? imageForEnchantmentLevel(int level)
+        {
+            var enchantmentLevelImage = fullImageForEnchantmentLevel(level);
+            var croppedImage = new CroppedBitmap(enchantmentLevelImage, new Int32Rect(0, 0, 976, 959));
+            return croppedImage;
+        }
+
+        private BitmapImage? fullImageForEnchantmentLevel(int level)
         {
             switch(level)
             {

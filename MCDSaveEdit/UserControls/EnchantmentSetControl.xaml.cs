@@ -1,5 +1,6 @@
 ﻿using DungeonTools.Save.Models.Enums;
 using DungeonTools.Save.Models.Profiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -17,9 +18,18 @@ namespace MCDSaveEdit
         public EnchantmentSetControl()
         {
             InitializeComponent();
+            if (ImageUriHelper.gameContentLoaded)
+            {
+                useGameContentImages();
+            }
+
+            updateUI();
+        }
+
+        private void useGameContentImages()
+        {
             backgroundImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/StatusEffect/Enchantment/EnchantmentsBackground");
             topEnchantmentSymbolImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
-            updateUI();
         }
 
         private Enchantment[]? _enchantments;

@@ -1,4 +1,5 @@
 ﻿using DungeonTools.Save.Models.Profiles;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,9 +13,18 @@ namespace MCDSaveEdit
         public ItemControl()
         {
             InitializeComponent();
-            enchantmentPointsImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
+            if (ImageUriHelper.gameContentLoaded)
+            {
+                useGameContentImages();
+            }
+
             //Clear out design/testing values
             updateUI();
+        }
+
+        private void useGameContentImages()
+        {
+            enchantmentPointsImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
         }
 
         private Item? _item;
@@ -46,7 +56,7 @@ namespace MCDSaveEdit
             powerLabel.Content = _item.level();
             titleLabel.Content = _item.Name;
             image.Source = ImageUriHelper.instance.imageSourceForItem(_item);
-            if (image.Source == null)
+            if (image.Source == null || !ImageUriHelper.gameContentLoaded)
             {
                 titleLabel.Visibility = Visibility.Visible;
             }

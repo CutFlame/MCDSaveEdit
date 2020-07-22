@@ -38,12 +38,21 @@ namespace MCDSaveEdit
         public MainWindow()
         {
             InitializeComponent();
-            emeraldsLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_emerald");
-            remainingEnchantmentPointsLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchantscore_background");
+            if (ImageUriHelper.gameContentLoaded)
+            {
+                useGameContentImages();
+            }
+
             //Clear out design/testing values
             updateUI();
 
             checkForNewVersionAsync();
+        }
+
+        private void useGameContentImages()
+        {
+            emeraldsLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_emerald");
+            remainingEnchantmentPointsLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchantscore_background");
         }
 
         private void setupCommands()
