@@ -4,4 +4,5 @@
 	branch = save-file-editor
 [submodule "PakReader/PakReader"]
 	path = PakReader/PakReader
-	url = https://github.com/WorkingRobot/PakReader
+	url = git@github.com:CutFlame/PakReader
+	branch = MCDSaveEdit
