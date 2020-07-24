@@ -17,6 +17,7 @@
         <CommandBinding Command="Close" Executed="exitCommandBinding_Executed"/>
         <CommandBinding Command="Open" Executed="openCommandBinding_Executed"/>
         <CommandBinding Command="Save" Executed="saveCommandBinding_Executed"/>
+        <CommandBinding Command="SaveAs" Executed="saveAsCommandBinding_Executed"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="O" Modifiers="Control" Command="Open"/>
@@ -28,8 +29,9 @@
         <StackPanel DockPanel.Dock="Top" Width="Auto" Height="48" HorizontalAlignment="Stretch">
             <Menu Height="18" Margin="0" VerticalAlignment="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_Open" Command="Open" InputGestureText="Ctrl+O" />
+                    <MenuItem Header="_Open..." Command="Open" InputGestureText="Ctrl+O" />
                     <MenuItem x:Name="saveMenuItem" Header="_Save" Command="Save" InputGestureText="Ctrl+S" />
+                    <MenuItem x:Name="saveAsMenuItem" Header="Save _As..." Command="SaveAs"/>
                     <Separator />
                     <MenuItem Header="_Exit" Command="Close" InputGestureText="Ctrl+Q" />
                 </MenuItem>

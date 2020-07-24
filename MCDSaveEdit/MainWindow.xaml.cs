@@ -122,13 +122,25 @@ namespace MCDSaveEdit
             openFileDialog.InitialDirectory = @"%USER%\Saved Games\Mojang Studios\Dungeons\";
             if (openFileDialog.ShowDialog() == true)
             {
-                handleFileOpen(openFileDialog.FileName);
+                handleFileOpenAsync(openFileDialog.FileName);
             }
         }
+
+        private void saveAsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = constructOpenFileDialogFilterString(ProfileViewModel.supportedFileTypesDict);
+            saveFileDialog.FilterIndex = 0;
+            saveFileDialog.InitialDirectory = @"%USER%\Saved Games\Mojang Studios\Dungeons\";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                handleFileSaveAsync(saveFileDialog.FileName);
+            }
+        }
+
         private void saveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            showBusyIndicator();
-            _model?.handleFileSave();
+            handleFileSaveAsync(_model?.filePath);
         }
 
         private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
@@ -151,7 +163,7 @@ namespace MCDSaveEdit
 
                 // Assuming you have one file that you care about, pass it off to whatever
                 // handling code you have defined.
-                handleFileOpen(files[0]);
+                handleFileOpenAsync(files[0]);
             }
             else
             {
@@ -177,12 +189,22 @@ namespace MCDSaveEdit
             return string.Join("|", dict.Select(x => string.Join("|", string.Format("{0} ({1})", x.Value, x.Key), x.Key)));
         }
 
-        private void handleFileOpen(string fileName)
+        private async void handleFileOpenAsync(string? fileName)
         {
+            if(_model == null) { return; }
             showBusyIndicator();
-            _model?.handleFileOpen(fileName);
+            await _model!.handleFileOpenAsync(fileName);
+            closeBusyIndicator();
         }
 
+        private async void handleFileSaveAsync(string? fileName)
+        {
+            if (_model == null) { return; }
+            showBusyIndicator();
+            await _model!.handleFileSaveAsync(fileName);
+            closeBusyIndicator();
+        }
+        
         private void showBusyIndicator()
         {
             closeBusyIndicator();
@@ -197,6 +219,7 @@ namespace MCDSaveEdit
             _busyWindow.Content = new BusyIndicator();
             _busyWindow.Show();
         }
+
         private void closeBusyIndicator()
         {
             if (_busyWindow != null)
@@ -230,12 +253,12 @@ namespace MCDSaveEdit
             if (_model?.profile.value != null)
             {
                 Title = string.Format("{0} - {1}", R.APPLICATION_TITLE, Path.GetFileName(_model!.filePath));
-                saveMenuItem.IsEnabled = true;
+                saveMenuItem.IsEnabled = saveAsMenuItem.IsEnabled = true;
             }
             else
             {
                 Title = R.APPLICATION_TITLE;
-                saveMenuItem.IsEnabled = false;
+                saveMenuItem.IsEnabled = saveAsMenuItem.IsEnabled = false;
             }
         }
 

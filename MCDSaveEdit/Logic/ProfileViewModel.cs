@@ -72,20 +72,30 @@ namespace MCDSaveEdit
             profile.subscribe(p => this.filter.setValue = ItemFilterEnum.All);
         }
 
-        public void handleFileOpen(string filePath)
+        #region Open File
+
+        public async Task handleFileOpenAsync(string? filePath)
         {
-            Console.WriteLine("Reading file: {0}", filePath);
-            if (Path.GetExtension(filePath) == ".json")
+            if (filePath == null) { return; }
+            Console.WriteLine("Reading file: {0}", filePath!);
+            if (Path.GetExtension(filePath!) == ".json")
             {
-                handleJsonFileOpen(filePath);
+                await handleJsonFileOpen(filePath!);
             }
             else
             {
-                handleDatFileOpen(filePath);
+                await handleDatFileOpen(filePath!);
             }
         }
 
-        private async void handleDatFileOpen(string filePath)
+        private async Task handleJsonFileOpen(string filePath)
+        {
+            using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            this.filePath = filePath;
+            await tryParseFileStreamAsync(stream);
+        }
+
+        private async Task handleDatFileOpen(string filePath)
         {
             var file = new FileInfo(filePath);
             using FileStream inputStream = file.OpenRead();
@@ -107,13 +117,6 @@ namespace MCDSaveEdit
             await tryParseFileStreamAsync(processed!);
         }
 
-        private async void handleJsonFileOpen(string filePath)
-        {
-            using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            this.filePath = filePath;
-            await tryParseFileStreamAsync(stream);
-        }
-
         private async Task tryParseFileStreamAsync(Stream stream)
         {
             try
@@ -130,35 +133,31 @@ namespace MCDSaveEdit
             }
         }
 
-        public void handleFileSave()
+        #endregion
+
+        #region Save File
+
+        public async Task handleFileSaveAsync(string? filePath)
         {
-            if(this.filePath == null) { return; }
-            var filePath = this.filePath!;
-            Console.WriteLine("Writing file: {0}", filePath);
-            if (Path.GetExtension(filePath) == ".json")
+            if(filePath == null) { return; }
+            Console.WriteLine("Writing file: {0}", filePath!);
+            if (Path.GetExtension(filePath!) == ".json")
             {
-                handleJsonFileSave(filePath);
+                await handleJsonFileSave(filePath!);
             }
             else
             {
-                handleDatFileSave(filePath);
+                await handleDatFileSave(filePath!);
             }
         }
 
-        private async void handleJsonFileSave(string filePath)
+        private async Task handleJsonFileSave(string filePath)
         {
             using var stream = await ProfileParser.Write(profile.value);
-            writeStreamToFileAsync(stream, filePath);
+            await writeStreamToFileAsync(stream, filePath);
         }
 
-        private async void writeStreamToFileAsync(Stream stream, string filePath)
-        {
-            using var filestream = new FileStream(filePath, FileMode.Truncate, FileAccess.Write);
-            stream.Seek(0, SeekOrigin.Begin);
-            await stream.CopyToAsync(filestream);
-        }
-
-        private async void handleDatFileSave(string filePath)
+        private async Task handleDatFileSave(string filePath)
         {
             using var inputStream = await ProfileParser.Write(profile.value);
             inputStream.Seek(0, SeekOrigin.Begin);
@@ -169,8 +168,21 @@ namespace MCDSaveEdit
                 showError?.Invoke(R.FAILED_TO_ENCRYPT_ERROR_MESSAGE);
                 return;
             }
-            writeStreamToFileAsync(processed, filePath);
+            await writeStreamToFileAsync(processed, filePath);
         }
+
+        private async Task writeStreamToFileAsync(Stream stream, string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                File.WriteAllText(filePath, string.Empty);
+            }
+            using var filestream = new FileStream(filePath, FileMode.Truncate, FileAccess.Write);
+            stream.Seek(0, SeekOrigin.Begin);
+            await stream.CopyToAsync(filestream);
+        }
+
+        #endregion
 
         private static IEnumerable<Item> applyFilter(ItemFilterEnum filter, IEnumerable<Item> items)
         {
@@ -208,7 +220,6 @@ namespace MCDSaveEdit
             if (item.InventorySlot != null)
             {
                 ((MappedProperty<ItemFilterEnum, IEnumerable<Item>>)this.filteredItemList).value = this.filteredItemList.value;
-                //_filter.value = _filter.value;
             }
 
             _selectedItem.value = _selectedItem.value;
