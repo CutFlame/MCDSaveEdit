@@ -1,5 +1,5 @@
-﻿using DungeonTools.Save.Models.Enums;
-using DungeonTools.Save.Models.Profiles;
+﻿using MCDSaveEdit.Save.Models.Enums;
+using MCDSaveEdit.Save.Models.Profiles;
 using PakReader;
 using PakReader.Pak;
 using PakReader.Parsers.Class;

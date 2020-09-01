@@ -36,6 +36,7 @@
     <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <IncludeNativeLibrariesInSingleFile>true</IncludeNativeLibrariesInSingleFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -86,6 +87,9 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.4.7.2\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -121,6 +125,48 @@
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Enums\ArmorPropertyType.cs" />
+    <Compile Include="Models\Enums\Cape.cs" />
+    <Compile Include="Models\Enums\CosmeticType.cs" />
+    <Compile Include="Models\Enums\Difficulty.cs" />
+    <Compile Include="Models\Enums\EnchantmentType.cs" />
+    <Compile Include="Models\Enums\HintType.cs" />
+    <Compile Include="Models\Enums\Level.cs" />
+    <Compile Include="Models\Enums\Pet.cs" />
+    <Compile Include="Models\Enums\Platform.cs" />
+    <Compile Include="Models\Enums\Rarity.cs" />
+    <Compile Include="Models\Enums\Realm.cs" />
+    <Compile Include="Models\Enums\Skin.cs" />
+    <Compile Include="Models\Enums\Threat.cs" />
+    <Compile Include="Models\Mapping\AttributeBasedConverterFactory.cs" />
+    <Compile Include="Models\Mapping\CustomNamingEnumJsonConverter.cs" />
+    <Compile Include="Models\Mapping\DifficultyNamingPolicy.cs" />
+    <Compile Include="Models\Mapping\EpochDateTimeJsonConverter.cs" />
+    <Compile Include="Models\Mapping\GuidConverterFactory.cs" />
+    <Compile Include="Models\Mapping\GuidJsonConverter.cs" />
+    <Compile Include="Models\Mapping\HintTypeNamingPolicy.cs" />
+    <Compile Include="Models\Mapping\INamingPolicy.cs" />
+    <Compile Include="Models\Mapping\LowercaseNamingPolicy.cs" />
+    <Compile Include="Models\Mapping\PrettyDateTimeJsonConverter.cs" />
+    <Compile Include="Models\Mapping\RealmNamingPolicy.cs" />
+    <Compile Include="Models\Mapping\SnakeCaseNamingPolicy.cs" />
+    <Compile Include="Models\Mapping\TextDoubleJsonConverter.cs" />
+    <Compile Include="Models\Mapping\ThreatNamingPolicy.cs" />
+    <Compile Include="Models\Profiles\ArmorProperty.cs" />
+    <Compile Include="Models\Profiles\Cosmetic.cs" />
+    <Compile Include="Models\Profiles\Currency.cs" />
+    <Compile Include="Models\Profiles\Difficulties.cs" />
+    <Compile Include="Models\Profiles\Enchantment.cs" />
+    <Compile Include="Models\Profiles\Hint.cs" />
+    <Compile Include="Models\Profiles\Item.cs" />
+    <Compile Include="Models\Profiles\LevelProgress.cs" />
+    <Compile Include="Models\Profiles\LobbyChest.cs" />
+    <Compile Include="Models\Profiles\MapPosition.cs" />
+    <Compile Include="Models\Profiles\MapSettings.cs" />
+    <Compile Include="Models\Profiles\ProfileParser.cs" />
+    <Compile Include="Models\Profiles\ProfileSaveFile.cs" />
+    <Compile Include="Models\Profiles\Reward.cs" />
+    <Compile Include="Models\Profiles\Threats.cs" />
     <Compile Include="Logic\Constants.cs" />
     <Compile Include="Core\Observables.cs" />
     <Compile Include="Screens\InventoryScreen.xaml.cs">
@@ -135,7 +181,7 @@
     <Compile Include="UserControls\EnchantmentSetControl.xaml.cs">
       <DependentUpon>EnchantmentSetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logic\ItemFilterEnum.cs" />
+    <Compile Include="Models\Enums\ItemFilterEnum.cs" />
     <Compile Include="Logic\FileProcessHelper.cs" />
     <Compile Include="Screens\ItemScreen.xaml.cs">
       <DependentUpon>ItemScreen.xaml</DependentUpon>
@@ -180,14 +226,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Logic\EnchantmentExtensions.cs" />
-    <Compile Include="Logic\EquipmentSlotEnum.cs" />
+    <Compile Include="Models\Enums\EquipmentSlotEnum.cs" />
     <Compile Include="Logic\GameCalculator.cs" />
     <Compile Include="Logic\ImageUriHelper.cs" />
     <Compile Include="UserControls\ItemControl.xaml.cs">
       <DependentUpon>ItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\ItemExtensions.cs" />
-    <Compile Include="Logic\ItemTypeEnum.cs" />
+    <Compile Include="Models\Enums\ItemTypeEnum.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

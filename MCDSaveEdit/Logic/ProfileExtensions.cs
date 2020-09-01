@@ -1,10 +1,9 @@
-﻿using DungeonTools.Save.Models.Profiles;
+﻿using MCDSaveEdit.Save.Models.Enums;
 using System.Collections.Generic;
 using System.Linq;
 
 
-
-namespace MCDSaveEdit
+namespace MCDSaveEdit.Save.Models.Profiles
 {
     public static class ProfileExtensions
     {

@@ -1,8 +1,7 @@
-﻿using DungeonTools.Save.Models.Enums;
-using DungeonTools.Save.Models.Profiles;
+﻿using MCDSaveEdit.Save.Models.Profiles;
 using System.Collections.Generic;
 
-namespace MCDSaveEdit
+namespace MCDSaveEdit.Save.Models.Enums
 {
     public static class EnchantmentExtensions
     {

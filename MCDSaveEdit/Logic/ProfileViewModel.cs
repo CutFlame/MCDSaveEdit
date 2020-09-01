@@ -1,5 +1,6 @@
 ﻿using DungeonTools.Save.File;
-using DungeonTools.Save.Models.Profiles;
+using MCDSaveEdit.Save.Models.Enums;
+using MCDSaveEdit.Save.Models.Profiles;
 using System;
 using System.Collections.Generic;
 using System.IO;

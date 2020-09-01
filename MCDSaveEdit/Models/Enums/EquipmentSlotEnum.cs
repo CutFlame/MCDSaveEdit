@@ -1,4 +1,4 @@
-﻿namespace MCDSaveEdit
+﻿namespace MCDSaveEdit.Save.Models.Enums
 {
     public enum EquipmentSlotEnum
     {

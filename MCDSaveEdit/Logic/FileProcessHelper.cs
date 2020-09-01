@@ -35,7 +35,7 @@ namespace MCDSaveEdit
 
         public static async ValueTask<Stream?> Decrypt(Stream data)
         {
-            Stream decrypted = await EncryptionProviders.Current.DecryptAsync(data);
+            Stream decrypted = await AesEncryptionProvider.DecryptAsync(data);
             Stream result = SaveFileHandler.RemoveTrailingZeroes(decrypted);
             result.Seek(0, SeekOrigin.Begin);
             return result;
@@ -43,7 +43,7 @@ namespace MCDSaveEdit
 
         public static async ValueTask<Stream?> Encrypt(Stream data)
         {
-            using Stream encrypted = await EncryptionProviders.Current.EncryptAsync(data);
+            using Stream encrypted = await AesEncryptionProvider.EncryptAsync(data);
             Stream result = SaveFileHandler.PrependMagicToEncrypted(encrypted);
             result.Seek(0, SeekOrigin.Begin);
             return result;
