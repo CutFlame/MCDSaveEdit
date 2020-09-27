@@ -3,10 +3,11 @@ using MCDSaveEdit.Save.Models.Enums;
 
 namespace MCDSaveEdit.Save.Models.Profiles
 {
-    public class ArmorProperty
+    public partial class Armorproperty
     {
         [JsonPropertyName("id")]
-        public ArmorPropertyType Type { get; set; }
+        public string Id { get; set; }
+
         [JsonPropertyName("rarity")]
         public Rarity Rarity { get; set; }
     }

@@ -2,9 +2,9 @@
 
 namespace MCDSaveEdit.Save.Models.Profiles
 {
-    public class LobbyChest
+    public partial class LobbychestProgress
     {
         [JsonPropertyName("unlockedTimes")]
-        public int TimesUnlocked { get; set; }
+        public long UnlockedTimes { get; set; }
     }
 }

@@ -3,9 +3,9 @@ using MCDSaveEdit.Save.Models.Enums;
 
 namespace MCDSaveEdit.Save.Models.Profiles
 {
-    public class Threats
+    public partial class ThreatLevels
     {
         [JsonPropertyName("unlocked")]
-        public Threat Unlocked { get; set; }
+        public string Unlocked { get; set; }
     }
 }

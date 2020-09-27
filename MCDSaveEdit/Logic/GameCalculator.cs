@@ -17,13 +17,13 @@ namespace MCDSaveEdit
             return (((level - 1) / 10.0) + 1); // - 0.00000100; //not sure if this last part is needed
         }
 
-        public static int levelForExperience(int xp)
+        public static int levelForExperience(long xp)
         {
             double result = (1.0 / 30.0) * (Math.Sqrt(3 * xp + 100.0) + 20);
             return (int)Math.Floor(result);
         }
 
-        public static int experienceForLevel(int level)
+        public static long experienceForLevel(int level)
         {
             return 100 * (level - 1) * (3 * level - 1);
         }

@@ -3,11 +3,12 @@ using MCDSaveEdit.Save.Models.Enums;
 
 namespace MCDSaveEdit.Save.Models.Profiles
 {
-    public class Cosmetic
+    public partial class Cosmetic
     {
         [JsonPropertyName("id")]
-        public string Name { get; set; }
+        public string Id { get; set; }
+
         [JsonPropertyName("type")]
-        public CosmeticType Type { get; set; }
+        public string Type { get; set; }
     }
 }

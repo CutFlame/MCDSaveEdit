@@ -3,13 +3,15 @@ using MCDSaveEdit.Save.Models.Enums;
 
 namespace MCDSaveEdit.Save.Models.Profiles
 {
-    public class Difficulties
+    public partial class Difficulties
     {
-        [JsonPropertyName("selected")]
-        public Difficulty Selected { get; set; }
-        [JsonPropertyName("unlocked")]
-        public Difficulty? Unlocked { get; set; }
         [JsonPropertyName("announced")]
-        public Difficulty? Announced { get; set; }
+        public string Announced { get; set; }
+
+        [JsonPropertyName("selected")]
+        public string Selected { get; set; }
+
+        [JsonPropertyName("unlocked")]
+        public string Unlocked { get; set; }
     }
 }

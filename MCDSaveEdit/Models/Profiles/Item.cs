@@ -4,29 +4,33 @@ using MCDSaveEdit.Save.Models.Enums;
 
 namespace MCDSaveEdit.Save.Models.Profiles
 {
-    public class Item
+    public partial class Item
     {
-        [JsonPropertyName("type")]
-        public string Name { get; set; } // Should be Enum but possible values are mixed with other game assets
-        [JsonPropertyName("rarity")]
-        public Rarity Rarity { get; set; }
+        [JsonPropertyName("enchantments")]
+        public Enchantment[] Enchantments { get; set; }
+
+        [JsonPropertyName("equipmentSlot")]
+        public string EquipmentSlot { get; set; }
 
         [JsonPropertyName("power")]
         public double Power { get; set; }
+
+        [JsonPropertyName("rarity")]
+        public Rarity Rarity { get; set; }
+
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+
         [JsonPropertyName("upgraded")]
-        public bool IsUpgraded { get; set; }
+        public bool Upgraded { get; set; }
 
-        [JsonPropertyName("equipmentSlot")]
-        public string? EquipmentSlot { get; set; }
-        [JsonPropertyName("inventoryIndex")]
-        public int? InventorySlot { get; set; }
-
-        [JsonPropertyName("enchantments")]
-        public IEnumerable<Enchantment>? Enchantments { get; set; }
         [JsonPropertyName("armorproperties")]
-        public IEnumerable<ArmorProperty>? ArmorProperties { get; set; }
+        public Armorproperty[] Armorproperties { get; set; }
+
+        [JsonPropertyName("inventoryIndex")]
+        public long? InventoryIndex { get; set; }
 
         [JsonPropertyName("markedNew")]
-        public bool? IsNew { get; set; }
+        public bool? MarkedNew { get; set; }
     }
 }

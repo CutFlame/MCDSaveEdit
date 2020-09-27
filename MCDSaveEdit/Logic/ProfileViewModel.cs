@@ -49,23 +49,23 @@ namespace MCDSaveEdit
                 (p, value) =>
                 {
                     if (p == null || !value.HasValue) { return; }
-                    p!.Experience = GameCalculator.experienceForLevel(value.Value);
+                    p!.Xp = GameCalculator.experienceForLevel(value.Value);
                 });
 
             emeralds = new MappedProperty<ProfileSaveFile?, uint?>(_profile,
-                p => p?.Currencies.FirstOrDefault()?.Amount,
+                p => p?.Currency.FirstOrDefault()?.Count,
                 (p, value) =>
                 {
                     if (p == null || value == null) { return; }
-                    Currency currency = p!.Currencies.FirstOrDefault() ?? new Currency() { Name = "Emerald" };
-                    currency.Amount = value.Value;
-                    p!.Currencies = (new[] { currency }).Concat(p!.Currencies.Skip(1));
+                    Currency currency = p!.Currency.FirstOrDefault() ?? new Currency() { Type = "Emerald" };
+                    currency.Count = value.Value;
+                    p!.Currency = (new[] { currency }).Concat(p!.Currency.Skip(1)).ToArray();
                 });
 
             filteredItemList = new MappedProperty<ItemFilterEnum, IEnumerable<Item>>(_filter,
                 f => {
                     var items = this.profile.value?.unequippedItems() ?? new Item[0];
-                    return applyFilter(f, items).OrderBy(x => x.InventorySlot!).ToArray();
+                    return applyFilter(f, items).OrderBy(x => x.InventoryIndex!.Value).ToArray();
                 });
 
             equippedItemList = new MappedProperty<ProfileSaveFile?, IEnumerable<Item>>(_profile, p => p?.equippedItems() ?? new Item[0]);
@@ -120,6 +120,12 @@ namespace MCDSaveEdit
 
         private async Task tryParseFileStreamAsync(Stream stream)
         {
+#if DEBUG
+            stream.Seek(0, SeekOrigin.Begin);
+            var profile = await ProfileParser.Read(stream);
+            _profile.value = profile;
+            _selectedItem.value = null;
+#else
             try
             {
                 stream.Seek(0, SeekOrigin.Begin);
@@ -132,6 +138,8 @@ namespace MCDSaveEdit
                 Console.WriteLine(e);
                 showError?.Invoke(R.FAILED_TO_PARSE_FILE_ERROR_MESSAGE);
             }
+#endif
+
         }
 
         #endregion
@@ -207,18 +215,18 @@ namespace MCDSaveEdit
         public void saveItem(Item item)
         {
             if (item == null || profile.value == null || selectedItem.value == null) { return; }
-            var inventory = profile.value!.Inventory.ToList();
+            var inventory = profile.value!.Items.ToList();
             var index = inventory.IndexOf(selectedItem.value!);
 
             inventory.RemoveAt(index);
             inventory.Insert(index, item);
-            profile.value!.Inventory = inventory;
+            profile.value!.Items = inventory.ToArray();
 
             if (item.EquipmentSlot != null)
             {
                 ((MappedProperty<ProfileSaveFile?, IEnumerable<Item>>)this.equippedItemList).value = this.equippedItemList.value;
             }
-            if (item.InventorySlot != null)
+            if (item.InventoryIndex != null)
             {
                 ((MappedProperty<ItemFilterEnum, IEnumerable<Item>>)this.filteredItemList).value = this.filteredItemList.value;
             }
@@ -239,7 +247,7 @@ namespace MCDSaveEdit
 
             enchantments.RemoveAt(index);
             enchantments.Insert(index, enchantment);
-            selectedItem.value!.Enchantments = enchantments;
+            selectedItem.value!.Enchantments = enchantments.ToArray();
 
             saveItem(selectedItem.value!);
         }

@@ -54,7 +54,7 @@ namespace MCDSaveEdit
                 rarityComboBox.IsEnabled = false;
                 rarityComboBox.SelectedIndex = indexForRarity(_item.Rarity);
                 rarityComboBox.IsEnabled = true;
-                nameLabel.Content = _item.Name;
+                nameLabel.Content = _item.Type;
             }
 
             updateArmorPropertiesUI();
@@ -64,13 +64,13 @@ namespace MCDSaveEdit
         public void updateArmorPropertiesUI()
         {
             armorPropertiesStack.Children.Clear();
-            if (_item?.ArmorProperties != null)
+            if (_item?.Armorproperties != null)
             {
-                foreach (var armorProperty in _item.ArmorProperties)
+                foreach (var armorProperty in _item.Armorproperties)
                 {
                     var label = new Label();
                     label.FontSize = 18;
-                    label.Content = string.Format("{0} {1}", armorProperty.Rarity.ToString(), armorProperty.Type.ToString());
+                    label.Content = string.Format("{0} {1}", armorProperty.Rarity.ToString(), armorProperty.Id);
                     armorPropertiesStack.Children.Add(label);
                 }
             }

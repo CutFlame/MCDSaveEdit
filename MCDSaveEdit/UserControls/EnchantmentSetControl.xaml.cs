@@ -48,7 +48,7 @@ namespace MCDSaveEdit
             enchantment3Image.Source = null;
             enchantment3Button.CommandParameter = null;
             upgradedEnchantmentButton.Visibility = Visibility.Visible;
-            upgradedEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(EnchantmentType.Unset);
+            upgradedEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment("Unset");
             upgradedEnchantmentButton.CommandParameter = null;
         }
         public void updateUI()
@@ -69,16 +69,16 @@ namespace MCDSaveEdit
                 enchantment3Image.Source = null;
                 enchantment3Button.CommandParameter = null;
                 upgradedEnchantmentButton.Visibility = Visibility.Visible;
-                upgradedEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(upgradedEnchantment.Type);
+                upgradedEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(upgradedEnchantment);
                 upgradedEnchantmentButton.CommandParameter = upgradedEnchantment;
             }
             else
             {
-                enchantment1Image.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantments[0].Type);
+                enchantment1Image.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantments[0]);
                 enchantment1Button.CommandParameter = _enchantments[0];
-                enchantment2Image.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantments[1].Type);
+                enchantment2Image.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantments[1]);
                 enchantment2Button.CommandParameter = _enchantments[1];
-                enchantment3Image.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantments[2].Type);
+                enchantment3Image.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantments[2]);
                 enchantment3Button.CommandParameter = _enchantments[2];
                 upgradedEnchantmentButton.Visibility = Visibility.Collapsed;
                 upgradedEnchantmentImage.Source = null;

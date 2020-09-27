@@ -33,24 +33,24 @@ namespace MCDSaveEdit.Save.Models.Profiles
         }
         public static Item equipmentSlot(this ProfileSaveFile profile, EquipmentSlotEnum equipmentSlot)
         {
-            return profile.Inventory.FirstOrDefault(x => x.EquipmentSlot == equipmentSlot.ToString());
+            return profile.Items.FirstOrDefault(x => x.EquipmentSlot == equipmentSlot.ToString());
         }
         public static IEnumerable<Item> unequippedItems(this ProfileSaveFile profile)
         {
-            return profile.Inventory.Where(x => x.EquipmentSlot == null);
+            return profile.Items.Where(x => x.EquipmentSlot == null);
         }
         public static IEnumerable<Item> equippedItems(this ProfileSaveFile profile)
         {
-            return profile.Inventory.Where(x => x.EquipmentSlot != null);
+            return profile.Items.Where(x => x.EquipmentSlot != null);
         }
         public static int level(this ProfileSaveFile profile)
         {
-            return GameCalculator.levelForExperience(profile.Experience);
+            return GameCalculator.levelForExperience(profile.Xp);
         }
         public static int remainingEnchantmentPoints(this ProfileSaveFile profile)
         {
             int totalEnchantmentPointsUsed = 1;
-            foreach(var item in profile.Inventory)
+            foreach(var item in profile.Items)
             {
                 totalEnchantmentPointsUsed += item.enchantmentPoints();
             }

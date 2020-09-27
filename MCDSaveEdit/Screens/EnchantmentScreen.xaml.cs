@@ -52,7 +52,7 @@ namespace MCDSaveEdit
                 return;
             }
 
-            if (_enchantment.Type.isPowerful())
+            if (_enchantment.isPowerful())
             {
                 powerfulImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
                 powerfulLabel.Content = R.POWERFUL;
@@ -63,8 +63,8 @@ namespace MCDSaveEdit
                 powerfulLabel.Content = R.COMMON;
             }
 
-            enchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantment.Type);
-            enchantmentLabel.Content = _enchantment.Type;
+            enchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantment);
+            enchantmentLabel.Content = _enchantment.Id;
 
             updateTierUI();
         }
@@ -88,14 +88,14 @@ namespace MCDSaveEdit
             }
         }
 
-        private BitmapSource? imageForEnchantmentLevel(int level)
+        private BitmapSource? imageForEnchantmentLevel(long level)
         {
             var enchantmentLevelImage = fullImageForEnchantmentLevel(level);
             var croppedImage = new CroppedBitmap(enchantmentLevelImage, new Int32Rect(0, 0, 976, 959));
             return croppedImage;
         }
 
-        private BitmapImage? fullImageForEnchantmentLevel(int level)
+        private BitmapImage? fullImageForEnchantmentLevel(long level)
         {
             switch(level)
             {

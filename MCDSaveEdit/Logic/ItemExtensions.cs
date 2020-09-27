@@ -22,264 +22,244 @@ namespace MCDSaveEdit.Save.Models.Enums
             return points;
         }
 
-        public static ItemTypeEnum type(this Item item)
-        {
-            return itemTypeFromItemName(item.Name);
-        }
+        //public static ItemTypeEnum type(this Item item)
+        //{
+        //    return itemTypeFromItemName(item.Type);
+        //}
 
-        private static ItemTypeEnum itemTypeFromItemName(string itemName)
-        {
-            //exceptions where the name in the file doesn't match the name on the images
-            if (itemName == "Sword")
-            {
-                itemName = "Sword_Steel";
-            }
-            if (itemName == "Pickaxe")
-            {
-                itemName = "Pickaxe_Steel";
-            }
-            if (itemName == "Pickaxe_Unique1")
-            {
-                itemName = "Pickaxe_Unique1_Steel";
-            }
+        //private static ItemTypeEnum itemTypeFromItemName(string itemName)
+        //{
+        //    //exceptions where the name in the file doesn't match the name on the images
+        //    if (itemName == "Sword")
+        //    {
+        //        itemName = "Sword_Steel";
+        //    }
+        //    if (itemName == "Pickaxe")
+        //    {
+        //        itemName = "Pickaxe_Steel";
+        //    }
+        //    if (itemName == "Pickaxe_Unique1")
+        //    {
+        //        itemName = "Pickaxe_Unique1_Steel";
+        //    }
 
-            if(Enum.TryParse(itemName, true, out ItemTypeEnum result))
-            {
-                return result;
-            }
+        //    if(Enum.TryParse(itemName, true, out ItemTypeEnum result))
+        //    {
+        //        return result;
+        //    }
 
-            return ItemTypeEnum.Unknown;
-        }
+        //    return ItemTypeEnum.Unknown;
+        //}
 
         public static bool isArtifact(this Item item)
         {
-            return item.type().isArtifact();
-        }
-        public static bool isArtifact(this ItemTypeEnum itemType)
-        {
-            return artifacts.Contains(itemType);
+            return artifacts.Contains(item.Type);
         }
 
         public static bool isArmor(this Item item)
         {
-            return item.type().isArmor();
-        }
-        public static bool isArmor(this ItemTypeEnum itemType)
-        {
-            return armor.Contains(itemType);
+            return armor.Contains(item.Type);
         }
 
         public static bool isMeleeWeapon(this Item item)
         {
-            return item.type().isMeleeWeapon();
-        }
-        public static bool isMeleeWeapon(this ItemTypeEnum itemType)
-        {
-            return meleeWeapons.Contains(itemType);
+            return meleeWeapons.Contains(item.Type);
         }
 
         public static bool isRangedWeapon(this Item item)
         {
-            return item.type().isRangedWeapon();
-        }
-        public static bool isRangedWeapon(this ItemTypeEnum itemType)
-        {
-            return rangedWeapons.Contains(itemType);
+            return rangedWeapons.Contains(item.Type);
         }
 
         public static bool isInPatch1(this Item item)
         {
-            return item.type().isInPatch1();
-        }
-        public static bool isInPatch1(this ItemTypeEnum itemType)
-        {
-            return patch1Items.Contains(itemType);
+            return patch1Items.Contains(item.Type);
         }
 
-        public static HashSet<ItemTypeEnum> patch1Items = new HashSet<ItemTypeEnum>() {
-            ItemTypeEnum.Battlestaff,
-            ItemTypeEnum.Battlestaff_Unique1,
-            ItemTypeEnum.Battlestaff_Unique2,
-            ItemTypeEnum.DualCrossbows,
-            ItemTypeEnum.DualCrossbows_Unique1,
-            ItemTypeEnum.DualCrossbows_Unique2,
+        public static HashSet<string> patch1Items = new HashSet<string>() {
+            "Battlestaff",
+            "Battlestaff_Unique1",
+            "Battlestaff_Unique2",
+            "DualCrossbows",
+            "DualCrossbows_Unique1",
+            "DualCrossbows_Unique2",
         };
 
-        public static HashSet<ItemTypeEnum> artifacts = new HashSet<ItemTypeEnum>() {
-            ItemTypeEnum.IronHideAmulet,
-            ItemTypeEnum.BootsOfSwiftness,
-            ItemTypeEnum.CorruptedBeacon,
-            ItemTypeEnum.CorruptedSeeds,
-            ItemTypeEnum.DeathCapMushroom,
-            ItemTypeEnum.DiamondDust,
-            ItemTypeEnum.FireworksArrowItem,
-            ItemTypeEnum.FishingRod,
-            ItemTypeEnum.FlamingQuiver,
-            ItemTypeEnum.GhostCloak,
-            ItemTypeEnum.GolemKit,
-            ItemTypeEnum.GongOfWeakening,
-            ItemTypeEnum.Harvester,
-            ItemTypeEnum.IceWand,
-            ItemTypeEnum.LightFeather,
-            ItemTypeEnum.LightningRod,
-            ItemTypeEnum.LoveMedallion,
-            ItemTypeEnum.ShockPowder,
-            ItemTypeEnum.SoulHealer,
-            ItemTypeEnum.TastyBone,
-            ItemTypeEnum.TNTBox,
-            ItemTypeEnum.TormentQuiver,
-            ItemTypeEnum.TotemOfRegeneration,
-            ItemTypeEnum.TotemOfShielding,
-            ItemTypeEnum.TotemOfSoulProtection,
-            ItemTypeEnum.WindHorn,
-            ItemTypeEnum.WonderfulWheat,
+        public static HashSet<string> artifacts = new HashSet<string>() {
+            "IronHideAmulet",
+            "BootsOfSwiftness",
+            "CorruptedBeacon",
+            "CorruptedSeeds",
+            "DeathCapMushroom",
+            "DiamondDust",
+            "FireworksArrowItem",
+            "FishingRod",
+            "FlamingQuiver",
+            "GhostCloak",
+            "GolemKit",
+            "GongOfWeakening",
+            "Harvester",
+            "IceWand",
+            "LightFeather",
+            "LightningRod",
+            "LoveMedallion",
+            "ShockPowder",
+            "SoulHealer",
+            "TastyBone",
+            "TNTBox",
+            "TormentQuiver",
+            "TotemOfRegeneration",
+            "TotemOfShielding",
+            "TotemOfSoulProtection",
+            "WindHorn",
+            "WonderfulWheat",
         };
 
-        public static HashSet<ItemTypeEnum> armor = new HashSet<ItemTypeEnum>() {
-            ItemTypeEnum.ArchersStrappings,
-            ItemTypeEnum.ArchersStrappings_Unique1,
-            ItemTypeEnum.AssassinArmor,
-            ItemTypeEnum.AssassinArmor_Unique1,
-            ItemTypeEnum.BattleRobe,
-            ItemTypeEnum.BattleRobe_Unique1,
-            ItemTypeEnum.ChampionsArmor,
-            ItemTypeEnum.ChampionsArmor_Unique1,
-            ItemTypeEnum.CowardsArmor,
-            ItemTypeEnum.CowardsArmor_Unique1,
-            ItemTypeEnum.DarkArmor,
-            ItemTypeEnum.DarkArmor_Unique1,
-            ItemTypeEnum.EvocationRobe,
-            ItemTypeEnum.EvocationRobe_Unique1,
-            ItemTypeEnum.FullPlateArmor,
-            ItemTypeEnum.FullPlateArmor_Unique1,
-            ItemTypeEnum.GrimArmor,
-            ItemTypeEnum.GrimArmor_Unique1,
-            ItemTypeEnum.MercenaryArmor,
-            ItemTypeEnum.MercenaryArmor_Unique1,
-            ItemTypeEnum.MysteryArmor,
-            ItemTypeEnum.OcelotArmor,
-            ItemTypeEnum.OcelotArmor_Unique1,
-            ItemTypeEnum.PhantomArmor,
-            ItemTypeEnum.PhantomArmor_Unique1,
-            ItemTypeEnum.ReinforcedMail,
-            ItemTypeEnum.ReinforcedMail_Unique1,
-            ItemTypeEnum.ScaleMail,
-            ItemTypeEnum.ScaleMail_Unique1,
-            ItemTypeEnum.SnowArmor,
-            ItemTypeEnum.SnowArmor_Unique1,
-            ItemTypeEnum.SoulRobe,
-            ItemTypeEnum.SoulRobe_Unique1,
-            ItemTypeEnum.SpelunkersArmor,
-            ItemTypeEnum.SpelunkersArmor_Unique1,
-            ItemTypeEnum.WolfArmor,
-            ItemTypeEnum.WolfArmor_Unique1,
+        public static HashSet<string> armor = new HashSet<string>() {
+            "ArchersStrappings",
+            "ArchersStrappings_Unique1",
+            "AssassinArmor",
+            "AssassinArmor_Unique1",
+            "BattleRobe",
+            "BattleRobe_Unique1",
+            "ChampionsArmor",
+            "ChampionsArmor_Unique1",
+            "CowardsArmor",
+            "CowardsArmor_Unique1",
+            "DarkArmor",
+            "DarkArmor_Unique1",
+            "EvocationRobe",
+            "EvocationRobe_Unique1",
+            "FullPlateArmor",
+            "FullPlateArmor_Unique1",
+            "GrimArmor",
+            "GrimArmor_Unique1",
+            "MercenaryArmor",
+            "MercenaryArmor_Unique1",
+            "MysteryArmor",
+            "OcelotArmor",
+            "OcelotArmor_Unique1",
+            "PhantomArmor",
+            "PhantomArmor_Unique1",
+            "ReinforcedMail",
+            "ReinforcedMail_Unique1",
+            "ScaleMail",
+            "ScaleMail_Unique1",
+            "SnowArmor",
+            "SnowArmor_Unique1",
+            "SoulRobe",
+            "SoulRobe_Unique1",
+            "SpelunkersArmor",
+            "SpelunkersArmor_Unique1",
+            "WolfArmor",
+            "WolfArmor_Unique1",
         };
 
-        public static HashSet<ItemTypeEnum> meleeWeapons = new HashSet<ItemTypeEnum>()
+        public static HashSet<string> meleeWeapons = new HashSet<string>()
         {
-            ItemTypeEnum.Axe,
-            ItemTypeEnum.Axe_Unique1,
-            ItemTypeEnum.Axe_Unique2,
-            ItemTypeEnum.Battlestaff,
-            ItemTypeEnum.Battlestaff_Unique1,
-            ItemTypeEnum.Battlestaff_Unique2,
-            ItemTypeEnum.Claymore,
-            ItemTypeEnum.Claymore_Unique1,
-            ItemTypeEnum.Claymore_Unique2,
-            ItemTypeEnum.Cutlass,
-            ItemTypeEnum.Cutlass_Unique1,
-            ItemTypeEnum.Cutlass_Unique2,
-            ItemTypeEnum.Daggers,
-            ItemTypeEnum.Daggers_Unique1,
-            ItemTypeEnum.Daggers_Unique2,
-            ItemTypeEnum.DoubleAxe,
-            ItemTypeEnum.DoubleAxe_Unique1,
-            ItemTypeEnum.DoubleAxe_Unique2,
-            ItemTypeEnum.Gauntlets,
-            ItemTypeEnum.Gauntlets_Unique1,
-            ItemTypeEnum.Gauntlets_Unique2,
-            ItemTypeEnum.Gauntlets_Unique3,
-            ItemTypeEnum.Glaive,
-            ItemTypeEnum.Glaive_Unique1,
-            ItemTypeEnum.Glaive_Unique2,
-            ItemTypeEnum.Hammer,
-            ItemTypeEnum.Hammer_Unique1,
-            ItemTypeEnum.Hammer_Unique2,
-            ItemTypeEnum.HighlanderLongSword,
-            ItemTypeEnum.Katana,
-            ItemTypeEnum.Katana_Unique1,
-            ItemTypeEnum.Katana_Unique2,
-            ItemTypeEnum.Mace,
-            ItemTypeEnum.Mace_Unique1,
-            ItemTypeEnum.Mace_Unique2,
-            ItemTypeEnum.Pickaxe_Steel,
-            ItemTypeEnum.Pickaxe_Unique1_Steel,
-            ItemTypeEnum.Punch,
-            ItemTypeEnum.Sickles,
-            ItemTypeEnum.Sickles_Unique1,
-            ItemTypeEnum.Sickles_Unique2,
-            ItemTypeEnum.SoulKnife,
-            ItemTypeEnum.SoulKnife_Unique1,
-            ItemTypeEnum.SoulKnife_Unique2,
-            ItemTypeEnum.SoulScythe,
-            ItemTypeEnum.SoulScythe_Unique1,
-            ItemTypeEnum.SoulScythe_Unique2,
-            ItemTypeEnum.Spear,
-            ItemTypeEnum.Spear_Unique1,
-            ItemTypeEnum.Spear_Unique2,
-            ItemTypeEnum.Sword_Steel,
-            ItemTypeEnum.Sword_Unique1,
-            ItemTypeEnum.Sword_Unique2,
-            ItemTypeEnum.Whip,
-            ItemTypeEnum.Whip_Unique1,
+            "Axe",
+            "Axe_Unique1",
+            "Axe_Unique2",
+            "Battlestaff",
+            "Battlestaff_Unique1",
+            "Battlestaff_Unique2",
+            "Claymore",
+            "Claymore_Unique1",
+            "Claymore_Unique2",
+            "Cutlass",
+            "Cutlass_Unique1",
+            "Cutlass_Unique2",
+            "Daggers",
+            "Daggers_Unique1",
+            "Daggers_Unique2",
+            "DoubleAxe",
+            "DoubleAxe_Unique1",
+            "DoubleAxe_Unique2",
+            "Gauntlets",
+            "Gauntlets_Unique1",
+            "Gauntlets_Unique2",
+            "Gauntlets_Unique3",
+            "Glaive",
+            "Glaive_Unique1",
+            "Glaive_Unique2",
+            "Hammer",
+            "Hammer_Unique1",
+            "Hammer_Unique2",
+            "HighlanderLongSword",
+            "Katana",
+            "Katana_Unique1",
+            "Katana_Unique2",
+            "Mace",
+            "Mace_Unique1",
+            "Mace_Unique2",
+            "Pickaxe_Steel",
+            "Pickaxe_Unique1_Steel",
+            "Punch",
+            "Sickles",
+            "Sickles_Unique1",
+            "Sickles_Unique2",
+            "SoulKnife",
+            "SoulKnife_Unique1",
+            "SoulKnife_Unique2",
+            "SoulScythe",
+            "SoulScythe_Unique1",
+            "SoulScythe_Unique2",
+            "Spear",
+            "Spear_Unique1",
+            "Spear_Unique2",
+            "Sword_Steel",
+            "Sword_Unique1",
+            "Sword_Unique2",
+            "Whip",
+            "Whip_Unique1",
         };
 
-        public static HashSet<ItemTypeEnum> rangedWeapons = new HashSet<ItemTypeEnum>()
+        public static HashSet<string> rangedWeapons = new HashSet<string>()
         {
-            ItemTypeEnum.Bow,
-            ItemTypeEnum.Bow_Unique1,
-            ItemTypeEnum.Bow_Unique2,
-            ItemTypeEnum.Crossbow,
-            ItemTypeEnum.Crossbow_Unique1,
-            ItemTypeEnum.Crossbow_Unique2,
-            ItemTypeEnum.DualCrossbows,
-            ItemTypeEnum.DualCrossbows_Unique1,
-            ItemTypeEnum.DualCrossbows_Unique2,
-            ItemTypeEnum.ExplodingCrossbow,
-            ItemTypeEnum.ExplodingCrossbow_Unique1,
-            ItemTypeEnum.ExplodingCrossbow_Unique2,
-            ItemTypeEnum.HeavyCrossbow,
-            ItemTypeEnum.HeavyCrossbow_Unique1,
-            ItemTypeEnum.HeavyCrossbow_Unique2,
-            ItemTypeEnum.HuntingBow,
-            ItemTypeEnum.HuntingBow_Unique1,
-            ItemTypeEnum.HuntingBow_Unique2,
-            ItemTypeEnum.LongBow,
-            ItemTypeEnum.LongBow_Unique1,
-            ItemTypeEnum.LongBow_Unique2,
-            ItemTypeEnum.PowerBow,
-            ItemTypeEnum.PowerBow_Unique1,
-            ItemTypeEnum.PowerBow_Unique2,
-            ItemTypeEnum.RapidCrossbow,
-            ItemTypeEnum.RapidCrossbow_Unique1,
-            ItemTypeEnum.RapidCrossbow_Unique2,
-            ItemTypeEnum.ScatterCrossbow,
-            ItemTypeEnum.ScatterCrossbow_Unique1,
-            ItemTypeEnum.ScatterCrossbow_Unique2,
-            ItemTypeEnum.Shortbow,
-            ItemTypeEnum.ShortBow_Unique1,
-            ItemTypeEnum.ShortBow_Unique2,
-            ItemTypeEnum.SlowBow,
-            ItemTypeEnum.Slowbow_Unique1,
-            ItemTypeEnum.SoulBow,
-            ItemTypeEnum.SoulBow_Unique1,
-            ItemTypeEnum.SoulBow_Unique2,
-            ItemTypeEnum.SoulCrossbow,
-            ItemTypeEnum.SoulCrossbow_Unique1,
-            ItemTypeEnum.SoulCrossbow_Unique2,
-            ItemTypeEnum.TrickBow,
-            ItemTypeEnum.TrickBow_Unique1,
-            ItemTypeEnum.TrickBow_Unique2,
+            "Bow",
+            "Bow_Unique1",
+            "Bow_Unique2",
+            "Crossbow",
+            "Crossbow_Unique1",
+            "Crossbow_Unique2",
+            "DualCrossbows",
+            "DualCrossbows_Unique1",
+            "DualCrossbows_Unique2",
+            "ExplodingCrossbow",
+            "ExplodingCrossbow_Unique1",
+            "ExplodingCrossbow_Unique2",
+            "HeavyCrossbow",
+            "HeavyCrossbow_Unique1",
+            "HeavyCrossbow_Unique2",
+            "HuntingBow",
+            "HuntingBow_Unique1",
+            "HuntingBow_Unique2",
+            "LongBow",
+            "LongBow_Unique1",
+            "LongBow_Unique2",
+            "PowerBow",
+            "PowerBow_Unique1",
+            "PowerBow_Unique2",
+            "RapidCrossbow",
+            "RapidCrossbow_Unique1",
+            "RapidCrossbow_Unique2",
+            "ScatterCrossbow",
+            "ScatterCrossbow_Unique1",
+            "ScatterCrossbow_Unique2",
+            "Shortbow",
+            "ShortBow_Unique1",
+            "ShortBow_Unique2",
+            "SlowBow",
+            "Slowbow_Unique1",
+            "SoulBow",
+            "SoulBow_Unique1",
+            "SoulBow_Unique2",
+            "SoulCrossbow",
+            "SoulCrossbow_Unique1",
+            "SoulCrossbow_Unique2",
+            "TrickBow",
+            "TrickBow_Unique1",
+            "TrickBow_Unique2",
 
         };
     }

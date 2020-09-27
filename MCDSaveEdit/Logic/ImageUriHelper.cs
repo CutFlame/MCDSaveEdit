@@ -19,7 +19,8 @@ namespace MCDSaveEdit
     {
         BitmapImage? imageSourceForItem(Item item);
         BitmapImage? imageSourceForRarity(Rarity rarity);
-        BitmapImage? imageSourceForEnchantment(EnchantmentType enchantmentType);
+        BitmapImage? imageSourceForEnchantment(Enchantment enchantment);
+        BitmapImage? imageSourceForEnchantment(string enchantmentType);
         BitmapImage? imageSource(string path);
     }
 
@@ -55,10 +56,10 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSourceForItem(Item item)
         {
-            return imageSourceForItemType(item.type());
+            return imageSourceForItemType(item.Type);
         }
 
-        public BitmapImage? imageSourceForItemType(ItemTypeEnum itemType)
+        public BitmapImage? imageSourceForItemType(string itemType)
         {
             var itemTypeStr = folderNameForItemType(itemType);
             var filename = string.Format("{0}.png", itemTypeStr);
@@ -67,21 +68,21 @@ namespace MCDSaveEdit
             return tryBitmapImageForUri(uri);
         }
 
-        private string folderNameForItemType(ItemTypeEnum type)
+        private string folderNameForItemType(string type)
         {
-            if (type.isArtifact())
+            if (ItemExtensions.artifacts.Contains(type))
             {
                 return "Artifacts";
             }
-            if (type.isArmor())
+            if (ItemExtensions.armor.Contains(type))
             {
                 return "Armor";
             }
-            if (type.isMeleeWeapon())
+            if (ItemExtensions.meleeWeapons.Contains(type))
             {
                 return "MeleeWeapons";
             }
-            if (type.isRangedWeapon())
+            if (ItemExtensions.rangedWeapons.Contains(type))
             {
                 return "RangedWeapons";
             }
@@ -91,7 +92,7 @@ namespace MCDSaveEdit
 
         private string imageNameForItem(Item item)
         {
-            var itemName = item.type().ToString();
+            var itemName = item.Type;
             //var encodedString = Uri.EscapeDataString(stringFromItemName(itemName));
             return string.Format("T_{0}_Icon_inventory.png", itemName);
         }
@@ -125,9 +126,14 @@ namespace MCDSaveEdit
 
         #region Enchantments
 
-        public BitmapImage? imageSourceForEnchantment(EnchantmentType enchantmentType)
+        public BitmapImage? imageSourceForEnchantment(Enchantment enchantment)
         {
-            if (enchantmentType == EnchantmentType.Unset)
+            return imageSourceForEnchantment(enchantment.Id);
+        }
+
+        public BitmapImage? imageSourceForEnchantment(string enchantmentType)
+        {
+            if (enchantmentType == "Unset")
             {
                 return null;
             }
@@ -138,9 +144,9 @@ namespace MCDSaveEdit
             return tryBitmapImageForUri(uri);
         }
 
-        private string imageNameFromEnchantment(EnchantmentType enchantment)
+        private string imageNameFromEnchantment(string enchantment)
         {
-            if (enchantment == EnchantmentType.Unset)
+            if (enchantment == "Unset")
             {
                 return string.Empty;
             }
@@ -203,12 +209,12 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSourceForItem(Item item)
         {
-            return imageSourceForItemType(item.type());
+            return imageSourceForItemType(item.Type);
         }
 
-        public BitmapImage? imageSourceForItemType(ItemTypeEnum itemType)
+        public BitmapImage? imageSourceForItemType(string itemType)
         {
-            var name = itemType.ToString();
+            var name = itemType;
             var folderPath = folderPathForItemType(itemType);
             if(folderPath == null)
             {
@@ -220,28 +226,28 @@ namespace MCDSaveEdit
             return imageSource(fullPath) ?? _backupResolver.imageSourceForItemType(itemType);
         }
 
-        private string? folderPathForItemType(ItemTypeEnum type)
+        private string? folderPathForItemType(string type)
         {
             //handle exceptions first
-            if (type == ItemTypeEnum.IronHideAmulet)
+            if (type == "IronHideAmulet")
             {
                 return Path.Combine(BasePathToItemImages, "Items", "Amulets");
             }
 
-            var basePath = type.isInPatch1() ? Patch1PathToItemImages : BasePathToItemImages;
-            if (type.isArtifact())
+            var basePath = ItemExtensions.patch1Items.Contains(type) ? Patch1PathToItemImages : BasePathToItemImages;
+            if (ItemExtensions.artifacts.Contains(type))
             {
                 return Path.Combine(basePath, "Items");
             }
-            if (type.isArmor())
+            if (ItemExtensions.armor.Contains(type))
             {
                 return Path.Combine(basePath, "Equipment", "Armor");
             }
-            if (type.isMeleeWeapon())
+            if (ItemExtensions.meleeWeapons.Contains(type))
             {
                 return Path.Combine(basePath, "Equipment", "MeleeWeapons");
             }
-            if (type.isRangedWeapon())
+            if (ItemExtensions.rangedWeapons.Contains(type))
             {
                 return Path.Combine(basePath, "Equipment", "RangedWeapons");
             }
@@ -262,18 +268,23 @@ namespace MCDSaveEdit
         }
 
         private static readonly string PathToEnchantmentImages = Path.Combine("Dungeons", "Content", "Components", "Enchantments");
-        public BitmapImage? imageSourceForEnchantment(EnchantmentType enchantmentType)
+        public BitmapImage? imageSourceForEnchantment(Enchantment enchantment)
         {
-            if(enchantmentType == EnchantmentType.Unset)
+            return imageSourceForEnchantment(enchantment.Id);
+        }
+
+        public BitmapImage? imageSourceForEnchantment(string enchantment)
+        {
+            if(enchantment == "Unset")
             {
                 return imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/locked_node");
             }
             
-            var name = enchantmentType.ToString();
+            var name = enchantment;
             var filename = string.Format("T_{0}_Icon", name);
             var path = Path.Combine(PathToEnchantmentImages, name, filename).Replace('\\', '/');
             var fullPath = "/" + path;
-            return imageSource(fullPath) ?? _backupResolver.imageSourceForEnchantment(enchantmentType);
+            return imageSource(fullPath) ?? _backupResolver.imageSourceForEnchantment(enchantment);
         }
     }
 

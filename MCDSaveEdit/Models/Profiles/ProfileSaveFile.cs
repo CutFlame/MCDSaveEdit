@@ -7,73 +7,87 @@ using MCDSaveEdit.Save.Models.Mapping;
 
 namespace MCDSaveEdit.Save.Models.Profiles
 {
-    public class ProfileSaveFile
+    public partial class ProfileSaveFile
     {
-        [JsonPropertyName("version")]
-        public int Version { get; set; }
-        [JsonPropertyName("timestamp")]
-        [JsonConverter(typeof(EpochDateTimeJsonConverter))]
-        public DateTime TimeStamp { get; set; } // Format as Unix timestamp
-        [JsonPropertyName("creationDate")]
-        [JsonConverter(typeof(PrettyDateTimeJsonConverter))]
-        public DateTime CreationDate { get; set; } // Format as "MMM d, yyyy", serialize null as empty string
-
-        [JsonPropertyName("playerId")]
-        public Guid PlayerGuid { get; set; }
-        [JsonPropertyName("name")]
-        public string ProfileName { get; set; } // Can be empty string
-        [JsonPropertyName("skin")]
-        public Skin Skin { get; set; }
+        [JsonPropertyName("bonus_prerequisites")]
+        public string[] BonusPrerequisites { get; set; }
 
         [JsonPropertyName("clone")]
-        public bool IsCloned { get; set; }
-        [JsonPropertyName("customized")]
-        public bool IsCustomized { get; set; }
-
-        [JsonPropertyName("totalGearPower")]
-        public int GearPower { get; set; }
-        [JsonPropertyName("xp")]
-        public int Experience { get; set; }
-        [JsonPropertyName("currency")]
-        public IEnumerable<Currency> Currencies { get; set; } // Can be empty
-
-        [JsonPropertyName("difficulties")]
-        public Difficulties? Difficulties { get; set; }
-        [JsonPropertyName("threatLevels")]
-        public Threats? ThreatLevels { get; set; }
-
-
-        [JsonPropertyName("progressionKeys")]
-        public IEnumerable<string> Milestones { get; set; } // Can be empty
-        [JsonPropertyName("finishedObjectiveTags")]
-        public IDictionary<string, int>? CompletedObjectives { get; set; }
-        [JsonPropertyName("progress")]
-        public IDictionary<string, LevelProgress>? CompletedLevels { get; set; }
-        [JsonPropertyName("bonus_prerequisites")]
-        public IEnumerable<Level> BonusLevels { get; set; } // Can be empty
-        [JsonPropertyName("trialsCompleted")]
-        public IEnumerable CompletedTrials { get; set; } // TODO: Data structure unavailable in-game.
+        public bool Clone { get; set; }
 
         [JsonPropertyName("cosmetics")]
-        public IEnumerable<Cosmetic> Cosmetics { get; set; } // Can be empty
+        public Cosmetic[] Cosmetics { get; set; }
+
         [JsonPropertyName("cosmeticsEverEquipped")]
-        public IEnumerable<string> CosmeticsHistory { get; set; } // Can be empty
-        [JsonPropertyName("pendingRewardItem")]
-        public Reward? PendingReward { get; set; }
+        public string[] CosmeticsEverEquipped { get; set; }
+
+        [JsonPropertyName("creationDate")]
+        public string CreationDate { get; set; }
+
+        [JsonPropertyName("currency")]
+        public Currency[] Currency { get; set; }
+
+        [JsonPropertyName("customized")]
+        public bool Customized { get; set; }
+
+        [JsonPropertyName("difficulties")]
+        public Difficulties Difficulties { get; set; }
+
+        //[JsonPropertyName("finishedObjectiveTags")]
+        //public FinishedObjectiveTags FinishedObjectiveTags { get; set; }
 
         [JsonPropertyName("items")]
-        public IEnumerable<Item> Inventory { get; set; } // Can be empty
+        public Item[] Items { get; set; }
+
         [JsonPropertyName("itemsFound")]
-        public IEnumerable<string> ItemsHistory { get; set; } // Can be empty
+        public string[] ItemsFound { get; set; }
 
         [JsonPropertyName("lobbychest_progress")]
-        public IDictionary<string, LobbyChest>? LobbyChest { get; set; }
+        public Dictionary<string, LobbychestProgress> LobbychestProgress { get; set; }
+
+        //[JsonPropertyName("mapUIState")]
+        //public MapUiState MapUiState { get; set; }
 
         [JsonPropertyName("mob_kills")]
-        public IDictionary<string, int>? MobKills { get; set; }
-        [JsonPropertyName("mapUIState")]
-        public MapSettings? MapSettings { get; set; }
-        [JsonPropertyName("uiHintsExpired")]
-        public IEnumerable<Hint> HintsShown { get; set; } // Can be empty
+        public Dictionary<string, long> MobKills { get; set; }
+
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        //[JsonPropertyName("pendingRewardItem")]
+        //public object PendingRewardItem { get; set; }
+
+        [JsonPropertyName("playerId")]
+        public string PlayerId { get; set; }
+
+        [JsonPropertyName("progress")]
+        public Progress Progress { get; set; }
+
+        [JsonPropertyName("progressionKeys")]
+        public string[] ProgressionKeys { get; set; }
+
+        [JsonPropertyName("skin")]
+        public string Skin { get; set; }
+
+        [JsonPropertyName("threatLevels")]
+        public ThreatLevels ThreatLevels { get; set; }
+
+        [JsonPropertyName("timestamp")]
+        public long Timestamp { get; set; }
+
+        [JsonPropertyName("totalGearPower")]
+        public long TotalGearPower { get; set; }
+
+        [JsonPropertyName("trialsCompleted")]
+        public object[] TrialsCompleted { get; set; }
+
+        //[JsonPropertyName("uiHintsExpired")]
+        //public UiHintsExpired[] UiHintsExpired { get; set; }
+
+        [JsonPropertyName("version")]
+        public long Version { get; set; }
+
+        [JsonPropertyName("xp")]
+        public long Xp { get; set; }
     }
 }
