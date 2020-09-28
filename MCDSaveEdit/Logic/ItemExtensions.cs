@@ -22,35 +22,6 @@ namespace MCDSaveEdit.Save.Models.Enums
             return points;
         }
 
-        //public static ItemTypeEnum type(this Item item)
-        //{
-        //    return itemTypeFromItemName(item.Type);
-        //}
-
-        //private static ItemTypeEnum itemTypeFromItemName(string itemName)
-        //{
-        //    //exceptions where the name in the file doesn't match the name on the images
-        //    if (itemName == "Sword")
-        //    {
-        //        itemName = "Sword_Steel";
-        //    }
-        //    if (itemName == "Pickaxe")
-        //    {
-        //        itemName = "Pickaxe_Steel";
-        //    }
-        //    if (itemName == "Pickaxe_Unique1")
-        //    {
-        //        itemName = "Pickaxe_Unique1_Steel";
-        //    }
-
-        //    if(Enum.TryParse(itemName, true, out ItemTypeEnum result))
-        //    {
-        //        return result;
-        //    }
-
-        //    return ItemTypeEnum.Unknown;
-        //}
-
         public static bool isArtifact(this Item item)
         {
             return artifacts.Contains(item.Type);

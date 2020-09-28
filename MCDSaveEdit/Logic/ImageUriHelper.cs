@@ -6,7 +6,9 @@ using PakReader.Parsers.Class;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.Cache;
 using System.Text;
 using System.Threading.Tasks;
@@ -168,10 +170,76 @@ namespace MCDSaveEdit
     {
         private LocalImageResolver _backupResolver;
         private PakIndex _pakIndex;
+        private Dictionary<string, string> _enchantments = new Dictionary<string, string>();
+        private Dictionary<string, string> _artifacts = new Dictionary<string, string>();
+        private Dictionary<string, string> _meleeweapons = new Dictionary<string, string>();
+        private Dictionary<string, string> _rangedweapons = new Dictionary<string, string>();
+        private Dictionary<string, string> _armor = new Dictionary<string, string>();
+        private Dictionary<string, string> _equipment = new Dictionary<string, string>();
+
         public PakImageResolver(PakIndex pakIndex)
         {
             _pakIndex = pakIndex;
             _backupResolver = new LocalImageResolver();
+
+            foreach (var item in _pakIndex)
+            {
+                if (item == null) continue;
+                var fullPath = item!.Replace('\\', '/').Replace("//", "/");
+                if (fullPath.Contains("enchantments") && fullPath.EndsWith("_icon"))
+                {
+                    var filename = Path.GetFileName(fullPath);
+                    if (!filename.StartsWith("t")) continue;
+                    var enchantmentName = string.Join("", filename.Skip(2).Take(filename.Length - 7));
+                    if(!_enchantments.ContainsKey(enchantmentName))
+                    {
+                        _enchantments.Add(enchantmentName, fullPath);
+                    }
+                    continue;
+                }
+                if (fullPath.EndsWith("_icon_inventory"))
+                {
+                    var filename = Path.GetFileName(fullPath);
+                    if (!filename.StartsWith("t")) continue;
+                    var itemName = string.Join("", filename.Skip(2).Take(filename.Length - 17));
+                    if(!_equipment.ContainsKey(itemName))
+                    {
+                        _equipment.Add(itemName, fullPath);
+                    }
+
+                    if (fullPath.Contains("equipment") && fullPath.Contains("meleeweapons"))
+                    {
+                        if (itemName == "sword_steel")
+                        {
+                            _equipment.Add("sword", fullPath);
+                            _meleeweapons.Add("sword", fullPath);
+                        }
+                        if (itemName == "pickaxe_steel")
+                        {
+                            _equipment.Add("pickaxe", fullPath);
+                            _meleeweapons.Add("pickaxe", fullPath);
+                        }
+                        if (itemName == "pickaxe_unique1_steel")
+                        {
+                            _equipment.Add("pickaxe_unique1", fullPath);
+                            _meleeweapons.Add("pickaxe_unique1", fullPath);
+                        }
+                        _meleeweapons.Add(itemName, fullPath);
+                    }
+                    if (fullPath.Contains("equipment") && fullPath.Contains("rangedweapons"))
+                    {
+                        _rangedweapons.Add(itemName, fullPath);
+                    }
+                    if (fullPath.Contains("equipment") && fullPath.Contains("armor"))
+                    {
+                        _armor.Add(itemName, fullPath);
+                    }
+                    if (fullPath.Contains("items"))
+                    {
+                        _artifacts.Add(itemName, fullPath);
+                    }
+                }
+            }
         }
 
         private readonly Dictionary<string, BitmapImage> bitmaps = new Dictionary<string, BitmapImage>();
@@ -204,57 +272,19 @@ namespace MCDSaveEdit
             return photo;
         }
 
-        private static readonly string BasePathToItemImages = Path.Combine("Dungeons", "Content", "Actors");
-        private static readonly string Patch1PathToItemImages = Path.Combine("Dungeons", "Content", "Patch1", "Actors");
-
         public BitmapImage? imageSourceForItem(Item item)
         {
-            return imageSourceForItemType(item.Type);
+            if (_equipment.TryGetValue(item.Type.ToLowerInvariant(), out string fullPath))
+            {
+                var image = imageSource(fullPath);
+                if (image != null)
+                {
+                    return image;
+                }
+            }
+            Debug.WriteLine($"Could not find full path for item {item.Type}");
+            return _backupResolver.imageSourceForItemType(item.Type);
         }
-
-        public BitmapImage? imageSourceForItemType(string itemType)
-        {
-            var name = itemType;
-            var folderPath = folderPathForItemType(itemType);
-            if(folderPath == null)
-            {
-                return _backupResolver.imageSourceForItemType(itemType);
-            }
-            var filename = string.Format("T_{0}_Icon_inventory", name);
-            var path = Path.Combine(folderPath!, name, filename).Replace('\\', '/');
-            var fullPath = "/" + path;
-            return imageSource(fullPath) ?? _backupResolver.imageSourceForItemType(itemType);
-        }
-
-        private string? folderPathForItemType(string type)
-        {
-            //handle exceptions first
-            if (type == "IronHideAmulet")
-            {
-                return Path.Combine(BasePathToItemImages, "Items", "Amulets");
-            }
-
-            var basePath = ItemExtensions.patch1Items.Contains(type) ? Patch1PathToItemImages : BasePathToItemImages;
-            if (ItemExtensions.artifacts.Contains(type))
-            {
-                return Path.Combine(basePath, "Items");
-            }
-            if (ItemExtensions.armor.Contains(type))
-            {
-                return Path.Combine(basePath, "Equipment", "Armor");
-            }
-            if (ItemExtensions.meleeWeapons.Contains(type))
-            {
-                return Path.Combine(basePath, "Equipment", "MeleeWeapons");
-            }
-            if (ItemExtensions.rangedWeapons.Contains(type))
-            {
-                return Path.Combine(basePath, "Equipment", "RangedWeapons");
-            }
-
-            return null;
-        }
-
 
         public BitmapImage? imageSourceForRarity(Rarity rarity)
         {
@@ -267,7 +297,6 @@ namespace MCDSaveEdit
             return _backupResolver.imageSourceForRarity(rarity);
         }
 
-        private static readonly string PathToEnchantmentImages = Path.Combine("Dungeons", "Content", "Components", "Enchantments");
         public BitmapImage? imageSourceForEnchantment(Enchantment enchantment)
         {
             return imageSourceForEnchantment(enchantment.Id);
@@ -275,16 +304,21 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSourceForEnchantment(string enchantment)
         {
-            if(enchantment == "Unset")
+            if (enchantment == "Unset")
             {
                 return imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/locked_node");
             }
-            
-            var name = enchantment;
-            var filename = string.Format("T_{0}_Icon", name);
-            var path = Path.Combine(PathToEnchantmentImages, name, filename).Replace('\\', '/');
-            var fullPath = "/" + path;
-            return imageSource(fullPath) ?? _backupResolver.imageSourceForEnchantment(enchantment);
+
+            if (_enchantments.TryGetValue(enchantment.ToLowerInvariant(), out string fullPath))
+            {
+                var image = imageSource(fullPath);
+                if (image != null)
+                {
+                    return image;
+                }
+            }
+            Debug.WriteLine($"Could not find full path for item {enchantment}");
+            return _backupResolver.imageSourceForEnchantment(enchantment);
         }
     }
 
@@ -360,8 +394,5 @@ namespace MCDSaveEdit
             }
             return output.ToString();
         }
-
-
-
     }
 }
