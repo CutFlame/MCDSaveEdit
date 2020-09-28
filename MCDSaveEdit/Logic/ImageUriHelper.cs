@@ -171,10 +171,6 @@ namespace MCDSaveEdit
         private LocalImageResolver _backupResolver;
         private PakIndex _pakIndex;
         private Dictionary<string, string> _enchantments = new Dictionary<string, string>();
-        private Dictionary<string, string> _artifacts = new Dictionary<string, string>();
-        private Dictionary<string, string> _meleeweapons = new Dictionary<string, string>();
-        private Dictionary<string, string> _rangedweapons = new Dictionary<string, string>();
-        private Dictionary<string, string> _armor = new Dictionary<string, string>();
         private Dictionary<string, string> _equipment = new Dictionary<string, string>();
 
         public PakImageResolver(PakIndex pakIndex)
@@ -212,31 +208,31 @@ namespace MCDSaveEdit
                         if (itemName == "sword_steel")
                         {
                             _equipment.Add("sword", fullPath);
-                            _meleeweapons.Add("sword", fullPath);
+                            ItemExtensions.meleeWeapons.Add("sword");
                         }
                         if (itemName == "pickaxe_steel")
                         {
                             _equipment.Add("pickaxe", fullPath);
-                            _meleeweapons.Add("pickaxe", fullPath);
+                            ItemExtensions.meleeWeapons.Add("pickaxe");
                         }
                         if (itemName == "pickaxe_unique1_steel")
                         {
                             _equipment.Add("pickaxe_unique1", fullPath);
-                            _meleeweapons.Add("pickaxe_unique1", fullPath);
+                            ItemExtensions.meleeWeapons.Add("pickaxe_unique1");
                         }
-                        _meleeweapons.Add(itemName, fullPath);
+                        ItemExtensions.meleeWeapons.Add(itemName);
                     }
                     if (fullPath.Contains("equipment") && fullPath.Contains("rangedweapons"))
                     {
-                        _rangedweapons.Add(itemName, fullPath);
+                        ItemExtensions.rangedWeapons.Add(itemName);
                     }
                     if (fullPath.Contains("equipment") && fullPath.Contains("armor"))
                     {
-                        _armor.Add(itemName, fullPath);
+                        ItemExtensions.armor.Add(itemName);
                     }
                     if (fullPath.Contains("items"))
                     {
-                        _artifacts.Add(itemName, fullPath);
+                        ItemExtensions.artifacts.Add(itemName);
                     }
                 }
             }
@@ -317,7 +313,7 @@ namespace MCDSaveEdit
                     return image;
                 }
             }
-            Debug.WriteLine($"Could not find full path for item {enchantment}");
+            Debug.WriteLine($"Could not find full path for enchantment {enchantment}");
             return _backupResolver.imageSourceForEnchantment(enchantment);
         }
     }
