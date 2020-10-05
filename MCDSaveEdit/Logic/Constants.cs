@@ -18,6 +18,7 @@ namespace MCDSaveEdit
         public const int MAXIMUM_ITEM_LEVEL = 999;
 
         public const string PAKS_AES_KEY_STRING = "90F270A4EA6DE0E3BABDC4C8BDC04F46FA5B9087BE8FE76AA859C93C17D04661";
+        public const string PAKS_FILTER_STRING = "/dungeons/content";
 
         public static string PAKS_FOLDER
         {
