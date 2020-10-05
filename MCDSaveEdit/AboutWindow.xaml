@@ -23,7 +23,7 @@
             <Bold>Imported from Minecraft Dungeons<LineBreak/>Images Copyright © Mojang</Bold><LineBreak/>
             <LineBreak/>
             <Bold>External Credits and Licenses</Bold><LineBreak/>
-            <Hyperlink NavigateUri="https://github.com/HellPie/MCDSaveEdit">MCDSaveEdit</Hyperlink> © Diego Russi (<Hyperlink NavigateUri="https://github.com/HellPie/MCDSaveEdit/blob/master/LICENSE">AGPL 3.0</Hyperlink>)<LineBreak/>
+            <Hyperlink NavigateUri="https://github.com/HellPie/DungeonTools">DungeonTools</Hyperlink> © Diego Russi (<Hyperlink NavigateUri="https://github.com/HellPie/DungeonTools/blob/master/LICENSE">AGPL 3.0</Hyperlink>)<LineBreak/>
             <Hyperlink NavigateUri="https://github.com/dotnet/corefx">Microsoft.Bcl.AsyncInterfaces</Hyperlink> © Microsoft (<Hyperlink NavigateUri="https://licenses.nuget.org/MIT">MIT</Hyperlink>)<LineBreak/>
             <Hyperlink NavigateUri="https://github.com/Fody/Fody">Fody</Hyperlink> © Simon Cropp (<Hyperlink NavigateUri="https://github.com/Fody/Fody/blob/master/License.txt">MIT</Hyperlink>)<LineBreak/>
             <Hyperlink NavigateUri="https://github.com/Fody/Costura">Costura.Fody</Hyperlink> © Simon Cropp and contributors (<Hyperlink NavigateUri="https://github.com/Fody/Costura/blob/develop/LICENSE">MIT</Hyperlink>)<LineBreak/>
