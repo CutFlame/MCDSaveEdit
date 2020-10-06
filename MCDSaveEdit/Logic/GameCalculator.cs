@@ -4,8 +4,8 @@ namespace MCDSaveEdit
 {
     public static class GameCalculator
     {
-        public static readonly int[] enchantmentCostForLevel = new int[] { 0, 1, 3, 6 };
-        public static readonly int[] powerfulEnchantmentCostForLevel = new int[] { 0, 2, 5, 9 };
+        public static readonly int[] enchantmentCostForLevel = new int[] { 0, 1, 3, 6, 10, 15, 21 };
+        public static readonly int[] powerfulEnchantmentCostForLevel = new int[] { 0, 2, 5, 9, 14, 20, 27 };
 
         public static int levelFromPower(double power)
         {

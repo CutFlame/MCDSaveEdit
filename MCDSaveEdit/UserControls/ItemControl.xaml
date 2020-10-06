@@ -13,7 +13,7 @@
         <Image x:Name="image" Source="../Images/Artifacts.png" Margin="10"/>
         <Label x:Name="titleLabel" Content="*Boots of Swiftness*" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Center" FontSize="12" FontStretch="UltraCondensed"/>
         <Image x:Name="enchantmentPointsImage" Source="../Images/Points.png" Width="12" Height="13" Margin="6,6,82,81"/>
-        <Label x:Name="enchantmentPointsLabel" Content="*12*" FontSize="12" Margin="21,3,52,81" Padding="0" VerticalContentAlignment="Center" Width="30" Height="16"/>
-        <Label x:Name="powerLabel" Content="*108*" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" FontSize="20"/>
+        <Label x:Name="enchantmentPointsLabel" Content="1234567890" FontSize="12" Margin="21,3,3,81" Padding="0" VerticalContentAlignment="Center" Height="16"/>
+        <Label x:Name="powerLabel" Content="1234567890" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" FontSize="16"/>
     </Grid>
 </UserControl>

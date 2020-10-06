@@ -1,5 +1,6 @@
 ﻿using MCDSaveEdit.Save.Models.Profiles;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MCDSaveEdit.Save.Models.Enums
 {
@@ -109,11 +110,25 @@ namespace MCDSaveEdit.Save.Models.Enums
         {
             if (enchantment.isPowerful())
             {
-                return GameCalculator.powerfulEnchantmentCostForLevel[enchantment.Level];
+                if(enchantment.Level < GameCalculator.powerfulEnchantmentCostForLevel.Length)
+                {
+                    return GameCalculator.powerfulEnchantmentCostForLevel[enchantment.Level];
+                }
+                else
+                {
+                    return GameCalculator.powerfulEnchantmentCostForLevel.Last();
+                }
             }
             else
             {
-                return GameCalculator.enchantmentCostForLevel[enchantment.Level];
+                if(enchantment.Level < GameCalculator.enchantmentCostForLevel.Length)
+                {
+                    return GameCalculator.enchantmentCostForLevel[enchantment.Level];
+                }
+                else
+                {
+                    return GameCalculator.enchantmentCostForLevel.Last();
+                }
             }
         }
     }

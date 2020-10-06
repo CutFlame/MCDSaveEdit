@@ -11,7 +11,7 @@
             <Image x:Name="inventoryIconImage" HorizontalAlignment="Right" VerticalAlignment="Top" Source="../Images/Armor.png" Width="150" Height="150" Margin="20"/>
             <StackPanel Margin="10,30,10,10">
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="powerTextBox" TextChanged="powerTextBox_TextChanged" Text="102" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Background="{x:Null}"/>
+                    <TextBox x:Name="powerTextBox" TextChanged="powerTextBox_TextChanged" Text="1234567890" FontSize="20" HorizontalAlignment="Center" Width="114" Background="{x:Null}" TextAlignment="Right" VerticalContentAlignment="Center"/>
                     <local:Stepper UpButtonClick="upButton_Click" DownButtonClick="downButton_Click"/>
                     <ComboBox x:Name="rarityComboBox" SelectionChanged="rarityComboBox_SelectionChanged" FontSize="18" Width="120" Margin="10,0" SelectedIndex="0" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" >
                         <ComboBoxItem Content="Common"/>
