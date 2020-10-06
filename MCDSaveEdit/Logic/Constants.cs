@@ -12,10 +12,10 @@ namespace MCDSaveEdit
         public const int MAXIMUM_ENCHANTMENT_TIER = 3;
 
         public const int MINIMUM_CHARACTER_LEVEL = 0;
-        public const int MAXIMUM_CHARACTER_LEVEL = 999;
+        public const int MAXIMUM_CHARACTER_LEVEL = 1000000000;
 
         public const int MINIMUM_ITEM_LEVEL = 0;
-        public const int MAXIMUM_ITEM_LEVEL = 999;
+        public const int MAXIMUM_ITEM_LEVEL = 1000000000;
 
         public const string PAKS_AES_KEY_STRING = "90F270A4EA6DE0E3BABDC4C8BDC04F46FA5B9087BE8FE76AA859C93C17D04661";
         public const string PAKS_FILTER_STRING = "/dungeons/content";
@@ -28,5 +28,10 @@ namespace MCDSaveEdit
                 return Path.Combine(appData, "Mojang", "products", "dungeons", "dungeons", "Dungeons", "Content", "Paks");
             }
         }
+
+        public const string FILE_DIALOG_INITIAL_DIRECTORY = @"%USER%\Saved Games\Mojang Studios\Dungeons\";
+        public const string ENCRYPTED_FILE_EXTENSION = ".dat";
+        public const string DECRYPTED_FILE_EXTENSION = ".json";
+
     }
 }

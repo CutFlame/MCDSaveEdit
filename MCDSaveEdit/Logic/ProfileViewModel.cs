@@ -15,8 +15,8 @@ namespace MCDSaveEdit
     {
         public static readonly Dictionary<string, string> supportedFileTypesDict = new Dictionary<string, string>
         {
-            {"*.dat", R.ENCRYPTED_CHARACTER_SAVE_FILES },
-            {"*.json", R.DECRYPTED_CHARACTER_SAVE_FILES },
+            {"*" + Constants.ENCRYPTED_FILE_EXTENSION, R.ENCRYPTED_CHARACTER_SAVE_FILES },
+            {"*" + Constants.DECRYPTED_FILE_EXTENSION, R.DECRYPTED_CHARACTER_SAVE_FILES },
             {"*.*", R.ALL_FILES },
         };
 
@@ -79,7 +79,7 @@ namespace MCDSaveEdit
         {
             if (filePath == null) { return; }
             Console.WriteLine("Reading file: {0}", filePath!);
-            if (Path.GetExtension(filePath!) == ".json")
+            if (Path.GetExtension(filePath!) == Constants.DECRYPTED_FILE_EXTENSION)
             {
                 await handleJsonFileOpen(filePath!);
             }
@@ -150,7 +150,7 @@ namespace MCDSaveEdit
         {
             if(filePath == null) { return; }
             Console.WriteLine("Writing file: {0}", filePath!);
-            if (Path.GetExtension(filePath!) == ".json")
+            if (Path.GetExtension(filePath!) == Constants.DECRYPTED_FILE_EXTENSION)
             {
                 await handleJsonFileSave(filePath!);
             }
