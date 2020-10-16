@@ -61,9 +61,7 @@ namespace MCDSaveEdit.Save.Models.Profiles
         public string PlayerId { get; set; }
 
         [JsonPropertyName("progress")]
-        public object Progress { get; set; }
-        //TODO: eventually this will be nice to have fully parsed for editing
-        //public Progress Progress { get; set; }
+        public Dictionary<string, Progress> Progress { get; set; }
 
         [JsonPropertyName("progressStatCounters")]
         public Dictionary<string, long> ProgressStatCounters { get; set; }
