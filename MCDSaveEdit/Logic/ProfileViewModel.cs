@@ -40,7 +40,7 @@ namespace MCDSaveEdit
         public IReadProperty<IEnumerable<Item>> filteredItemList;
         public IReadProperty<IEnumerable<Item>> equippedItemList;
         public IReadWriteProperty<int?> level;
-        public IReadWriteProperty<uint?> emeralds;
+        public IReadWriteProperty<ulong?> emeralds;
 
         public ProfileViewModel()
         {
@@ -52,7 +52,7 @@ namespace MCDSaveEdit
                     p!.Xp = GameCalculator.experienceForLevel(value.Value);
                 });
 
-            emeralds = new MappedProperty<ProfileSaveFile?, uint?>(_profile,
+            emeralds = new MappedProperty<ProfileSaveFile?, ulong?>(_profile,
                 p => p?.Currency.FirstOrDefault()?.Count,
                 (p, value) =>
                 {

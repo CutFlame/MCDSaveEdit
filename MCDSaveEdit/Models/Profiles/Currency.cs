@@ -7,6 +7,6 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("type")]
         public string Type { get; set; }
         [JsonPropertyName("count")]
-        public uint Count { get; set; }
+        public ulong Count { get; set; }
     }
 }

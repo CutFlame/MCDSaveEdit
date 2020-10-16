@@ -262,7 +262,7 @@ namespace MCDSaveEdit
             }
         }
 
-        private void updateEmeraldsUI(uint? emeralds)
+        private void updateEmeraldsUI(ulong? emeralds)
         {
             if (emeralds != null)
             {
