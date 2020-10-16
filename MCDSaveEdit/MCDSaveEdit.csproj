@@ -142,13 +142,15 @@
     <Compile Include="Models\Profiles\Difficulties.cs" />
     <Compile Include="Models\Profiles\Enchantment.cs" />
     <Compile Include="Models\Profiles\Item.cs" />
-    <Compile Include="Models\Profiles\LevelProgress.cs" />
+    <Compile Include="Models\Profiles\Progress.cs" />
     <Compile Include="Models\Profiles\LobbyChest.cs" />
+    <Compile Include="Models\Profiles\MapUiState.cs" />
     <Compile Include="Models\Profiles\ProfileParser.cs" />
     <Compile Include="Models\Profiles\ProfileSaveFile.cs" />
     <Compile Include="Models\Profiles\Threats.cs" />
     <Compile Include="Logic\Constants.cs" />
     <Compile Include="Core\Observables.cs" />
+    <Compile Include="Models\Profiles\UiHintsExpired.cs" />
     <Compile Include="Screens\InventoryScreen.xaml.cs">
       <DependentUpon>InventoryScreen.xaml</DependentUpon>
     </Compile>

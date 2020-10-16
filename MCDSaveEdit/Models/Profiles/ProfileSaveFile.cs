@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using MCDSaveEdit.Save.Models.Enums;
-using MCDSaveEdit.Save.Models.Mapping;
 
 namespace MCDSaveEdit.Save.Models.Profiles
 {
@@ -33,8 +29,8 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("difficulties")]
         public Difficulties Difficulties { get; set; }
 
-        //[JsonPropertyName("finishedObjectiveTags")]
-        //public FinishedObjectiveTags FinishedObjectiveTags { get; set; }
+        [JsonPropertyName("finishedObjectiveTags")]
+        public Dictionary<string, long> FinishedObjectiveTags { get; set; }
 
         [JsonPropertyName("items")]
         public Item[] Items { get; set; }
@@ -45,8 +41,12 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("lobbychest_progress")]
         public Dictionary<string, LobbychestProgress> LobbychestProgress { get; set; }
 
-        //[JsonPropertyName("mapUIState")]
+        [JsonPropertyName("mapUIState")]
+        public object MapUiState { get; set; }
         //public MapUiState MapUiState { get; set; }
+
+        [JsonPropertyName("merchantData")]
+        public object MerchantData { get; set; }
 
         [JsonPropertyName("mob_kills")]
         public Dictionary<string, long> MobKills { get; set; }
@@ -54,14 +54,19 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        //[JsonPropertyName("pendingRewardItem")]
-        //public object PendingRewardItem { get; set; }
+        [JsonPropertyName("pendingRewardItem")]
+        public object PendingRewardItem { get; set; }
 
         [JsonPropertyName("playerId")]
         public string PlayerId { get; set; }
 
         [JsonPropertyName("progress")]
-        public Progress Progress { get; set; }
+        public object Progress { get; set; }
+        //TODO: eventually this will be nice to have fully parsed for editing
+        //public Progress Progress { get; set; }
+
+        [JsonPropertyName("progressStatCounters")]
+        public Dictionary<string, long> ProgressStatCounters { get; set; }
 
         [JsonPropertyName("progressionKeys")]
         public string[] ProgressionKeys { get; set; }
@@ -81,7 +86,8 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("trialsCompleted")]
         public object[] TrialsCompleted { get; set; }
 
-        //[JsonPropertyName("uiHintsExpired")]
+        [JsonPropertyName("uiHintsExpired")]
+        public object[] UiHintsExpired { get; set; }
         //public UiHintsExpired[] UiHintsExpired { get; set; }
 
         [JsonPropertyName("version")]

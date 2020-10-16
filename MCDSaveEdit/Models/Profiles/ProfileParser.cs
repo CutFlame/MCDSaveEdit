@@ -9,13 +9,15 @@ namespace MCDSaveEdit.Save.Models.Profiles
 {
     public static class ProfileParser
     {
-        private static readonly JsonSerializerOptions Options = new JsonSerializerOptions();
+        private static readonly JsonSerializerOptions _options = new JsonSerializerOptions();
 
         static ProfileParser()
         {
-            Options.Converters.Add(new AttributeBasedConverterFactory());
-            Options.Converters.Add(new GuidConverterFactory());
-            Options.Converters.Add(new JsonStringEnumConverter());
+            _options.Converters.Add(new AttributeBasedConverterFactory());
+            _options.Converters.Add(new GuidConverterFactory());
+            _options.Converters.Add(new JsonStringEnumConverter());
+            _options.IgnoreNullValues = true;
+            _options.WriteIndented = true;
         }
 
         public static async ValueTask<ProfileSaveFile> Read(Stream stream)
@@ -34,13 +36,13 @@ namespace MCDSaveEdit.Save.Models.Profiles
             }
 
             sanitized.Seek(0, SeekOrigin.Begin);
-            return await JsonSerializer.DeserializeAsync<ProfileSaveFile>(sanitized, Options);
+            return await JsonSerializer.DeserializeAsync<ProfileSaveFile>(sanitized, _options);
         }
 
         public static async ValueTask<Stream> Write(ProfileSaveFile settings)
         {
             Stream stream = new MemoryStream();
-            await JsonSerializer.SerializeAsync(stream, settings, Options);
+            await JsonSerializer.SerializeAsync(stream, settings, _options);
             return stream;
         }
     }
