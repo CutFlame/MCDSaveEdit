@@ -18,7 +18,10 @@
             License: <Hyperlink NavigateUri="https://github.com/CutFlame/MCDSaveEdit/blob/master/LICENSE">MIT</Hyperlink><LineBreak/>
         </TextBlock>
         <Label x:Name="versionLabel" Content="*Version 1.0*" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top" Height="20" Padding="0" VerticalContentAlignment="Top"/>
-        <Button Content="Support me on Patreon!" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 66" Padding="6" Click="supportMeButton_Click"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,66,0,0">
+            <Button Content="BuyMeACoffee!" Padding="6" Click="buyMeACoffeeButton_Click" Margin="0,0,5,0"/>
+            <Button Content="Support me on Patreon!" Padding="6" Click="patreonButton_Click" Margin="5,0,0,0"/>
+        </StackPanel>
         <TextBlock HorizontalAlignment="Stretch" Margin="10,116,10,10" VerticalAlignment="Stretch">
             <Bold>Imported from Minecraft Dungeons<LineBreak/>Images Copyright © Mojang</Bold><LineBreak/>
             <LineBreak/>

@@ -17,9 +17,14 @@ namespace MCDSaveEdit
             versionLabel.Content = R.formatVERSION(Constants.CURRENT_RELEASE_TAG_NAME);
         }
 
-        private void supportMeButton_Click(object sender, RoutedEventArgs e)
+        private void patreonButton_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://www.patreon.com/cutflame");
+            this.Close();
+        }
+        private void buyMeACoffeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://www.buymeacoffee.com/cutflame");
             this.Close();
         }
     }
