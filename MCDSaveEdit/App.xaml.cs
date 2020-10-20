@@ -35,7 +35,8 @@ namespace MCDSaveEdit
         {
             var mainWindow = new MainWindow();
             mainWindow.model = new ProfileViewModel();
-            mainWindow.Show();
+            this.MainWindow = mainWindow;
+            this.MainWindow.Show();
 
             closeBusyIndicator();
         }

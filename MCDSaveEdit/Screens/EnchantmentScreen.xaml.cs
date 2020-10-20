@@ -29,7 +29,7 @@ namespace MCDSaveEdit
 
         private void useGameContentImages()
         {
-            enchantmentBackgroundImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv0_frame");
+            enchantmentBackgroundImage.Source = fullImageForEnchantmentLevel(0);
             enchantmentPointsSymbolImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchant_counter");
         }
 
@@ -91,19 +91,19 @@ namespace MCDSaveEdit
         private BitmapSource? imageForEnchantmentLevel(long level)
         {
             var enchantmentLevelImage = fullImageForEnchantmentLevel(level);
-            var croppedImage = new CroppedBitmap(enchantmentLevelImage, new Int32Rect(0, 0, 976, 959));
+            if (enchantmentLevelImage == null) return null;
+            var croppedImage = new CroppedBitmap(enchantmentLevelImage!, new Int32Rect(0, 0, 976, 959));
             return croppedImage;
         }
 
         private BitmapImage? fullImageForEnchantmentLevel(long level)
         {
-            switch(level)
+            if (level < 0 || level > Constants.MAXIMUM_ENCHANTMENT_TIER)
             {
-                case 1: return ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv1_frame");
-                case 2: return ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv2_frame");
-                case 3: return ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv3_frame");
+                return null;
             }
-            return ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv0_frame");
+            var imageName = $"/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv{level}_frame";
+            return ImageUriHelper.instance.imageSource(imageName);
         }
 
         public ICommand? saveChanges { get; set; }

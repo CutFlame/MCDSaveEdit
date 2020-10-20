@@ -8,8 +8,12 @@
              d:DesignHeight="275" d:DesignWidth="400">
     <DockPanel>
         <Grid DockPanel.Dock="Top">
-            <Image x:Name="enchantmentBackgroundImage" HorizontalAlignment="Right" VerticalAlignment="Top" Width="178" Height="178" Margin="5,8,6,5"/>
-            <Image x:Name="enchantmentImage" HorizontalAlignment="Right" VerticalAlignment="Top" Source="../Images/Enchantments.png" Width="150" Height="150" Margin="20"/>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="178" Height="178" Margin="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                <Grid>
+                    <Image x:Name="enchantmentBackgroundImage"/>
+                    <Image x:Name="enchantmentImage" Source="../Images/Enchantments.png" Margin="14"/>
+                </Grid>
+            </Button>
             <StackPanel Margin="30,30,30,10">
                 <StackPanel Orientation="Horizontal" Margin="6,0">
                     <Image x:Name="powerfulImage" Height="30" Width="30"/>

@@ -142,6 +142,7 @@ namespace MCDSaveEdit
             hotbarSlot3Button.CommandParameter = hotbarSlot3ItemControl.item;
         }
 
+        private const int ITEMS_PER_ROW = 3;
 
         private void updateGridItemsUI(IEnumerable<Item>? items)
         {
@@ -173,7 +174,7 @@ namespace MCDSaveEdit
                 itemButton.Command = new RelayCommand<Item>(_model!.selectItem);
                 itemButton.CommandParameter = item;
 
-                if (itemCount % 3 == 0)
+                if (itemCount % ITEMS_PER_ROW == 0)
                 {
                     var rowDef = new RowDefinition();
                     rowDef.Height = new GridLength(100);
@@ -181,8 +182,8 @@ namespace MCDSaveEdit
                 }
 
                 itemsGrid.Children.Add(itemButton);
-                Grid.SetRow(itemButton, itemCount / 3);
-                Grid.SetColumn(itemButton, itemCount % 3);
+                Grid.SetRow(itemButton, itemCount / ITEMS_PER_ROW);
+                Grid.SetColumn(itemButton, itemCount % ITEMS_PER_ROW);
 
                 itemCount++;
             }
