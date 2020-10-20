@@ -42,6 +42,7 @@ namespace MCDSaveEdit.Save.Models.Enums
             return rangedWeapons.Contains(item.Type.ToLowerInvariant());
         }
 
+        public static HashSet<string> all = new HashSet<string>();
         public static HashSet<string> artifacts = new HashSet<string>();
         public static HashSet<string> armor = new HashSet<string>();
         public static HashSet<string> meleeWeapons = new HashSet<string>();

@@ -6,7 +6,9 @@ namespace MCDSaveEdit.Save.Models.Enums
 {
     public static class EnchantmentExtensions
     {
-        private static HashSet<string> powerful = new HashSet<string>() {
+        public static HashSet<string> allEnchantments = new HashSet<string>();
+
+        public static HashSet<string> powerful = new HashSet<string>() {
             "FinalShout",
             "Chilling",
             "Protection",

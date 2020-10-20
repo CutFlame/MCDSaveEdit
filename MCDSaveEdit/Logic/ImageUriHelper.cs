@@ -20,6 +20,7 @@ namespace MCDSaveEdit
     public interface IImageResolver
     {
         BitmapImage? imageSourceForItem(Item item);
+        BitmapImage? imageSourceForItem(string itemType);
         BitmapImage? imageSourceForRarity(Rarity rarity);
         BitmapImage? imageSourceForEnchantment(Enchantment enchantment);
         BitmapImage? imageSourceForEnchantment(string enchantmentType);
@@ -58,10 +59,10 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSourceForItem(Item item)
         {
-            return imageSourceForItemType(item.Type);
+            return imageSourceForItem(item.Type.ToLowerInvariant());
         }
 
-        public BitmapImage? imageSourceForItemType(string itemType)
+        public BitmapImage? imageSourceForItem(string itemType)
         {
             var itemTypeStr = folderNameForItemType(itemType);
             var filename = string.Format("{0}.png", itemTypeStr);
@@ -207,9 +208,11 @@ namespace MCDSaveEdit
                 if (fullPath.Contains("enchantments") && fullPath.EndsWith("_icon"))
                 {
                     var enchantmentName = string.Join("", filename.Skip(2).Take(filename.Length - 7));
+                    if (enchantmentName.EndsWith("shine")) continue;
                     if(!_enchantments.ContainsKey(enchantmentName))
                     {
                         _enchantments.Add(enchantmentName, fullPath);
+                        EnchantmentExtensions.allEnchantments.Add(enchantmentName);
                         //Debug.WriteLine($"{enchantmentName} - {fullPath}");
                     }
                     continue;
@@ -221,6 +224,10 @@ namespace MCDSaveEdit
                     if(!_equipment.ContainsKey(itemName))
                     {
                         _equipment.Add(itemName, fullPath);
+                        if (!itemName.StartsWith("mysterybox"))
+                        {
+                            ItemExtensions.all.Add(itemName);
+                        }
                         //Debug.WriteLine($"{itemName} - {fullPath}");
                     }
 
@@ -254,7 +261,10 @@ namespace MCDSaveEdit
                     }
                     if (fullPath.Contains("items"))
                     {
-                        ItemExtensions.artifacts.Add(itemName);
+                        if (!itemName.StartsWith("mysterybox"))
+                        {
+                            ItemExtensions.artifacts.Add(itemName);
+                        }
                     }
                 }
             }
@@ -322,7 +332,10 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSourceForItem(Item item)
         {
-            var itemType = item.Type.ToLowerInvariant();
+            return imageSourceForItem(item.Type.ToLowerInvariant());
+        }
+
+        public BitmapImage? imageSourceForItem(string itemType) {
             if (_equipment.TryGetValue(itemType, out string fullPath))
             {
                 var image = imageSource(fullPath);
@@ -332,7 +345,7 @@ namespace MCDSaveEdit
                 }
             }
             Debug.WriteLine($"Could not find full path for item {itemType}");
-            return _backupResolver.imageSourceForItemType(itemType);
+            return _backupResolver.imageSourceForItem(itemType);
         }
 
         public BitmapImage? imageSourceForRarity(Rarity rarity)

@@ -227,6 +227,7 @@
   <ItemGroup>
     <Compile Include="Logic\ProfileExtensions.cs" />
     <Compile Include="Logic\ProfileViewModel.cs" />
+    <Compile Include="UserControls\SelectionWindow.cs" />
     <Compile Include="UserControls\Stepper.xaml.cs">
       <DependentUpon>Stepper.xaml</DependentUpon>
     </Compile>
