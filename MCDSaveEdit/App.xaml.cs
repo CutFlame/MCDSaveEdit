@@ -28,10 +28,10 @@ namespace MCDSaveEdit
                 await ImageUriHelper.loadGameContentAsync();
             }
 
-            doneLoading();
+            showMainWindow();
         }
 
-        private void doneLoading()
+        private void showMainWindow()
         {
             var mainWindow = new MainWindow();
             mainWindow.model = new ProfileViewModel();

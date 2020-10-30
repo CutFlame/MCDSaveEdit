@@ -1,4 +1,5 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -16,8 +17,14 @@ namespace MCDSaveEdit
         private ListBox _listBox = new ListBox();
         private bool _isProcessing = true;
 
+        public Action<string?>? onSelection;
+
         public string? selectedItem {
             get {
+                if(_listBox.SelectedItem is ListBoxItem listItem)
+                {
+                    return listItem.Tag as string;
+                }
                 return _listBox.SelectedItem as string;
             }
         }
@@ -35,6 +42,7 @@ namespace MCDSaveEdit
         {
             if (_isProcessing) return;
             _listBox.SelectionChanged -= ListBox_SelectionChanged;
+            onSelection?.Invoke(selectedItem);
             this.Close();
         }
 
@@ -84,7 +92,7 @@ namespace MCDSaveEdit
                     stackPanel.Children.Add(powerfulImage);
                 }
 
-                var listItem = new ListBoxItem { Content = stackPanel };
+                var listItem = new ListBoxItem { Content = stackPanel, Tag = enchantment };
                 _listBox.Items.Add(listItem);
 
                 if (selectedEnchantment == enchantment)
@@ -169,7 +177,7 @@ namespace MCDSaveEdit
                 }
 
                 var stackPanel = createStackPanel(imageSource, item);
-                var listItem = new ListBoxItem { Content = stackPanel };
+                var listItem = new ListBoxItem { Content = stackPanel, Tag = item };
                 _listBox.Items.Add(listItem);
 
                 if (selectedItem == item)

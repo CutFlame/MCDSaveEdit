@@ -119,6 +119,34 @@ namespace MCDSaveEdit
                 updateTierUI();
             }
         }
+        private void enchantmentImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectionWindow = new SelectionWindow();
+            selectionWindow.loadEnchantments(_enchantment?.Id);
+            selectionWindow.onSelection = selectedEnchantmentId;
+            selectionWindow.Show();
+        }
+
+        private void selectedEnchantmentId(string? enchantmentId)
+        {
+            if(enchantmentId == null)
+            {
+                _enchantment = null;
+            }
+            else
+            {
+                if (_enchantment == null)
+                {
+                    _enchantment = new Enchantment() { Id = enchantmentId!, Level = 0, };
+                }
+                else
+                {
+                    _enchantment.Id = enchantmentId!;
+                }
+                this.saveChanges?.Execute(_enchantment);
+            }
+            updateUI();
+        }
 
         private void upButton_Click(object sender, RoutedEventArgs e)
         {
