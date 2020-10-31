@@ -24,22 +24,22 @@ namespace MCDSaveEdit.Save.Models.Enums
 
         public static bool isArtifact(this Item item)
         {
-            return artifacts.Contains(item.Type.ToLowerInvariant());
+            return artifacts.Contains(item.Type);
         }
 
         public static bool isArmor(this Item item)
         {
-            return armor.Contains(item.Type.ToLowerInvariant());
+            return armor.Contains(item.Type);
         }
 
         public static bool isMeleeWeapon(this Item item)
         {
-            return meleeWeapons.Contains(item.Type.ToLowerInvariant());
+            return meleeWeapons.Contains(item.Type);
         }
 
         public static bool isRangedWeapon(this Item item)
         {
-            return rangedWeapons.Contains(item.Type.ToLowerInvariant());
+            return rangedWeapons.Contains(item.Type);
         }
 
         public static HashSet<string> all = new HashSet<string>();

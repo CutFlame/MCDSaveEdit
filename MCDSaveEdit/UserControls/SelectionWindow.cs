@@ -55,7 +55,7 @@ namespace MCDSaveEdit
 
             var powerfulImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
 
-            foreach (var enchantment in EnchantmentExtensions.allEnchantments.OrderBy(str => str).Concat(new[] { "unset" }))
+            foreach (var enchantment in EnchantmentExtensions.allEnchantments.OrderBy(str => str).Concat(new[] { "Unset" }))
             {
                 var imageSource = ImageUriHelper.instance.imageSourceForEnchantment(enchantment);
                 if (imageSource == null)
@@ -82,7 +82,7 @@ namespace MCDSaveEdit
 
                 stackPanel.Children.Add(image);
                 stackPanel.Children.Add(label);
-                if (EnchantmentExtensions.powerful.Any(str => { return enchantment == str.ToLowerInvariant(); }))
+                if (EnchantmentExtensions.powerful.Any(str => { return enchantment == str; }))
                 {
                     var powerfulImage = new Image {
                         Height = 25,

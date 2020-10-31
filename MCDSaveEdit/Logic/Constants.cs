@@ -17,7 +17,7 @@ namespace MCDSaveEdit
         public const int MINIMUM_ITEM_LEVEL = 0;
         public const int MAXIMUM_ITEM_LEVEL = 1000000000;
 
-        public const string PAKS_FILTER_STRING = "/dungeons/content";
+        public const string PAKS_FILTER_STRING = "/Dungeons/Content";
 
         public static string PAKS_FOLDER
         {

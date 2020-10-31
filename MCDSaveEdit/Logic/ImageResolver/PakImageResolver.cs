@@ -49,9 +49,9 @@ namespace MCDSaveEdit
                 var startIndex = item!.IndexOf("//") + 1;
                 var fullPath = item!.Substring(startIndex);
 
-                if (fullPath.Contains("localization") && fullPath.EndsWith("game"))
+                if (fullPath.Contains("Localization") && fullPath.EndsWith("Game"))
                 {
-                    var splitPath = fullPath.Split(new[] { "game" }, StringSplitOptions.RemoveEmptyEntries);
+                    var splitPath = fullPath.Split(new[] { "Game" }, StringSplitOptions.RemoveEmptyEntries);
                     string lang = splitPath[splitPath.Length - 1].Trim('/');
                     if(lang == "en")
                     {
@@ -66,7 +66,7 @@ namespace MCDSaveEdit
                 }
 
                 var filename = Path.GetFileName(fullPath);
-                if (!filename.StartsWith("t") || !fullPath.Contains("_icon"))
+                if (!filename.StartsWith("T") || !fullPath.Contains("_Icon"))
                 {
                     //Debug.WriteLine($"Package is not an icon {fullPath}");
                     continue;
@@ -81,10 +81,10 @@ namespace MCDSaveEdit
                     }
                 }
 
-                if (fullPath.Contains("enchantments") && fullPath.EndsWith("_icon"))
+                if (fullPath.Contains("Enchantments") && fullPath.EndsWith("_Icon"))
                 {
                     var enchantmentName = string.Join("", filename.Skip(2).Take(filename.Length - 7));
-                    if (enchantmentName.EndsWith("shine")) continue;
+                    if (enchantmentName.EndsWith("Shine")) continue;
                     if(!_enchantments.ContainsKey(enchantmentName))
                     {
                         _enchantments.Add(enchantmentName, fullPath);
@@ -94,50 +94,87 @@ namespace MCDSaveEdit
                     continue;
                 }
 
-                if (fullPath.EndsWith("_icon_inventory"))
+                if (fullPath.EndsWith("_Icon_inventory"))
                 {
                     var itemName = string.Join("", filename.Skip(2).Take(filename.Length - 17));
                     if(!_equipment.ContainsKey(itemName))
                     {
                         _equipment.Add(itemName, fullPath);
-                        if (!itemName.StartsWith("mysterybox"))
+                        if (!itemName.StartsWith("MysteryBox"))
                         {
                             ItemExtensions.all.Add(itemName);
                         }
                         //Debug.WriteLine($"{itemName} - {fullPath}");
                     }
 
-                    if (fullPath.Contains("equipment") && fullPath.Contains("meleeweapons"))
+                    if (fullPath.Contains("Equipment") && fullPath.Contains("MeleeWeapons"))
                     {
                         //Handle exceptions
-                        if (itemName == "sword_steel")
+                        if (itemName == "Sword_Steel")
                         {
-                            _equipment.Add("sword", fullPath);
-                            ItemExtensions.meleeWeapons.Add("sword");
+                            _equipment.Add("Sword", fullPath);
+                            ItemExtensions.meleeWeapons.Add("Sword");
                         }
-                        if (itemName == "pickaxe_steel")
+                        if (itemName == "PickAxe_Steel")
                         {
-                            _equipment.Add("pickaxe", fullPath);
-                            ItemExtensions.meleeWeapons.Add("pickaxe");
+                            _equipment.Add("Pickaxe", fullPath);
+                            ItemExtensions.meleeWeapons.Add("Pickaxe");
                         }
-                        if (itemName == "pickaxe_unique1_steel")
+                        if (itemName == "Pickaxe_Unique1_Steel")
                         {
-                            _equipment.Add("pickaxe_unique1", fullPath);
-                            ItemExtensions.meleeWeapons.Add("pickaxe_unique1");
+                            _equipment.Add("Pickaxe_Unique1", fullPath);
+                            ItemExtensions.meleeWeapons.Add("Pickaxe_Unique1");
                         }
                         ItemExtensions.meleeWeapons.Add(itemName);
                     }
-                    if (fullPath.Contains("equipment") && fullPath.Contains("rangedweapons"))
+                    if (fullPath.Contains("Equipment") && fullPath.Contains("RangedWeapons"))
                     {
+                        //Handle exceptions
+                        if (itemName == "TrickBow")
+                        {
+                            _equipment.Add("Trickbow", fullPath);
+                            ItemExtensions.rangedWeapons.Add("TrickBow");
+                        }
+                        if (itemName == "LongBow")
+                        {
+                            _equipment.Add("Longbow", fullPath);
+                            ItemExtensions.rangedWeapons.Add("Longbow");
+                        }
+                        if (itemName == "ShortBow")
+                        {
+                            _equipment.Add("Shortbow", fullPath);
+                            ItemExtensions.rangedWeapons.Add("Shortbow");
+                        }
+                        if (itemName == "LongBow_Unique2")
+                        {
+                            _equipment.Add("Longbow_Unique2", fullPath);
+                            ItemExtensions.rangedWeapons.Add("Longbow_Unique2");
+                        }
+                        if (itemName == "ShortBow_Unique2")
+                        {
+                            _equipment.Add("Shortbow_Unique2", fullPath);
+                            ItemExtensions.rangedWeapons.Add("Shortbow_Unique2");
+                        }
+                        if (itemName == "Huntingbow_Unique1")
+                        {
+                            _equipment.Add("HuntingBow_Unique1", fullPath);
+                            ItemExtensions.rangedWeapons.Add("HuntingBow_Unique1");
+                        }
                         ItemExtensions.rangedWeapons.Add(itemName);
                     }
-                    if (fullPath.Contains("equipment") && fullPath.Contains("armor"))
+                    if (fullPath.Contains("Equipment") && fullPath.Contains("Armor"))
                     {
+                        //Handle exceptions
+                        if (itemName == "Battlerobe_unique1")
+                        {
+                            _equipment.Add("BattleRobe_Unique1", fullPath);
+                            ItemExtensions.armor.Add("BattleRobe_Unique1");
+                        }
                         ItemExtensions.armor.Add(itemName);
                     }
-                    if (fullPath.Contains("items"))
+                    if (fullPath.Contains("Items"))
                     {
-                        if (!itemName.StartsWith("mysterybox"))
+                        if (!itemName.StartsWith("MysteryBox"))
                         {
                             ItemExtensions.artifacts.Add(itemName);
                         }
@@ -155,7 +192,7 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSource(string pathWithoutExtension)
         {
-            var path = pathWithoutExtension.ToLowerInvariant();
+            var path = pathWithoutExtension;
             if (!_bitmaps.ContainsKey(path))
             {
                 var bitmap = extractBitmap(path);
@@ -226,7 +263,7 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSourceForItem(Item item)
         {
-            return imageSourceForItem(item.Type.ToLowerInvariant());
+            return imageSourceForItem(item.Type);
         }
 
         public BitmapImage? imageSourceForItem(string itemType) {
@@ -260,8 +297,8 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSourceForEnchantment(string enchantment)
         {
-            var enchantmentId = enchantment.ToLowerInvariant();
-            if (enchantmentId.ToLowerInvariant() == "unset")
+            var enchantmentId = enchantment;
+            if (enchantmentId == "Unset")
             {
                 return imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/locked_node");
             }

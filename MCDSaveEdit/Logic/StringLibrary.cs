@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace MCDSaveEdit
 {
     internal class R : Properties.Resources
     {
-        static Dictionary<string, Dictionary<string, string>> _stringLibrary;
+        static Dictionary<string, string> _itemType;
+        static Dictionary<string, string> _enchantment;
 
         public static void loadExternalStrings(Dictionary<string, Dictionary<string, string>> stringLibrary)
         {
-            _stringLibrary = stringLibrary;
+            _itemType = stringLibrary["ItemType"].ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
+            _enchantment = stringLibrary["Enchantment"].ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
         }
 
         internal static string formatFILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE(string filename) { return string.Format(FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE, filename); }
@@ -23,8 +26,7 @@ namespace MCDSaveEdit
 
         internal static string itemName(string type)
         {
-            var main = _stringLibrary["ItemType"];
-            if (main.TryGetValue(type, out string value))
+            if (_itemType.TryGetValue(type, out string value))
             {
                 return value;
             }
@@ -34,8 +36,7 @@ namespace MCDSaveEdit
 
         internal static string enchantment(string enchantment)
         {
-            var main = _stringLibrary["Enchantment"];
-            if (main.TryGetValue(enchantment, out string value))
+            if (_enchantment.TryGetValue(enchantment, out string value))
             {
                 return value;
             }

@@ -40,7 +40,7 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSourceForItem(Item item)
         {
-            return imageSourceForItem(item.Type.ToLowerInvariant());
+            return imageSourceForItem(item.Type);
         }
 
         public BitmapImage? imageSourceForItem(string itemType)
@@ -117,8 +117,8 @@ namespace MCDSaveEdit
 
         public BitmapImage? imageSourceForEnchantment(string enchantment)
         {
-            var enchantmentId = enchantment.ToLowerInvariant();
-            if (enchantmentId == "unset")
+            var enchantmentId = enchantment;
+            if (enchantmentId == "Unset")
             {
                 return null;
             }
