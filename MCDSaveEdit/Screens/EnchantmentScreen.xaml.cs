@@ -64,7 +64,7 @@ namespace MCDSaveEdit
             }
 
             enchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantment);
-            enchantmentLabel.Content = _enchantment.Id;
+            enchantmentLabel.Content = R.enchantment(_enchantment.Id);
 
             updateTierUI();
         }

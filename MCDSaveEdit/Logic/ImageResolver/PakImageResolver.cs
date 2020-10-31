@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Cache;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -17,140 +16,6 @@ using System.Windows.Media.Imaging;
 
 namespace MCDSaveEdit
 {
-    public interface IImageResolver
-    {
-        BitmapImage? imageSourceForItem(Item item);
-        BitmapImage? imageSourceForItem(string itemType);
-        BitmapImage? imageSourceForRarity(Rarity rarity);
-        BitmapImage? imageSourceForEnchantment(Enchantment enchantment);
-        BitmapImage? imageSourceForEnchantment(string enchantmentType);
-        BitmapImage? imageSource(string path);
-    }
-
-    public class LocalImageResolver: IImageResolver
-    {
-        //private const string ASSETS_URI = @"https://img.rankedboost.com/wp-content/plugins/minecraft-dungeons/assets/";
-        private const string IMAGES_URI = @"pack://application:,,/Images";
-        private readonly RequestCachePolicy REQUEST_CACHE_POLICY = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
-
-        public BitmapImage? imageSource(string path)
-        {
-            return null;
-        }
-
-        private BitmapImage? tryBitmapImageForUri(Uri uri)
-        {
-            try
-            {
-                //Console.WriteLine("Requesting Uri: {0}", uri);
-                var image = new BitmapImage(uri, REQUEST_CACHE_POLICY);
-                return image;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error creating bitmap for {0}", uri);
-                Console.Write(e);
-                //Debug.Assert(false);
-                return null;
-            }
-        }
-
-        #region Items
-
-        public BitmapImage? imageSourceForItem(Item item)
-        {
-            return imageSourceForItem(item.Type.ToLowerInvariant());
-        }
-
-        public BitmapImage? imageSourceForItem(string itemType)
-        {
-            var itemTypeStr = folderNameForItemType(itemType);
-            var filename = string.Format("{0}.png", itemTypeStr);
-            var path = Path.Combine(IMAGES_URI, filename);
-            var uri = new Uri(path);
-            return tryBitmapImageForUri(uri);
-        }
-
-        private string folderNameForItemType(string type)
-        {
-            if (ItemExtensions.artifacts.Contains(type))
-            {
-                return "Artifacts";
-            }
-            if (ItemExtensions.armor.Contains(type))
-            {
-                return "Armor";
-            }
-            if (ItemExtensions.meleeWeapons.Contains(type))
-            {
-                return "MeleeWeapons";
-            }
-            if (ItemExtensions.rangedWeapons.Contains(type))
-            {
-                return "RangedWeapons";
-            }
-
-            return "Unknown";
-        }
-
-        private string imageNameForItem(Item item)
-        {
-            var itemName = item.Type;
-            //var encodedString = Uri.EscapeDataString(stringFromItemName(itemName));
-            return string.Format("T_{0}_Icon_inventory.png", itemName);
-        }
-
-        #endregion
-
-        #region Raritys
-
-        public BitmapImage? imageSourceForRarity(Rarity rarity)
-        {
-            return null;
-            //var filename = imageNameFromRarity(rarity);
-            //if(filename == null) { return null; }
-            //var path = Path.Combine(IMAGES_URI, "UI", "ItemRarity", filename);
-            //var uri = new Uri(path);
-            //return tryBitmapImageForUri(uri);
-        }
-
-        private string? imageNameFromRarity(Rarity rarity)
-        {
-            switch (rarity)
-            {
-                case Rarity.Common: return "drops_items_frame.png";
-                case Rarity.Rare: return "drops_rare_frame.png";
-                case Rarity.Unique: return "drops_unique_frame.png";
-            }
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region Enchantments
-
-        public BitmapImage? imageSourceForEnchantment(Enchantment enchantment)
-        {
-            return imageSourceForEnchantment(enchantment.Id);
-        }
-
-        public BitmapImage? imageSourceForEnchantment(string enchantment)
-        {
-            var enchantmentId = enchantment.ToLowerInvariant();
-            if (enchantmentId == "unset")
-            {
-                return null;
-            }
-            var filename = "Enchantments.png";
-            var path = Path.Combine(IMAGES_URI, filename);
-            var uri = new Uri(path);
-            return tryBitmapImageForUri(uri);
-        }
-
-        #endregion
-
-    }
-
     public class PakImageResolver: IImageResolver
     {
         private readonly LocalImageResolver _backupResolver;
@@ -184,13 +49,24 @@ namespace MCDSaveEdit
                 var startIndex = item!.IndexOf("//") + 1;
                 var fullPath = item!.Substring(startIndex);
 
-                if (!fullPath.Contains("_icon"))
+                if (fullPath.Contains("localization") && fullPath.EndsWith("game"))
                 {
-                    //Debug.WriteLine($"Package is not an icon {fullPath}");
+                    var splitPath = fullPath.Split(new[] { "game" }, StringSplitOptions.RemoveEmptyEntries);
+                    string lang = splitPath[splitPath.Length - 1].Trim('/');
+                    if(lang == "en")
+                    {
+                        var stringLibrary = extractLocResFile(fullPath);
+                        if(stringLibrary != null)
+                        {
+                            R.loadExternalStrings(stringLibrary);
+                            Debug.WriteLine($"Loaded {lang} LocRes");
+                        }
+                    }
                     continue;
                 }
+
                 var filename = Path.GetFileName(fullPath);
-                if (!filename.StartsWith("t"))
+                if (!filename.StartsWith("t") || !fullPath.Contains("_icon"))
                 {
                     //Debug.WriteLine($"Package is not an icon {fullPath}");
                     continue;
@@ -289,7 +165,7 @@ namespace MCDSaveEdit
             return _bitmaps[path];
         }
 
-        private BitmapImage? extractBitmap(string fullPath)
+        private PakPackage? extractPackage(string fullPath)
         {
             if (!_pakIndex.TryGetPackage(fullPath, out var package))
             {
@@ -301,7 +177,13 @@ namespace MCDSaveEdit
                 Debug.WriteLine($"Package does not have export {fullPath}");
                 return null;
             }
-            var texture = package.GetExport<UTexture2D>();
+            return package;
+        }
+
+        private BitmapImage? extractBitmap(string fullPath)
+        {
+            var package = extractPackage(fullPath);
+            var texture = package?.GetExport<UTexture2D>();
             if (texture == null)
             {
                 Debug.WriteLine($"Could not get texture from package {fullPath}");
@@ -314,6 +196,18 @@ namespace MCDSaveEdit
                 return null;
             }
             return bitmap;
+        }
+
+        private Dictionary<string, Dictionary<string, string>>? extractLocResFile(string fullPath)
+        {
+            if (!_pakIndex.TryGetFile(fullPath, out var byteArray) || byteArray == null)
+            {
+                Debug.WriteLine($"Could not get anything from {fullPath}");
+                return null;
+            }
+            var stream = new MemoryStream(byteArray!.Value.Array, byteArray!.Value.Offset, byteArray!.Value.Count);
+            Dictionary<string, Dictionary<string, string>>? entries = new LocResReader(stream).Entries;
+            return entries;
         }
 
         private static BitmapImage BitmapImageFromSKBitmap(SKBitmap image) => BitmapImageFromSKImage(SKImage.FromBitmap(image));
@@ -382,82 +276,6 @@ namespace MCDSaveEdit
             }
             Debug.WriteLine($"Could not find full path for enchantment {enchantmentId}");
             return _backupResolver.imageSourceForEnchantment(enchantmentId);
-        }
-    }
-
-    public static class ImageUriHelper
-    {
-        public static IImageResolver instance = new LocalImageResolver();
-
-        public static bool canUseGameContent()
-        {
-            return Directory.Exists(Constants.PAKS_FOLDER);
-        }
-
-        public static bool gameContentLoaded { get; private set; } = false;
-        public static async Task loadGameContentAsync()
-        {
-            var pakIndex = await loadPakIndex();
-            if (pakIndex != null)
-            {
-                var pakImageResolver = new PakImageResolver(pakIndex);
-                await pakImageResolver.loadPakFilesAsync(preloadBitmaps: false);
-                instance = pakImageResolver;
-                gameContentLoaded = true;
-            }
-        }
-
-        private static Task<PakIndex?> loadPakIndex()
-        {
-            var tcs = new TaskCompletionSource<PakIndex?>();
-            Task.Run(() =>
-            {
-                try
-                {
-                    var filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
-                    var pakIndex = new PakIndex(path: Constants.PAKS_FOLDER, cacheFiles: true, caseSensitive: false, filter: filter);
-                    pakIndex.UseKey(BinaryHelper.ToBytesKey(Secrets.PAKS_AES_KEY_STRING));
-                    tcs.SetResult(pakIndex);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"Could not load Minecraft Dungeons Paks: {e}");
-                    tcs.SetResult(null);
-                }
-            });
-            return tcs.Task;
-        }
-
-        /// <summary>
-        /// Load a resource WPF-BitmapImage (png, bmp, ...) from embedded resource defined as 'Resource' not as 'Embedded resource'.
-        /// </summary>
-        /// <param name="pathInApplication">Path without starting slash</param>
-        private static BitmapImage loadBitmapFromResource(string pathInApplication)
-        {
-            if (pathInApplication[0] == '/')
-            {
-                pathInApplication = pathInApplication.Substring(1);
-            }
-            var rootPath = @"pack://application:,,/";
-            var fullPath = Path.Combine(rootPath, pathInApplication);
-            var uri = new Uri(fullPath, UriKind.RelativeOrAbsolute);
-            Console.WriteLine(uri);
-            return new BitmapImage(uri);
-        }
-
-        private static string spaceOutWords(string input)
-        {
-            var output = new StringBuilder();
-            for (int ii = 0; ii < input.Length; ii++)
-            {
-                var letter = input[ii];
-                if (ii > 0 && char.IsUpper(letter) && output[output.Length] != ' ')
-                {
-                    output.Append(' ');
-                }
-                output.Append(letter);
-            }
-            return output.ToString();
         }
     }
 }

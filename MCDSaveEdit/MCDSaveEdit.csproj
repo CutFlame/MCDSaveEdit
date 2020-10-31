@@ -125,6 +125,9 @@
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\ImageResolver\IImageResolver.cs" />
+    <Compile Include="Logic\ImageResolver\LocalImageResolver.cs" />
+    <Compile Include="Logic\ImageResolver\PakImageResolver.cs" />
     <Compile Include="Models\Enums\Rarity.cs" />
     <Compile Include="Models\Mapping\AttributeBasedConverterFactory.cs" />
     <Compile Include="Models\Mapping\CustomNamingEnumJsonConverter.cs" />
@@ -210,7 +213,7 @@
     <Compile Include="Logic\EnchantmentExtensions.cs" />
     <Compile Include="Models\Enums\EquipmentSlotEnum.cs" />
     <Compile Include="Logic\GameCalculator.cs" />
-    <Compile Include="Logic\ImageUriHelper.cs" />
+    <Compile Include="Logic\ImageResolver\ImageUriHelper.cs" />
     <Compile Include="UserControls\ItemControl.xaml.cs">
       <DependentUpon>ItemControl.xaml</DependentUpon>
     </Compile>

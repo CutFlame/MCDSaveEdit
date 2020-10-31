@@ -54,7 +54,7 @@ namespace MCDSaveEdit
                 rarityComboBox.IsEnabled = false;
                 rarityComboBox.SelectedIndex = indexForRarity(_item.Rarity);
                 rarityComboBox.IsEnabled = true;
-                nameLabel.Content = _item.Type;
+                nameLabel.Content = R.itemName(_item.Type);
             }
 
             updateArmorPropertiesUI();

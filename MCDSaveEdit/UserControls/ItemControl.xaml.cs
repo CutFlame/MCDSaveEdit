@@ -55,7 +55,7 @@ namespace MCDSaveEdit
             }
 
             powerLabel.Content = _item.level();
-            titleLabel.Content = _item.Type;
+            titleLabel.Content = R.itemName(_item.Type);
             image.Source = ImageUriHelper.instance.imageSourceForItem(_item);
             if (image.Source == null || !ImageUriHelper.gameContentLoaded)
             {
