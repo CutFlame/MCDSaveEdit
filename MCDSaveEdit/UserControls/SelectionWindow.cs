@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 #nullable enable
 
@@ -48,7 +49,7 @@ namespace MCDSaveEdit
 
         public void loadEnchantments(string? selectedEnchantment = null)
         {
-            Title = "Select Enchantment";
+            Title = R.SELECT_ENCHANTMENT;
             Content = _listBox;
             _isProcessing = true;
             _listBox.Items.Clear();
@@ -106,32 +107,13 @@ namespace MCDSaveEdit
 
         public void loadItems(string? selectedItem = null)
         {
-            Title = "Select Item";
+            Title = R.SELECT_ITEM;
 
-            var anyButton = new Button { Margin = new Thickness(5), };
-            anyButton.Content = new Image { Source = ImageUriHelper.instance.imageSourceForItem("mysteryboxany") };
-            anyButton.Command = new RelayCommand<object>(filterItems);
-            anyButton.CommandParameter = ItemFilterEnum.All;
-
-            var meleeButton = new Button { Margin = new Thickness(5), };
-            meleeButton.Content = new Image { Source = ImageUriHelper.instance.imageSourceForItem("mysteryboxmelee") };
-            meleeButton.Command = new RelayCommand<object>(filterItems);
-            meleeButton.CommandParameter = ItemFilterEnum.MeleeWeapons;
-
-            var rangedButton = new Button { Margin = new Thickness(5), };
-            rangedButton.Content = new Image { Source = ImageUriHelper.instance.imageSourceForItem("mysteryboxranged") };
-            rangedButton.Command = new RelayCommand<object>(filterItems);
-            rangedButton.CommandParameter = ItemFilterEnum.RangedWeapons;
-
-            var armorButton = new Button { Margin = new Thickness(5), };
-            armorButton.Content = new Image { Source = ImageUriHelper.instance.imageSourceForItem("mysteryboxarmor") };
-            armorButton.Command = new RelayCommand<object>(filterItems);
-            armorButton.CommandParameter = ItemFilterEnum.Armor;
-
-            var artifactButton = new Button { Margin = new Thickness(5), };
-            artifactButton.Content = new Image { Source = ImageUriHelper.instance.imageSourceForItem("mysteryboxartifact") };
-            artifactButton.Command = new RelayCommand<object>(filterItems);
-            artifactButton.CommandParameter = ItemFilterEnum.Artifacts;
+            var anyButton = buildFilterButton(ItemFilterEnum.All);
+            var meleeButton = buildFilterButton(ItemFilterEnum.MeleeWeapons);
+            var rangedButton = buildFilterButton(ItemFilterEnum.RangedWeapons);
+            var armorButton = buildFilterButton(ItemFilterEnum.Armor);
+            var artifactButton = buildFilterButton(ItemFilterEnum.Artifacts);
 
             var toolStack = new StackPanel {
                 Height = 50,
@@ -155,6 +137,33 @@ namespace MCDSaveEdit
             buildItemList(selectedItem: selectedItem);
         }
 
+        private Button buildFilterButton(ItemFilterEnum filter)
+        {
+            var button = new Button { Margin = new Thickness(5), };
+            button.Content = new Image { Source = imageSourceForFilter(filter) };
+            button.Command = new RelayCommand<object>(filterItems);
+            button.CommandParameter = filter;
+            return button;
+        }
+
+        private ImageSource? imageSourceForFilter(ItemFilterEnum filter)
+        {
+            return ImageUriHelper.instance.imageSourceForItem(mysteryBoxStringForFilter(filter));
+        }
+
+        private string mysteryBoxStringForFilter(ItemFilterEnum filter)
+        {
+            switch (filter)
+            {
+                case ItemFilterEnum.All: return "MysteryBoxAny";
+                case ItemFilterEnum.Armor: return "MysteryBoxArmor";
+                case ItemFilterEnum.Artifacts: return "MysteryBoxArtifact";
+                case ItemFilterEnum.MeleeWeapons: return "MysteryBoxMelee";
+                case ItemFilterEnum.RangedWeapons: return "MysteryBoxRanged";
+            }
+            throw new Exception();
+        }
+
         private void filterItems(object filter)
         {
             if(filter is ItemFilterEnum filterEnum)
@@ -176,7 +185,7 @@ namespace MCDSaveEdit
                     continue;
                 }
 
-                var stackPanel = createStackPanel(imageSource, item);
+                var stackPanel = createStackPanel(imageSource, R.itemName(item));
                 var listItem = new ListBoxItem { Content = stackPanel, Tag = item };
                 _listBox.Items.Add(listItem);
 

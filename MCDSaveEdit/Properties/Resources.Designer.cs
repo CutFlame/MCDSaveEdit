@@ -286,6 +286,24 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Enchantment.
+        /// </summary>
+        public static string SELECT_ENCHANTMENT {
+            get {
+                return ResourceManager.GetString("SELECT_ENCHANTMENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Item.
+        /// </summary>
+        public static string SELECT_ITEM {
+            get {
+                return ResourceManager.GetString("SELECT_ITEM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tier.
         /// </summary>
         public static string TIER {

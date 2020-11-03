@@ -14,13 +14,13 @@
                     <Image x:Name="enchantmentImage" Source="../Images/Enchantments.png" Margin="14"/>
                 </Grid>
             </Button>
-            <StackPanel Margin="30,30,30,10">
+            <StackPanel Margin="30,30,198,10">
                 <StackPanel Orientation="Horizontal" Margin="6,0">
                     <Image x:Name="powerfulImage" Height="30" Width="30"/>
                     <Label x:Name="powerfulLabel" Content="*Powerful*" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </StackPanel>
                 <Label x:Name="enchantmentLabel" Content="*Snowing*" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24"/>
-                <TextBlock x:Name="enchantmentDescLabel" Text="*Fires a snowball at a nearby enemy every few seconds, briefly stunning it.*" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" TextWrapping="Wrap" Margin="0,0,198,0"/>
+                <TextBlock x:Name="enchantmentDescLabel" Text="*Fires a snowball at a nearby enemy every few seconds, briefly stunning it.*" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" TextWrapping="Wrap" />
             </StackPanel>
             <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Height="25" Width="25" Click="closeButton_Click">
                 <Label Content="X" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0"/>

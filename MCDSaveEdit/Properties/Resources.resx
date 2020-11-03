@@ -199,12 +199,15 @@
   </data>
   <data name="MENU_ITEM_ABOUT" xml:space="preserve">
     <value>About</value>
+    <comment>About</comment>
   </data>
   <data name="MENU_ITEM_FILE" xml:space="preserve">
     <value>File</value>
+    <comment>File</comment>
   </data>
   <data name="MENU_ITEM_GET_NEW_VERSION" xml:space="preserve">
     <value>Get New Version</value>
+    <comment>Get New Version</comment>
   </data>
   <data name="POWERFUL" xml:space="preserve">
     <value>Powerful</value>
@@ -213,6 +216,14 @@
   <data name="RANGED_ITEMS_FILTER" xml:space="preserve">
     <value>Ranged</value>
     <comment>Ranged</comment>
+  </data>
+  <data name="SELECT_ENCHANTMENT" xml:space="preserve">
+    <value>Select Enchantment</value>
+    <comment>Select Enchantment</comment>
+  </data>
+  <data name="SELECT_ITEM" xml:space="preserve">
+    <value>Select Item</value>
+    <comment>Select Item</comment>
   </data>
   <data name="TIER" xml:space="preserve">
     <value>Tier</value>

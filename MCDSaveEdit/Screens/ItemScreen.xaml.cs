@@ -1,6 +1,7 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -168,6 +169,36 @@ namespace MCDSaveEdit
             Rarity rarity = rarityForIndex(rarityComboBox.SelectedIndex);
             _item.Rarity = rarity;
             this.saveChanges?.Execute(_item);
+        }
+
+        private void inventoryItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectionWindow = new SelectionWindow();
+            selectionWindow.loadItems(_item?.Type);
+            selectionWindow.onSelection = selectedItemType;
+            selectionWindow.Show();
+        }
+
+        private void selectedItemType(string? itemType)
+        {
+            if (itemType == null)
+            {
+                _item = null;
+            }
+            else
+            {
+                if (_item == null)
+                {
+                    Debug.WriteLine("This should not happen");
+                    throw new Exception();
+                }
+                else
+                {
+                    _item.Type = itemType!;
+                }
+                this.saveChanges?.Execute(_item);
+            }
+            updateUI();
         }
 
     }

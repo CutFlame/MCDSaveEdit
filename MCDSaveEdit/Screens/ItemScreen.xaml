@@ -8,8 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="550">
     <DockPanel>
         <Grid DockPanel.Dock="Top" Height="Auto" VerticalAlignment="Stretch" Margin="0">
-            <Image x:Name="inventoryIconImage" HorizontalAlignment="Right" VerticalAlignment="Top" Source="../Images/Armor.png" Width="150" Height="150" Margin="20"/>
-            <StackPanel Margin="10,30,10,10">
+            <Button x:Name="inventoryItemButton" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Height="150" Margin="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="inventoryItemButton_Click">
+                <Image x:Name="inventoryIconImage" Source="../Images/Armor.png" />
+            </Button>
+            <StackPanel Margin="10,30,170,10">
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="powerTextBox" TextChanged="powerTextBox_TextChanged" Text="1234567890" FontSize="20" HorizontalAlignment="Center" Width="114" Background="{x:Null}" TextAlignment="Right" VerticalContentAlignment="Center"/>
                     <local:Stepper UpButtonClick="upButton_Click" DownButtonClick="downButton_Click"/>
@@ -26,7 +28,7 @@
                     <Label Content="Common Movespeed" FontSize="16"/>
                     <Label Content="Common Movespeed" FontSize="16"/>
                 </StackPanel>
-                <TextBlock x:Name="descLabel" Text="Evocation Robe" FontSize="16" TextWrapping="Wrap" Margin="0,0,150,0"/>
+                <TextBlock x:Name="descLabel" Text="Evocation Robe" FontSize="16" TextWrapping="Wrap" />
             </StackPanel>
         </Grid>
         <Grid DockPanel.Dock="Bottom" Height="160" VerticalAlignment="Bottom" Margin="10">
