@@ -109,11 +109,11 @@ namespace MCDSaveEdit
         {
             Title = R.SELECT_ITEM;
 
-            var anyButton = buildFilterButton(ItemFilterEnum.All);
-            var meleeButton = buildFilterButton(ItemFilterEnum.MeleeWeapons);
-            var rangedButton = buildFilterButton(ItemFilterEnum.RangedWeapons);
-            var armorButton = buildFilterButton(ItemFilterEnum.Armor);
-            var artifactButton = buildFilterButton(ItemFilterEnum.Artifacts);
+            var anyButton = createFilterButton(ItemFilterEnum.All);
+            var meleeButton = createFilterButton(ItemFilterEnum.MeleeWeapons);
+            var rangedButton = createFilterButton(ItemFilterEnum.RangedWeapons);
+            var armorButton = createFilterButton(ItemFilterEnum.Armor);
+            var artifactButton = createFilterButton(ItemFilterEnum.Artifacts);
 
             var toolStack = new StackPanel {
                 Height = 50,
@@ -137,7 +137,7 @@ namespace MCDSaveEdit
             buildItemList(selectedItem: selectedItem);
         }
 
-        private Button buildFilterButton(ItemFilterEnum filter)
+        private Button createFilterButton(ItemFilterEnum filter)
         {
             var button = new Button { Margin = new Thickness(5), };
             button.Content = new Image { Source = imageSourceForFilter(filter) };
@@ -187,6 +187,12 @@ namespace MCDSaveEdit
 
                 var stackPanel = createStackPanel(imageSource, R.itemName(item));
                 var listItem = new ListBoxItem { Content = stackPanel, Tag = item };
+                if (item.ToLowerInvariant().Contains("unique"))
+                {
+                    var backgroundImage = ImageUriHelper.instance.imageSourceForRarity(Rarity.Unique);
+                    var brush = new ImageBrush(backgroundImage);
+                    listItem.Background = brush;
+                }
                 _listBox.Items.Add(listItem);
 
                 if (selectedItem == item)

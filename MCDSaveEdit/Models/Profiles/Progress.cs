@@ -7,6 +7,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("completedDifficulty")]
         public string CompletedDifficulty { get; set; }
 
+        [JsonPropertyName("completedEndlessStruggle")]
+        public int CompletedEndlessStruggle { get; set; }
+
         [JsonPropertyName("completedThreatLevel")]
         public string CompletedThreatLevel { get; set; }
     }
