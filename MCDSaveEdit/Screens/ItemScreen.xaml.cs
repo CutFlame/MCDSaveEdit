@@ -44,6 +44,7 @@ namespace MCDSaveEdit
                 rarityComboBox.IsEnabled = false;
                 rarityComboBox.SelectedIndex = -1;
                 nameLabel.Content = string.Empty;
+                descLabel.Text = string.Empty;
             }
             else
             {
@@ -55,6 +56,7 @@ namespace MCDSaveEdit
                 rarityComboBox.SelectedIndex = indexForRarity(_item.Rarity);
                 rarityComboBox.IsEnabled = true;
                 nameLabel.Content = R.itemName(_item.Type);
+                descLabel.Text = R.itemDesc(_item.Type);
             }
 
             updateArmorPropertiesUI();
@@ -69,7 +71,7 @@ namespace MCDSaveEdit
                 foreach (var armorProperty in _item.Armorproperties)
                 {
                     var label = new Label();
-                    label.FontSize = 18;
+                    label.FontSize = 16;
                     label.Content = string.Format("{0}: {1}", R.armorProperty(armorProperty.Id), R.armorPropertyDescription(armorProperty.Id));
                     armorPropertiesStack.Children.Add(label);
                 }

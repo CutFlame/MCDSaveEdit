@@ -36,6 +36,17 @@ namespace MCDSaveEdit
             return type;
         }
 
+        internal static string itemDesc(string type)
+        {
+            var key = "Flavour_" + type;
+            if (_itemType.TryGetValue(key, out string value))
+            {
+                return value;
+            }
+            Debug.WriteLine($"Could not find string for {key}");
+            return type;
+        }
+
         internal static string enchantment(string enchantment)
         {
             if (_enchantment.TryGetValue(enchantment, out string value))

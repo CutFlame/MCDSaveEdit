@@ -21,11 +21,12 @@
                 </StackPanel>
                 <Label x:Name="nameLabel" Content="Evocation Robe" FontSize="24"/>
                 <StackPanel x:Name="armorPropertiesStack">
-                    <Label Content="Common Movespeed" FontSize="18"/>
-                    <Label Content="Common Movespeed" FontSize="18"/>
-                    <Label Content="Common Movespeed" FontSize="18"/>
-                    <Label Content="Common Movespeed" FontSize="18"/>
+                    <Label Content="Common Movespeed" FontSize="16"/>
+                    <Label Content="Common Movespeed" FontSize="16"/>
+                    <Label Content="Common Movespeed" FontSize="16"/>
+                    <Label Content="Common Movespeed" FontSize="16"/>
                 </StackPanel>
+                <TextBlock x:Name="descLabel" Text="Evocation Robe" FontSize="16" TextWrapping="Wrap" Margin="0,0,150,0"/>
             </StackPanel>
         </Grid>
         <Grid DockPanel.Dock="Bottom" Height="160" VerticalAlignment="Bottom" Margin="10">
