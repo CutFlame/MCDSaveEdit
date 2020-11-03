@@ -241,6 +241,33 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string MENU_ITEM_ABOUT {
+            get {
+                return ResourceManager.GetString("MENU_ITEM_ABOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string MENU_ITEM_FILE {
+            get {
+                return ResourceManager.GetString("MENU_ITEM_FILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get New Version.
+        /// </summary>
+        public static string MENU_ITEM_GET_NEW_VERSION {
+            get {
+                return ResourceManager.GetString("MENU_ITEM_GET_NEW_VERSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Powerful.
         /// </summary>
         public static string POWERFUL {

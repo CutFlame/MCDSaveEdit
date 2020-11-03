@@ -70,7 +70,7 @@ namespace MCDSaveEdit
                 {
                     var label = new Label();
                     label.FontSize = 18;
-                    label.Content = string.Format("{0} {1}", armorProperty.Rarity.ToString(), armorProperty.Id);
+                    label.Content = string.Format("{0}: {1}", R.armorProperty(armorProperty.Id), R.armorPropertyDescription(armorProperty.Id));
                     armorPropertiesStack.Children.Add(label);
                 }
             }

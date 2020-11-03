@@ -197,6 +197,15 @@
     <value>Melee</value>
     <comment>Melee</comment>
   </data>
+  <data name="MENU_ITEM_ABOUT" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MENU_ITEM_FILE" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="MENU_ITEM_GET_NEW_VERSION" xml:space="preserve">
+    <value>Get New Version</value>
+  </data>
   <data name="POWERFUL" xml:space="preserve">
     <value>Powerful</value>
     <comment>Powerful</comment>

@@ -140,6 +140,11 @@ namespace MCDSaveEdit
                             _equipment.Add("Longbow", fullPath);
                             ItemExtensions.rangedWeapons.Add("Longbow");
                         }
+                        if (itemName == "PowerBow")
+                        {
+                            _equipment.Add("Powerbow", fullPath);
+                            ItemExtensions.rangedWeapons.Add("Powerbow");
+                        }
                         if (itemName == "ShortBow")
                         {
                             _equipment.Add("Shortbow", fullPath);

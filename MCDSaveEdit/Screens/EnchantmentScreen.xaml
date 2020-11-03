@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MCDSaveEdit"
              mc:Ignorable="d"
-             d:DesignHeight="275" d:DesignWidth="400">
+             d:DesignHeight="500" d:DesignWidth="600">
     <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="178" Height="178" Margin="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="enchantmentImageButton_Click">
@@ -20,6 +20,7 @@
                     <Label x:Name="powerfulLabel" Content="*Powerful*" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </StackPanel>
                 <Label x:Name="enchantmentLabel" Content="*Snowing*" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24"/>
+                <TextBlock x:Name="enchantmentDescLabel" Text="*Fires a snowball at a nearby enemy every few seconds, briefly stunning it.*" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" TextWrapping="Wrap" Margin="0,0,198,0"/>
             </StackPanel>
             <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Height="25" Width="25" Click="closeButton_Click">
                 <Label Content="X" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0"/>
