@@ -23,6 +23,9 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <IncludeNativeLibrariesInSingleFile>true</IncludeNativeLibrariesInSingleFile>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishTrimmed>true</PublishTrimmed>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -39,7 +42,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -51,7 +54,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -303,6 +306,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Emerald.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Costura32\libSkiaSharp.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Costura64\libSkiaSharp.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
