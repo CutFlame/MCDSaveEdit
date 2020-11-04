@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -13,6 +16,12 @@ namespace MCDSaveEdit
             var options = new JsonSerializerOptions() { WriteIndented = true };
             var jsonElement = JsonSerializer.Deserialize<JsonElement>(unPrettyJson);
             return JsonSerializer.Serialize(jsonElement, options);
+        }
+
+        public static IEnumerable<T> dropLast<T>(this IEnumerable<T> enumerable, int numberToDropFromEnd)
+        {
+            var count = enumerable.Count();
+            return enumerable.Take(count - numberToDropFromEnd);
         }
 
         public static async Task<string> wgetAsync(string requestUriString)

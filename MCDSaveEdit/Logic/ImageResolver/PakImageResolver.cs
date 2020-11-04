@@ -18,6 +18,29 @@ namespace MCDSaveEdit
 {
     public class PakImageResolver: IImageResolver
     {
+        private static readonly Dictionary<string, string> _mismatches = new Dictionary<string, string>() {
+            { "TrickBow","Trickbow" },
+            { "LongBow","Longbow" },
+            { "LongBow_Unique1","Longbow_Unique1" },
+            { "LongBow_Unique2","Longbow_Unique2" },
+            { "PowerBow","Powerbow" },
+            { "PowerBow_Unique2","Powerbow_Unique2" },
+            { "Slowbow_Unique1","SlowBow_Unique1" },
+            { "ShortBow","Shortbow" },
+            { "ShortBow_Unique1","Shortbow_Unique1" },
+            { "ShortBow_Unique2","Shortbow_Unique2" },
+            { "Huntingbow_Unique1","HuntingBow_Unique1" },
+
+            { "Battlerobe_unique1","BattleRobe_Unique1" },
+
+            { "Sword_Steel","Sword" },
+            { "Pickaxe_Steel","Pickaxe" },
+            { "Pickaxe_Unique1_Steel","Pickaxe_Unique1" },
+            { "Daggers_unique2","Daggers_Unique2" },
+
+            { "Beenest","BeeNest" },
+        };
+
         private readonly LocalImageResolver _backupResolver;
         private readonly PakIndex _pakIndex;
         private readonly Dictionary<string, string> _enchantments = new Dictionary<string, string>();
@@ -81,9 +104,10 @@ namespace MCDSaveEdit
                     }
                 }
 
+                var foldername = Path.GetDirectoryName(fullPath).Split(Path.DirectorySeparatorChar).Last();
                 if (fullPath.Contains("Enchantments") && fullPath.EndsWith("_Icon"))
                 {
-                    var enchantmentName = string.Join("", filename.Skip(2).Take(filename.Length - 7));
+                    var enchantmentName = foldername;
                     if (enchantmentName.EndsWith("Shine")) continue;
                     if(!_enchantments.ContainsKey(enchantmentName))
                     {
@@ -96,8 +120,8 @@ namespace MCDSaveEdit
 
                 if (fullPath.EndsWith("_Icon_inventory") || fullPath.EndsWith("_Icon_Inventory"))
                 {
-                    var itemName = string.Join("", filename.Skip(2).Take(filename.Length - 17));
-                    if(!_equipment.ContainsKey(itemName))
+                    var itemName = foldername;
+                    if (!_equipment.ContainsKey(itemName))
                     {
                         _equipment.Add(itemName, fullPath);
                         if (!itemName.StartsWith("MysteryBox"))
@@ -110,78 +134,59 @@ namespace MCDSaveEdit
                     if (fullPath.Contains("Equipment") && fullPath.Contains("MeleeWeapons"))
                     {
                         //Handle exceptions
-                        if (itemName == "Sword_Steel")
+                        if(_mismatches.ContainsKey(itemName))
                         {
-                            _equipment.Add("Sword", fullPath);
-                            ItemExtensions.meleeWeapons.Add("Sword");
+                            var correctedItemName = _mismatches[itemName];
+                            _equipment.Add(correctedItemName, fullPath);
+                            ItemExtensions.meleeWeapons.Add(correctedItemName);
                         }
-                        if (itemName == "PickAxe_Steel")
+                        else
                         {
-                            _equipment.Add("Pickaxe", fullPath);
-                            ItemExtensions.meleeWeapons.Add("Pickaxe");
+                            ItemExtensions.meleeWeapons.Add(itemName);
                         }
-                        if (itemName == "Pickaxe_Unique1_Steel")
-                        {
-                            _equipment.Add("Pickaxe_Unique1", fullPath);
-                            ItemExtensions.meleeWeapons.Add("Pickaxe_Unique1");
-                        }
-                        ItemExtensions.meleeWeapons.Add(itemName);
                     }
                     if (fullPath.Contains("Equipment") && fullPath.Contains("RangedWeapons"))
                     {
                         //Handle exceptions
-                        if (itemName == "TrickBow")
+                        if (_mismatches.ContainsKey(itemName))
                         {
-                            _equipment.Add("Trickbow", fullPath);
-                            ItemExtensions.rangedWeapons.Add("TrickBow");
+                            var correctedItemName = _mismatches[itemName];
+                            _equipment.Add(correctedItemName, fullPath);
+                            ItemExtensions.rangedWeapons.Add(correctedItemName);
                         }
-                        if (itemName == "LongBow")
+                        else
                         {
-                            _equipment.Add("Longbow", fullPath);
-                            ItemExtensions.rangedWeapons.Add("Longbow");
+                            ItemExtensions.rangedWeapons.Add(itemName);
                         }
-                        if (itemName == "PowerBow")
-                        {
-                            _equipment.Add("Powerbow", fullPath);
-                            ItemExtensions.rangedWeapons.Add("Powerbow");
-                        }
-                        if (itemName == "ShortBow")
-                        {
-                            _equipment.Add("Shortbow", fullPath);
-                            ItemExtensions.rangedWeapons.Add("Shortbow");
-                        }
-                        if (itemName == "LongBow_Unique2")
-                        {
-                            _equipment.Add("Longbow_Unique2", fullPath);
-                            ItemExtensions.rangedWeapons.Add("Longbow_Unique2");
-                        }
-                        if (itemName == "ShortBow_Unique2")
-                        {
-                            _equipment.Add("Shortbow_Unique2", fullPath);
-                            ItemExtensions.rangedWeapons.Add("Shortbow_Unique2");
-                        }
-                        if (itemName == "Huntingbow_Unique1")
-                        {
-                            _equipment.Add("HuntingBow_Unique1", fullPath);
-                            ItemExtensions.rangedWeapons.Add("HuntingBow_Unique1");
-                        }
-                        ItemExtensions.rangedWeapons.Add(itemName);
                     }
                     if (fullPath.Contains("Equipment") && fullPath.Contains("Armor"))
                     {
                         //Handle exceptions
-                        if (itemName == "Battlerobe_unique1")
+                        if (_mismatches.ContainsKey(itemName))
                         {
-                            _equipment.Add("BattleRobe_Unique1", fullPath);
-                            ItemExtensions.armor.Add("BattleRobe_Unique1");
+                            var correctedItemName = _mismatches[itemName];
+                            _equipment.Add(correctedItemName, fullPath);
+                            ItemExtensions.armor.Add(correctedItemName);
                         }
-                        ItemExtensions.armor.Add(itemName);
+                        else
+                        {
+                            ItemExtensions.armor.Add(itemName);
+                        }
                     }
                     if (fullPath.Contains("Items"))
                     {
                         if (!itemName.StartsWith("MysteryBox"))
                         {
-                            ItemExtensions.artifacts.Add(itemName);
+                            if (_mismatches.ContainsKey(itemName))
+                            {
+                                var correctedItemName = _mismatches[itemName];
+                                _equipment.Add(correctedItemName, fullPath);
+                                ItemExtensions.artifacts.Add(correctedItemName);
+                            }
+                            else
+                            {
+                                ItemExtensions.artifacts.Add(itemName);
+                            }
                         }
                     }
                 }
