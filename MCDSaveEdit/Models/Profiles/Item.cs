@@ -6,11 +6,17 @@ namespace MCDSaveEdit.Save.Models.Profiles
 {
     public partial class Item
     {
+        [JsonPropertyName("armorproperties")]
+        public Armorproperty[] Armorproperties { get; set; }
+
         [JsonPropertyName("enchantments")]
         public Enchantment[] Enchantments { get; set; }
 
         [JsonPropertyName("equipmentSlot")]
         public string EquipmentSlot { get; set; }
+
+        [JsonPropertyName("inventoryIndex")]
+        public long? InventoryIndex { get; set; }
 
         [JsonPropertyName("power")]
         public double Power { get; set; }
@@ -23,12 +29,6 @@ namespace MCDSaveEdit.Save.Models.Profiles
 
         [JsonPropertyName("upgraded")]
         public bool Upgraded { get; set; }
-
-        [JsonPropertyName("armorproperties")]
-        public Armorproperty[] Armorproperties { get; set; }
-
-        [JsonPropertyName("inventoryIndex")]
-        public long? InventoryIndex { get; set; }
 
         [JsonPropertyName("markedNew")]
         public bool? MarkedNew { get; set; }

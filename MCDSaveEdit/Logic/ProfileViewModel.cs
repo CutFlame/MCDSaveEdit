@@ -121,10 +121,15 @@ namespace MCDSaveEdit
         private async Task tryParseFileStreamAsync(Stream stream)
         {
 #if DEBUG
+            var copy = new MemoryStream();
+            await stream.CopyToAsync(copy);
+
             stream.Seek(0, SeekOrigin.Begin);
             var profile = await ProfileParser.Read(stream);
             _profile.value = profile;
             _selectedItem.value = null;
+
+            await verifyNoDataLossOnWrite(copy);
 #else
             try
             {
@@ -139,7 +144,40 @@ namespace MCDSaveEdit
                 showError?.Invoke(R.FAILED_TO_PARSE_FILE_ERROR_MESSAGE);
             }
 #endif
+        }
 
+        private async Task verifyNoDataLossOnWrite(Stream input)
+        {
+            var inputLines = getLinesFromJsonStream(input).ToArray();
+            using var output = await ProfileParser.Write(_profile.value);
+            var outputLines = getLinesFromJsonStream(output).ToArray();
+            int lineIndex = 0;
+            for (; lineIndex < Math.Min(inputLines.Length, outputLines.Length); lineIndex++)
+            {
+                if(!inputLines[lineIndex].Equals(outputLines[lineIndex]))
+                {
+                    break;
+                }
+            }
+
+            if (lineIndex < inputLines.Length)
+            {
+                Console.WriteLine("Input:");
+                Console.WriteLine("{0}:{1}", lineIndex, inputLines[lineIndex]);
+            }
+            if (lineIndex < outputLines.Length)
+            {
+                Console.WriteLine("Output:");
+                Console.WriteLine("{0}:{1}", lineIndex, outputLines[lineIndex]);
+            }
+        }
+
+        private IEnumerable<string> getLinesFromJsonStream(Stream stream)
+        {
+            stream.Seek(0, SeekOrigin.Begin);
+            var streamStr = stream.readAllText();
+            var reader = new StringReader(Utilities.prettyJson(streamStr));
+            return reader.readAllLines();
         }
 
         #endregion

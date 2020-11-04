@@ -125,6 +125,7 @@
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\StreamExtensions.cs" />
     <Compile Include="Logic\ImageResolver\IImageResolver.cs" />
     <Compile Include="Logic\ImageResolver\LocalImageResolver.cs" />
     <Compile Include="Logic\ImageResolver\PakImageResolver.cs" />

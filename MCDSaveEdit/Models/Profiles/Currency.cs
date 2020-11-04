@@ -4,9 +4,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
 {
     public class Currency
     {
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
         [JsonPropertyName("count")]
         public ulong Count { get; set; }
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
     }
 }
