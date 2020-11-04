@@ -94,7 +94,7 @@ namespace MCDSaveEdit
                     continue;
                 }
 
-                if (fullPath.EndsWith("_Icon_inventory"))
+                if (fullPath.EndsWith("_Icon_inventory") || fullPath.EndsWith("_Icon_Inventory"))
                 {
                     var itemName = string.Join("", filename.Skip(2).Take(filename.Length - 17));
                     if(!_equipment.ContainsKey(itemName))
