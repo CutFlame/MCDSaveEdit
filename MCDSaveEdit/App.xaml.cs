@@ -1,6 +1,7 @@
 ﻿using FModel;
 using PakReader.Parsers.Objects;
 using System.Windows;
+#nullable enable
 
 namespace MCDSaveEdit
 {
@@ -9,7 +10,7 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class App : Application
     {
-        Window _busyWindow = null;
+        Window? _busyWindow = null;
 
         protected override void OnStartup(StartupEventArgs e)
         {
