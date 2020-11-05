@@ -199,16 +199,20 @@ namespace MCDSaveEdit
 
         private async void handleFileOpenAsync(string? fileName)
         {
-            if(_model == null) { return; }
+            if(_model == null || fileName == null) { return; }
             showBusyIndicator();
+            string extension = Path.GetExtension(fileName!);
+            EventLogger.logEvent("handleFileOpenAsync", new Dictionary<string, object>() { { "extension", extension } });
             await _model!.handleFileOpenAsync(fileName);
             closeBusyIndicator();
         }
 
         private async void handleFileSaveAsync(string? fileName)
         {
-            if (_model == null) { return; }
+            if (_model == null || fileName == null) { return; }
             showBusyIndicator();
+            string extension = Path.GetExtension(fileName!);
+            EventLogger.logEvent("handleFileSaveAsync", new Dictionary<string, object>() { { "extension", extension } });
             await _model!.handleFileSaveAsync(fileName);
             closeBusyIndicator();
         }

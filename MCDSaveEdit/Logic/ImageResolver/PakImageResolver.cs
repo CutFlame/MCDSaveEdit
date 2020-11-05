@@ -82,7 +82,8 @@ namespace MCDSaveEdit
                         if(stringLibrary != null)
                         {
                             R.loadExternalStrings(stringLibrary);
-                            Debug.WriteLine($"Loaded {lang} LocRes");
+                            long totalStringCount = stringLibrary.Sum(pair => pair.Value.LongCount());
+                            Debug.WriteLine($"Loaded {totalStringCount} {lang} LocRes");
                         }
                     }
                     continue;
@@ -216,12 +217,12 @@ namespace MCDSaveEdit
         {
             if (!_pakIndex.TryGetPackage(fullPath, out var package))
             {
-                Debug.WriteLine($"Could not get package from {fullPath}");
+                EventLogger.logError($"Could not get package from {fullPath}");
                 return null;
             }
             if (!package.HasExport())
             {
-                Debug.WriteLine($"Package does not have export {fullPath}");
+                EventLogger.logError($"Package does not have export {fullPath}");
                 return null;
             }
             return package;
@@ -233,13 +234,13 @@ namespace MCDSaveEdit
             var texture = package?.GetExport<UTexture2D>();
             if (texture == null)
             {
-                Debug.WriteLine($"Could not get texture from package {fullPath}");
+                EventLogger.logError($"Could not get texture from package {fullPath}");
                 return null;
             }
             var bitmap = BitmapImageFromSKImage(texture.Image);
             if (bitmap == null)
             {
-                Debug.WriteLine($"Could not get bitmap from texture {fullPath}");
+                EventLogger.logError($"Could not get bitmap from texture {fullPath}");
                 return null;
             }
             return bitmap;
@@ -249,7 +250,7 @@ namespace MCDSaveEdit
         {
             if (!_pakIndex.TryGetFile(fullPath, out var byteArray) || byteArray == null)
             {
-                Debug.WriteLine($"Could not get anything from {fullPath}");
+                EventLogger.logError($"Could not get anything from {fullPath}");
                 return null;
             }
             var stream = new MemoryStream(byteArray!.Value.Array, byteArray!.Value.Offset, byteArray!.Value.Count);
@@ -285,7 +286,7 @@ namespace MCDSaveEdit
                     return image;
                 }
             }
-            Debug.WriteLine($"Could not find full path for item {itemType}");
+            EventLogger.logError($"Could not find full path for item {itemType}");
             return _backupResolver.imageSourceForItem(itemType);
         }
 
@@ -321,7 +322,7 @@ namespace MCDSaveEdit
                     return image;
                 }
             }
-            Debug.WriteLine($"Could not find full path for enchantment {enchantmentId}");
+            EventLogger.logError($"Could not find full path for enchantment {enchantmentId}");
             return _backupResolver.imageSourceForEnchantment(enchantmentId);
         }
     }

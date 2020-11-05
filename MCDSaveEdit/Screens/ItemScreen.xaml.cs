@@ -1,6 +1,7 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -46,6 +47,7 @@ namespace MCDSaveEdit
                 rarityComboBox.SelectedIndex = -1;
                 nameLabel.Content = string.Empty;
                 descLabel.Text = string.Empty;
+                inventoryItemButton.IsEnabled = false;
             }
             else
             {
@@ -58,6 +60,9 @@ namespace MCDSaveEdit
                 rarityComboBox.IsEnabled = true;
                 nameLabel.Content = R.itemName(_item.Type);
                 descLabel.Text = R.itemDesc(_item.Type);
+
+                //disabling armor swapping for now until armorProperties can be swapped too
+                inventoryItemButton.IsEnabled = !_item.isArmor();
             }
 
             updateArmorPropertiesUI();
@@ -133,29 +138,31 @@ namespace MCDSaveEdit
         private void upButton_Click(object sender, RoutedEventArgs e)
         {
             if (_item == null || !powerTextBox.IsEnabled) { return; }
-            EventLogger.logEvent("upButton_Click");
             if (int.TryParse(powerTextBox.Text, out int level) && level < Constants.MAXIMUM_ITEM_LEVEL)
             {
-                powerTextBox.Text = (level + 1).ToString();
+                int newLevel = level + 1;
+                EventLogger.logEvent("powerTextBox_upButton_Click", new Dictionary<string, object>() { { "newLevel", newLevel } });
+                powerTextBox.Text = newLevel.ToString();
             }
         }
 
         private void downButton_Click(object sender, RoutedEventArgs e)
         {
             if (_item == null || !powerTextBox.IsEnabled) { return; }
-            EventLogger.logEvent("downButton_Click");
             if (int.TryParse(powerTextBox.Text, out int level) && level > Constants.MINIMUM_ITEM_LEVEL)
             {
-                powerTextBox.Text = (level - 1).ToString();
+                int newLevel = level - 1;
+                EventLogger.logEvent("powerTextBox_downButton_Click", new Dictionary<string, object>() { { "newLevel", newLevel } });
+                powerTextBox.Text = newLevel.ToString();
             }
         }
 
         private void powerTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_item == null || !powerTextBox.IsEnabled) { return; }
-            EventLogger.logEvent("powerTextBox_TextChanged");
             if (int.TryParse(powerTextBox.Text, out int level))
             {
+                EventLogger.logEvent("powerTextBox_TextChanged", new Dictionary<string, object>() { { "level", level } });
                 powerTextBox.BorderBrush = Brushes.Gray;
                 _item.Power = GameCalculator.powerFromLevel(level);
                 this.saveChanges?.Execute(_item);
@@ -169,19 +176,54 @@ namespace MCDSaveEdit
         private void rarityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_item == null || !rarityComboBox.IsEnabled) { return; }
-            EventLogger.logEvent("rarityComboBox_SelectionChanged");
             Rarity rarity = rarityForIndex(rarityComboBox.SelectedIndex);
+            EventLogger.logEvent("rarityComboBox_SelectionChanged", new Dictionary<string, object>() { { "rarity", rarity.ToString() } });
             _item.Rarity = rarity;
             this.saveChanges?.Execute(_item);
         }
 
         private void inventoryItemButton_Click(object sender, RoutedEventArgs e)
         {
-            EventLogger.logEvent("inventoryItemButton_Click");
+            if(_item == null) { return; }
+            EventLogger.logEvent("inventoryItemButton_Click", new Dictionary<string, object>() { { "item", _item!.Type } });
             var selectionWindow = new SelectionWindow();
-            selectionWindow.loadItems(_item?.Type);
+            var filter = getFilter(_item);
+            if(filter != ItemFilterEnum.All)
+            {
+                selectionWindow.loadFilteredItems(filter, _item?.Type);
+            }
+            else
+            {
+                selectionWindow.loadItems(_item?.Type);
+            }
             selectionWindow.onSelection = selectedItemType;
             selectionWindow.Show();
+        }
+
+        private ItemFilterEnum getFilter(Item? item)
+        {
+            if (item == null) return ItemFilterEnum.All;
+
+            if (item!.isArmor())
+            {
+                return ItemFilterEnum.Armor;
+            }
+            else if (item!.isArtifact())
+            {
+                return ItemFilterEnum.Artifacts;
+            }
+            else if (item!.isMeleeWeapon())
+            {
+                return ItemFilterEnum.MeleeWeapons;
+            }
+            else if (item!.isRangedWeapon())
+            {
+                return ItemFilterEnum.RangedWeapons;
+            }
+            else
+            {
+                return ItemFilterEnum.All;
+            }
         }
 
         private void selectedItemType(string? itemType)

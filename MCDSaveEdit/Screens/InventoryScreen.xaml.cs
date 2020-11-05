@@ -196,9 +196,9 @@ namespace MCDSaveEdit
         private void levelTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_model?.profile.value == null || !levelTextBox.IsEnabled) { return; }
-            EventLogger.logEvent("levelTextBox_TextChanged");
             if (int.TryParse(levelTextBox.Text, out int level))
             {
+                EventLogger.logEvent("levelTextBox_TextChanged", new Dictionary<string, object>() { { "level", level } });
                 _model!.level.setValue = level;
             }
         }
@@ -206,10 +206,10 @@ namespace MCDSaveEdit
         private void upButton_Click(object sender, RoutedEventArgs e)
         {
             if (_model?.profile.value == null || !levelTextBox.IsEnabled) { return; }
-            EventLogger.logEvent("upButton_Click");
             if (int.TryParse(levelTextBox.Text, out int level) && level < Constants.MAXIMUM_CHARACTER_LEVEL)
             {
                 int newLevel = level + 1;
+                EventLogger.logEvent("levelTextBox_upButton_Click", new Dictionary<string, object>() { { "newLevel", newLevel } });
                 _model!.level.setValue = newLevel;
             }
         }
@@ -217,10 +217,10 @@ namespace MCDSaveEdit
         private void downButton_Click(object sender, RoutedEventArgs e)
         {
             if (_model?.profile.value == null || !levelTextBox.IsEnabled) { return; }
-            EventLogger.logEvent("downButton_Click");
             if (int.TryParse(levelTextBox.Text, out int level) && level > Constants.MINIMUM_CHARACTER_LEVEL)
             {
                 int newLevel = level - 1;
+                EventLogger.logEvent("levelTextBox_downButton_Click", new Dictionary<string, object>() { { "newLevel", newLevel } });
                 _model!.level.setValue = newLevel;
             }
         }

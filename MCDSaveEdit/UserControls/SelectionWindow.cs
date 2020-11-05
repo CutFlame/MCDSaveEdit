@@ -36,14 +36,14 @@ namespace MCDSaveEdit
             ResizeMode = ResizeMode.NoResize;
             Height = 600;
             Width = 300;
-            _listBox.SelectionChanged += ListBox_SelectionChanged;
+            _listBox.SelectionChanged += listBox_SelectionChanged;
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            EventLogger.logEvent("ListBox_SelectionChanged");
             if (_isProcessing) return;
-            _listBox.SelectionChanged -= ListBox_SelectionChanged;
+            EventLogger.logEvent("listBox_SelectionChanged", new Dictionary<string, object>() { { "item", selectedItem ?? "null" } });
+            _listBox.SelectionChanged -= listBox_SelectionChanged;
             onSelection?.Invoke(selectedItem);
             this.Close();
         }
@@ -104,6 +104,28 @@ namespace MCDSaveEdit
             }
 
             _isProcessing = false;
+        }
+
+        public void loadFilteredItems(ItemFilterEnum filter, string? selectedItem = null)
+        {
+            Title = getTitleForFilter(filter);
+            Content = _listBox;
+
+            buildItemList(filter, selectedItem: selectedItem);
+
+            _isProcessing = false;
+        }
+
+        private string getTitleForFilter(ItemFilterEnum filter)
+        {
+            switch(filter)
+            {
+                case ItemFilterEnum.Armor: return R.SELECT_ARMOR;
+                case ItemFilterEnum.Artifacts: return R.SELECT_ARTIFACT;
+                case ItemFilterEnum.MeleeWeapons: return R.SELECT_MELEE_WEAPON;
+                case ItemFilterEnum.RangedWeapons: return R.SELECT_RANGED_WEAPON;
+                default: return R.SELECT_ITEM;
+            }
         }
 
         public void loadItems(string? selectedItem = null)

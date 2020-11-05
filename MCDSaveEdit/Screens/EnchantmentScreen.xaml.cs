@@ -1,6 +1,7 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -113,9 +114,9 @@ namespace MCDSaveEdit
         private void tierTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_enchantment == null) { return; }
-            EventLogger.logEvent("tierTextBox_TextChanged");
             if (int.TryParse(tierTextBox.Text, out int level))
             {
+                EventLogger.logEvent("tierTextBox_TextChanged", new Dictionary<string, object>() { { "level", level } });
                 _enchantment.Level = level;
                 this.saveChanges?.Execute(_enchantment);
                 updateTierUI();
@@ -123,7 +124,7 @@ namespace MCDSaveEdit
         }
         private void enchantmentImageButton_Click(object sender, RoutedEventArgs e)
         {
-            EventLogger.logEvent("enchantmentImageButton_Click");
+            EventLogger.logEvent("enchantmentImageButton_Click", new Dictionary<string, object>() { { "enchantment", _enchantment?.Id ?? "null" } });
             var selectionWindow = new SelectionWindow();
             selectionWindow.loadEnchantments(_enchantment?.Id);
             selectionWindow.onSelection = selectedEnchantmentId;
@@ -153,22 +154,22 @@ namespace MCDSaveEdit
 
         private void upButton_Click(object sender, RoutedEventArgs e)
         {
-            EventLogger.logEvent("upButton_Click");
             if (_enchantment == null) { return; }
             if (int.TryParse(tierTextBox.Text, out int level) && level < Constants.MAXIMUM_ENCHANTMENT_TIER)
             {
                 int newLevel = level + 1;
+                EventLogger.logEvent("tierTextBox_upButton_Click", new Dictionary<string, object>() { { "newLevel", newLevel } });
                 tierTextBox.Text = newLevel.ToString();
             }
         }
 
         private void downButton_Click(object sender, RoutedEventArgs e)
         {
-            EventLogger.logEvent("downButton_Click");
             if (_enchantment == null) { return; }
             if (int.TryParse(tierTextBox.Text, out int level) && level > Constants.MINIMUM_ENCHANTMENT_TIER)
             {
                 int newLevel = level - 1;
+                EventLogger.logEvent("tierTextBox_downButton_Click", new Dictionary<string, object>() { { "newLevel", newLevel } });
                 tierTextBox.Text = newLevel.ToString();
             }
         }

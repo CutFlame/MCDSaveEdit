@@ -286,6 +286,24 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Armor.
+        /// </summary>
+        public static string SELECT_ARMOR {
+            get {
+                return ResourceManager.GetString("SELECT_ARMOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Artifact.
+        /// </summary>
+        public static string SELECT_ARTIFACT {
+            get {
+                return ResourceManager.GetString("SELECT_ARTIFACT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Enchantment.
         /// </summary>
         public static string SELECT_ENCHANTMENT {
@@ -300,6 +318,24 @@ namespace MCDSaveEdit.Properties {
         public static string SELECT_ITEM {
             get {
                 return ResourceManager.GetString("SELECT_ITEM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Melee Weapon.
+        /// </summary>
+        public static string SELECT_MELEE_WEAPON {
+            get {
+                return ResourceManager.GetString("SELECT_MELEE_WEAPON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Ranged Weapon.
+        /// </summary>
+        public static string SELECT_RANGED_WEAPON {
+            get {
+                return ResourceManager.GetString("SELECT_RANGED_WEAPON", resourceCulture);
             }
         }
         

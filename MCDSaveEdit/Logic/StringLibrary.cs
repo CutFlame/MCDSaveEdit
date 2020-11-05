@@ -8,6 +8,8 @@ namespace MCDSaveEdit
     internal class R : Properties.Resources
     {
         private static readonly Dictionary<string, string> _mismatches = new Dictionary<string, string>() {
+            { "Unset_desc","Unset" },
+
             { "Accelerating","Accelerate" },
             { "AnimaConduitMelee","Anima" },
             { "AnimaConduitMelee_desc","Anima_desc" },
@@ -91,7 +93,7 @@ namespace MCDSaveEdit
             {
                 return value;
             }
-            Debug.WriteLine($"Could not find string for item {type}");
+            EventLogger.logError($"Could not find string for item {type}");
             return type;
         }
 
@@ -106,7 +108,7 @@ namespace MCDSaveEdit
             {
                 return value;
             }
-            Debug.WriteLine($"Could not find string for item {key}");
+            EventLogger.logError($"Could not find string for item {key}");
             return type;
         }
 
@@ -119,9 +121,20 @@ namespace MCDSaveEdit
             }
             if (_enchantment.TryGetValue(key, out string value))
             {
-                return value;
+                if(enchantment.ToLowerInvariant().Contains("ranged"))
+                {
+                    return $"{value} ({R.RANGED_ITEMS_FILTER})";
+                }
+                else if (enchantment.ToLowerInvariant().Contains("melee"))
+                {
+                    return $"{value} ({R.MELEE_ITEMS_FILTER})";
+                }
+                else
+                {
+                    return value;
+                }
             }
-            Debug.WriteLine($"Could not find string for enchantment {enchantment}");
+            EventLogger.logError($"Could not find string for enchantment {enchantment}");
             return enchantment;
         }
 
@@ -136,7 +149,7 @@ namespace MCDSaveEdit
             {
                 return value;
             }
-            Debug.WriteLine($"Could not find string for enchantment {key}");
+            EventLogger.logError($"Could not find string for enchantment {key}");
             return enchantment;
         }
 
@@ -151,7 +164,7 @@ namespace MCDSaveEdit
             {
                 return value;
             }
-            Debug.WriteLine($"Could not find string for enchantment {key}");
+            EventLogger.logError($"Could not find string for enchantment {key}");
             return enchantment;
         }
 
@@ -161,7 +174,7 @@ namespace MCDSaveEdit
             {
                 return value;
             }
-            Debug.WriteLine($"Could not find string for armor {armorPropertyId}");
+            EventLogger.logError($"Could not find string for armor {armorPropertyId}");
             return armorPropertyId;
         }
         internal static string armorPropertyDescription(string armorPropertyId)

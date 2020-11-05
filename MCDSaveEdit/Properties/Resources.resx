@@ -217,6 +217,14 @@
     <value>Ranged</value>
     <comment>Ranged</comment>
   </data>
+  <data name="SELECT_ARMOR" xml:space="preserve">
+    <value>Select Armor</value>
+    <comment>Select Armor</comment>
+  </data>
+  <data name="SELECT_ARTIFACT" xml:space="preserve">
+    <value>Select Artifact</value>
+    <comment>Select Artifact</comment>
+  </data>
   <data name="SELECT_ENCHANTMENT" xml:space="preserve">
     <value>Select Enchantment</value>
     <comment>Select Enchantment</comment>
@@ -224,6 +232,14 @@
   <data name="SELECT_ITEM" xml:space="preserve">
     <value>Select Item</value>
     <comment>Select Item</comment>
+  </data>
+  <data name="SELECT_MELEE_WEAPON" xml:space="preserve">
+    <value>Select Melee Weapon</value>
+    <comment>Select Melee Weapon</comment>
+  </data>
+  <data name="SELECT_RANGED_WEAPON" xml:space="preserve">
+    <value>Select Ranged Weapon</value>
+    <comment>Select Ranged Weapon</comment>
   </data>
   <data name="TIER" xml:space="preserve">
     <value>Tier</value>

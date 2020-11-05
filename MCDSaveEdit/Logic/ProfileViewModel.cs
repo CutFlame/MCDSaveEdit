@@ -247,6 +247,7 @@ namespace MCDSaveEdit
 
         public void selectItem(Item? item)
         {
+            EventLogger.logEvent("selectItem", new Dictionary<string, object>() { { "item", item?.Type ?? "null" } });
             _selectedItem.value = item;
         }
 
@@ -274,6 +275,7 @@ namespace MCDSaveEdit
 
         public void selectEnchantment(Enchantment? enchantment)
         {
+            EventLogger.logEvent("selectEnchantment", new Dictionary<string, object>() { { "enchantment", enchantment?.Id ?? "null" } });
             _selectedEnchantment.value = enchantment;
         }
 
