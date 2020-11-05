@@ -140,7 +140,7 @@ namespace MCDSaveEdit
             }
             catch (Exception e)
             {
-                EventLogger.logError(e);
+                EventLogger.logError(e.ToString());
                 showError?.Invoke(R.FAILED_TO_PARSE_FILE_ERROR_MESSAGE);
             }
 #endif

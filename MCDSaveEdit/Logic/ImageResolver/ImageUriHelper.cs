@@ -42,7 +42,7 @@ namespace MCDSaveEdit
                 {
                     var filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
                     var pakIndex = new PakIndex(path: Constants.PAKS_FOLDER, cacheFiles: true, caseSensitive: true, filter: filter);
-                    pakIndex.UseKey(FGuid.Zero, Constants.PAKS_AES_KEY_STRING);
+                    pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRING);
                     tcs.SetResult(pakIndex);
                 }
                 catch (Exception e)
