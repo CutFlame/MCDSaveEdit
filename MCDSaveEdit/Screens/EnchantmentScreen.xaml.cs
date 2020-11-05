@@ -113,6 +113,7 @@ namespace MCDSaveEdit
         private void tierTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_enchantment == null) { return; }
+            EventLogger.logEvent("tierTextBox_TextChanged");
             if (int.TryParse(tierTextBox.Text, out int level))
             {
                 _enchantment.Level = level;
@@ -122,6 +123,7 @@ namespace MCDSaveEdit
         }
         private void enchantmentImageButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("enchantmentImageButton_Click");
             var selectionWindow = new SelectionWindow();
             selectionWindow.loadEnchantments(_enchantment?.Id);
             selectionWindow.onSelection = selectedEnchantmentId;
@@ -151,6 +153,7 @@ namespace MCDSaveEdit
 
         private void upButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("upButton_Click");
             if (_enchantment == null) { return; }
             if (int.TryParse(tierTextBox.Text, out int level) && level < Constants.MAXIMUM_ENCHANTMENT_TIER)
             {
@@ -161,6 +164,7 @@ namespace MCDSaveEdit
 
         private void downButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("downButton_Click");
             if (_enchantment == null) { return; }
             if (int.TryParse(tierTextBox.Text, out int level) && level > Constants.MINIMUM_ENCHANTMENT_TIER)
             {
@@ -171,6 +175,7 @@ namespace MCDSaveEdit
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("closeButton_Click");
             close?.Execute(null);
         }
     }

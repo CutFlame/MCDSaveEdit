@@ -110,11 +110,13 @@ namespace MCDSaveEdit
 
         private void exitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            EventLogger.logEvent("exitCommandBinding_Executed");
             Application.Current.Shutdown();
         }
 
         private void openCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            EventLogger.logEvent("openCommandBinding_Executed");
             var openFileDialog = new OpenFileDialog();
             openFileDialog.CheckFileExists = true;
             openFileDialog.Filter = constructOpenFileDialogFilterString(ProfileViewModel.supportedFileTypesDict);
@@ -128,6 +130,7 @@ namespace MCDSaveEdit
 
         private void saveAsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            EventLogger.logEvent("saveAsCommandBinding_Executed");
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = constructOpenFileDialogFilterString(ProfileViewModel.supportedFileTypesDict);
             saveFileDialog.FilterIndex = 0;
@@ -140,22 +143,26 @@ namespace MCDSaveEdit
 
         private void saveCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            EventLogger.logEvent("saveCommandBinding_Executed");
             handleFileSaveAsync(_model?.filePath);
         }
 
         private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("aboutMenuItem_Click");
             var aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
         }
 
         private void updateMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("updateMenuItem_Click");
             Process.Start(Constants.LATEST_RELEASE_URL);
         }
         
         private void window_File_Drop(object sender, DragEventArgs e)
         {
+            EventLogger.logEvent("window_File_Drop");
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 // Note that you can have more than one file.
@@ -174,6 +181,7 @@ namespace MCDSaveEdit
         private void emeraldsTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_model?.profile.value == null || !emeraldsTextBox.IsEnabled) { return; }
+            EventLogger.logEvent("emeraldsTextBox_TextChanged");
             if (uint.TryParse(emeraldsTextBox.Text, out uint emeralds))
             {
                 _model!.emeralds.setValue = emeralds;
@@ -231,6 +239,7 @@ namespace MCDSaveEdit
 
         private void showError(string message)
         {
+            EventLogger.logEvent("showError", new Dictionary<string, object>() { { "message", message } });
             MessageBox.Show(message, R.ERROR);
             closeBusyIndicator();
         }

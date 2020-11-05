@@ -13,7 +13,7 @@ namespace MCDSaveEdit
         {
             if (!file.Exists)
             {
-                await Console.Error.WriteLineAsync($"[  ERROR  ] File \"{file.FullName}\" could not be found and has been skipped.");
+                EventLogger.logError($"File \"{file.FullName}\" could not be found and has been skipped.");
                 return;
             }
 
@@ -23,7 +23,7 @@ namespace MCDSaveEdit
             Stream? processed = encrypted ? await Decrypt(inputStream) : await Encrypt(inputStream);
             if (processed == null)
             {
-                await Console.Out.WriteLineAsync($"[  ERROR  ] Content of file \"{file.Name}\" could not be converted to a supported format.");
+                EventLogger.logError($"Content of file \"{file.Name}\" could not be converted to a supported format.");
                 return;
             }
 

@@ -196,6 +196,7 @@ namespace MCDSaveEdit
         private void levelTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_model?.profile.value == null || !levelTextBox.IsEnabled) { return; }
+            EventLogger.logEvent("levelTextBox_TextChanged");
             if (int.TryParse(levelTextBox.Text, out int level))
             {
                 _model!.level.setValue = level;
@@ -205,6 +206,7 @@ namespace MCDSaveEdit
         private void upButton_Click(object sender, RoutedEventArgs e)
         {
             if (_model?.profile.value == null || !levelTextBox.IsEnabled) { return; }
+            EventLogger.logEvent("upButton_Click");
             if (int.TryParse(levelTextBox.Text, out int level) && level < Constants.MAXIMUM_CHARACTER_LEVEL)
             {
                 int newLevel = level + 1;
@@ -215,6 +217,7 @@ namespace MCDSaveEdit
         private void downButton_Click(object sender, RoutedEventArgs e)
         {
             if (_model?.profile.value == null || !levelTextBox.IsEnabled) { return; }
+            EventLogger.logEvent("downButton_Click");
             if (int.TryParse(levelTextBox.Text, out int level) && level > Constants.MINIMUM_CHARACTER_LEVEL)
             {
                 int newLevel = level - 1;
@@ -230,26 +233,32 @@ namespace MCDSaveEdit
 
         private void allItemsButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("allItemsButton_Click");
             setItemFilter(ItemFilterEnum.All);
         }
         private void allMeleeItemsButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("allMeleeItemsButton_Click");
             setItemFilter(ItemFilterEnum.MeleeWeapons);
         }
         private void allRangedItemsButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("allRangedItemsButton_Click");
             setItemFilter(ItemFilterEnum.RangedWeapons);
         }
         private void allArmorItemsButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("allArmorItemsButton_Click");
             setItemFilter(ItemFilterEnum.Armor);
         }
         private void allArtifactItemsButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("allArtifactItemsButton_Click");
             setItemFilter(ItemFilterEnum.Artifacts);
         }
         private void allEnchantedItemsButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("allEnchantedItemsButton_Click");
             setItemFilter(ItemFilterEnum.Enchanted);
         }
 

@@ -41,6 +41,7 @@ namespace MCDSaveEdit
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            EventLogger.logEvent("ListBox_SelectionChanged");
             if (_isProcessing) return;
             _listBox.SelectionChanged -= ListBox_SelectionChanged;
             onSelection?.Invoke(selectedItem);

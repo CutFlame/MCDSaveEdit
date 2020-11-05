@@ -103,14 +103,14 @@ namespace MCDSaveEdit
             bool encrypted = SaveFileHandler.IsFileEncrypted(inputStream);
             if (!encrypted)
             {
-                await Console.Out.WriteLineAsync($"[  ERROR  ] The file \"{file.Name}\" was in an unexpected format.");
+                EventLogger.logError($"The file \"{file.Name}\" was in an unexpected format.");
                 showError?.Invoke(R.formatFILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE(file.Name));
                 return;
             }
             using Stream? processed = await FileProcessHelper.Decrypt(inputStream);
             if (processed == null)
             {
-                await Console.Out.WriteLineAsync($"[  ERROR  ] Content of file \"{file.Name}\" could not be converted to a supported format.");
+                EventLogger.logError($"Content of file \"{file.Name}\" could not be converted to a supported format.");
                 showError?.Invoke(R.formatFILE_DECRYPT_ERROR_MESSAGE(file.Name));
                 return;
             }
@@ -140,7 +140,7 @@ namespace MCDSaveEdit
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                EventLogger.logError(e);
                 showError?.Invoke(R.FAILED_TO_PARSE_FILE_ERROR_MESSAGE);
             }
 #endif
@@ -211,7 +211,7 @@ namespace MCDSaveEdit
             using Stream? processed = await FileProcessHelper.Encrypt(inputStream);
             if (processed == null)
             {
-                await Console.Out.WriteLineAsync($"[  ERROR  ] Failed to encrypt the json data.");
+                EventLogger.logError($"Failed to encrypt the json data.");
                 showError?.Invoke(R.FAILED_TO_ENCRYPT_ERROR_MESSAGE);
                 return;
             }

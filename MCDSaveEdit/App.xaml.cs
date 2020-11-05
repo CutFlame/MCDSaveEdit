@@ -20,7 +20,13 @@ namespace MCDSaveEdit
             initPakReader();
             loadAsync();
         }
-        
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            EventLogger.dispose();
+            base.OnExit(e);
+        }
+
         private void initPakReader()
         {
             Globals.Game = new FGame(EGame.MinecraftDungeons, EPakVersion.FNAME_BASED_COMPRESSION_METHOD);
@@ -39,7 +45,7 @@ namespace MCDSaveEdit
 
         private void showMainWindow()
         {
-            EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", ImageUriHelper.canUseGameContent() } });
+            EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", ImageUriHelper.canUseGameContent().ToString() } });
             var mainWindow = new MainWindow();
             mainWindow.model = new ProfileViewModel();
             this.MainWindow = mainWindow;

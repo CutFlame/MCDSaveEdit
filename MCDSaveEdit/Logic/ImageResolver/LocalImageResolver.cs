@@ -29,7 +29,7 @@ namespace MCDSaveEdit
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error creating bitmap for {0}", uri);
+                EventLogger.logError($"Error creating bitmap for {uri}");
                 Console.Write(e);
                 //Debug.Assert(false);
                 return null;

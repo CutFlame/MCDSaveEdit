@@ -19,6 +19,11 @@ namespace MCDSaveEdit
             GameAnalytics.Initialize(Secrets.GAME_ANALYTICS_GAME_KEY, Secrets.GAME_ANALYTICS_SECRET_KEY);
         }
 
+        public static void dispose()
+        {
+            GameAnalytics.EndSession();
+        }
+
         public static void logEvent(string eventId, IDictionary<string, object>? fields = null)
         {
             GameAnalytics.AddDesignEvent(eventId, fields);
@@ -26,6 +31,11 @@ namespace MCDSaveEdit
         public static void logEvent(string eventId, double value)
         {
             GameAnalytics.AddDesignEvent(eventId, value);
+        }
+
+        public static void logError(string message)
+        {
+            GameAnalytics.AddErrorEvent(EGAErrorSeverity.Error, message);
         }
     }
 }

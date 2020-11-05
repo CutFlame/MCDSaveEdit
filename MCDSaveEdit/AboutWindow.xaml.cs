@@ -19,11 +19,13 @@ namespace MCDSaveEdit
 
         private void patreonButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("patreonButton_Click");
             Process.Start("https://www.patreon.com/cutflame");
             this.Close();
         }
         private void buyMeACoffeeButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("buyMeACoffeeButton_Click");
             Process.Start("https://www.buymeacoffee.com/cutflame");
             this.Close();
         }

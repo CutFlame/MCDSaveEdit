@@ -133,6 +133,7 @@ namespace MCDSaveEdit
         private void upButton_Click(object sender, RoutedEventArgs e)
         {
             if (_item == null || !powerTextBox.IsEnabled) { return; }
+            EventLogger.logEvent("upButton_Click");
             if (int.TryParse(powerTextBox.Text, out int level) && level < Constants.MAXIMUM_ITEM_LEVEL)
             {
                 powerTextBox.Text = (level + 1).ToString();
@@ -142,6 +143,7 @@ namespace MCDSaveEdit
         private void downButton_Click(object sender, RoutedEventArgs e)
         {
             if (_item == null || !powerTextBox.IsEnabled) { return; }
+            EventLogger.logEvent("downButton_Click");
             if (int.TryParse(powerTextBox.Text, out int level) && level > Constants.MINIMUM_ITEM_LEVEL)
             {
                 powerTextBox.Text = (level - 1).ToString();
@@ -150,8 +152,9 @@ namespace MCDSaveEdit
 
         private void powerTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(_item == null || !powerTextBox.IsEnabled) { return; }
-            if(int.TryParse(powerTextBox.Text, out int level))
+            if (_item == null || !powerTextBox.IsEnabled) { return; }
+            EventLogger.logEvent("powerTextBox_TextChanged");
+            if (int.TryParse(powerTextBox.Text, out int level))
             {
                 powerTextBox.BorderBrush = Brushes.Gray;
                 _item.Power = GameCalculator.powerFromLevel(level);
@@ -166,6 +169,7 @@ namespace MCDSaveEdit
         private void rarityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_item == null || !rarityComboBox.IsEnabled) { return; }
+            EventLogger.logEvent("rarityComboBox_SelectionChanged");
             Rarity rarity = rarityForIndex(rarityComboBox.SelectedIndex);
             _item.Rarity = rarity;
             this.saveChanges?.Execute(_item);
@@ -173,6 +177,7 @@ namespace MCDSaveEdit
 
         private void inventoryItemButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("inventoryItemButton_Click");
             var selectionWindow = new SelectionWindow();
             selectionWindow.loadItems(_item?.Type);
             selectionWindow.onSelection = selectedItemType;
@@ -190,6 +195,7 @@ namespace MCDSaveEdit
                 if (_item == null)
                 {
                     Debug.WriteLine("This should not happen");
+                    EventLogger.logError("_item was null when itemType was not null");
                     throw new Exception();
                 }
                 else
