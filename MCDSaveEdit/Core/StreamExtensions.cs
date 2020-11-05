@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+#nullable enable
 
 namespace MCDSaveEdit
 {
@@ -12,7 +13,7 @@ namespace MCDSaveEdit
             var reader = new StreamReader(stream);
             var list = new List<string>();
             var whitespaceChars = Environment.NewLine.ToCharArray().Concat(new char[] { ' ' }).ToArray();
-            string line = reader.ReadLine()?.Trim(whitespaceChars);
+            string? line = reader.ReadLine()?.Trim(whitespaceChars);
             while (!reader.EndOfStream && line != null)
             {
                 if (!string.IsNullOrEmpty(line))
@@ -35,7 +36,7 @@ namespace MCDSaveEdit
         {
             var list = new List<string>();
             var whitespaceChars = Environment.NewLine.ToCharArray().Concat(new char[] { ' ' }).ToArray();
-            string line = reader.ReadLine()?.Trim(whitespaceChars);
+            string? line = reader.ReadLine()?.Trim(whitespaceChars);
             while (line != null)
             {
                 if (!string.IsNullOrEmpty(line))

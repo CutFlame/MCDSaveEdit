@@ -1,5 +1,6 @@
 ﻿using FModel;
 using PakReader.Parsers.Objects;
+using System.Collections.Generic;
 using System.Windows;
 #nullable enable
 
@@ -15,10 +16,14 @@ namespace MCDSaveEdit
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            Globals.Game = new FGame(EGame.MinecraftDungeons, EPakVersion.FNAME_BASED_COMPRESSION_METHOD);
-
+            EventLogger.init();
+            initPakReader();
             loadAsync();
+        }
+        
+        private void initPakReader()
+        {
+            Globals.Game = new FGame(EGame.MinecraftDungeons, EPakVersion.FNAME_BASED_COMPRESSION_METHOD);
         }
 
         private async void loadAsync()
@@ -34,6 +39,7 @@ namespace MCDSaveEdit
 
         private void showMainWindow()
         {
+            EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", ImageUriHelper.canUseGameContent() } });
             var mainWindow = new MainWindow();
             mainWindow.model = new ProfileViewModel();
             this.MainWindow = mainWindow;
