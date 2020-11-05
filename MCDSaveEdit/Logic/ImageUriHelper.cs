@@ -403,7 +403,7 @@ namespace MCDSaveEdit
                 {
                     var filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
                     var pakIndex = new PakIndex(path: Constants.PAKS_FOLDER, cacheFiles: true, caseSensitive: false, filter: filter);
-                    pakIndex.UseKey(BinaryHelper.ToBytesKey(Constants.PAKS_AES_KEY_STRING));
+                    pakIndex.UseKey(BinaryHelper.ToBytesKey(Secrets.PAKS_AES_KEY_STRING));
                     tcs.SetResult(pakIndex);
                 }
                 catch (Exception e)
