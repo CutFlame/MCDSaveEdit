@@ -121,7 +121,15 @@ namespace MCDSaveEdit
             openFileDialog.CheckFileExists = true;
             openFileDialog.Filter = constructOpenFileDialogFilterString(ProfileViewModel.supportedFileTypesDict);
             openFileDialog.FilterIndex = 0;
-            openFileDialog.InitialDirectory = Constants.FILE_DIALOG_INITIAL_DIRECTORY;
+            if(!string.IsNullOrWhiteSpace(_model?.filePath))
+            {
+                var directory = Path.GetDirectoryName(_model!.filePath);
+                openFileDialog.InitialDirectory = directory;
+            }
+            else
+            {
+                openFileDialog.InitialDirectory = Constants.FILE_DIALOG_INITIAL_DIRECTORY;
+            }
             if (openFileDialog.ShowDialog() == true)
             {
                 handleFileOpenAsync(openFileDialog.FileName);
@@ -134,7 +142,7 @@ namespace MCDSaveEdit
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = constructOpenFileDialogFilterString(ProfileViewModel.supportedFileTypesDict);
             saveFileDialog.FilterIndex = 0;
-            saveFileDialog.InitialDirectory = Constants.FILE_DIALOG_INITIAL_DIRECTORY;
+            saveFileDialog.InitialDirectory = Path.GetDirectoryName(_model!.filePath); //Constants.FILE_DIALOG_INITIAL_DIRECTORY;
             if (saveFileDialog.ShowDialog() == true)
             {
                 handleFileSaveAsync(saveFileDialog.FileName);

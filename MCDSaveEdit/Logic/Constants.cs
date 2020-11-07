@@ -19,16 +19,19 @@ namespace MCDSaveEdit
 
         public const string PAKS_FILTER_STRING = "/Dungeons/Content";
 
-        public static string PAKS_FOLDER
-        {
-            get
-            {
-                var appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                return Path.Combine(appData, "Mojang", "products", "dungeons", "dungeons", "Dungeons", "Content", "Paks");
+        public static string PAKS_FOLDER {
+            get {
+                var appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                return Path.Combine(appDataFolderPath, "Mojang", "products", "dungeons", "dungeons", "Dungeons", "Content", "Paks");
             }
         }
 
-        public const string FILE_DIALOG_INITIAL_DIRECTORY = @"%USER%\Saved Games\Mojang Studios\Dungeons\";
+        public static string FILE_DIALOG_INITIAL_DIRECTORY {
+            get {
+                var userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                return Path.Combine(userFolderPath, "Saved Games", "Mojang Studios", "Dungeons");
+            }
+        }
         public const string ENCRYPTED_FILE_EXTENSION = ".dat";
         public const string DECRYPTED_FILE_EXTENSION = ".json";
 
