@@ -74,12 +74,26 @@ namespace MCDSaveEdit
             armorPropertiesStack.Children.Clear();
             if (_item?.Armorproperties != null)
             {
+                var bulletImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
+
                 foreach (var armorProperty in _item.Armorproperties)
                 {
+                    var bulletImage = new Image();
+                    bulletImage.Source = bulletImageSource;
+                    bulletImage.Margin = new Thickness(5);
+
                     var label = new Label();
                     label.FontSize = 16;
                     label.Content = string.Format("{0}: {1}", R.armorProperty(armorProperty.Id), R.armorPropertyDescription(armorProperty.Id));
-                    armorPropertiesStack.Children.Add(label);
+                    label.VerticalAlignment = VerticalAlignment.Center;
+
+                    var armorPropertyStack = new StackPanel();
+                    armorPropertyStack.Orientation = Orientation.Horizontal;
+                    armorPropertyStack.Height = 32;
+                    armorPropertyStack.Children.Add(bulletImage);
+                    armorPropertyStack.Children.Add(label);
+
+                    armorPropertiesStack.Children.Add(armorPropertyStack);
                 }
             }
         }

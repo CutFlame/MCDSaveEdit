@@ -22,13 +22,16 @@
                     </ComboBox>
                 </StackPanel>
                 <Label x:Name="nameLabel" Content="Evocation Robe" FontSize="24"/>
-                <StackPanel x:Name="armorPropertiesStack">
-                    <Label Content="Common Movespeed" FontSize="16"/>
+                <StackPanel x:Name="armorPropertiesStack" Margin="0,5">
+                    <StackPanel Orientation="Horizontal" Height="32">
+                        <Image Width="20" Height="20" Margin="5"/>
+                        <Label Content="Common Movespeed" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
                     <Label Content="Common Movespeed" FontSize="16"/>
                     <Label Content="Common Movespeed" FontSize="16"/>
                     <Label Content="Common Movespeed" FontSize="16"/>
                 </StackPanel>
-                <TextBlock x:Name="descLabel" Text="Evocation Robe" FontSize="16" TextWrapping="Wrap" />
+                <TextBlock x:Name="descLabel" Text="Evocation Robe" FontSize="16" TextWrapping="Wrap" Padding="5" />
             </StackPanel>
         </Grid>
         <Grid DockPanel.Dock="Bottom" Height="160" VerticalAlignment="Bottom" Margin="10">

@@ -32,7 +32,7 @@ namespace MCDSaveEdit
         {
             if(fields != null)
             {
-                string fieldsStr = string.Join(" ", fields.Select(pair=>$"{pair.Key}={pair.Value}"));
+                string fieldsStr = string.Join(" ", fields.Select(pair => $"{pair.Key}={pair.Value}"));
                 Debug.WriteLine($"[EVENT] {eventId} fields: {fieldsStr}");
             }
             else
@@ -41,6 +41,7 @@ namespace MCDSaveEdit
             }
             GameAnalytics.AddDesignEvent(eventId, fields);
         }
+
         public static void logEvent(string eventId, double value)
         {
             Debug.WriteLine($"[EVENT] {eventId} value={value}");

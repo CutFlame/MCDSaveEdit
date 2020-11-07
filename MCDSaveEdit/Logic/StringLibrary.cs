@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
+#nullable enable
 
 namespace MCDSaveEdit
 {
@@ -61,17 +60,33 @@ namespace MCDSaveEdit
             { "TrickBow","Trickbow" },
             { "TrickBow_Unique1","Trickbow_Unique1" },
             { "TrickBow_Unique2","Trickbow_Unique1" },
+
+            { "ItemCooldownDecrease","ArtifactCooldownDecrease" },
+            { "ItemCooldownDecrease_description","ArtifactCooldownDecrease_description" },
+            { "ItemDamageBoost","ArtifactDamageBoost" },
+            { "ItemDamageBoost_description","ArtifactDamageBoost_description" },
+            { "SlowResistance","FreezingResistance" },
+            { "SlowResistance_description","FreezingResistance_description" },
         };
 
-        private static Dictionary<string, string> _itemType;
-        private static Dictionary<string, string> _enchantment;
-        private static Dictionary<string, string> _armorProperties;
+        private static Dictionary<string, string> _itemType = new Dictionary<string, string>();
+        private static Dictionary<string, string> _enchantment = new Dictionary<string, string>();
+        private static Dictionary<string, string> _armorProperties = new Dictionary<string, string>();
 
         public static void loadExternalStrings(Dictionary<string, Dictionary<string, string>> stringLibrary)
         {
-            _itemType = stringLibrary["ItemType"].ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
-            _enchantment = stringLibrary["Enchantment"].ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
-            _armorProperties = stringLibrary["ArmorProperties"].ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
+            if (stringLibrary.TryGetValue("ItemType", out var itemDict))
+            {
+                _itemType = itemDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
+            }
+            if (stringLibrary.TryGetValue("Enchantment", out var enchantmentDict))
+            {
+                _enchantment = enchantmentDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
+            }
+            if (stringLibrary.TryGetValue("ArmorProperties", out var armorPropertyDict))
+            {
+                _armorProperties = armorPropertyDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
+            }
         }
 
         internal static string formatFILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE(string filename) { return string.Format(FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE, filename); }
@@ -84,22 +99,17 @@ namespace MCDSaveEdit
 
         internal static string itemName(string type)
         {
-            var key = type;
-            if (_mismatches.ContainsKey(key))
-            {
-                key = _mismatches[key];
-            }
-            if (_itemType.TryGetValue(key, out string value))
-            {
-                return value;
-            }
-            EventLogger.logError($"Could not find string for item {type}");
-            return type;
+            return getItemString(type) ?? type;
         }
 
         internal static string itemDesc(string type)
         {
             var key = "Flavour_" + type;
+            return getItemString(key) ?? type;
+        }
+
+        private static string? getItemString(string key)
+        {
             if (_mismatches.ContainsKey(key))
             {
                 key = _mismatches[key];
@@ -109,8 +119,9 @@ namespace MCDSaveEdit
                 return value;
             }
             EventLogger.logError($"Could not find string for item {key}");
-            return type;
+            return null;
         }
+
 
         internal static string enchantment(string enchantment)
         {
@@ -134,28 +145,24 @@ namespace MCDSaveEdit
                     return value;
                 }
             }
-            EventLogger.logError($"Could not find string for enchantment {enchantment}");
+            EventLogger.logError($"Could not find string for enchantment {key}");
             return enchantment;
         }
 
         internal static string enchantmentDescription(string enchantment)
         {
             var key = enchantment + "_desc";
-            if (_mismatches.ContainsKey(key))
-            {
-                key = _mismatches[key];
-            }
-            if (_enchantment.TryGetValue(key, out string value))
-            {
-                return value;
-            }
-            EventLogger.logError($"Could not find string for enchantment {key}");
-            return enchantment;
+            return getEnchantmentString(key) ?? enchantment;
         }
 
         internal static string enchantmentEffect(string enchantment)
         {
             var key = enchantment + "_effect";
+            return getEnchantmentString(key) ?? enchantment;
+        }
+
+        private static string? getEnchantmentString(string key)
+        {
             if (_mismatches.ContainsKey(key))
             {
                 key = _mismatches[key];
@@ -165,26 +172,32 @@ namespace MCDSaveEdit
                 return value;
             }
             EventLogger.logError($"Could not find string for enchantment {key}");
-            return enchantment;
+            return null;
         }
 
         internal static string armorProperty(string armorPropertyId)
         {
-            if (_armorProperties.TryGetValue(armorPropertyId, out string value))
-            {
-                return value;
-            }
-            EventLogger.logError($"Could not find string for armor {armorPropertyId}");
-            return armorPropertyId;
+            return getArmorPropertyString(armorPropertyId) ?? armorPropertyId;
         }
+
         internal static string armorPropertyDescription(string armorPropertyId)
         {
             var key = armorPropertyId + "_description";
-            if (_armorProperties.TryGetValue(key, out string description))
+            return getArmorPropertyString(key) ?? armorPropertyId;
+        }
+
+        private static string? getArmorPropertyString(string key)
+        {
+            if (_mismatches.ContainsKey(key))
             {
-                return description;
+                key = _mismatches[key];
             }
-            return armorProperty(armorPropertyId);
+            if (_armorProperties.TryGetValue(key, out string value))
+            {
+                return value;
+            }
+            EventLogger.logError($"Could not find string for armor {key}");
+            return null;
         }
     }
 }
