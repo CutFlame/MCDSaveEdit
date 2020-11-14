@@ -15,15 +15,24 @@ namespace MCDSaveEdit
     {
         public static IImageResolver instance = new LocalImageResolver();
 
-        public static bool canUseGameContent()
+        public static string? usableGameContentIfExists()
         {
-            return Directory.Exists(Constants.PAKS_FOLDER);
+            string? winstorePath = Constants.WINSTORE_PAKS_FOLDER_IF_EXISTS;
+            if (!string.IsNullOrWhiteSpace(winstorePath) && Directory.Exists(winstorePath))
+            {
+                return winstorePath;
+            }
+            if (Directory.Exists(Constants.PAKS_FOLDER_PATH))
+            {
+                return Constants.PAKS_FOLDER_PATH;
+            }
+            return null;
         }
 
         public static bool gameContentLoaded { get; private set; } = false;
-        public static async Task loadGameContentAsync()
+        public static async Task loadGameContentAsync(string paksFolderPath)
         {
-            var pakIndex = await loadPakIndex();
+            var pakIndex = await loadPakIndex(paksFolderPath);
             if (pakIndex != null)
             {
                 var pakImageResolver = new PakImageResolver(pakIndex);
@@ -33,7 +42,7 @@ namespace MCDSaveEdit
             }
         }
 
-        private static Task<PakIndex?> loadPakIndex()
+        private static Task<PakIndex?> loadPakIndex(string paksFolderPath)
         {
             var tcs = new TaskCompletionSource<PakIndex?>();
             Task.Run(() =>
@@ -41,7 +50,7 @@ namespace MCDSaveEdit
                 try
                 {
                     var filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
-                    var pakIndex = new PakIndex(path: Constants.PAKS_FOLDER, cacheFiles: true, caseSensitive: true, filter: filter);
+                    var pakIndex = new PakIndex(path: paksFolderPath, cacheFiles: true, caseSensitive: true, filter: filter);
                     pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRING);
                     tcs.SetResult(pakIndex);
                 }

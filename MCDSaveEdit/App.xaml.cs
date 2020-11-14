@@ -34,10 +34,11 @@ namespace MCDSaveEdit
 
         private async void loadAsync()
         {
-            if (ImageUriHelper.canUseGameContent())
+            string? paksFolderPath = ImageUriHelper.usableGameContentIfExists();
+            if (!string.IsNullOrWhiteSpace(paksFolderPath))
             {
                 showBusyIndicator();
-                await ImageUriHelper.loadGameContentAsync();
+                await ImageUriHelper.loadGameContentAsync(paksFolderPath!);
             }
 
             showMainWindow();
@@ -45,7 +46,7 @@ namespace MCDSaveEdit
 
         private void showMainWindow()
         {
-            EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", ImageUriHelper.canUseGameContent().ToString() } });
+            EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", (!string.IsNullOrWhiteSpace(Constants.PAKS_FOLDER_PATH)).ToString() } });
             var mainWindow = new MainWindow();
             mainWindow.model = new ProfileViewModel();
             this.MainWindow = mainWindow;

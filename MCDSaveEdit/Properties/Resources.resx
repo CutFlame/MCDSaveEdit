@@ -221,6 +221,10 @@
     <value>Select Armor</value>
     <comment>Select Armor</comment>
   </data>
+  <data name="SELECT_ARMOR_PROPERTY" xml:space="preserve">
+    <value>Select Armor Property</value>
+    <comment>Select Armor Property</comment>
+  </data>
   <data name="SELECT_ARTIFACT" xml:space="preserve">
     <value>Select Artifact</value>
     <comment>Select Artifact</comment>

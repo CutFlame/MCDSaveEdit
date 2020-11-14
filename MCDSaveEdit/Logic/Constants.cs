@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using Windows.Management.Deployment;
+#nullable enable
 
 namespace MCDSaveEdit
 {
@@ -19,10 +21,25 @@ namespace MCDSaveEdit
 
         public const string PAKS_FILTER_STRING = "/Dungeons/Content";
 
-        public static string PAKS_FOLDER {
+        public static string PAKS_FOLDER_PATH {
             get {
                 var appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 return Path.Combine(appDataFolderPath, "Mojang", "products", "dungeons", "dungeons", "Dungeons", "Content", "Paks");
+            }
+        }
+
+        public static string? WINSTORE_PAKS_FOLDER_IF_EXISTS {
+            get {
+                var pm = new PackageManager();
+                foreach (var pkg in pm.FindPackagesForUser(string.Empty, "Microsoft.Lovika_8wekyb3d8bbwe"))
+                {
+                    if (pkg.IsDevelopmentMode) // Only true if run through the script
+                    {
+                        return Path.Combine(pkg.InstalledLocation.Path, "Dungeons", "Content", "Paks");
+                    }
+                }
+                // Game has not been run through the script, meaning the files are not accessible
+                return null;
             }
         }
 

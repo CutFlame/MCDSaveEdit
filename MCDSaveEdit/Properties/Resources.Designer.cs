@@ -295,6 +295,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Armor Property.
+        /// </summary>
+        public static string SELECT_ARMOR_PROPERTY {
+            get {
+                return ResourceManager.GetString("SELECT_ARMOR_PROPERTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Artifact.
         /// </summary>
         public static string SELECT_ARTIFACT {

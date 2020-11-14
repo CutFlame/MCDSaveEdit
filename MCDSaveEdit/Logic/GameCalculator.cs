@@ -9,12 +9,12 @@ namespace MCDSaveEdit
 
         public static int levelFromPower(double power)
         {
-            return (int)Math.Floor((power - 1) * 10) + 1;
+            return (int)Math.Floor((power - 1 + 0.00001) * 10) + 1;
         }
 
         public static double powerFromLevel(int level)
         {
-            return (((level - 1) / 10.0) + 1); // - 0.00000100; //not sure if this last part is needed
+            return (((level - 1) / 10.0) + 1) + 0.00001; //not sure if this last part is needed
         }
 
         public static int levelForExperience(long xp)

@@ -7,7 +7,6 @@ using System.Linq;
 
 namespace MCDSaveEdit
 {
-
     public class EventLogger
     {
         public static void init()
@@ -16,11 +15,16 @@ namespace MCDSaveEdit
             GameAnalytics.SetEnabledInfoLog(true);
             GameAnalytics.SetEnabledVerboseLog(false);
             GameAnalytics.SetEnabledEventSubmission(false);
+#else
+            GameAnalytics.SetEnabledInfoLog(true);
+            GameAnalytics.SetEnabledVerboseLog(false);
+            GameAnalytics.SetEnabledEventSubmission(true);
 #endif
             GameAnalytics.ConfigureBuild(Constants.CURRENT_RELEASE_TAG_NAME);
 
             //Comment out this line or fill in your own GameAnalytics game key and secret key
             GameAnalytics.Initialize(Secrets.GAME_ANALYTICS_GAME_KEY, Secrets.GAME_ANALYTICS_SECRET_KEY);
+            GameAnalytics.StartSession();
         }
 
         public static void dispose()

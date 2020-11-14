@@ -5,9 +5,9 @@ using System.Reactive;
 
 namespace MCDSaveEdit
 {
-    public class ObservableBase<T>: IObservable<T>
+    public abstract class ObservableBase<T>: IObservable<T>
     {
-        private readonly List<IObserver<T>> _observers = new List<IObserver<T>>();
+        private readonly HashSet<IObserver<T>> _observers = new HashSet<IObserver<T>>();
 
         protected void sendNext(T nextValue)
         {
@@ -28,7 +28,7 @@ namespace MCDSaveEdit
         }
         public virtual void unsubscribe(IObserver<T> observer)
         {
-            _observers.Add(observer);
+            _observers.Remove(observer);
         }
     }
 
@@ -63,6 +63,14 @@ namespace MCDSaveEdit
         public Property(T value)
         {
             _value = value;
+        }
+    }
+
+    public static class PropertyExtensions
+    {
+        public static MappedProperty<THidden, TVisible> map<THidden, TVisible>(this Property<THidden> property, Func<THidden, TVisible>? getMethod, Action<THidden, TVisible>? setMethod = null)
+        {
+            return new MappedProperty<THidden, TVisible>(property, getMethod, setMethod);
         }
     }
 

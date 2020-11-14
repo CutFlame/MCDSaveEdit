@@ -48,6 +48,18 @@ namespace MCDSaveEdit
             this.Close();
         }
 
+        public void loadArmorProperties(string? selectedArmorProperty = null)
+        {
+            Title = R.SELECT_ARMOR_PROPERTY;
+            Content = _listBox;
+            _isProcessing = true;
+            _listBox.Items.Clear();
+
+            //TODO: populate the listbox with all the possible armor properties
+
+            _isProcessing = false;
+        }
+
         public void loadEnchantments(string? selectedEnchantment = null)
         {
             Title = R.SELECT_ENCHANTMENT;
