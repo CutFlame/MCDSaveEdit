@@ -1,8 +1,6 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
-using PakReader;
 using PakReader.Pak;
-using PakReader.Parsers.Class;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -16,7 +14,7 @@ using System.Windows.Media.Imaging;
 
 namespace MCDSaveEdit
 {
-    public class PakImageResolver: IImageResolver
+    public class PakImageResolver : IImageResolver
     {
         private static readonly Dictionary<string, string> _mismatches = new Dictionary<string, string>() {
             { "TrickBow","Trickbow" },
@@ -76,10 +74,11 @@ namespace MCDSaveEdit
                 {
                     var splitPath = fullPath.Split(new[] { "Game" }, StringSplitOptions.RemoveEmptyEntries);
                     string lang = splitPath[splitPath.Length - 1].Trim('/');
-                    if(lang == "en")
+                    //Handle english language strings
+                    if (lang == "en")
                     {
-                        var stringLibrary = extractLocResFile(fullPath);
-                        if(stringLibrary != null)
+                        var stringLibrary = _pakIndex.extractLocResFile(fullPath);
+                        if (stringLibrary != null)
                         {
                             R.loadExternalStrings(stringLibrary);
                             long totalStringCount = stringLibrary.Sum(pair => pair.Value.LongCount());
@@ -96,9 +95,9 @@ namespace MCDSaveEdit
                     continue;
                 }
 
-                if(preloadBitmaps)
+                if (preloadBitmaps)
                 {
-                    var bitmap = extractBitmap(fullPath);
+                    var bitmap = _pakIndex.extractBitmap(fullPath);
                     if (bitmap != null)
                     {
                         _bitmaps[fullPath] = bitmap;
@@ -110,7 +109,7 @@ namespace MCDSaveEdit
                 {
                     var enchantmentName = foldername;
                     if (enchantmentName.EndsWith("Shine")) continue;
-                    if(!_enchantments.ContainsKey(enchantmentName))
+                    if (!_enchantments.ContainsKey(enchantmentName))
                     {
                         _enchantments.Add(enchantmentName, fullPath);
                         EnchantmentExtensions.allEnchantments.Add(enchantmentName);
@@ -135,13 +134,12 @@ namespace MCDSaveEdit
                     if (fullPath.Contains("Equipment") && fullPath.Contains("MeleeWeapons"))
                     {
                         //Handle exceptions
-                        if(_mismatches.ContainsKey(itemName))
+                        if (_mismatches.ContainsKey(itemName))
                         {
                             var correctedItemName = _mismatches[itemName];
                             _equipment.Add(correctedItemName, fullPath);
                             ItemExtensions.meleeWeapons.Add(correctedItemName);
-                        }
-                        else
+                        } else
                         {
                             ItemExtensions.meleeWeapons.Add(itemName);
                         }
@@ -154,8 +152,7 @@ namespace MCDSaveEdit
                             var correctedItemName = _mismatches[itemName];
                             _equipment.Add(correctedItemName, fullPath);
                             ItemExtensions.rangedWeapons.Add(correctedItemName);
-                        }
-                        else
+                        } else
                         {
                             ItemExtensions.rangedWeapons.Add(itemName);
                         }
@@ -168,8 +165,7 @@ namespace MCDSaveEdit
                             var correctedItemName = _mismatches[itemName];
                             _equipment.Add(correctedItemName, fullPath);
                             ItemExtensions.armor.Add(correctedItemName);
-                        }
-                        else
+                        } else
                         {
                             ItemExtensions.armor.Add(itemName);
                         }
@@ -183,8 +179,7 @@ namespace MCDSaveEdit
                                 var correctedItemName = _mismatches[itemName];
                                 _equipment.Add(correctedItemName, fullPath);
                                 ItemExtensions.artifacts.Add(correctedItemName);
-                            }
-                            else
+                            } else
                             {
                                 ItemExtensions.artifacts.Add(itemName);
                             }
@@ -206,70 +201,11 @@ namespace MCDSaveEdit
             var path = pathWithoutExtension;
             if (!_bitmaps.ContainsKey(path))
             {
-                var bitmap = extractBitmap(path);
-                if(bitmap == null) return null;
+                var bitmap = _pakIndex.extractBitmap(path);
+                if (bitmap == null) return null;
                 _bitmaps[path] = bitmap!;
             }
             return _bitmaps[path];
-        }
-
-        private PakPackage? extractPackage(string fullPath)
-        {
-            if (!_pakIndex.TryGetPackage(fullPath, out var package))
-            {
-                EventLogger.logError($"Could not get package from {fullPath}");
-                return null;
-            }
-            if (!package.HasExport())
-            {
-                EventLogger.logError($"Package does not have export {fullPath}");
-                return null;
-            }
-            return package;
-        }
-
-        private BitmapImage? extractBitmap(string fullPath)
-        {
-            var package = extractPackage(fullPath);
-            var texture = package?.GetExport<UTexture2D>();
-            if (texture == null)
-            {
-                EventLogger.logError($"Could not get texture from package {fullPath}");
-                return null;
-            }
-            var bitmap = BitmapImageFromSKImage(texture.Image);
-            if (bitmap == null)
-            {
-                EventLogger.logError($"Could not get bitmap from texture {fullPath}");
-                return null;
-            }
-            return bitmap;
-        }
-
-        private Dictionary<string, Dictionary<string, string>>? extractLocResFile(string fullPath)
-        {
-            if (!_pakIndex.TryGetFile(fullPath, out var byteArray) || byteArray == null)
-            {
-                EventLogger.logError($"Could not get anything from {fullPath}");
-                return null;
-            }
-            var stream = new MemoryStream(byteArray!.Value.Array, byteArray!.Value.Offset, byteArray!.Value.Count);
-            Dictionary<string, Dictionary<string, string>>? entries = new LocResReader(stream).Entries;
-            return entries;
-        }
-
-        private static BitmapImage BitmapImageFromSKBitmap(SKBitmap image) => BitmapImageFromSKImage(SKImage.FromBitmap(image));
-        private static BitmapImage BitmapImageFromSKImage(SKImage image)
-        {
-            using var encoded = image.Encode();
-            using var stream = encoded.AsStream();
-            BitmapImage photo = new BitmapImage();
-            photo.BeginInit();
-            photo.CacheOption = BitmapCacheOption.OnLoad;
-            photo.StreamSource = stream;
-            photo.EndInit();
-            photo.Freeze();
-            return photo;
         }
 
         public BitmapImage? imageSourceForItem(Item item)

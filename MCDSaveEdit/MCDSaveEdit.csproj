@@ -148,6 +148,7 @@
     <Compile Include="Logic\ImageResolver\IImageResolver.cs" />
     <Compile Include="Logic\ImageResolver\LocalImageResolver.cs" />
     <Compile Include="Logic\ImageResolver\PakImageResolver.cs" />
+    <Compile Include="Logic\ImageResolver\PakIndexExtensions.cs" />
     <Compile Include="Logic\Secrets.cs" />
     <Compile Include="Models\Enums\Rarity.cs" />
     <Compile Include="Models\Mapping\AttributeBasedConverterFactory.cs" />
@@ -323,6 +324,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Costura64\libSkiaSharp.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Costura32\sqlite3.dll" />
+    <EmbeddedResource Include="Costura64\sqlite3.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

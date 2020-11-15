@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 #nullable enable
 
 namespace MCDSaveEdit
 {
-    internal class R : Properties.Resources
+    public class R : Properties.Resources
     {
         private static readonly Dictionary<string, string> _mismatches = new Dictionary<string, string>() {
             { "Unset_desc","Unset" },
@@ -37,29 +38,62 @@ namespace MCDSaveEdit
             { "SoulSiphon","Soul" },
             { "TempoTheft","Tempo" },
             { "TempoTheft_desc","Tempo_desc" },
+            { "JunglePoisonMelee_desc","JunglePoisonMelee" },
+            { "JunglePoisonRanged_desc","JunglePoison" },
+            { "EnigmaResonatorMelee_desc","Enigma_desc" },
+            { "EnigmaResonatorRanged_desc","EnigmaRanged_desc" },
+            { "SoulSiphon_desc","Soul_desc" },
 
             { "Powerbow","PowerBow" },
             { "Powerbow_Unique2","PowerBow_Unique2" },
             { "Flavour_Sword","Desc_Sword" },
+            { "Flavour_Sword_Steel","Desc_Sword" },
+            { "Flavour_Sword_Spooky1", "Desc_Sword_Spooky1" },
+            { "Flavour_ShortBow_Unique3", "Flavour_Shortbow_Unique3" },
             { "CorruptedSeeds","CorruptedSeeds_Unique1" },
             { "Flavour_CorruptedSeeds","Flavour_CorruptedSeeds_Unique1" },
             { "Beenest","BeeNest" },
+            { "Flavour_Beenest", "Flavour_BeeNest" },
             { "Daggers_unique2","Daggers_Unique2" },
-            { "HighlanderLongSword","HighlanderLongSword" },
+            { "Flavour_Daggers_unique2","Flavour_Daggers_Unique2" },
+            { "HighlanderLongSword","Sword" }, //Missing
+            { "Flavour_HighlanderLongSword","Desc_Sword" }, //Missing
             { "LongBow","Longbow" },
+            { "Flavour_LongBow","Flavour_Longbow" },
             { "LongBow_Unique1","Longbow_Unique1" },
             { "LongBow_Unique2","Longbow_Unique2" },
             { "OakWoodBrew","OakwoodBrew" },
             { "Pickaxe_Steel","Pickaxe" },
+            { "Flavour_Pickaxe_Steel","Flavour_Pickaxe" },
             { "Pickaxe_Unique1_Steel","Pickaxe_Unique1" },
+            { "Flavour_Pickaxe_Unique1_Steel","Flavour_Pickaxe_Unique1" },
             { "ShortBow_Unique1","Shortbow_Unique1" },
             { "ShortBow_Unique2","Shortbow_Unique1" },
             { "ShortBow_Unique3","Shortbow_Unique1" },
             { "Slowbow_Unique1","SlowBow_Unique1" },
             { "Sword_Steel","Sword" },
+            { "Flavour_Sword_Unique2", "Desc_Sword_Unique2" },
+            { "Flavour_Sword_Unique1", "Desc_Sword_Unique1" },
             { "TrickBow","Trickbow" },
             { "TrickBow_Unique1","Trickbow_Unique1" },
             { "TrickBow_Unique2","Trickbow_Unique1" },
+            { "Flavour_LongBow_Unique1","Flavour_Longbow_Unique1" },
+            { "Flavour_LongBow_Unique2","Flavour_Longbow_Unique2" },
+            { "Flavour_PowerBow","Flavour_Powerbow" },
+            { "Flavour_PowerBow_Unique1","Flavour_Powerbow_Unique1" },
+            { "Flavour_PowerBow_Unique2","Flavour_Powerbow_Unique2" },
+            { "Flavour_ShortBow_Unique1","Flavour_Shortbow_Unique1" },
+            { "Flavour_ShortBow_Unique2","Flavour_Shortbow_Unique2" },
+            { "Flavour_Slowbow_Unique1","Flavour_SlowBow_Unique1" },
+            { "Flavour_TrickBow","Flavour_Trickbow" },
+            { "Flavour_TrickBow_Unique1","Flavour_Trickbow_Unique1" },
+            { "Flavour_TrickBow_Unique2","Flavour_Trickbow_Unique2" },
+            { "Flavour_BackstabbersBrew","Desc_BackstabbersBrew" },
+            { "Flavour_HealthPotion","Desc_HealthPotion" },
+            { "Flavour_OakWoodBrew","OakwoodBrew" },
+            { "Flavour_StrengthPotion","Desc_StrengthPotion" },
+            { "Flavour_SwiftnessPotion","Desc_SwiftnessPotion" },
+            { "Flavour_TNTBox","Desc_TNTBox"},
 
             { "ItemCooldownDecrease","ArtifactCooldownDecrease" },
             { "ItemCooldownDecrease_description","ArtifactCooldownDecrease_description" },
@@ -97,12 +131,12 @@ namespace MCDSaveEdit
 
         internal static string formatVERSION(string versionString) { return string.Format(VERSION_FORMAT, versionString); }
 
-        internal static string itemName(string type)
+        public static string itemName(string type)
         {
             return getItemString(type) ?? type;
         }
 
-        internal static string itemDesc(string type)
+        public static string itemDesc(string type)
         {
             var key = "Flavour_" + type;
             return getItemString(key) ?? type;
@@ -118,12 +152,12 @@ namespace MCDSaveEdit
             {
                 return value;
             }
-            EventLogger.logError($"Could not find string for item {key}");
+            Console.WriteLine($"Could not find string for item {key}");
             return null;
         }
 
 
-        internal static string enchantment(string enchantment)
+        public static string enchantmentName(string enchantment)
         {
             var key = enchantment;
             if (_mismatches.ContainsKey(key))
@@ -149,13 +183,13 @@ namespace MCDSaveEdit
             return enchantment;
         }
 
-        internal static string enchantmentDescription(string enchantment)
+        public static string enchantmentDescription(string enchantment)
         {
             var key = enchantment + "_desc";
             return getEnchantmentString(key) ?? enchantment;
         }
 
-        internal static string enchantmentEffect(string enchantment)
+        public static string enchantmentEffect(string enchantment)
         {
             var key = enchantment + "_effect";
             return getEnchantmentString(key) ?? enchantment;
@@ -171,16 +205,16 @@ namespace MCDSaveEdit
             {
                 return value;
             }
-            EventLogger.logError($"Could not find string for enchantment {key}");
+            Console.WriteLine($"Could not find string for enchantment {key}");
             return null;
         }
 
-        internal static string armorProperty(string armorPropertyId)
+        public static string armorProperty(string armorPropertyId)
         {
             return getArmorPropertyString(armorPropertyId) ?? armorPropertyId;
         }
 
-        internal static string armorPropertyDescription(string armorPropertyId)
+        public static string armorPropertyDescription(string armorPropertyId)
         {
             var key = armorPropertyId + "_description";
             return getArmorPropertyString(key) ?? armorPropertyId;

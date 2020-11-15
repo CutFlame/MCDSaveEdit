@@ -86,7 +86,7 @@ namespace MCDSaveEdit
                 var label = new Label {
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 14,
-                    Content = R.enchantment(enchantment),
+                    Content = R.enchantmentName(enchantment),
                 };
 
                 var stackPanel = new StackPanel {

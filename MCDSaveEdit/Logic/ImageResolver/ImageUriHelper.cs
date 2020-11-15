@@ -1,6 +1,7 @@
 ﻿using PakReader;
 using PakReader.Pak;
 using PakReader.Parsers.Objects;
+using SkiaSharp;
 using System;
 using System.IO;
 using System.Text;
@@ -62,6 +63,21 @@ namespace MCDSaveEdit
             });
             return tcs.Task;
         }
+
+        public static BitmapImage bitmapImageFromSKBitmap(SKBitmap image) => bitmapImageFromSKImage(SKImage.FromBitmap(image));
+        public static BitmapImage bitmapImageFromSKImage(SKImage image)
+        {
+            using var encoded = image.Encode();
+            using var stream = encoded.AsStream();
+            BitmapImage photo = new BitmapImage();
+            photo.BeginInit();
+            photo.CacheOption = BitmapCacheOption.OnLoad;
+            photo.StreamSource = stream;
+            photo.EndInit();
+            photo.Freeze();
+            return photo;
+        }
+
 
         /// <summary>
         /// Load a resource WPF-BitmapImage (png, bmp, ...) from embedded resource defined as 'Resource' not as 'Embedded resource'.
