@@ -106,6 +106,7 @@ namespace MCDSaveEdit
         private static Dictionary<string, string> _itemType = new Dictionary<string, string>();
         private static Dictionary<string, string> _enchantment = new Dictionary<string, string>();
         private static Dictionary<string, string> _armorProperties = new Dictionary<string, string>();
+        public static bool isStringsLoaded { get; private set; } = false;
 
         public static void loadExternalStrings(Dictionary<string, Dictionary<string, string>> stringLibrary)
         {
@@ -121,6 +122,7 @@ namespace MCDSaveEdit
             {
                 _armorProperties = armorPropertyDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
             }
+            isStringsLoaded = true;
         }
 
         internal static string formatFILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE(string filename) { return string.Format(FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE, filename); }
@@ -144,6 +146,7 @@ namespace MCDSaveEdit
 
         private static string? getItemString(string key)
         {
+            if (!isStringsLoaded) { return key; }
             if (_mismatches.ContainsKey(key))
             {
                 key = _mismatches[key];
@@ -152,7 +155,7 @@ namespace MCDSaveEdit
             {
                 return value;
             }
-            Console.WriteLine($"Could not find string for item {key}");
+            EventLogger.logError($"Could not find string for item {key}");
             return null;
         }
 
@@ -160,6 +163,7 @@ namespace MCDSaveEdit
         public static string enchantmentName(string enchantment)
         {
             var key = enchantment;
+            if (!isStringsLoaded) { return key; }
             if (_mismatches.ContainsKey(key))
             {
                 key = _mismatches[key];
@@ -197,6 +201,7 @@ namespace MCDSaveEdit
 
         private static string? getEnchantmentString(string key)
         {
+            if (!isStringsLoaded) { return key; }
             if (_mismatches.ContainsKey(key))
             {
                 key = _mismatches[key];
@@ -205,7 +210,7 @@ namespace MCDSaveEdit
             {
                 return value;
             }
-            Console.WriteLine($"Could not find string for enchantment {key}");
+            EventLogger.logError($"Could not find string for enchantment {key}");
             return null;
         }
 
@@ -222,6 +227,7 @@ namespace MCDSaveEdit
 
         private static string? getArmorPropertyString(string key)
         {
+            if (!isStringsLoaded) { return key; }
             if (_mismatches.ContainsKey(key))
             {
                 key = _mismatches[key];
