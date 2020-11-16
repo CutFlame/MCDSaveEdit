@@ -8,7 +8,7 @@ namespace MCDSaveEdit
     public static class Constants
     {
         public const string LATEST_RELEASE_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
-        public const string CURRENT_RELEASE_TAG_NAME = "1.2.2";
+        public const string CURRENT_RELEASE_TAG_NAME = "1.2.3";
 
         public const int MINIMUM_ENCHANTMENT_TIER = 0;
         public const int MAXIMUM_ENCHANTMENT_TIER = 3;
