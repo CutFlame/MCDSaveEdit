@@ -165,6 +165,10 @@
     <value>Error</value>
     <comment>Error</comment>
   </data>
+  <data name="EXIT" xml:space="preserve">
+    <value>Exit</value>
+    <comment>Exit</comment>
+  </data>
   <data name="FAILED_TO_ENCRYPT_ERROR_MESSAGE" xml:space="preserve">
     <value>Failed to encrypt the json data.</value>
     <comment>Failed to encrypt the json data.</comment>
@@ -184,6 +188,26 @@
   <data name="FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE" xml:space="preserve">
     <value>The file \"{0}\" was in an unexpected format.</value>
     <comment>The file \"{0}\" was in an unexpected format.</comment>
+  </data>
+  <data name="GAME_FILES_WINDOW_GROUPBOX_HEADER" xml:space="preserve">
+    <value>Game Files</value>
+    <comment>Game Files</comment>
+  </data>
+  <data name="GAME_FILES_WINDOW_MESSAGE" xml:space="preserve">
+    <value>Could not find game content files in the default install location. Please provide the path to the game files or launch using no game content.</value>
+    <comment>Could not find game content files in the default install location. Please provide the path to the game files or launch using no game content.</comment>
+  </data>
+  <data name="GAME_FILES_WINDOW_NO_CONTENT_BUTTON" xml:space="preserve">
+    <value>No game content</value>
+    <comment>No game content</comment>
+  </data>
+  <data name="GAME_FILES_WINDOW_TEXTBOX_LABEL" xml:space="preserve">
+    <value>Path</value>
+    <comment>Path</comment>
+  </data>
+  <data name="GAME_FILES_WINDOW_TITLE" xml:space="preserve">
+    <value>Launch using game content</value>
+    <comment>Launch using game content</comment>
   </data>
   <data name="ITEMS_COUNT_LABEL" xml:space="preserve">
     <value>Items: {0}/180 Max</value>
@@ -208,6 +232,14 @@
   <data name="MENU_ITEM_GET_NEW_VERSION" xml:space="preserve">
     <value>Get New Version</value>
     <comment>Get New Version</comment>
+  </data>
+  <data name="NO_GAME_FILES_FOUND_ERROR_MESSAGE" xml:space="preserve">
+    <value>Could not find game content files at the given path.</value>
+    <comment>Could not find game content files at the given path.</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>OK</comment>
   </data>
   <data name="POWERFUL" xml:space="preserve">
     <value>Powerful</value>

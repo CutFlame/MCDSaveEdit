@@ -1,5 +1,6 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 #nullable enable
@@ -23,32 +24,35 @@ namespace MCDSaveEdit
 
         private void setConstantStrings()
         {
-            Title = "Launch using game content";
-            messageTextBlock.Text = "Could not find game content files in the default install location. Please provide the path to the game files or launch using no game content.";
-            gameFilesGroupBox.Header = "Game Files";
-            pathLabel.Content = "Path";
-            pathTextBox.Text = "";
-            exitButton.Content = "Exit";
-            okButton.Content = "OK";
-            noButton.Content = "No game content";
+            Title = R.GAME_FILES_WINDOW_TITLE;
+            messageTextBlock.Text = R.GAME_FILES_WINDOW_MESSAGE;
+            gameFilesGroupBox.Header = R.GAME_FILES_WINDOW_GROUPBOX_HEADER;
+            pathLabel.Content = R.GAME_FILES_WINDOW_TEXTBOX_LABEL;
+            pathTextBox.Text = string.Empty;
+            exitButton.Content = R.EXIT;
+            okButton.Content = R.OK;
+            noButton.Content = R.GAME_FILES_WINDOW_NO_CONTENT_BUTTON;
         }
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("exitButton_Click");
             useSelectedPath = null;
             this.Close();
         }
 
         private void okButton_Click(object sender, RoutedEventArgs e)
         {
-            if (isValidSelectedPath())
+            bool isValidPath = isValidSelectedPath();
+            EventLogger.logEvent("okButton_Click", new Dictionary<string, object> { { "isValidPath", isValidPath } });
+            if (isValidPath)
             {
                 useSelectedPath = true;
                 this.Close();
                 return;
             }
 
-            MessageBox.Show("Could not find game content files at the given path.", R.ERROR);
+            MessageBox.Show(R.NO_GAME_FILES_FOUND_ERROR_MESSAGE, R.ERROR);
         }
 
         private bool isValidSelectedPath()
@@ -74,6 +78,7 @@ namespace MCDSaveEdit
 
         private void noButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("noButton_Click");
             useSelectedPath = false;
             this.Close();
         }
@@ -86,6 +91,7 @@ namespace MCDSaveEdit
 
         private void pathBrowseButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("pathBrowseButton_Click");
             var dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
             dialog.EnsurePathExists = true;
@@ -94,7 +100,7 @@ namespace MCDSaveEdit
             dialog.InitialDirectory = appDataFolderPath;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                pathTextBox.Text = dialog.FileName;
+                selectedPath = dialog.FileName;
             }            
         }
     }

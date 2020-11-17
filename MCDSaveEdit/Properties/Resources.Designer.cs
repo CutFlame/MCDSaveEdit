@@ -169,6 +169,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        public static string EXIT {
+            get {
+                return ResourceManager.GetString("EXIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to encrypt the json data..
         /// </summary>
         public static string FAILED_TO_ENCRYPT_ERROR_MESSAGE {
@@ -210,6 +219,51 @@ namespace MCDSaveEdit.Properties {
         public static string FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE {
             get {
                 return ResourceManager.GetString("FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Files.
+        /// </summary>
+        public static string GAME_FILES_WINDOW_GROUPBOX_HEADER {
+            get {
+                return ResourceManager.GetString("GAME_FILES_WINDOW_GROUPBOX_HEADER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find game content files in the default install location. Please provide the path to the game files or launch using no game content..
+        /// </summary>
+        public static string GAME_FILES_WINDOW_MESSAGE {
+            get {
+                return ResourceManager.GetString("GAME_FILES_WINDOW_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No game content.
+        /// </summary>
+        public static string GAME_FILES_WINDOW_NO_CONTENT_BUTTON {
+            get {
+                return ResourceManager.GetString("GAME_FILES_WINDOW_NO_CONTENT_BUTTON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        public static string GAME_FILES_WINDOW_TEXTBOX_LABEL {
+            get {
+                return ResourceManager.GetString("GAME_FILES_WINDOW_TEXTBOX_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch using game content.
+        /// </summary>
+        public static string GAME_FILES_WINDOW_TITLE {
+            get {
+                return ResourceManager.GetString("GAME_FILES_WINDOW_TITLE", resourceCulture);
             }
         }
         
@@ -264,6 +318,24 @@ namespace MCDSaveEdit.Properties {
         public static string MENU_ITEM_GET_NEW_VERSION {
             get {
                 return ResourceManager.GetString("MENU_ITEM_GET_NEW_VERSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find game content files at the given path..
+        /// </summary>
+        public static string NO_GAME_FILES_FOUND_ERROR_MESSAGE {
+            get {
+                return ResourceManager.GetString("NO_GAME_FILES_FOUND_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         

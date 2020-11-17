@@ -41,6 +41,7 @@ namespace MCDSaveEdit
             if (string.IsNullOrWhiteSpace(paksFolderPath))
             {
                 //show dialog asking for install location
+                EventLogger.logEvent("showGameFilesWindow");
                 var gameFilesWindow = new GameFilesWindow();
                 gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 gameFilesWindow.ShowDialog();
