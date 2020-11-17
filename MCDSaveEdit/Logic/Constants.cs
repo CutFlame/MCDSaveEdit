@@ -21,6 +21,9 @@ namespace MCDSaveEdit
 
         public const string PAKS_FILTER_STRING = "/Dungeons/Content";
 
+        public const string FIRST_PAK_FILENAME = "pakchunk0-WindowsNoEditor.pak";
+        public const string GAME_EXECUTABLE_FILENAME = "Dungeons.exe";
+
         public static string PAKS_FOLDER_PATH {
             get {
                 var appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

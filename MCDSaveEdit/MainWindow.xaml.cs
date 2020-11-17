@@ -159,6 +159,7 @@ namespace MCDSaveEdit
         {
             EventLogger.logEvent("aboutMenuItem_Click");
             var aboutWindow = new AboutWindow();
+            aboutWindow.Owner = this;
             aboutWindow.ShowDialog();
         }
 

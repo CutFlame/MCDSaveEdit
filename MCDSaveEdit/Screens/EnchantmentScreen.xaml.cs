@@ -126,6 +126,7 @@ namespace MCDSaveEdit
         {
             EventLogger.logEvent("enchantmentImageButton_Click", new Dictionary<string, object>() { { "enchantment", _enchantment?.Id ?? "null" } });
             var selectionWindow = new SelectionWindow();
+            selectionWindow.Owner = Application.Current.MainWindow;
             selectionWindow.loadEnchantments(_enchantment?.Id);
             selectionWindow.onSelection = selectedEnchantmentId;
             selectionWindow.Show();

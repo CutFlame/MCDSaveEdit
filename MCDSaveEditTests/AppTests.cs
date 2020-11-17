@@ -24,6 +24,7 @@ namespace MCDSaveEditTests
             string? paksFolderPath = ImageUriHelper.usableGameContentIfExists();
             if (string.IsNullOrWhiteSpace(paksFolderPath))
             {
+                Assert.Fail("No usable Game Content Files found");
                 return;
             }
 

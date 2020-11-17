@@ -201,6 +201,7 @@ namespace MCDSaveEdit
             if(_item == null) { return; }
             EventLogger.logEvent("inventoryItemButton_Click", new Dictionary<string, object>() { { "item", _item!.Type } });
             var selectionWindow = new SelectionWindow();
+            selectionWindow.Owner = Application.Current.MainWindow;
             var filter = getFilter(_item);
             if(filter != ItemFilterEnum.All)
             {

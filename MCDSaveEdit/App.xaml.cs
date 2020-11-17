@@ -34,10 +34,31 @@ namespace MCDSaveEdit
 
         private async void loadAsync()
         {
+            showBusyIndicator();
+
+            //check default install locations
             string? paksFolderPath = ImageUriHelper.usableGameContentIfExists();
+            if (string.IsNullOrWhiteSpace(paksFolderPath))
+            {
+                //show dialog asking for install location
+                var gameFilesWindow = new GameFilesWindow();
+                gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                gameFilesWindow.ShowDialog();
+                var useSelectedPath = gameFilesWindow.useSelectedPath;
+                if (useSelectedPath == null)
+                {
+                    closeBusyIndicator();
+                    this.Shutdown();
+                    return;
+                }
+                if(useSelectedPath == true)
+                {
+                    paksFolderPath = gameFilesWindow.selectedPath;
+                }
+            }
+
             if (!string.IsNullOrWhiteSpace(paksFolderPath))
             {
-                showBusyIndicator();
                 await ImageUriHelper.loadGameContentAsync(paksFolderPath!);
             }
 
