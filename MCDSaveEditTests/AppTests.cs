@@ -31,7 +31,7 @@ namespace MCDSaveEditTests
             PakFilter? filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
             PakIndex? pakIndex = new PakIndex(path: paksFolderPath!, cacheFiles: true, caseSensitive: true, filter: filter);
             pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRING);
-            Assert.AreEqual(45363, pakIndex.Count());
+            Assert.AreEqual(45388, pakIndex.Count());
 
             var pakImageResolver = new PakImageResolver(pakIndex);
             pakImageResolver.loadPakFiles();
@@ -103,25 +103,22 @@ namespace MCDSaveEditTests
         {
             var inputLines = getLinesFromJsonStream(input).ToArray();
             var outputLines = getLinesFromJsonStream(output).ToArray();
-            int lineIndex = 0;
-            for (; lineIndex < Math.Min(inputLines.Length, outputLines.Length); lineIndex++)
+            int inputLineIndex = 0;
+            int outputLineIndex = 0;
+            long totalUnequal = 0;
+            for (; inputLineIndex < inputLines.Length && outputLineIndex < outputLines.Length; inputLineIndex++, outputLineIndex++)
             {
-                if (!inputLines[lineIndex].Equals(outputLines[lineIndex]))
+                if (inputLines[inputLineIndex].StartsWith("\"pendingRewardItem\"")) { inputLineIndex++; }
+                if (outputLines[outputLineIndex].StartsWith("\"pendingRewardItem\"")) { outputLineIndex++; }
+                if (!inputLines[inputLineIndex].Equals(outputLines[outputLineIndex]))
                 {
-                    break;
+                    if (inputLines[inputLineIndex].StartsWith("\"power\"") || outputLines[outputLineIndex].StartsWith("\"power\"")) { continue; }
+                    totalUnequal++;
+                    Console.WriteLine("{0}:{1}", inputLineIndex, inputLines[inputLineIndex]);
+                    Console.WriteLine("{0}:{1}", outputLineIndex, outputLines[outputLineIndex]);
                 }
             }
-
-            if (lineIndex < inputLines.Length)
-            {
-                Console.WriteLine("Input:");
-                Console.WriteLine("{0}:{1}", lineIndex, inputLines[lineIndex]);
-            }
-            if (lineIndex < outputLines.Length)
-            {
-                Console.WriteLine("Output:");
-                Console.WriteLine("{0}:{1}", lineIndex, outputLines[lineIndex]);
-            }
+            Assert.AreEqual(0, totalUnequal);
         }
 
         private IEnumerable<string> getLinesFromJsonStream(Stream stream)
