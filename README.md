@@ -1,9 +1,19 @@
-# Minecraft Dungeons Save File Editor
+# Minecraft: Dungeons Save File Editor
+![GitHub](https://img.shields.io/github/license/cutflame/mcdsaveedit)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/cutflame/mcdsaveedit?label=latest)
+![GitHub Release Date](https://img.shields.io/github/release-date/cutflame/mcdsaveedit)
+![GitHub all releases](https://img.shields.io/github/downloads/cutflame/mcdsaveedit/total)
 
 Windows application for modifying [Minecraft: Dungeons](https://www.minecraft.net/en-us/about-dungeons/) save files.
 
+#### DISCLAIMER: Please keep backups of your save files! This app could make your save file unplayable!
 
-## Legal Disclaimer
+#### If you have the Windows Store version of MCD you need to download and run the [storepatcher.exe](https://docs.dungeonsworkshop.net/gettingstarted/) first for the best experience (the .pak files need to be extracted)
+
+
+---
+
+### Legal Disclaimer
 
 This project is not affiliated with Mojang Studios, XBox Game Studios, Double 11 or the Minecraft brand.
 
@@ -12,7 +22,7 @@ This project is not affiliated with Mojang Studios, XBox Game Studios, Double 11
 Other trademarks referenced herein are property of their respective owners.
 
 
-## External Credits and Licenses
+### External Credits and Licenses
 
 Images from the game are subject to copyright by Mojang. They are extracted at runtime from the default installed location of Minecraft Dungeons game files. 
 
