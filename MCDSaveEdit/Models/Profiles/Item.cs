@@ -18,6 +18,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("inventoryIndex")]
         public long? InventoryIndex { get; set; }
 
+        [JsonPropertyName("markedNew")]
+        public bool? MarkedNew { get; set; }
+
         [JsonPropertyName("power")]
         public double Power { get; set; }
 
@@ -30,7 +33,5 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("upgraded")]
         public bool Upgraded { get; set; }
 
-        [JsonPropertyName("markedNew")]
-        public bool? MarkedNew { get; set; }
     }
 }
