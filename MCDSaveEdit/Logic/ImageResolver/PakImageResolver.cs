@@ -72,8 +72,8 @@ namespace MCDSaveEdit
 
                 if (fullPath.Contains("Localization") && fullPath.EndsWith("Game"))
                 {
-                    var splitPath = fullPath.Split(new[] { "Game" }, StringSplitOptions.RemoveEmptyEntries);
-                    string lang = splitPath[splitPath.Length - 1].Trim('/');
+                    //Get the folder name because it will be the language specifier
+                    string lang = Path.GetDirectoryName(fullPath).Split(Path.DirectorySeparatorChar).Last();
                     //Handle english language strings
                     if (lang == "en")
                     {
@@ -85,6 +85,16 @@ namespace MCDSaveEdit
                             Debug.WriteLine($"Loaded {totalStringCount} {lang} LocRes");
                         }
                     }
+                    continue;
+                }
+
+                if (fullPath.Contains("ArmorProperties") && !fullPath.Contains("Cues"))
+                {
+                    //Get the folder name because it will be the name of the armor property
+                    string armorProperty = Path.GetDirectoryName(fullPath).Split(Path.DirectorySeparatorChar).Last();
+                    if(armorProperty == "ArmorProperties" || armorProperty == "ReviveChance") { continue; } //Exception
+                    ItemExtensions.armorProperties.Add(armorProperty);
+                    //Debug.WriteLine($"Found ArmorProperty {armorProperty} in: {fullPath}");
                     continue;
                 }
 
@@ -188,6 +198,7 @@ namespace MCDSaveEdit
                 }
             }
 
+            Debug.WriteLine($"Found {ItemExtensions.armorProperties.Count()} armor properties");
             Debug.WriteLine($"Loaded {_equipment.Count()} equipment images");
             Debug.WriteLine($"Loaded {_enchantments.Count()} enchantment images");
             if (preloadBitmaps)

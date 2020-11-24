@@ -52,6 +52,12 @@ namespace MCDSaveEditTests
                 //R.enchantmentEffect(enchantment); //missing many of these strings
                 R.enchantmentDescription(enchantment);
             }
+
+            foreach (var armorProperty in ItemExtensions.armorProperties)
+            {
+                R.armorProperty(armorProperty);
+                R.armorPropertyDescription(armorProperty);
+            }
         }
 
         [TestMethod]

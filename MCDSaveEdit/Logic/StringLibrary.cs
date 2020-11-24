@@ -95,6 +95,8 @@ namespace MCDSaveEdit
             { "Flavour_SwiftnessPotion","Desc_SwiftnessPotion" },
             { "Flavour_TNTBox","Desc_TNTBox"},
 
+            { "ReviveChance","Unset" }, //missing
+            { "ReviveChance_description","Unset" }, //missing
             { "ItemCooldownDecrease","ArtifactCooldownDecrease" },
             { "ItemCooldownDecrease_description","ArtifactCooldownDecrease_description" },
             { "ItemDamageBoost","ArtifactDamageBoost" },

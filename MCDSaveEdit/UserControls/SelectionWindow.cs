@@ -55,7 +55,39 @@ namespace MCDSaveEdit
             _isProcessing = true;
             _listBox.Items.Clear();
 
-            //TODO: populate the listbox with all the possible armor properties
+            var bulletImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
+
+            foreach (var armorProperty in ItemExtensions.armorProperties.OrderBy(str => str))
+            {
+                var image = new Image {
+                    Height = 25,
+                    Width = 25,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Source = bulletImageSource,
+                };
+                var label = new Label {
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 14,
+                    Content = R.armorProperty(armorProperty),
+                };
+
+                var stackPanel = new StackPanel {
+                    Height = 45,
+                    Orientation = Orientation.Horizontal,
+                };
+
+                stackPanel.Children.Add(image);
+                stackPanel.Children.Add(label);
+
+                var listItem = new ListBoxItem { Content = stackPanel, Tag = armorProperty };
+                _listBox.Items.Add(listItem);
+
+                if (selectedArmorProperty == armorProperty)
+                {
+                    _listBox.SelectedItem = listItem;
+                }
+            }
+
 
             _isProcessing = false;
         }

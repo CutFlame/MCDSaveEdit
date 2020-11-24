@@ -60,9 +60,7 @@ namespace MCDSaveEdit
                 rarityComboBox.IsEnabled = true;
                 nameLabel.Content = R.itemName(_item.Type);
                 descLabel.Text = R.itemDesc(_item.Type);
-
-                //disabling armor swapping for now until armorProperties can be swapped too
-                inventoryItemButton.IsEnabled = !_item.isArmor();
+                inventoryItemButton.IsEnabled = true;
             }
 
             updateArmorPropertiesUI();
@@ -93,9 +91,39 @@ namespace MCDSaveEdit
                     armorPropertyStack.Children.Add(bulletImage);
                     armorPropertyStack.Children.Add(label);
 
-                    armorPropertiesStack.Children.Add(armorPropertyStack);
+                    var button = new Button();
+                    button.Tag = armorProperty;
+                    button.HorizontalContentAlignment = HorizontalAlignment.Left;
+                    button.Height = 32;
+                    button.Content = armorPropertyStack;
+                    button.CommandParameter = armorProperty;
+                    button.Command = new RelayCommand<Armorproperty>(armorPropertyButton_Click);
+                    armorPropertiesStack.Children.Add(button);
                 }
             }
+        }
+
+        private void armorPropertyButton_Click(Armorproperty armorProperty)
+        {
+            EventLogger.logEvent("armorPropertyButton_Click", new Dictionary<string, object>() { { "armorProperty", armorProperty.Id } });
+            var selectionWindow = new SelectionWindow();
+            selectionWindow.Owner = Application.Current.MainWindow;
+            selectionWindow.loadArmorProperties(armorProperty.Id);
+            selectionWindow.onSelection = newArmorPropertyId => {
+                this.replaceArmorProperty(armorProperty.Id, newArmorPropertyId);
+            };
+            //selectionWindow.onSelection = selectedArmorPropertyId;
+            selectionWindow.Show();
+        }
+
+        private void replaceArmorProperty(string oldArmorPropertyId, string? newArmorPropertyId)
+        {
+            if (_item == null) { return; }
+            var index = _item!.Armorproperties.ToList().FindIndex(prop => prop.Id == oldArmorPropertyId);
+            _item!.Armorproperties[index].Id = newArmorPropertyId;
+            //var newProperty = new Armorproperty() { Id = newArmorPropertyId, Rarity = Rarity.Common };
+            //_item!.Armorproperties[index] = newProperty;
+            updateArmorPropertiesUI();
         }
 
         public void updateEnchantmentsUI()

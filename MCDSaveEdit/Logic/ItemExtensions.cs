@@ -47,5 +47,6 @@ namespace MCDSaveEdit.Save.Models.Enums
         public static HashSet<string> armor = new HashSet<string>();
         public static HashSet<string> meleeWeapons = new HashSet<string>();
         public static HashSet<string> rangedWeapons = new HashSet<string>();
+        public static HashSet<string> armorProperties = new HashSet<string>();
     }
 }
