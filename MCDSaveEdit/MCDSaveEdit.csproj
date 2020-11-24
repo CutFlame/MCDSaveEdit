@@ -161,6 +161,9 @@
     <Compile Include="Logic\ImageResolver\PakImageResolver.cs" />
     <Compile Include="Logic\ImageResolver\PakIndexExtensions.cs" />
     <Compile Include="Logic\Secrets.cs" />
+    <Compile Include="MapWindow.xaml.cs">
+      <DependentUpon>MapWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Enums\Rarity.cs" />
     <Compile Include="Models\Mapping\AttributeBasedConverterFactory.cs" />
     <Compile Include="Models\Mapping\CustomNamingEnumJsonConverter.cs" />
@@ -212,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GameFilesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MapWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
