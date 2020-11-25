@@ -77,6 +77,8 @@ namespace MCDSaveEdit
                 foreach (var armorProperty in _item.Armorproperties)
                 {
                     var bulletImage = new Image();
+                    bulletImage.Height = 20;
+                    bulletImage.Width = 20;
                     bulletImage.Source = bulletImageSource;
                     bulletImage.Margin = new Thickness(5);
 
@@ -84,17 +86,20 @@ namespace MCDSaveEdit
                     label.FontSize = 16;
                     label.Content = string.Format("{0}: {1}", R.armorProperty(armorProperty.Id), R.armorPropertyDescription(armorProperty.Id));
                     label.VerticalAlignment = VerticalAlignment.Center;
+                    label.Padding = new Thickness(0);
 
                     var armorPropertyStack = new StackPanel();
                     armorPropertyStack.Orientation = Orientation.Horizontal;
-                    armorPropertyStack.Height = 32;
                     armorPropertyStack.Children.Add(bulletImage);
                     armorPropertyStack.Children.Add(label);
 
                     var button = new Button();
                     button.Tag = armorProperty;
                     button.HorizontalContentAlignment = HorizontalAlignment.Left;
+                    button.VerticalContentAlignment = VerticalAlignment.Center;
                     button.Height = 32;
+                    button.Background = null;
+                    button.Padding = new Thickness(0);
                     button.Content = armorPropertyStack;
                     button.CommandParameter = armorProperty;
                     button.Command = new RelayCommand<Armorproperty>(armorPropertyButton_Click);
