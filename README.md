@@ -13,6 +13,32 @@ Windows application for modifying [Minecraft: Dungeons](https://www.minecraft.ne
 
 ---
 
+### Compiling
+This application was developed entirely in Visual Studio 2019.
+
+This project has 2 submodules
+- [DungeonTools](https://github.com/HellPie/DungeonTools)
+- [PakReader](https://github.com/WorkingRobot/PakReader)
+
+There is one file deliberately removed from the repo that you will need to create and fill in.
+
+"MCDSaveEdit\Logic\Secrets.cs"
+```csharp
+namespace MCDSaveEdit
+{
+    public static class Secrets
+    {
+        public const string PAKS_AES_KEY_STRING = "<AES key for unlocking the MCD .pak files>";
+
+        public const string GAME_ANALYTICS_GAME_KEY = "";
+        public const string GAME_ANALYTICS_SECRET_KEY = "";
+    }
+}
+```
+
+
+---
+
 ### Legal Disclaimer
 
 This project is not affiliated with Mojang Studios, XBox Game Studios, Double 11 or the Minecraft brand.
