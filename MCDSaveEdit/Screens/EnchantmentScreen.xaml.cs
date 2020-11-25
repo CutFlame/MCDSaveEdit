@@ -49,6 +49,7 @@ namespace MCDSaveEdit
                 powerfulLabel.Content = string.Empty;
                 enchantmentImage.Source = null;
                 enchantmentLabel.Content = string.Empty;
+                enchantmentImageButton.IsEnabled = false;
                 updateTierUI();
                 return;
             }
@@ -67,6 +68,7 @@ namespace MCDSaveEdit
             enchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantment);
             enchantmentLabel.Content = R.enchantmentName(_enchantment.Id);
             enchantmentDescLabel.Text = R.enchantmentDescription(_enchantment.Id);
+            enchantmentImageButton.IsEnabled = ImageUriHelper.gameContentLoaded;
 
             updateTierUI();
         }
@@ -124,6 +126,7 @@ namespace MCDSaveEdit
         }
         private void enchantmentImageButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!ImageUriHelper.gameContentLoaded) { return; }
             EventLogger.logEvent("enchantmentImageButton_Click", new Dictionary<string, object>() { { "enchantment", _enchantment?.Id ?? "null" } });
             var selectionWindow = new SelectionWindow();
             selectionWindow.Owner = Application.Current.MainWindow;

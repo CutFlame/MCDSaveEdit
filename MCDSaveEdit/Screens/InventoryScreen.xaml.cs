@@ -33,6 +33,10 @@ namespace MCDSaveEdit
             {
                 useGameContentImages();
             }
+            meleeItemsButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+            rangedItemsButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+            armorItemsButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+            artifactItemsButton.IsEnabled = ImageUriHelper.gameContentLoaded;
         }
 
         private void useGameContentImages()

@@ -60,7 +60,7 @@ namespace MCDSaveEdit
                 rarityComboBox.IsEnabled = true;
                 nameLabel.Content = R.itemName(_item.Type);
                 descLabel.Text = R.itemDesc(_item.Type);
-                inventoryItemButton.IsEnabled = true;
+                inventoryItemButton.IsEnabled = ImageUriHelper.gameContentLoaded;
             }
 
             updateArmorPropertiesUI();
@@ -94,6 +94,7 @@ namespace MCDSaveEdit
                     armorPropertyStack.Children.Add(label);
 
                     var button = new Button();
+                    button.IsEnabled = ImageUriHelper.gameContentLoaded;
                     button.Tag = armorProperty;
                     button.HorizontalContentAlignment = HorizontalAlignment.Left;
                     button.VerticalContentAlignment = VerticalAlignment.Center;
@@ -110,6 +111,7 @@ namespace MCDSaveEdit
 
         private void armorPropertyButton_Click(Armorproperty armorProperty)
         {
+            if (!ImageUriHelper.gameContentLoaded) { return; }
             EventLogger.logEvent("armorPropertyButton_Click", new Dictionary<string, object>() { { "armorProperty", armorProperty.Id } });
             var selectionWindow = new SelectionWindow();
             selectionWindow.Owner = Application.Current.MainWindow;
@@ -232,6 +234,7 @@ namespace MCDSaveEdit
         private void inventoryItemButton_Click(object sender, RoutedEventArgs e)
         {
             if(_item == null) { return; }
+            if (!ImageUriHelper.gameContentLoaded) { return; }
             EventLogger.logEvent("inventoryItemButton_Click", new Dictionary<string, object>() { { "item", _item!.Type } });
             var selectionWindow = new SelectionWindow();
             selectionWindow.Owner = Application.Current.MainWindow;
