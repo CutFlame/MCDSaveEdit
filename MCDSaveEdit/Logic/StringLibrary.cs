@@ -103,11 +103,20 @@ namespace MCDSaveEdit
             { "ItemDamageBoost_description","ArtifactDamageBoost_description" },
             { "SlowResistance","FreezingResistance" },
             { "SlowResistance_description","FreezingResistance_description" },
+
+
+            { "underhalls_name","highblockhallsbonus_name" },
+            { "lowertemple_name","deserttemplebonus_name" },
+            { "soggycave_name","soggyswampbonus_name" },
+            { "creepycrypt_name","creeperwoodsbonus_name" },
+            { "archhaven_name","pumpkinpasturesbonus_name" },
         };
 
         private static Dictionary<string, string> _itemType = new Dictionary<string, string>();
         private static Dictionary<string, string> _enchantment = new Dictionary<string, string>();
         private static Dictionary<string, string> _armorProperties = new Dictionary<string, string>();
+        private static Dictionary<string, string> _mission = new Dictionary<string, string>();
+
         public static bool isStringsLoaded { get; private set; } = false;
 
         public static void loadExternalStrings(Dictionary<string, Dictionary<string, string>> stringLibrary)
@@ -123,6 +132,10 @@ namespace MCDSaveEdit
             if (stringLibrary.TryGetValue("ArmorProperties", out var armorPropertyDict))
             {
                 _armorProperties = armorPropertyDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
+            }
+            if (stringLibrary.TryGetValue("Mission", out var missionDict))
+            {
+                _mission = missionDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
             }
             isStringsLoaded = true;
         }
@@ -241,5 +254,27 @@ namespace MCDSaveEdit
             EventLogger.logError($"Could not find string for armor {key}");
             return null;
         }
+
+        public static string? getMissionName(string missionId)
+        {
+            var key = missionId + "_name";
+            return getMissionString(key) ?? missionId;
+        }
+
+        private static string? getMissionString(string key)
+        {
+            if (!isStringsLoaded) { return key; }
+            if (_mismatches.ContainsKey(key))
+            {
+                key = _mismatches[key];
+            }
+            if (_mission.TryGetValue(key, out string value))
+            {
+                return value;
+            }
+            EventLogger.logError($"Could not find string for mission {key}");
+            return null;
+        }
+
     }
 }

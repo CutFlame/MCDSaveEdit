@@ -1,6 +1,7 @@
 ﻿using FModel;
 using PakReader.Parsers.Objects;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 #nullable enable
 
@@ -11,11 +12,15 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class App : Application
     {
-        Window? _busyWindow = null;
+        private Window? _busyWindow = null;
+        private bool _launchToMissionViewer = false;
+        private bool _askForGameContentLocation = false;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            _launchToMissionViewer = e.Args.Contains("LAUNCH_TO_MISSION_VIEWER");
+            _askForGameContentLocation = e.Args.Contains("ASK_FOR_GAME_CONTENT_LOCATION");
             EventLogger.init();
             initPakReader();
             loadAsync();
@@ -38,21 +43,21 @@ namespace MCDSaveEdit
 
             //check default install locations
             string? paksFolderPath = ImageUriHelper.usableGameContentIfExists();
-            if (string.IsNullOrWhiteSpace(paksFolderPath))
+            if (_askForGameContentLocation || string.IsNullOrWhiteSpace(paksFolderPath))
             {
                 //show dialog asking for install location
                 EventLogger.logEvent("showGameFilesWindow");
                 var gameFilesWindow = new GameFilesWindow();
                 gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 gameFilesWindow.ShowDialog();
-                var useSelectedPath = gameFilesWindow.useSelectedPath;
-                if (useSelectedPath == null)
+                var gameFilesWindowResult = gameFilesWindow.result;
+                if (gameFilesWindowResult == GameFilesWindow.GameFilesWindowResult.exit)
                 {
                     closeBusyIndicator();
                     this.Shutdown();
                     return;
                 }
-                if(useSelectedPath == true)
+                if (gameFilesWindowResult == GameFilesWindow.GameFilesWindowResult.useSelectedPath)
                 {
                     paksFolderPath = gameFilesWindow.selectedPath;
                 }
@@ -69,9 +74,17 @@ namespace MCDSaveEdit
         private void showMainWindow()
         {
             EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", (!string.IsNullOrWhiteSpace(Constants.PAKS_FOLDER_PATH)).ToString() } });
-            var mainWindow = new MainWindow();
-            mainWindow.model = new ProfileViewModel();
-            this.MainWindow = mainWindow;
+            if (_launchToMissionViewer)
+            {
+                var mainWindow = new MapWindow();
+                this.MainWindow = mainWindow;
+            }
+            else
+            {
+                var mainWindow = new MainWindow();
+                mainWindow.model = new ProfileViewModel();
+                this.MainWindow = mainWindow;
+            }
             this.MainWindow.Show();
 
             closeBusyIndicator();

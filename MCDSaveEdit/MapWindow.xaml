@@ -8,8 +8,8 @@
         Title="*MapWindow*"
         MinHeight="400" MinWidth="825"
         MaxHeight="800" MaxWidth="1650"
-        Height="600" Width="1238">
-    <Grid>
-        
-    </Grid>
+        Height="600" Width="1238"
+        SizeChanged="window_SizeChanged">
+    <Canvas x:Name="canvas">
+    </Canvas>
 </Window>

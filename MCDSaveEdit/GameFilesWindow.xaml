@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="messageTextBlock" Margin="5" Grid.Row="0" TextWrapping="Wrap">*Could not find game content files in the default install location. Please provide the path to the game files or launch using no game content.</TextBlock>
+        <TextBlock x:Name="messageTextBlock" Margin="15,5" Grid.Row="0" TextWrapping="Wrap">*Could not find game content files in the default install location. Please provide the path to the game files or launch using no game content.</TextBlock>
         <GroupBox x:Name="gameFilesGroupBox" Header="*Game Files*" Margin="5" Grid.Row="1">
             <Grid Margin="0,5">
                 <Grid.ColumnDefinitions>

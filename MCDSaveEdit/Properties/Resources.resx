@@ -194,8 +194,8 @@
     <comment>Game Files</comment>
   </data>
   <data name="GAME_FILES_WINDOW_MESSAGE" xml:space="preserve">
-    <value>Could not find game content files in the default install location. Please provide the path to the game files or launch using no game content.</value>
-    <comment>Could not find game content files in the default install location. Please provide the path to the game files or launch using no game content.</comment>
+    <value>Could not find game content files in the default install location. Please provide the path to the game files or launch with limited features and no game content.</value>
+    <comment>Could not find game content files in the default install location. Please provide the path to the game files or launch with limited features and no game content.</comment>
   </data>
   <data name="GAME_FILES_WINDOW_NO_CONTENT_BUTTON" xml:space="preserve">
     <value>No game content</value>

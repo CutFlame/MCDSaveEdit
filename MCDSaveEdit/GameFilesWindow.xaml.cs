@@ -12,8 +12,15 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class GameFilesWindow : Window
     {
+        public enum GameFilesWindowResult
+        {
+            exit,
+            useSelectedPath,
+            noContent,
+        }
+
         public string? selectedPath { get { return pathTextBox.Text; } private set { pathTextBox.Text = value; } }
-        public bool? useSelectedPath { get; private set; }
+        public GameFilesWindowResult result { get; private set; }
         public Action? onClose;
 
         public GameFilesWindow()
@@ -37,7 +44,7 @@ namespace MCDSaveEdit
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
             EventLogger.logEvent("exitButton_Click");
-            useSelectedPath = null;
+            result = GameFilesWindowResult.exit;
             this.Close();
         }
 
@@ -47,7 +54,7 @@ namespace MCDSaveEdit
             EventLogger.logEvent("okButton_Click", new Dictionary<string, object> { { "isValidPath", isValidPath } });
             if (isValidPath)
             {
-                useSelectedPath = true;
+                result = GameFilesWindowResult.useSelectedPath;
                 this.Close();
                 return;
             }
@@ -79,7 +86,7 @@ namespace MCDSaveEdit
         private void noButton_Click(object sender, RoutedEventArgs e)
         {
             EventLogger.logEvent("noButton_Click");
-            useSelectedPath = false;
+            result = GameFilesWindowResult.noContent;
             this.Close();
         }
 

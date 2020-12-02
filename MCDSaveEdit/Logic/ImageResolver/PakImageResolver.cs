@@ -44,6 +44,7 @@ namespace MCDSaveEdit
         private readonly Dictionary<string, string> _enchantments = new Dictionary<string, string>();
         private readonly Dictionary<string, string> _equipment = new Dictionary<string, string>();
         private readonly Dictionary<string, BitmapImage> _bitmaps = new Dictionary<string, BitmapImage>();
+        private readonly List<string> _levels = new List<string>();
 
         public PakImageResolver(PakIndex pakIndex)
         {
@@ -99,6 +100,14 @@ namespace MCDSaveEdit
                 }
 
                 var filename = Path.GetFileName(fullPath);
+
+                if (fullPath.Contains("data") && fullPath.Contains("levels"))
+                {
+                    _levels.Add(filename);
+                    //Debug.WriteLine($"Found level {filename}");
+                    continue;
+                }
+
                 if (!filename.StartsWith("T") || !fullPath.Contains("_Icon"))
                 {
                     //Debug.WriteLine($"Package is not an icon {fullPath}");
@@ -198,6 +207,7 @@ namespace MCDSaveEdit
                 }
             }
 
+            Debug.WriteLine($"Found {_levels.Count()} levels");
             Debug.WriteLine($"Found {ItemExtensions.armorProperties.Count()} armor properties");
             Debug.WriteLine($"Loaded {_equipment.Count()} equipment images");
             Debug.WriteLine($"Loaded {_enchantments.Count()} enchantment images");
