@@ -89,7 +89,7 @@ namespace MCDSaveEdit
             _busyWindow.Width = 200;
             _busyWindow.ResizeMode = ResizeMode.NoResize;
             _busyWindow.WindowStyle = WindowStyle.None;
-            _busyWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            _busyWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             _busyWindow.Content = new BusyIndicator();
             _busyWindow.Show();
         }

@@ -155,6 +155,7 @@
     <Compile Include="GameFilesWindow.xaml.cs">
       <DependentUpon>GameFilesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Enums\DifficultyEnum.cs" />
     <Compile Include="Models\Enums\LevelTypeEnum.cs" />
     <Compile Include="Logic\EventLogger.cs" />
     <Compile Include="Logic\ImageResolver\IImageResolver.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Screens\MainMapScreen.xaml.cs">
       <DependentUpon>MainMapScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MissionControl.cs" />
     <Compile Include="UserControls\BusyIndicator.xaml.cs">
       <DependentUpon>BusyIndicator.xaml</DependentUpon>
     </Compile>

@@ -58,7 +58,7 @@
             </TabItem>
             
             <TabItem x:Name="missionsTabItem" Header="*Missions*">
-                <local:MainMapScreen/>
+                <local:MainMapScreen x:Name="missionsMapScreen"/>
             </TabItem>
             
         </TabControl>

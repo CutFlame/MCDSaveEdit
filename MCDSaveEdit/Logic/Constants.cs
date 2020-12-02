@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCDSaveEdit.Save.Models.Enums;
+using System;
 using System.IO;
 using System.Windows;
 using Windows.Management.Deployment;
@@ -10,6 +11,8 @@ namespace MCDSaveEdit
     {
         public const string LATEST_RELEASE_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
         public const string CURRENT_RELEASE_TAG_NAME = "1.2.5";
+
+        public const int MAXIMUM_INVENTORY_ITEM_COUNT = 180;
 
         public const int MINIMUM_ENCHANTMENT_TIER = 0;
         public const int MAXIMUM_ENCHANTMENT_TIER = 3;

@@ -214,12 +214,16 @@
     <comment>Inventory</comment>
   </data>
   <data name="ITEMS_COUNT_LABEL" xml:space="preserve">
-    <value>Items: {0}/180 Max</value>
-    <comment>Items: {0}/180 Max</comment>
+    <value>Items: {0}/{1} Max</value>
+    <comment>Items: {0}/{1} Max</comment>
   </data>
   <data name="LEVEL" xml:space="preserve">
     <value>Level</value>
     <comment>Level</comment>
+  </data>
+  <data name="MAINLAND" xml:space="preserve">
+    <value>Mainland</value>
+    <comment>Mainland</comment>
   </data>
   <data name="MELEE_ITEMS_FILTER" xml:space="preserve">
     <value>Melee</value>

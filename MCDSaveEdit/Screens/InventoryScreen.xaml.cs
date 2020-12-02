@@ -21,7 +21,7 @@ namespace MCDSaveEdit
             {
                 _model = value;
                 setupCommands();
-                updateUI();
+                //updateUI();
             }
         }
 
@@ -64,7 +64,9 @@ namespace MCDSaveEdit
 
         private void translateStaticStrings()
         {
-            levelLabel.Content = R.LEVEL;
+            //"UnlockRequirements_level"
+            //"HUD_Level"
+            levelLabel.Content = R.getString("HUD_Level") ?? R.LEVEL;
             allItemsButton.Content = R.ALL_ITEMS_FILTER;
             meleeItemsButton.Content = R.MELEE_ITEMS_FILTER;
             rangedItemsButton.Content = R.RANGED_ITEMS_FILTER;
@@ -193,7 +195,18 @@ namespace MCDSaveEdit
                 itemCount++;
             }
 
-            inventoryCountLabel.Content = R.formatITEMS_COUNT_LABEL(itemCount);
+            string? gameContentString = R.getString("inventory_count");
+            if(gameContentString != null)
+            {
+                gameContentString = gameContentString
+                    .Replace("{current}", itemCount.ToString())
+                    .Replace("{max}", Constants.MAXIMUM_INVENTORY_ITEM_COUNT.ToString());
+            }
+            else
+            {
+                gameContentString = R.formatITEMS_COUNT_LABEL(itemCount, Constants.MAXIMUM_INVENTORY_ITEM_COUNT);
+            }
+            inventoryCountLabel.Content = gameContentString;
         }
 
 

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MCDSaveEdit.Save.Models.Enums;
+using System.Windows;
 
 namespace MCDSaveEdit
 {

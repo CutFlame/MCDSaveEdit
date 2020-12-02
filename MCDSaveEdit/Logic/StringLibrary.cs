@@ -138,9 +138,9 @@ namespace MCDSaveEdit
             {
                 _mission = missionDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
             }
-            if (stringLibrary.TryGetValue("LobbyClickys", out var clickysDict))
+            if (stringLibrary.TryGetValue("", out var clickysDict) && stringLibrary.TryGetValue("Realms", out var realmsDict))
             {
-                _clickys = clickysDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
+                _clickys = clickysDict.Concat(realmsDict).ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
             }
             isStringsLoaded = true;
         }
@@ -149,7 +149,7 @@ namespace MCDSaveEdit
 
         internal static string formatFILE_DECRYPT_ERROR_MESSAGE(string filename) { return string.Format(FILE_DECRYPT_ERROR_MESSAGE, filename); }
 
-        internal static string formatITEMS_COUNT_LABEL(int items) { return string.Format(ITEMS_COUNT_LABEL, items); }
+        internal static string formatITEMS_COUNT_LABEL(int items, int max) { return string.Format(ITEMS_COUNT_LABEL, items, max); }
 
         internal static string formatVERSION(string versionString) { return string.Format(VERSION_FORMAT, versionString); }
 

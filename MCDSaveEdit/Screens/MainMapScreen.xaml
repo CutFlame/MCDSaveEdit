@@ -7,6 +7,8 @@
             mc:Ignorable="d" 
             d:DesignHeight="400" d:DesignWidth="825"
             SizeChanged="screen_SizeChanged">
-    <Canvas x:Name="canvas">
-    </Canvas>
+    <Grid>
+        <Label x:Name="mapLabel" Content="*Mainland*" Height="Auto" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Center" Background="#FF606060" Foreground="White" Margin="20" FontWeight="ExtraBold" Padding="15,5"/>
+        <Canvas x:Name="canvas" Margin="0" />
+    </Grid>
 </UserControl>

@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using MCDSaveEdit.Save.Models.Enums;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+#nullable enable
 
 namespace MCDSaveEdit
 {
@@ -11,13 +14,23 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class MainMapScreen : UserControl
     {
-        private const double imageRadius = 16;
+        private ProfileViewModel? _model;
+        public ProfileViewModel? model {
+            get { return _model; }
+            set {
+                _model = value;
+                //setupCommands();
+                //updateUI();
+            }
+        }
 
-        private Dictionary<string, Panel> _missionElements = new Dictionary<string, Panel>();
+
+        private Dictionary<string, MissionControl> _missionElements = new Dictionary<string, MissionControl>();
 
         public MainMapScreen()
         {
             InitializeComponent();
+            mapLabel.Content = R.getString("ArchIllagerRealm_name") ?? R.MAINLAND;
 
             var mapImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/background/missionselect_map_center_xbox");
             if(mapImageSource!= null)
@@ -27,79 +40,62 @@ namespace MCDSaveEdit
                 this.Background = background;
             }
 
-            var missionImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/mission_marker_front");
-            var dungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon");
-            var lockedDungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/locked_dungeons");
-            var unlockedDungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/icon_dungeon");
-            var difficulty1ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level1");
-            var difficulty2ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level2");
-            var difficulty3ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level3");
-            var difficulty4ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level4");
-            var difficulty5ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level5");
-
             foreach (var staticLevelData in Constants._staticLevelData)
             {
-                var levelTypeImage = new Image();
-                var levelDifficultyImage = new Image();
-                switch (staticLevelData.levelType)
-                {
-                    case LevelTypeEnum.mission:
-                        levelTypeImage.Source = missionImageSource;
-                        levelDifficultyImage.Source = difficulty5ImageSource;
-                        levelDifficultyImage.Width = imageRadius * .95;
-                        levelDifficultyImage.Height = imageRadius * .95;
-                        levelDifficultyImage.HorizontalAlignment = HorizontalAlignment.Center;
-                        levelDifficultyImage.VerticalAlignment = VerticalAlignment.Center;
-                        break;
-                    case LevelTypeEnum.dungeon:
-                        levelTypeImage.Source = dungeonImageSource;
-                        levelDifficultyImage.Width = imageRadius;
-                        levelDifficultyImage.Height = imageRadius;
-                        levelDifficultyImage.HorizontalAlignment = HorizontalAlignment.Center;
-                        levelDifficultyImage.VerticalAlignment = VerticalAlignment.Center;
-                        if (true) //(levelUnlocked)
-                        {
-                            levelDifficultyImage.Source = unlockedDungeonImageSource;
-                        }
-                        else
-                        {
-                            levelDifficultyImage.Source = lockedDungeonImageSource;
-                        }
-                        break;
-                }
-
-                var levelImagePanel = new Grid();
-                levelImagePanel.Children.Add(levelTypeImage);
-                levelImagePanel.Children.Add(levelDifficultyImage);
-
-                var button = new Button();
-                button.Height = imageRadius * 2;
-                button.Width = imageRadius * 2;
-                button.Background = null;
-                button.Content = levelImagePanel;
-
-                var label = new Label();
-                label.Background = new SolidColorBrush(Color.FromArgb(100, 0, 0, 0));
-                label.Foreground = new SolidColorBrush(Colors.White);
-                label.FontWeight = FontWeights.ExtraBold;
-                label.HorizontalContentAlignment = HorizontalAlignment.Center;
-                label.Content = R.getMissionName(staticLevelData.key);
-
-                var panel = new DockPanel();
-                panel.Children.Add(button);
-                panel.Children.Add(label);
-                DockPanel.SetDock(button, Dock.Top);
-                DockPanel.SetDock(label, Dock.Bottom);
-                panel.Visibility = Visibility.Collapsed;
-
+                var panel = new MissionControl(staticLevelData.levelType);
+                panel.text = R.getMissionName(staticLevelData.key);
 
                 canvas.Children.Add(panel);
-
                 _missionElements.Add(staticLevelData.key, panel);
-
             }
 
             positionLevels();
+            updateUI();
+        }
+
+        public void updateUI()
+        {
+            if(_model?.profile.value == null)
+            {
+                foreach(var panel in _missionElements.Values)
+                {
+                    panel.Visibility = Visibility.Collapsed;
+                }
+                return;
+            }
+            var prerequisites = _model!.profile.value!.BonusPrerequisites;
+            var progress = _model!.profile.value!.Progress;
+            foreach (var level in Constants._staticLevelData.Select(level=>level.key))
+            {
+                var panel = _missionElements[level];
+                panel.Visibility = Visibility.Visible;
+                if (progress == null || !progress.ContainsKey(level))
+                {
+                    panel.locked = !prerequisites.Contains(level);
+                    continue;
+                }
+
+                panel.locked = false;
+                var levelProgress = progress[level];
+                uint difficulty = 1;
+                if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_1)
+                {
+                    difficulty = 2;
+                }
+                else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_2)
+                {
+                    difficulty = 3;
+                }
+                else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3 && levelProgress.CompletedEndlessStruggle == 0)
+                {
+                    difficulty = 4;
+                }
+                else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3 && levelProgress.CompletedEndlessStruggle > 0)
+                {
+                    difficulty = 5;
+                }
+                panel.difficultyLevel = difficulty;
+            }
         }
 
         private void screen_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -115,7 +111,7 @@ namespace MCDSaveEdit
             {
                 var element = _missionElements[staticLevelData.key];
                 Canvas.SetLeft(element, staticLevelData.mapPosition.X * mapWidth - (element.ActualWidth / 2));
-                Canvas.SetTop(element, staticLevelData.mapPosition.Y * mapHeight - imageRadius);
+                Canvas.SetTop(element, staticLevelData.mapPosition.Y * mapHeight - (element.ActualHeight / 2));
             }
 
         }

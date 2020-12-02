@@ -28,6 +28,7 @@ namespace MCDSaveEdit
             {
                 _model = value;
                 inventoryScreen.model = _model;
+                missionsMapScreen.model = _model;
                 setupCommands();
                 updateUI();
             }
@@ -58,8 +59,8 @@ namespace MCDSaveEdit
 
         private void translateStaticStrings()
         {
-            inventoryTabItem.Header = R.INVENTORY;
-            missionsTabItem.Header = R.MISSIONS;
+            inventoryTabItem.Header = R.getString("Quickaction_inventory") ?? R.INVENTORY;
+            missionsTabItem.Header = R.getString("1DFA61554D95DCE782DB1FB9DF55E6FC") ?? R.MISSIONS;
         }
 
         private void setupCommands()
@@ -272,6 +273,7 @@ namespace MCDSaveEdit
             updateTitleUI();
             updateEmeraldsUI(_model?.emeralds.value);
             inventoryScreen.updateUI();
+            missionsMapScreen.updateUI();
             updateEnchantmentPointsUI();
             selectedItemScreen.item = _model?.selectedItem.value;
             closeBusyIndicator();

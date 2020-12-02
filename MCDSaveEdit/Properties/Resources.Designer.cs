@@ -277,7 +277,7 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Items: {0}/180 Max.
+        ///   Looks up a localized string similar to Items: {0}/{1} Max.
         /// </summary>
         public static string ITEMS_COUNT_LABEL {
             get {
@@ -291,6 +291,15 @@ namespace MCDSaveEdit.Properties {
         public static string LEVEL {
             get {
                 return ResourceManager.GetString("LEVEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mainland.
+        /// </summary>
+        public static string MAINLAND {
+            get {
+                return ResourceManager.GetString("MAINLAND", resourceCulture);
             }
         }
         
