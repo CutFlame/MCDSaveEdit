@@ -116,6 +116,7 @@ namespace MCDSaveEdit
         private static Dictionary<string, string> _enchantment = new Dictionary<string, string>();
         private static Dictionary<string, string> _armorProperties = new Dictionary<string, string>();
         private static Dictionary<string, string> _mission = new Dictionary<string, string>();
+        private static Dictionary<string, string> _clickys = new Dictionary<string, string>();
 
         public static bool isStringsLoaded { get; private set; } = false;
 
@@ -136,6 +137,10 @@ namespace MCDSaveEdit
             if (stringLibrary.TryGetValue("Mission", out var missionDict))
             {
                 _mission = missionDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
+            }
+            if (stringLibrary.TryGetValue("LobbyClickys", out var clickysDict))
+            {
+                _clickys = clickysDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
             }
             isStringsLoaded = true;
         }
@@ -269,6 +274,21 @@ namespace MCDSaveEdit
                 key = _mismatches[key];
             }
             if (_mission.TryGetValue(key, out string value))
+            {
+                return value;
+            }
+            EventLogger.logError($"Could not find string for mission {key}");
+            return null;
+        }
+
+        public static string? getString(string key)
+        {
+            if (!isStringsLoaded) { return key; }
+            if (_mismatches.ContainsKey(key))
+            {
+                key = _mismatches[key];
+            }
+            if (_clickys.TryGetValue(key, out string value))
             {
                 return value;
             }

@@ -7,21 +7,25 @@ using System.Windows.Media.Imaging;
 namespace MCDSaveEdit
 {
     /// <summary>
-    /// Interaction logic for MapWindow.xaml
+    /// Interaction logic for MainMapScreen.xaml
     /// </summary>
-    public partial class MapWindow : Window
+    public partial class MainMapScreen : UserControl
     {
         private const double imageRadius = 16;
 
         private Dictionary<string, Panel> _missionElements = new Dictionary<string, Panel>();
-        public MapWindow()
+
+        public MainMapScreen()
         {
             InitializeComponent();
 
             var mapImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/background/missionselect_map_center_xbox");
-            var croppedImageSource = new CroppedBitmap(mapImageSource, new Int32Rect(10, 83, 6136, 2975));
-            var background = new ImageBrush(croppedImageSource);
-            this.Background = background;
+            if(mapImageSource!= null)
+            {
+                var croppedImageSource = new CroppedBitmap(mapImageSource, new Int32Rect(10, 83, 6136, 2975));
+                var background = new ImageBrush(croppedImageSource);
+                this.Background = background;
+            }
 
             var missionImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/mission_marker_front");
             var dungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon");
@@ -69,8 +73,8 @@ namespace MCDSaveEdit
                 levelImagePanel.Children.Add(levelDifficultyImage);
 
                 var button = new Button();
-                button.Height = imageRadius*2;
-                button.Width = imageRadius*2;
+                button.Height = imageRadius * 2;
+                button.Width = imageRadius * 2;
                 button.Background = null;
                 button.Content = levelImagePanel;
 
@@ -78,6 +82,7 @@ namespace MCDSaveEdit
                 label.Background = new SolidColorBrush(Color.FromArgb(100, 0, 0, 0));
                 label.Foreground = new SolidColorBrush(Colors.White);
                 label.FontWeight = FontWeights.ExtraBold;
+                label.HorizontalContentAlignment = HorizontalAlignment.Center;
                 label.Content = R.getMissionName(staticLevelData.key);
 
                 var panel = new DockPanel();
@@ -85,6 +90,7 @@ namespace MCDSaveEdit
                 panel.Children.Add(label);
                 DockPanel.SetDock(button, Dock.Top);
                 DockPanel.SetDock(label, Dock.Bottom);
+                panel.Visibility = Visibility.Collapsed;
 
 
                 canvas.Children.Add(panel);
@@ -96,7 +102,7 @@ namespace MCDSaveEdit
             positionLevels();
         }
 
-        private void window_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void screen_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             positionLevels();
         }
@@ -113,5 +119,6 @@ namespace MCDSaveEdit
             }
 
         }
+
     }
 }

@@ -268,6 +268,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inventory.
+        /// </summary>
+        public static string INVENTORY {
+            get {
+                return ResourceManager.GetString("INVENTORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Items: {0}/180 Max.
         /// </summary>
         public static string ITEMS_COUNT_LABEL {
@@ -318,6 +327,15 @@ namespace MCDSaveEdit.Properties {
         public static string MENU_ITEM_GET_NEW_VERSION {
             get {
                 return ResourceManager.GetString("MENU_ITEM_GET_NEW_VERSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missions.
+        /// </summary>
+        public static string MISSIONS {
+            get {
+                return ResourceManager.GetString("MISSIONS", resourceCulture);
             }
         }
         

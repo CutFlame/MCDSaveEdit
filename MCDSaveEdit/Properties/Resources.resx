@@ -209,6 +209,10 @@
     <value>Launch using game content</value>
     <comment>Launch using game content</comment>
   </data>
+  <data name="INVENTORY" xml:space="preserve">
+    <value>Inventory</value>
+    <comment>Inventory</comment>
+  </data>
   <data name="ITEMS_COUNT_LABEL" xml:space="preserve">
     <value>Items: {0}/180 Max</value>
     <comment>Items: {0}/180 Max</comment>
@@ -232,6 +236,10 @@
   <data name="MENU_ITEM_GET_NEW_VERSION" xml:space="preserve">
     <value>Get New Version</value>
     <comment>Get New Version</comment>
+  </data>
+  <data name="MISSIONS" xml:space="preserve">
+    <value>Missions</value>
+    <comment>Missions</comment>
   </data>
   <data name="NO_GAME_FILES_FOUND_ERROR_MESSAGE" xml:space="preserve">
     <value>Could not find game content files at the given path.</value>

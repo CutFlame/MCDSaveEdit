@@ -38,6 +38,7 @@ namespace MCDSaveEdit
         public MainWindow()
         {
             InitializeComponent();
+            translateStaticStrings();
             if (ImageUriHelper.gameContentLoaded)
             {
                 useGameContentImages();
@@ -53,6 +54,12 @@ namespace MCDSaveEdit
         {
             emeraldsLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_emerald");
             remainingEnchantmentPointsLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchantscore_background");
+        }
+
+        private void translateStaticStrings()
+        {
+            inventoryTabItem.Header = R.INVENTORY;
+            missionsTabItem.Header = R.MISSIONS;
         }
 
         private void setupCommands()

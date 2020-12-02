@@ -13,13 +13,11 @@ namespace MCDSaveEdit
     public partial class App : Application
     {
         private Window? _busyWindow = null;
-        private bool _launchToMissionViewer = false;
         private bool _askForGameContentLocation = false;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            _launchToMissionViewer = e.Args.Contains("LAUNCH_TO_MISSION_VIEWER");
             _askForGameContentLocation = e.Args.Contains("ASK_FOR_GAME_CONTENT_LOCATION");
             EventLogger.init();
             initPakReader();
@@ -74,17 +72,9 @@ namespace MCDSaveEdit
         private void showMainWindow()
         {
             EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", (!string.IsNullOrWhiteSpace(Constants.PAKS_FOLDER_PATH)).ToString() } });
-            if (_launchToMissionViewer)
-            {
-                var mainWindow = new MapWindow();
-                this.MainWindow = mainWindow;
-            }
-            else
-            {
-                var mainWindow = new MainWindow();
-                mainWindow.model = new ProfileViewModel();
-                this.MainWindow = mainWindow;
-            }
+            var mainWindow = new MainWindow();
+            mainWindow.model = new ProfileViewModel();
+            this.MainWindow = mainWindow;
             this.MainWindow.Show();
 
             closeBusyIndicator();

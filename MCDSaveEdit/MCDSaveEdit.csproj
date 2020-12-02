@@ -162,9 +162,6 @@
     <Compile Include="Logic\ImageResolver\PakImageResolver.cs" />
     <Compile Include="Logic\ImageResolver\PakIndexExtensions.cs" />
     <Compile Include="Logic\Secrets.cs" />
-    <Compile Include="MapWindow.xaml.cs">
-      <DependentUpon>MapWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\Enums\Rarity.cs" />
     <Compile Include="Models\Mapping\AttributeBasedConverterFactory.cs" />
     <Compile Include="Models\Mapping\CustomNamingEnumJsonConverter.cs" />
@@ -195,6 +192,9 @@
       <DependentUpon>InventoryScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Profiles\StaticLevelData.cs" />
+    <Compile Include="Screens\MainMapScreen.xaml.cs">
+      <DependentUpon>MainMapScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\BusyIndicator.xaml.cs">
       <DependentUpon>BusyIndicator.xaml</DependentUpon>
     </Compile>
@@ -220,11 +220,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MapWindow.xaml">
+    <Page Include="Screens\InventoryScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\InventoryScreen.xaml">
+    <Page Include="Screens\MainMapScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

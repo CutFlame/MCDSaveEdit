@@ -8,11 +8,6 @@
         MinHeight="490" MinWidth="1200" d:DesignWidth="1200"
         Title="*Minecraft Dungeons Save File Editor*"
         WindowStartupLocation="CenterScreen">
-    <!--
-    <Window.Background>
-        <ImageBrush ImageSource="Images/UI/master_inventory_backdrop_switch.png" Stretch="UniformToFill"/>
-    </Window.Background>
-        -->
     <Window.CommandBindings>
         <CommandBinding Command="Close" Executed="exitCommandBinding_Executed"/>
         <CommandBinding Command="Open" Executed="openCommandBinding_Executed"/>
@@ -26,39 +21,47 @@
     </Window.InputBindings>
     <DockPanel AllowDrop="True" Drop="window_File_Drop" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
-        <StackPanel DockPanel.Dock="Top" Width="Auto" Height="48" HorizontalAlignment="Stretch">
-            <Menu Height="18" Margin="0" VerticalAlignment="Top">
-                <MenuItem x:Name="fileMenuItem" Header="_File">
-                    <MenuItem x:Name="openMenuItem" Header="_Open..." Command="Open" InputGestureText="Ctrl+O" />
-                    <MenuItem x:Name="saveMenuItem" Header="_Save" Command="Save" InputGestureText="Ctrl+S" />
-                    <MenuItem x:Name="saveAsMenuItem" Header="Save _As..." Command="SaveAs"/>
-                    <Separator />
-                    <MenuItem x:Name="exitMenuItem" Header="_Exit" Command="Close" InputGestureText="Ctrl+Q" />
-                </MenuItem>
-                <MenuItem x:Name="aboutMenuItem" Header="_About" Click="aboutMenuItem_Click"/>
-                <MenuItem x:Name="updateMenuItem" Header="_Get New Version" Visibility="Collapsed" Click="updateMenuItem_Click"/>
-            </Menu>
+        <Menu DockPanel.Dock="Top" Width="Auto" Height="18" Margin="0" VerticalAlignment="Top">
+            <MenuItem x:Name="fileMenuItem" Header="_File">
+                <MenuItem x:Name="openMenuItem" Header="_Open..." Command="Open" InputGestureText="Ctrl+O" />
+                <MenuItem x:Name="saveMenuItem" Header="_Save" Command="Save" InputGestureText="Ctrl+S" />
+                <MenuItem x:Name="saveAsMenuItem" Header="Save _As..." Command="SaveAs"/>
+                <Separator />
+                <MenuItem x:Name="exitMenuItem" Header="_Exit" Command="Close" InputGestureText="Ctrl+Q" />
+            </MenuItem>
+            <MenuItem x:Name="aboutMenuItem" Header="_About" Click="aboutMenuItem_Click"/>
+            <MenuItem x:Name="updateMenuItem" Header="_Get New Version" Visibility="Collapsed" Click="updateMenuItem_Click"/>
+        </Menu>
 
-            <StackPanel Height="30" Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
-                <Image x:Name="emeraldsLabelImage" Margin="8,4" Source="Images/Emerald.png"/>
-                <TextBox x:Name="emeraldsTextBox" Text="1234567890" TextChanged="emeraldsTextBox_TextChanged" FontSize="14" Width="100" VerticalContentAlignment="Center" Margin="0,4" MaxLength="8" MaxLines="1" IsUndoEnabled="True" Background="{x:Null}"/>
-                <Image x:Name="remainingEnchantmentPointsLabelImage" Margin="8,4" Source="Images/Points.png"/>
-                <Label x:Name="remainingEnchantmentPointsLabel" Content="1234567890" FontSize="14" Width="100" VerticalContentAlignment="Center" Padding="0" />
-            </StackPanel>
-        </StackPanel>
+        <TabControl DockPanel.Dock="Bottom" >
+            <TabItem x:Name="inventoryTabItem" Header="*Inventory*">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top"  Height="30" Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+                        <Image x:Name="emeraldsLabelImage" Margin="8,4" Source="Images/Emerald.png"/>
+                        <TextBox x:Name="emeraldsTextBox" Text="1234567890" TextChanged="emeraldsTextBox_TextChanged" FontSize="14" Width="100" VerticalContentAlignment="Center" Margin="0,4" MaxLength="8" MaxLines="1" IsUndoEnabled="True" Background="{x:Null}"/>
+                        <Image x:Name="remainingEnchantmentPointsLabelImage" Margin="8,4" Source="Images/Points.png"/>
+                        <Label x:Name="remainingEnchantmentPointsLabel" Content="1234567890" FontSize="14" Width="100" VerticalContentAlignment="Center" Padding="0" />
+                    </StackPanel>
 
-        <Grid DockPanel.Dock="Left" Width="710" Height="Auto" Margin="0" VerticalAlignment="Stretch">
-            <local:InventoryScreen x:Name="inventoryScreen"/>
+                    <Grid DockPanel.Dock="Left" Width="710" Height="Auto" Margin="0" VerticalAlignment="Stretch">
+                        <local:InventoryScreen x:Name="inventoryScreen"/>
 
-            <Rectangle x:Name="selectedEnchantmentScreenBackShadowRectangle" Visibility="Collapsed" Fill="#7F000000" />
+                        <Rectangle x:Name="selectedEnchantmentScreenBackShadowRectangle" Visibility="Collapsed" Fill="#7F000000" />
 
-            <local:EnchantmentScreen x:Name="selectedEnchantmentScreen" Visibility="Collapsed" Margin="30" Background="White"/>
+                        <local:EnchantmentScreen x:Name="selectedEnchantmentScreen" Visibility="Collapsed" Margin="30" Background="White"/>
 
-        </Grid>
+                    </Grid>
 
+                    <local:ItemScreen x:Name="selectedItemScreen" DockPanel.Dock="Right" Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
-        <local:ItemScreen x:Name="selectedItemScreen" DockPanel.Dock="Right" Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        </local:ItemScreen>
+                </DockPanel>
+            </TabItem>
+            
+            <TabItem x:Name="missionsTabItem" Header="*Missions*">
+                <local:MainMapScreen/>
+            </TabItem>
+            
+        </TabControl>
 
     </DockPanel>
 </Window>
