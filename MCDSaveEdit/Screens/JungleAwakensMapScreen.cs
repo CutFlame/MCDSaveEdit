@@ -11,12 +11,14 @@ namespace MCDSaveEdit
         {
             mapLabel.Content = R.getString("TheJungleAwakens_name") ?? R.JUNGLE_AWAKENS;
 
+            this.Background = new SolidColorBrush(Colors.LightCyan);
+
             var mapImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/background/islands/DLC_Jungle_Island");
             if (mapImageSource != null)
             {
                 var croppedImageSource = new CroppedBitmap(mapImageSource, new Int32Rect(0, 0, 2166, 1455));
                 var background = new ImageBrush(croppedImageSource);
-                this.Background = background;
+                this.grid.Background = background;
             }
         }
     }

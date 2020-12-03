@@ -57,8 +57,12 @@
                 </DockPanel>
             </TabItem>
             
-            <TabItem x:Name="missionsTabItem" Header="*Missions*">
-                <local:MainlandMapScreen x:Name="missionsMapScreen"/>
+            <TabItem x:Name="mainlandTabItem" Header="*Mainland*">
+                <local:MainlandMapScreen x:Name="mainlandMapScreen"/>
+            </TabItem>
+
+            <TabItem x:Name="islandRealmsTabItem" Header="*Island Realms*">
+                <local:JungleAwakensMapScreen x:Name="islandRealmsMapScreen"/>
             </TabItem>
             
         </TabControl>

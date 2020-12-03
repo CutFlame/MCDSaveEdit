@@ -277,6 +277,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Island Realms.
+        /// </summary>
+        public static string ISLAND_REALMS {
+            get {
+                return ResourceManager.GetString("ISLAND_REALMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Items: {0}/{1} Max.
         /// </summary>
         public static string ITEMS_COUNT_LABEL {
