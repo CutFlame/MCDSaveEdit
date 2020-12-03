@@ -15,6 +15,7 @@ namespace MCDSaveEdit
         private static readonly BitmapImage? _dungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon");
 
         private static readonly BitmapImage? _lockedDungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/locked_dungeons");
+        private static readonly BitmapImage? _incompleteMissionImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/mission_marker_iconSword_A");
         private static readonly BitmapImage? _unlockedDungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/icon_dungeon");
 
         private static readonly BitmapImage? _difficulty1ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level1");
@@ -69,8 +70,16 @@ namespace MCDSaveEdit
         {
             if (_locked)
             {
-                _levelDifficultyImage.Source = _lockedDungeonImageSource;
-                _label.Visibility = Visibility.Collapsed;
+                if(_levelType == LevelTypeEnum.dungeon)
+                {
+                    _levelDifficultyImage.Source = _lockedDungeonImageSource;
+                    _label.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    _levelDifficultyImage.Source = _incompleteMissionImageSource;
+                    _label.Visibility = Visibility.Visible;
+                }
             }
             else
             {

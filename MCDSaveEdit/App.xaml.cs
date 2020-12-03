@@ -3,6 +3,7 @@ using PakReader.Parsers.Objects;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 #nullable enable
 
 namespace MCDSaveEdit
@@ -12,6 +13,7 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class App : Application
     {
+        private Window? _splashWindow = null;
         private Window? _busyWindow = null;
         private bool _askForGameContentLocation = false;
 
@@ -21,6 +23,11 @@ namespace MCDSaveEdit
             _askForGameContentLocation = e.Args.Contains("ASK_FOR_GAME_CONTENT_LOCATION");
             EventLogger.init();
             initPakReader();
+
+            _splashWindow = buildSplashWindow();
+            MainWindow = _splashWindow;
+            this.MainWindow.Show();
+
             loadAsync();
         }
 
@@ -37,8 +44,6 @@ namespace MCDSaveEdit
 
         private async void loadAsync()
         {
-            showBusyIndicator();
-
             //check default install locations
             string? paksFolderPath = ImageUriHelper.usableGameContentIfExists();
             if (_askForGameContentLocation || string.IsNullOrWhiteSpace(paksFolderPath))
@@ -46,12 +51,12 @@ namespace MCDSaveEdit
                 //show dialog asking for install location
                 EventLogger.logEvent("showGameFilesWindow");
                 var gameFilesWindow = new GameFilesWindow();
+                gameFilesWindow.Owner = this.MainWindow;
                 gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 gameFilesWindow.ShowDialog();
                 var gameFilesWindowResult = gameFilesWindow.result;
                 if (gameFilesWindowResult == GameFilesWindow.GameFilesWindowResult.exit)
                 {
-                    closeBusyIndicator();
                     this.Shutdown();
                     return;
                 }
@@ -63,6 +68,7 @@ namespace MCDSaveEdit
 
             if (!string.IsNullOrWhiteSpace(paksFolderPath))
             {
+                showBusyIndicator();
                 await ImageUriHelper.loadGameContentAsync(paksFolderPath!);
             }
 
@@ -75,9 +81,28 @@ namespace MCDSaveEdit
             var mainWindow = new MainWindow();
             mainWindow.model = new ProfileViewModel();
             this.MainWindow = mainWindow;
-            this.MainWindow.Show();
 
+            _splashWindow?.Close();
             closeBusyIndicator();
+
+            this.MainWindow.Show();
+        }
+
+        private Window buildSplashWindow()
+        {
+            var label = new Label();
+            label.FontSize = 40;
+            label.FontWeight = FontWeights.ExtraBold;
+            label.Content = R.APPLICATION_TITLE;
+
+            var window = new Window();
+            window.SizeToContent = SizeToContent.Width;
+            window.ResizeMode = ResizeMode.NoResize;
+            window.WindowStyle = WindowStyle.None;
+            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            window.Content = label;
+
+            return window;
         }
 
         private void showBusyIndicator()
@@ -85,6 +110,7 @@ namespace MCDSaveEdit
             closeBusyIndicator();
 
             _busyWindow = new Window();
+            _busyWindow.Owner = this.MainWindow;
             _busyWindow.Height = 200;
             _busyWindow.Width = 200;
             _busyWindow.ResizeMode = ResizeMode.NoResize;
