@@ -138,9 +138,13 @@ namespace MCDSaveEdit
             {
                 _mission = missionDict.ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
             }
-            if (stringLibrary.TryGetValue("", out var clickysDict) && stringLibrary.TryGetValue("Realms", out var realmsDict))
+            if (stringLibrary.TryGetValue("", out var clickysDict)
+                && stringLibrary.TryGetValue("Realms", out var realmsDict)
+                && stringLibrary.TryGetValue("DLC", out var dlcDict)
+                )
             {
-                _clickys = clickysDict.Concat(realmsDict).ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
+                _clickys = clickysDict.Concat(realmsDict).Concat(dlcDict)
+                    .ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
             }
             isStringsLoaded = true;
         }

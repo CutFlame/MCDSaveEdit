@@ -286,6 +286,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jungle Awakens.
+        /// </summary>
+        public static string JUNGLE_AWAKENS {
+            get {
+                return ResourceManager.GetString("JUNGLE_AWAKENS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string LEVEL {

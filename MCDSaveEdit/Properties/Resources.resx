@@ -217,6 +217,10 @@
     <value>Items: {0}/{1} Max</value>
     <comment>Items: {0}/{1} Max</comment>
   </data>
+  <data name="JUNGLE_AWAKENS" xml:space="preserve">
+    <value>Jungle Awakens</value>
+    <comment>Jungle Awakens</comment>
+  </data>
   <data name="LEVEL" xml:space="preserve">
     <value>Level</value>
     <comment>Level</comment>

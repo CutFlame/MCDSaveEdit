@@ -9,7 +9,7 @@ namespace MCDSaveEdit
 {
     public class MissionControl: DockPanel
     {
-        private const double IMAGE_RADIUS = 18;
+        public const double IMAGE_RADIUS = 18;
 
         private static readonly BitmapImage? _missionImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/mission_marker_front");
         private static readonly BitmapImage? _dungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon");

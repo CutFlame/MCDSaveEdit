@@ -193,8 +193,11 @@
       <DependentUpon>InventoryScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Profiles\StaticLevelData.cs" />
-    <Compile Include="Screens\MainMapScreen.xaml.cs">
-      <DependentUpon>MainMapScreen.xaml</DependentUpon>
+    <Compile Include="Screens\JungleAwakensMapScreen.xaml.cs">
+      <DependentUpon>JungleAwakensMapScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\MainlandMapScreen.xaml.cs">
+      <DependentUpon>MainlandMapScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MissionControl.cs" />
     <Compile Include="UserControls\BusyIndicator.xaml.cs">
@@ -226,7 +229,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\MainMapScreen.xaml">
+    <Page Include="Screens\JungleAwakensMapScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\MainlandMapScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

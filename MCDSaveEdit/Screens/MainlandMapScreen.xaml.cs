@@ -10,26 +10,20 @@ using System.Windows.Media.Imaging;
 namespace MCDSaveEdit
 {
     /// <summary>
-    /// Interaction logic for MainMapScreen.xaml
+    /// Interaction logic for MainlandMapScreen.xaml
     /// </summary>
-    public partial class MainMapScreen : UserControl
+    public partial class MainlandMapScreen : UserControl
     {
-        private ProfileViewModel? _model;
-        public ProfileViewModel? model {
-            get { return _model; }
-            set {
-                _model = value;
-                //setupCommands();
-                //updateUI();
-            }
-        }
+        public ProfileViewModel? model { get; set; }
 
 
         private Dictionary<string, MissionControl> _missionElements = new Dictionary<string, MissionControl>();
+        private readonly IEnumerable<StaticLevelData> _levelData;
 
-        public MainMapScreen()
+        public MainlandMapScreen()
         {
             InitializeComponent();
+            _levelData = Constants.MAINLAND_LEVEL_DATA;
             mapLabel.Content = R.getString("ArchIllagerRealm_name") ?? R.MAINLAND;
 
             var mapImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/background/missionselect_map_center_xbox");
@@ -40,7 +34,7 @@ namespace MCDSaveEdit
                 this.Background = background;
             }
 
-            foreach (var staticLevelData in Constants._staticLevelData)
+            foreach (var staticLevelData in _levelData)
             {
                 var panel = new MissionControl(staticLevelData.levelType);
                 panel.text = R.getMissionName(staticLevelData.key);
@@ -49,13 +43,12 @@ namespace MCDSaveEdit
                 _missionElements.Add(staticLevelData.key, panel);
             }
 
-            positionLevels();
             updateUI();
         }
 
         public void updateUI()
         {
-            if(_model?.profile.value == null)
+            if(model?.profile.value == null)
             {
                 foreach(var panel in _missionElements.Values)
                 {
@@ -63,9 +56,9 @@ namespace MCDSaveEdit
                 }
                 return;
             }
-            var prerequisites = _model!.profile.value!.BonusPrerequisites;
-            var progress = _model!.profile.value!.Progress;
-            foreach (var level in Constants._staticLevelData.Select(level=>level.key))
+            var prerequisites = model!.profile.value!.BonusPrerequisites;
+            var progress = model!.profile.value!.Progress;
+            foreach (var level in _levelData.Select(level=>level.key))
             {
                 var panel = _missionElements[level];
                 panel.Visibility = Visibility.Visible;
@@ -96,6 +89,7 @@ namespace MCDSaveEdit
                 }
                 panel.difficultyLevel = difficulty;
             }
+            positionLevels();
         }
 
         private void screen_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -105,15 +99,15 @@ namespace MCDSaveEdit
 
         private void positionLevels()
         {
+            canvas.UpdateLayout();
             var mapWidth = canvas.ActualWidth;
             var mapHeight = canvas.ActualHeight;
-            foreach (var staticLevelData in Constants._staticLevelData)
+            foreach (var staticLevelData in _levelData)
             {
                 var element = _missionElements[staticLevelData.key];
-                Canvas.SetLeft(element, staticLevelData.mapPosition.X * mapWidth - (element.ActualWidth / 2));
-                Canvas.SetTop(element, staticLevelData.mapPosition.Y * mapHeight - (element.ActualHeight / 2));
+                Canvas.SetLeft(element, (staticLevelData.mapPosition.X * mapWidth) - (element.ActualWidth / 2));
+                Canvas.SetTop(element, (staticLevelData.mapPosition.Y * mapHeight) - (MissionControl.IMAGE_RADIUS));
             }
-
         }
 
     }
