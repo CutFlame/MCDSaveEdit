@@ -16,11 +16,13 @@ namespace MCDSaveEdit
         private Window? _splashWindow = null;
         private Window? _busyWindow = null;
         private bool _askForGameContentLocation = false;
+        private bool _skipGameContent = false;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             _askForGameContentLocation = e.Args.Contains("ASK_FOR_GAME_CONTENT_LOCATION");
+            _skipGameContent = e.Args.Contains("SKIP_GAME_CONTENT");
             EventLogger.init();
             initPakReader();
 
@@ -28,7 +30,14 @@ namespace MCDSaveEdit
             MainWindow = _splashWindow;
             this.MainWindow.Show();
 
-            load();
+            if (_skipGameContent)
+            {
+                showMainWindow();
+            }
+            else
+            {
+                load();
+            }
         }
 
         protected override void OnExit(ExitEventArgs e)

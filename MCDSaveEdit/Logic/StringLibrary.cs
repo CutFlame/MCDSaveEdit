@@ -283,7 +283,7 @@ namespace MCDSaveEdit
 
         public static string? getString(string key)
         {
-            if (!isStringsLoaded) { return key; }
+            if (!isStringsLoaded) { return null; }
             if (_mismatches.ContainsKey(key))
             {
                 key = _mismatches[key];
