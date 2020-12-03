@@ -28,7 +28,7 @@ namespace MCDSaveEdit
             MainWindow = _splashWindow;
             this.MainWindow.Show();
 
-            loadAsync();
+            load();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -42,7 +42,7 @@ namespace MCDSaveEdit
             Globals.Game = new FGame(EGame.MinecraftDungeons, EPakVersion.FNAME_BASED_COMPRESSION_METHOD);
         }
 
-        private async void loadAsync()
+        private void load()
         {
             //check default install locations
             string? paksFolderPath = ImageUriHelper.usableGameContentIfExists();
@@ -55,23 +55,29 @@ namespace MCDSaveEdit
                 gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 gameFilesWindow.ShowDialog();
                 var gameFilesWindowResult = gameFilesWindow.result;
-                if (gameFilesWindowResult == GameFilesWindow.GameFilesWindowResult.exit)
+                switch (gameFilesWindowResult)
                 {
-                    this.Shutdown();
-                    return;
-                }
-                if (gameFilesWindowResult == GameFilesWindow.GameFilesWindowResult.useSelectedPath)
-                {
-                    paksFolderPath = gameFilesWindow.selectedPath;
+                    case GameFilesWindow.GameFilesWindowResult.exit:
+                        this.Shutdown();
+                        break;
+                    case GameFilesWindow.GameFilesWindowResult.useSelectedPath:
+                        loadGameContentAsync(gameFilesWindow.selectedPath!);
+                        break;
+                    case GameFilesWindow.GameFilesWindowResult.noContent:
+                        showMainWindow();
+                        break;
                 }
             }
-
-            if (!string.IsNullOrWhiteSpace(paksFolderPath))
+            else
             {
-                showBusyIndicator();
-                await ImageUriHelper.loadGameContentAsync(paksFolderPath!);
+                loadGameContentAsync(paksFolderPath!);
             }
+        }
 
+        private async void loadGameContentAsync(string paksFolderPath)
+        {
+            showBusyIndicator();
+            await ImageUriHelper.loadGameContentAsync(paksFolderPath);
             showMainWindow();
         }
 

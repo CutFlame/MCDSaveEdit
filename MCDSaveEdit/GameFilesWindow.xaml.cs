@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 #nullable enable
 
@@ -70,15 +71,32 @@ namespace MCDSaveEdit
             }
 
             var testPath = selectedPath!;
-            if (File.Exists(Path.Combine(testPath, Constants.GAME_EXECUTABLE_FILENAME)))
+            if (File.Exists(Path.Combine(testPath, Constants.FIRST_PAK_FILENAME)))
             {
-                testPath = Path.Combine(testPath, "Dungeons", "Content", "Paks");
+                return true;
             }
 
-            if(File.Exists(Path.Combine(testPath, Constants.FIRST_PAK_FILENAME)))
+            return foundInDirectory(testPath);
+        }
+
+        private static string[] highPriorityFolderNames = new string[] { "Mojang", "Dungeons", "Content", "Paks", "dungeons", "products" };
+
+        private bool foundInDirectory(string testPath)
+        {
+            foreach (var directory in Directory.EnumerateDirectories(testPath))
             {
-                selectedPath = testPath;
-                return true;
+                if (File.Exists(Path.Combine(directory, Constants.FIRST_PAK_FILENAME)))
+                {
+                    selectedPath = directory;
+                    return true;
+                }
+                if (highPriorityFolderNames.Contains(Path.GetFileName(directory)))
+                {
+                    if (foundInDirectory(directory))
+                    {
+                        return true;
+                    }
+                }
             }
             return false;
         }
