@@ -57,19 +57,19 @@
                 </DockPanel>
             </TabItem>
             
-            <TabItem x:Name="mainlandTabItem" Header="*Mainland*">
+            <TabItem x:Name="mainlandTabItem" Header="*Mainland*" Visibility="Collapsed">
                 <local:MainlandMapScreen x:Name="mainlandMapScreen"/>
             </TabItem>
 
-            <TabItem x:Name="jungleAwakensTabItem" Header="*Jungle Awakens*">
+            <TabItem x:Name="jungleAwakensTabItem" Header="*Jungle Awakens*" Visibility="Collapsed">
                 <local:JungleAwakensMapScreen x:Name="jungleAwakensMapScreen"/>
             </TabItem>
 
-            <TabItem x:Name="creepingWinterTabItem" Header="*Creeping Winter*">
+            <TabItem x:Name="creepingWinterTabItem" Header="*Creeping Winter*" Visibility="Collapsed">
                 <local:CreepingWinterMapScreen x:Name="creepingWinterMapScreen"/>
             </TabItem>
 
-            <TabItem x:Name="howlingPeaksTabItem" Header="*Howling Peaks*">
+            <TabItem x:Name="howlingPeaksTabItem" Header="*Howling Peaks*" Visibility="Collapsed">
                 <local:HowlingPeaksMapScreen x:Name="howlingPeaksMapScreen"/>
             </TabItem>
 
