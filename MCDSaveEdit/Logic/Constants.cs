@@ -12,7 +12,7 @@ namespace MCDSaveEdit
         public const string LATEST_RELEASE_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
         public const string CURRENT_RELEASE_TAG_NAME = "1.2.5";
 
-        public const int MAXIMUM_INVENTORY_ITEM_COUNT = 180;
+        public const int MAXIMUM_INVENTORY_ITEM_COUNT = 300;
 
         public const int MINIMUM_ENCHANTMENT_TIER = 0;
         public const int MAXIMUM_ENCHANTMENT_TIER = 3;
@@ -105,6 +105,18 @@ namespace MCDSaveEdit
             new StaticLevelData("dingyjungle", new Point(.24, .44), LevelTypeEnum.mission),
             new StaticLevelData("overgrowntemple", new Point(.62, .15), LevelTypeEnum.mission),
             new StaticLevelData("bamboobluff", new Point(.65, .55), LevelTypeEnum.dungeon),
+        };
+
+        public static StaticLevelData[] CREEPING_WINTER_LEVEL_DATA = new StaticLevelData[] {
+            new StaticLevelData("frozenfjord", new Point(.24, .44), LevelTypeEnum.mission),
+            new StaticLevelData("lonelyfortress", new Point(.62, .15), LevelTypeEnum.mission),
+            new StaticLevelData("lostsettlement", new Point(.65, .55), LevelTypeEnum.dungeon),
+        };
+
+        public static StaticLevelData[] HOWLING_PEAKS_LEVEL_DATA = new StaticLevelData[] {
+            new StaticLevelData("windsweptpeaks", new Point(.24, .44), LevelTypeEnum.mission),
+            new StaticLevelData("galesanctum", new Point(.62, .15), LevelTypeEnum.mission),
+            new StaticLevelData("endlessrampart", new Point(.65, .55), LevelTypeEnum.dungeon),
         };
 
     }

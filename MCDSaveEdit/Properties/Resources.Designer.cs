@@ -124,6 +124,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creeping Winter.
+        /// </summary>
+        public static string CREEPING_WINTER {
+            get {
+                return ResourceManager.GetString("CREEPING_WINTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decrypted Character Save files.
         /// </summary>
         public static string DECRYPTED_CHARACTER_SAVE_FILES {
@@ -264,6 +273,15 @@ namespace MCDSaveEdit.Properties {
         public static string GAME_FILES_WINDOW_TITLE {
             get {
                 return ResourceManager.GetString("GAME_FILES_WINDOW_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Howling Peaks.
+        /// </summary>
+        public static string HOWLING_PEAKS {
+            get {
+                return ResourceManager.GetString("HOWLING_PEAKS", resourceCulture);
             }
         }
         

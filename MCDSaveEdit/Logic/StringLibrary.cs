@@ -43,6 +43,8 @@ namespace MCDSaveEdit
             { "EnigmaResonatorMelee_desc","Enigma_desc" },
             { "EnigmaResonatorRanged_desc","EnigmaRanged_desc" },
             { "SoulSiphon_desc","Soul_desc" },
+            { "EmeraldDivination_desc","EmeraldDivination_effect_desc" },
+            { "DeathBarter_desc","DeathBarter_effect_desc" },
 
             { "Powerbow","PowerBow" },
             { "Powerbow_Unique2","PowerBow_Unique2" },
@@ -94,6 +96,9 @@ namespace MCDSaveEdit
             { "Flavour_StrengthPotion","Desc_StrengthPotion" },
             { "Flavour_SwiftnessPotion","Desc_SwiftnessPotion" },
             { "Flavour_TNTBox","Desc_TNTBox"},
+            { "EmeraldArmor_Unique1","Emerald_Armor_Unique1" },
+            { "EmeraldArmor_Unique2","Emerald_Armor_Unique2" },
+            { "Flavour_ClimbingGear_Unique1","Flavour_ClimbingGearSolid" },
 
             { "ReviveChance","Unset" }, //missing
             { "ReviveChance_description","Unset" }, //missing
@@ -103,7 +108,6 @@ namespace MCDSaveEdit
             { "ItemDamageBoost_description","ArtifactDamageBoost_description" },
             { "SlowResistance","FreezingResistance" },
             { "SlowResistance_description","FreezingResistance_description" },
-
 
             { "underhalls_name","highblockhallsbonus_name" },
             { "lowertemple_name","deserttemplebonus_name" },

@@ -36,7 +36,8 @@ namespace MCDSaveEdit
 
         public void updateUI()
         {
-            if (model?.profile.value == null)
+            var profile = model?.profile.value;
+            if (profile == null)
             {
                 foreach (var panel in _missionElements.Values)
                 {
@@ -44,9 +45,10 @@ namespace MCDSaveEdit
                 }
                 return;
             }
-            var prerequisites = model!.profile.value!.BonusPrerequisites;
-            var progress = model!.profile.value!.Progress;
-            foreach (var level in _levelData.Select(level => level.key))
+
+            var prerequisites = profile!.BonusPrerequisites;
+            var progress = profile!.Progress;
+            foreach (var level in _levelData.Select(levelData => levelData.key))
             {
                 var panel = _missionElements[level];
                 panel.Visibility = Visibility.Visible;
@@ -62,13 +64,16 @@ namespace MCDSaveEdit
                 if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_1)
                 {
                     difficulty = 2;
-                } else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_2)
+                }
+                else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_2)
                 {
                     difficulty = 3;
-                } else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3 && levelProgress.CompletedEndlessStruggle == 0)
+                }
+                else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3 && levelProgress.CompletedEndlessStruggle == 0)
                 {
                     difficulty = 4;
-                } else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3 && levelProgress.CompletedEndlessStruggle > 0)
+                }
+                else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3 && levelProgress.CompletedEndlessStruggle > 0)
                 {
                     difficulty = 5;
                 }

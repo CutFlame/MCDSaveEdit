@@ -145,6 +145,10 @@
     <value>Common</value>
     <comment>Common</comment>
   </data>
+  <data name="CREEPING_WINTER" xml:space="preserve">
+    <value>Creeping Winter</value>
+    <comment>Creeping Winter</comment>
+  </data>
   <data name="DECRYPTED_CHARACTER_SAVE_FILES" xml:space="preserve">
     <value>Decrypted Character Save files</value>
     <comment>Decrypted Character Save files</comment>
@@ -208,6 +212,10 @@
   <data name="GAME_FILES_WINDOW_TITLE" xml:space="preserve">
     <value>Launch using game content</value>
     <comment>Launch using game content</comment>
+  </data>
+  <data name="HOWLING_PEAKS" xml:space="preserve">
+    <value>Howling Peaks</value>
+    <comment>Howling Peaks</comment>
   </data>
   <data name="INVENTORY" xml:space="preserve">
     <value>Inventory</value>

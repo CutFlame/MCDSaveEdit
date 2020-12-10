@@ -55,7 +55,9 @@ namespace MCDSaveEdit
         public static void logError(string message)
         {
             Debug.WriteLine($"[ERROR] {message}");
+#if !DEBUG
             GameAnalytics.AddErrorEvent(EGAErrorSeverity.Error, message);
+#endif
         }
     }
 }
