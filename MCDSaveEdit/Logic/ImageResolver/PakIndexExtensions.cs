@@ -40,6 +40,7 @@ namespace MCDSaveEdit
                 EventLogger.logError($"Could not get bitmap from texture {fullPath}");
                 return null;
             }
+            bitmap.Freeze();
             return bitmap;
         }
 

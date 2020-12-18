@@ -28,11 +28,10 @@ namespace MCDSaveEdit
             {
                 _model = value;
                 inventoryScreen.model = _model;
-                mainlandMapScreen.model = _model;
-                //islandRealmsMapScreen.model = _model;
-                jungleAwakensMapScreen.model = _model;
-                creepingWinterMapScreen.model = _model;
-                howlingPeaksMapScreen.model = _model;
+                //mainlandMapScreen.model = _model;
+                //jungleAwakensMapScreen.model = _model;
+                //creepingWinterMapScreen.model = _model;
+                //howlingPeaksMapScreen.model = _model;
                 setupCommands();
                 updateUI();
             }
@@ -64,12 +63,10 @@ namespace MCDSaveEdit
         private void translateStaticStrings()
         {
             inventoryTabItem.Header = R.getString("Quickaction_inventory") ?? R.INVENTORY;
-            mainlandTabItem.Header = R.getString("ArchIllagerRealm_name") ?? R.MAINLAND;
-            //mainlandTabItem.Header = R.getString("1DFA61554D95DCE782DB1FB9DF55E6FC") ?? R.MISSIONS;
-            //islandRealmsTabItem.Header = R.getString("IslandsRealm_name") ?? R.ISLAND_REALMS;
-            jungleAwakensTabItem.Header = R.getString("TheJungleAwakens_name") ?? R.JUNGLE_AWAKENS;
-            creepingWinterTabItem.Header = R.getString("TheCreepingWinter_name") ?? R.CREEPING_WINTER;
-            howlingPeaksTabItem.Header = R.getString("TheHowlingPeaks_name") ?? R.HOWLING_PEAKS;
+            //mainlandTabItem.Header = R.getString("ArchIllagerRealm_name") ?? R.MAINLAND;
+            //jungleAwakensTabItem.Header = R.getString("TheJungleAwakens_name") ?? R.JUNGLE_AWAKENS;
+            //creepingWinterTabItem.Header = R.getString("TheCreepingWinter_name") ?? R.CREEPING_WINTER;
+            //howlingPeaksTabItem.Header = R.getString("TheHowlingPeaks_name") ?? R.HOWLING_PEAKS;
         }
 
         private void setupCommands()
@@ -282,10 +279,10 @@ namespace MCDSaveEdit
             updateTitleUI();
             updateEmeraldsUI(_model?.emeralds.value);
             inventoryScreen.updateUI();
-            mainlandMapScreen.updateUI();
-            jungleAwakensMapScreen.updateUI();
-            creepingWinterMapScreen.updateUI();
-            howlingPeaksMapScreen.updateUI();
+            //mainlandMapScreen.updateUI();
+            //jungleAwakensMapScreen.updateUI();
+            //creepingWinterMapScreen.updateUI();
+            //howlingPeaksMapScreen.updateUI();
             updateEnchantmentPointsUI();
             selectedItemScreen.item = _model?.selectedItem.value;
             closeBusyIndicator();

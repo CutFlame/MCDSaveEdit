@@ -57,6 +57,7 @@
                 </DockPanel>
             </TabItem>
             
+            <!--
             <TabItem x:Name="mainlandTabItem" Header="*Mainland*">
                 <local:MainlandMapScreen x:Name="mainlandMapScreen"/>
             </TabItem>
@@ -73,6 +74,7 @@
                 <local:HowlingPeaksMapScreen x:Name="howlingPeaksMapScreen"/>
             </TabItem>
 
+            -->
         </TabControl>
 
     </DockPanel>

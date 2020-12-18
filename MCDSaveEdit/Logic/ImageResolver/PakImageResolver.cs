@@ -64,6 +64,7 @@ namespace MCDSaveEdit
 
         public void loadPakFiles(bool preloadBitmaps = false)
         {
+            Debug.WriteLine($"Loading Pak Files");
             foreach (var item in _pakIndex)
             {
                 if (item == null) continue;
@@ -251,9 +252,9 @@ namespace MCDSaveEdit
         {
             switch (rarity)
             {
-                case Rarity.Common: return ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/inspector/loot/drops_gear_frame");
-                case Rarity.Rare: return ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/inspector/loot/drops_rare_frame");
-                case Rarity.Unique: return ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/inspector/loot/drops_unique_frame");
+                case Rarity.Common: return imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/inspector/loot/drops_gear_frame");
+                case Rarity.Rare: return imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/inspector/loot/drops_rare_frame");
+                case Rarity.Unique: return imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/inspector/loot/drops_unique_frame");
             }
             return _backupResolver.imageSourceForRarity(rarity);
         }
