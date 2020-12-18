@@ -26,6 +26,10 @@ namespace MCDSaveEdit
             enchantment3Control.command = new RelayCommand<Enchantment>(relaySelectEnchantment);
 
             //Clear out design/testing values
+            rarityComboBox.Items.Clear();
+            rarityComboBox.Items.Add(R.getString("rarity_common"));
+            rarityComboBox.Items.Add(R.getString("rarity_rare"));
+            rarityComboBox.Items.Add(R.getString("rarity_unique"));
             updateUI();
         }
 
