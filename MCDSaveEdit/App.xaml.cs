@@ -103,6 +103,7 @@ namespace MCDSaveEdit
                 HowlingPeaksMapScreen.preload();
                 InventoryScreen.preload();
                 SelectionWindow.preload();
+                ItemControl.preload();
                 tcs.SetResult(true);
             });
             return tcs.Task;

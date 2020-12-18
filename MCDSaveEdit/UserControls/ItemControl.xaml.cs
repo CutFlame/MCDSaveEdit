@@ -3,6 +3,7 @@ using MCDSaveEdit.Save.Models.Profiles;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 #nullable enable
 
 namespace MCDSaveEdit
@@ -12,6 +13,14 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class ItemControl : UserControl
     {
+        private static readonly BitmapImage? enchantmentPointsImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
+        public static void preload()
+        {
+            ImageUriHelper.instance.imageSourceForRarity(Rarity.Common);
+            ImageUriHelper.instance.imageSourceForRarity(Rarity.Rare);
+            ImageUriHelper.instance.imageSourceForRarity(Rarity.Unique);
+        }
+
         public ItemControl()
         {
             InitializeComponent();
@@ -26,7 +35,7 @@ namespace MCDSaveEdit
 
         private void useGameContentImages()
         {
-            enchantmentPointsImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
+            enchantmentPointsImage.Source = enchantmentPointsImageSource;
         }
 
         private Item? _item;

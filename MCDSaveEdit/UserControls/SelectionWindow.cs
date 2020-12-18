@@ -18,7 +18,17 @@ namespace MCDSaveEdit
         private static readonly BitmapImage? powerfulImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
         private static readonly BitmapImage? bulletImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
 
-        public static void preload() { }
+        public static void preload()
+        {
+            foreach (var item in ItemExtensions.all)
+            {
+                ImageUriHelper.instance.imageSourceForItem(item);
+            }
+            foreach (var enchantment in EnchantmentExtensions.allEnchantments)
+            {
+                ImageUriHelper.instance.imageSourceForEnchantment(enchantment);
+            }
+        }
 
         private ListBox _listBox = new ListBox();
         private bool _isProcessing = true;

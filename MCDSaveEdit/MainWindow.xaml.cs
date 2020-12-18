@@ -281,17 +281,23 @@ namespace MCDSaveEdit
 
         #region UI
 
-        private void updateUI() {
+        private void updateUI()
+        {
             updateTitleUI();
             updateEmeraldsUI(_model?.emeralds.value);
+            updateMapScreensUI();
+            updateEnchantmentPointsUI();
+            selectedItemScreen.item = _model?.selectedItem.value;
+            closeBusyIndicator();
+        }
+
+        private void updateMapScreensUI()
+        {
             inventoryScreen.updateUI();
             mainlandMapScreen.updateUI();
             jungleAwakensMapScreen.updateUI();
             creepingWinterMapScreen.updateUI();
             howlingPeaksMapScreen.updateUI();
-            updateEnchantmentPointsUI();
-            selectedItemScreen.item = _model?.selectedItem.value;
-            closeBusyIndicator();
         }
 
         private void updateTitleUI()
