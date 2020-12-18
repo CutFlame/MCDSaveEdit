@@ -24,6 +24,8 @@ namespace MCDSaveEdit
         private static readonly BitmapImage? _difficulty4ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level4");
         private static readonly BitmapImage? _difficulty5ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level5");
 
+        public static void preload() { }
+
         private readonly Image _levelTypeImage = new Image();
         private readonly Image _levelDifficultyImage = new Image();
 

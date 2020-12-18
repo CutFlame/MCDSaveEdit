@@ -15,6 +15,11 @@ namespace MCDSaveEdit
     /// </summary>
     public class SelectionWindow : Window
     {
+        private static readonly BitmapImage? powerfulImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
+        private static readonly BitmapImage? bulletImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
+
+        public static void preload() { }
+
         private ListBox _listBox = new ListBox();
         private bool _isProcessing = true;
 
@@ -54,8 +59,6 @@ namespace MCDSaveEdit
             Content = _listBox;
             _isProcessing = true;
             _listBox.Items.Clear();
-
-            var bulletImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
 
             foreach (var armorProperty in ItemExtensions.armorProperties.OrderBy(str => str))
             {
@@ -98,8 +101,6 @@ namespace MCDSaveEdit
             Content = _listBox;
             _isProcessing = true;
             _listBox.Items.Clear();
-
-            var powerfulImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
 
             foreach (var enchantment in EnchantmentExtensions.allEnchantments.OrderBy(str => str).Concat(new[] { "Unset" }))
             {

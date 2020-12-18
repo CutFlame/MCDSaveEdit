@@ -2,6 +2,7 @@
 using PakReader.Parsers.Objects;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 #nullable enable
@@ -87,7 +88,24 @@ namespace MCDSaveEdit
         {
             showBusyIndicator();
             await ImageUriHelper.loadGameContentAsync(paksFolderPath);
+            await preloadImages();
             showMainWindow();
+        }
+
+        private Task<bool> preloadImages()
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            Task.Run(() => {
+                LevelImagePanel.preload();
+                MainlandMapScreen.preload();
+                JungleAwakensMapScreen.preload();
+                CreepingWinterMapScreen.preload();
+                HowlingPeaksMapScreen.preload();
+                InventoryScreen.preload();
+                SelectionWindow.preload();
+                tcs.SetResult(true);
+            });
+            return tcs.Task;
         }
 
         private void showMainWindow()

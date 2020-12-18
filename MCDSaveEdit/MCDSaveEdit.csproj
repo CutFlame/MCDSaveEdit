@@ -204,6 +204,7 @@
     <Compile Include="Screens\MissionScreen.xaml.cs">
       <DependentUpon>MissionScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\ProgressExtensions.cs" />
     <Compile Include="UserControls\LevelImagePanel.cs" />
     <Compile Include="UserControls\MissionControl.cs" />
     <Compile Include="UserControls\BusyIndicator.xaml.cs">

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 #nullable enable
 
 namespace MCDSaveEdit
@@ -20,6 +21,11 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static readonly BitmapImage? _emeraldImage = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_emerald");
+        private static readonly BitmapImage? _enchantmentImage = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchantscore_background");
+
+        public static void init() { }
+
         private ProfileViewModel? _model;
         public ProfileViewModel? model
         {
@@ -28,10 +34,10 @@ namespace MCDSaveEdit
             {
                 _model = value;
                 inventoryScreen.model = _model;
-                //mainlandMapScreen.model = _model;
-                //jungleAwakensMapScreen.model = _model;
-                //creepingWinterMapScreen.model = _model;
-                //howlingPeaksMapScreen.model = _model;
+                mainlandMapScreen.model = _model;
+                jungleAwakensMapScreen.model = _model;
+                creepingWinterMapScreen.model = _model;
+                howlingPeaksMapScreen.model = _model;
                 setupCommands();
                 updateUI();
             }
@@ -56,17 +62,17 @@ namespace MCDSaveEdit
 
         private void useGameContentImages()
         {
-            emeraldsLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_emerald");
-            remainingEnchantmentPointsLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchantscore_background");
+            emeraldsLabelImage.Source = _emeraldImage;
+            remainingEnchantmentPointsLabelImage.Source = _enchantmentImage;
         }
 
         private void translateStaticStrings()
         {
             inventoryTabItem.Header = R.getString("Quickaction_inventory") ?? R.INVENTORY;
-            //mainlandTabItem.Header = R.getString("ArchIllagerRealm_name") ?? R.MAINLAND;
-            //jungleAwakensTabItem.Header = R.getString("TheJungleAwakens_name") ?? R.JUNGLE_AWAKENS;
-            //creepingWinterTabItem.Header = R.getString("TheCreepingWinter_name") ?? R.CREEPING_WINTER;
-            //howlingPeaksTabItem.Header = R.getString("TheHowlingPeaks_name") ?? R.HOWLING_PEAKS;
+            mainlandTabItem.Header = R.getString("ArchIllagerRealm_name") ?? R.MAINLAND;
+            jungleAwakensTabItem.Header = R.getString("TheJungleAwakens_name") ?? R.JUNGLE_AWAKENS;
+            creepingWinterTabItem.Header = R.getString("TheCreepingWinter_name") ?? R.CREEPING_WINTER;
+            howlingPeaksTabItem.Header = R.getString("TheHowlingPeaks_name") ?? R.HOWLING_PEAKS;
         }
 
         private void setupCommands()
@@ -279,10 +285,10 @@ namespace MCDSaveEdit
             updateTitleUI();
             updateEmeraldsUI(_model?.emeralds.value);
             inventoryScreen.updateUI();
-            //mainlandMapScreen.updateUI();
-            //jungleAwakensMapScreen.updateUI();
-            //creepingWinterMapScreen.updateUI();
-            //howlingPeaksMapScreen.updateUI();
+            mainlandMapScreen.updateUI();
+            jungleAwakensMapScreen.updateUI();
+            creepingWinterMapScreen.updateUI();
+            howlingPeaksMapScreen.updateUI();
             updateEnchantmentPointsUI();
             selectedItemScreen.item = _model?.selectedItem.value;
             closeBusyIndicator();
@@ -346,6 +352,5 @@ namespace MCDSaveEdit
         }
 
         #endregion
-        
     }
 }

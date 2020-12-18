@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 #nullable enable
 
 namespace MCDSaveEdit
@@ -13,6 +15,16 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class InventoryScreen : UserControl
     {
+        private static readonly BitmapImage? _levelFrameImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_LV_frame");
+        private static readonly BitmapImage? _allItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_all_default");
+        private static readonly BitmapImage? _meleeItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee_default");
+        private static readonly BitmapImage? _rangedItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged_default");
+        private static readonly BitmapImage? _armorItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_armour_default");
+        private static readonly BitmapImage? _artifactItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_consume_default");
+        private static readonly BitmapImage? _enchantedItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_enchant_default");
+
+        public static void preload() { }
+
         private ProfileViewModel? _model;
         public ProfileViewModel? model
         {
@@ -41,19 +53,18 @@ namespace MCDSaveEdit
 
         private void useGameContentImages()
         {
-            levelLabelImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_LV_frame");
+            levelLabelImage.Source = _levelFrameImageSource;
 
-            tryLoadAndSetImage(allItemsButton, "/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_all_default");
-            tryLoadAndSetImage(meleeItemsButton, "/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee_default");
-            tryLoadAndSetImage(rangedItemsButton, "/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged_default");
-            tryLoadAndSetImage(armorItemsButton, "/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_armour_default");
-            tryLoadAndSetImage(artifactItemsButton, "/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_consume_default");
-            tryLoadAndSetImage(enchantedItemsButton, "/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_enchant_default");
+            tryLoadAndSetImage(allItemsButton, _allItemsButtonImageSource);
+            tryLoadAndSetImage(meleeItemsButton, _meleeItemsButtonImageSource);
+            tryLoadAndSetImage(rangedItemsButton, _rangedItemsButtonImageSource);
+            tryLoadAndSetImage(armorItemsButton, _armorItemsButtonImageSource);
+            tryLoadAndSetImage(artifactItemsButton, _artifactItemsButtonImageSource);
+            tryLoadAndSetImage(enchantedItemsButton, _enchantedItemsButtonImageSource);
         }
 
-        private void tryLoadAndSetImage(Button button, string imagePath)
+        private void tryLoadAndSetImage(Button button, ImageSource? imageSource)
         {
-            var imageSource = ImageUriHelper.instance.imageSource(imagePath);
             if (imageSource != null)
             {
                 var image = new Image();

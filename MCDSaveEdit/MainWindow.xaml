@@ -33,7 +33,7 @@
             <MenuItem x:Name="updateMenuItem" Header="_Get New Version" Visibility="Collapsed" Click="updateMenuItem_Click"/>
         </Menu>
 
-        <TabControl DockPanel.Dock="Bottom" >
+        <TabControl DockPanel.Dock="Bottom">
             <TabItem x:Name="inventoryTabItem" Header="*Inventory*">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top"  Height="30" Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
@@ -56,8 +56,8 @@
 
                 </DockPanel>
             </TabItem>
+
             
-            <!--
             <TabItem x:Name="mainlandTabItem" Header="*Mainland*">
                 <local:MainlandMapScreen x:Name="mainlandMapScreen"/>
             </TabItem>
@@ -74,7 +74,7 @@
                 <local:HowlingPeaksMapScreen x:Name="howlingPeaksMapScreen"/>
             </TabItem>
 
-            -->
+            
         </TabControl>
 
     </DockPanel>
