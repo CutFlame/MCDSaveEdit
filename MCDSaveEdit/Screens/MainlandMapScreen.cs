@@ -16,7 +16,7 @@ namespace MCDSaveEdit
             {
                 var croppedImageSource = new CroppedBitmap(mapImageSource, new Int32Rect(10, 83, 6136, 2975));
                 var background = new ImageBrush(croppedImageSource);
-                this.Background = background;
+                this.canvas.Background = background;
             }
         }
     }

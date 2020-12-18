@@ -1,6 +1,8 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using Windows.Management.Deployment;
 #nullable enable
@@ -58,7 +60,7 @@ namespace MCDSaveEdit
         public const string ENCRYPTED_FILE_EXTENSION = ".dat";
         public const string DECRYPTED_FILE_EXTENSION = ".json";
 
-        public static StaticLevelData[] DEBUG_LEVEL_DATA = new StaticLevelData[] {
+        public readonly static StaticLevelData[] DEBUG_LEVEL_DATA = new StaticLevelData[] {
             new StaticLevelData(".00", new Point(0.00, 0.00), LevelTypeEnum.mission),
             new StaticLevelData(".05", new Point(0.05, 0.05), LevelTypeEnum.mission),
             new StaticLevelData(".10", new Point(0.10, 0.10), LevelTypeEnum.mission),
@@ -82,7 +84,7 @@ namespace MCDSaveEdit
             new StaticLevelData("1.0", new Point(1.00, 1.00), LevelTypeEnum.mission),
         };
 
-        public static StaticLevelData[] MAINLAND_LEVEL_DATA = new StaticLevelData[] {
+        public readonly static StaticLevelData[] MAINLAND_LEVEL_DATA = new StaticLevelData[] {
             new StaticLevelData("creepycrypt", new Point(.19, .37), LevelTypeEnum.dungeon),
             new StaticLevelData("mooshroomisland", new Point(.26, .24), LevelTypeEnum.dungeon),
             new StaticLevelData("creeperwoods", new Point(.28, .40), LevelTypeEnum.mission),
@@ -101,23 +103,29 @@ namespace MCDSaveEdit
             new StaticLevelData("squidcoast", new Point(.15, .64), LevelTypeEnum.mission),
         };
 
-        public static StaticLevelData[] JUNGLE_AWAKENS_LEVEL_DATA = new StaticLevelData[] {
+        public readonly static StaticLevelData[] JUNGLE_AWAKENS_LEVEL_DATA = new StaticLevelData[] {
             new StaticLevelData("dingyjungle", new Point(.24, .44), LevelTypeEnum.mission),
             new StaticLevelData("overgrowntemple", new Point(.62, .15), LevelTypeEnum.mission),
             new StaticLevelData("bamboobluff", new Point(.65, .55), LevelTypeEnum.dungeon),
         };
 
-        public static StaticLevelData[] CREEPING_WINTER_LEVEL_DATA = new StaticLevelData[] {
+        public readonly static StaticLevelData[] CREEPING_WINTER_LEVEL_DATA = new StaticLevelData[] {
             new StaticLevelData("frozenfjord", new Point(.24, .44), LevelTypeEnum.mission),
             new StaticLevelData("lonelyfortress", new Point(.62, .15), LevelTypeEnum.mission),
             new StaticLevelData("lostsettlement", new Point(.65, .55), LevelTypeEnum.dungeon),
         };
 
-        public static StaticLevelData[] HOWLING_PEAKS_LEVEL_DATA = new StaticLevelData[] {
+        public readonly static StaticLevelData[] HOWLING_PEAKS_LEVEL_DATA = new StaticLevelData[] {
             new StaticLevelData("windsweptpeaks", new Point(.24, .44), LevelTypeEnum.mission),
             new StaticLevelData("galesanctum", new Point(.62, .15), LevelTypeEnum.mission),
             new StaticLevelData("endlessrampart", new Point(.65, .55), LevelTypeEnum.dungeon),
         };
 
+        public readonly static Dictionary<string, StaticLevelData> LEVEL_DATA_LOOKUP =
+            MAINLAND_LEVEL_DATA
+            .Concat(JUNGLE_AWAKENS_LEVEL_DATA)
+            .Concat(CREEPING_WINTER_LEVEL_DATA)
+            .Concat(HOWLING_PEAKS_LEVEL_DATA)
+            .ToDictionary(data=>data.key);
     }
 }

@@ -93,7 +93,7 @@ namespace MCDSaveEditTests
         [TestMethod]
         public async Task TestNoDataLossOnWrite()
         {
-            var filePath = Path.Combine(Constants.FILE_DIALOG_INITIAL_DIRECTORY, "2533274911688652", "Characters", "Blank.dat");
+            var filePath = Path.Combine(Constants.FILE_DIALOG_INITIAL_DIRECTORY, "2533274911688652", "Characters", "Power200.dat");
             using var stream = await decryptFileIntoStream(filePath);
 
             var copy = new MemoryStream();

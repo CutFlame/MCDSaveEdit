@@ -1,4 +1,5 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
+using MCDSaveEdit.Save.Models.Profiles;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -10,9 +11,10 @@ namespace MCDSaveEdit
     /// <summary>
     /// Interaction logic for MapScreen.xaml
     /// </summary>
-    public partial class MapScreen: UserControl
+    public partial class MapScreen : UserControl
     {
-        public ProfileViewModel? model { get; set; }
+        private ProfileViewModel? _model;
+        public ProfileViewModel? model { get => _model; set { _model = value; missionScreen.model = _model; } }
 
         protected Dictionary<string, MissionControl> _missionElements = new Dictionary<string, MissionControl>();
         protected IEnumerable<StaticLevelData> _levelData;
@@ -26,6 +28,8 @@ namespace MCDSaveEdit
             {
                 var panel = new MissionControl(staticLevelData.levelType);
                 panel.text = R.getMissionName(staticLevelData.key);
+                panel.Command = new RelayCommand<string>(this.missionScreen.setMissionInfo);
+                panel.CommandParameter = staticLevelData.key;
 
                 canvas.Children.Add(panel);
                 _missionElements.Add(staticLevelData.key, panel);
@@ -43,6 +47,7 @@ namespace MCDSaveEdit
                 {
                     panel.Visibility = Visibility.Collapsed;
                 }
+                this.missionScreen.setMissionInfo(null);
                 return;
             }
 
@@ -60,24 +65,7 @@ namespace MCDSaveEdit
 
                 panel.locked = false;
                 var levelProgress = progress[level];
-                uint difficulty = 1;
-                if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_1)
-                {
-                    difficulty = 2;
-                }
-                else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_2)
-                {
-                    difficulty = 3;
-                }
-                else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3 && levelProgress.CompletedEndlessStruggle == 0)
-                {
-                    difficulty = 4;
-                }
-                else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3 && levelProgress.CompletedEndlessStruggle > 0)
-                {
-                    difficulty = 5;
-                }
-                panel.difficultyLevel = difficulty;
+                panel.difficultyLevel = levelProgress.getDifficultyImageLevel();
             }
             positionLevels();
         }
@@ -96,8 +84,32 @@ namespace MCDSaveEdit
             {
                 var element = _missionElements[staticLevelData.key];
                 Canvas.SetLeft(element, (staticLevelData.mapPosition.X * mapWidth) - (element.ActualWidth / 2));
-                Canvas.SetTop(element, (staticLevelData.mapPosition.Y * mapHeight) - (MissionControl.IMAGE_RADIUS));
+                Canvas.SetTop(element, (staticLevelData.mapPosition.Y * mapHeight) - (LevelImagePanel.IMAGE_RADIUS));
             }
+        }
+    }
+
+    public static class ProgressExtensions
+    {
+        public static uint getDifficultyImageLevel(this Progress levelProgress)
+        {
+            if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_1.ToString())
+            {
+                return 2;
+            }
+            else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_2.ToString())
+            {
+                return 3;
+            }
+            else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3.ToString() && levelProgress.CompletedEndlessStruggle <= 0)
+            {
+                return 4;
+            }
+            else if (levelProgress.CompletedDifficulty == DifficultyEnum.Difficulty_3.ToString() && levelProgress.CompletedEndlessStruggle > 0)
+            {
+                return 5;
+            }
+            return 1;
         }
     }
 }

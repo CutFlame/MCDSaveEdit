@@ -164,6 +164,7 @@
     <Compile Include="Logic\ImageResolver\PakIndexExtensions.cs" />
     <Compile Include="Logic\Secrets.cs" />
     <Compile Include="Models\Enums\Rarity.cs" />
+    <Compile Include="Models\Enums\ThreatLevelEnum.cs" />
     <Compile Include="Models\Mapping\AttributeBasedConverterFactory.cs" />
     <Compile Include="Models\Mapping\CustomNamingEnumJsonConverter.cs" />
     <Compile Include="Models\Mapping\EpochDateTimeJsonConverter.cs" />
@@ -200,6 +201,10 @@
     <Compile Include="Screens\MapScreen.xaml.cs">
       <DependentUpon>MapScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Screens\MissionScreen.xaml.cs">
+      <DependentUpon>MissionScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\LevelImagePanel.cs" />
     <Compile Include="UserControls\MissionControl.cs" />
     <Compile Include="UserControls\BusyIndicator.xaml.cs">
       <DependentUpon>BusyIndicator.xaml</DependentUpon>
@@ -231,6 +236,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Screens\MapScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\MissionScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

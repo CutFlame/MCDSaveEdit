@@ -124,6 +124,33 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completed Apocalypse Plus:.
+        /// </summary>
+        public static string COMPLETED_APOCALYPSE_PLUS {
+            get {
+                return ResourceManager.GetString("COMPLETED_APOCALYPSE_PLUS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed Difficulty:.
+        /// </summary>
+        public static string COMPLETED_DIFFICULTY {
+            get {
+                return ResourceManager.GetString("COMPLETED_DIFFICULTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed Threat Level:.
+        /// </summary>
+        public static string COMPLETED_THREAT_LEVEL {
+            get {
+                return ResourceManager.GetString("COMPLETED_THREAT_LEVEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creeping Winter.
         /// </summary>
         public static string CREEPING_WINTER {

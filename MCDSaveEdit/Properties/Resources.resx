@@ -145,6 +145,18 @@
     <value>Common</value>
     <comment>Common</comment>
   </data>
+  <data name="COMPLETED_APOCALYPSE_PLUS" xml:space="preserve">
+    <value>Completed Apocalypse Plus:</value>
+    <comment>Completed Apocalypse Plus:</comment>
+  </data>
+  <data name="COMPLETED_DIFFICULTY" xml:space="preserve">
+    <value>Completed Difficulty:</value>
+    <comment>Completed Difficulty:</comment>
+  </data>
+  <data name="COMPLETED_THREAT_LEVEL" xml:space="preserve">
+    <value>Completed Threat Level:</value>
+    <comment>Completed Threat Level:</comment>
+  </data>
   <data name="CREEPING_WINTER" xml:space="preserve">
     <value>Creeping Winter</value>
     <comment>Creeping Winter</comment>
