@@ -273,6 +273,10 @@
     <value>Missions</value>
     <comment>Missions</comment>
   </data>
+  <data name="NOT_COMPLETED" xml:space="preserve">
+    <value>Not Completed</value>
+    <comment>Not Completed</comment>
+  </data>
   <data name="NO_GAME_FILES_FOUND_ERROR_MESSAGE" xml:space="preserve">
     <value>Could not find game content files at the given path.</value>
     <comment>Could not find game content files at the given path.</comment>

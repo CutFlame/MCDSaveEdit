@@ -38,8 +38,12 @@ namespace MCDSaveEdit
             threatLevelSlider.IsEnabled = false;
             endlessStruggleSlider.IsEnabled = false;
 
-            //difficultyComboBox.ItemsSource
-            //difficultyComboBox.ItemsSource = new List<string>() { "Uncompleted", "Diff_1", "Diff_2" };
+            difficultyComboBox.Items.Clear();
+            difficultyComboBox.Items.Add(R.getString("mission_locked"));
+            difficultyComboBox.Items.Add(R.NOT_COMPLETED);
+            difficultyComboBox.Items.Add(R.getString("Difficulty_1"));
+            difficultyComboBox.Items.Add(R.getString("Difficulty_2"));
+            difficultyComboBox.Items.Add(R.getString("Difficulty_3"));
         }
 
         public void setMissionInfo(string? key)
@@ -59,23 +63,6 @@ namespace MCDSaveEdit
             var progress = profile!.Progress;
             var locked = levelData.levelType == LevelTypeEnum.dungeon && !prerequisites.Contains(key);
             missionStatusImagePanel.updateLockedUI(locked);
-            if (progress == null || !progress.ContainsKey(key))
-            {
-                missionStatusImagePanel.updateDifficultyLevelUI(0);
-                difficultyComboBox.SelectedIndex = 0;
-                threatLevelSlider.Value = 0;
-                endlessStruggleSlider.Value = 0;
-            }
-            else
-            {
-                var levelProgress = progress[key];
-                var difficultyLevel = levelProgress.getDifficultyImageLevel();
-
-                missionStatusImagePanel.updateDifficultyLevelUI(difficultyLevel);
-                difficultyComboBox.SelectedIndex = getDifficultyCompletedFromCompletedDifficulty(levelProgress.CompletedDifficulty);
-                threatLevelSlider.Value = getThreatLevelCompletedFromCompletedThreatLevel(levelProgress.CompletedThreatLevel);
-                endlessStruggleSlider.Value = levelProgress.CompletedEndlessStruggle;
-            }
 
             if (levelData.levelType == LevelTypeEnum.dungeon)
             {
@@ -86,13 +73,30 @@ namespace MCDSaveEdit
                 secretMissionLabel.Content = string.Empty;
             }
 
+            threatLevelSlider.Value = 0;
+            endlessStruggleSlider.Value = 0;
+
             if (locked)
             {
                 missionNameLabel.Content = R.getString("missioninspector_lockedlevel");
+                difficultyComboBox.SelectedIndex = 0;
+            }
+            else if (progress != null && progress.ContainsKey(key))
+            {
+                var levelProgress = progress[key];
+                var difficultyLevel = levelProgress.getDifficultyImageLevel();
+
+                missionStatusImagePanel.updateDifficultyLevelUI(difficultyLevel);
+                missionNameLabel.Content = R.getMissionName(key);
+                difficultyComboBox.SelectedIndex = getDifficultyCompletedFromCompletedDifficulty(levelProgress.CompletedDifficulty);
+                threatLevelSlider.Value = getThreatLevelCompletedFromCompletedThreatLevel(levelProgress.CompletedThreatLevel);
+                endlessStruggleSlider.Value = levelProgress.CompletedEndlessStruggle;
             }
             else
             {
+                missionStatusImagePanel.updateDifficultyLevelUI(0);
                 missionNameLabel.Content = R.getMissionName(key);
+                difficultyComboBox.SelectedIndex = 1;
             }
         }
 
@@ -128,7 +132,7 @@ namespace MCDSaveEdit
             string numbersOnly = Regex.Replace(difficultyEnum, "[^0-9]", "");
             if (int.TryParse(numbersOnly, out int result))
             {
-                return result;
+                return result+1;
             }
             throw new NotImplementedException();
         }

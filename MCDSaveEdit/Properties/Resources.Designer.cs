@@ -421,6 +421,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not Completed.
+        /// </summary>
+        public static string NOT_COMPLETED {
+            get {
+                return ResourceManager.GetString("NOT_COMPLETED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string OK {
