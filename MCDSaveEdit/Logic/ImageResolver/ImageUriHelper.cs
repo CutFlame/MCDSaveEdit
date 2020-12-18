@@ -23,9 +23,10 @@ namespace MCDSaveEdit
             {
                 return winstorePath;
             }
-            if (Directory.Exists(Constants.PAKS_FOLDER_PATH))
+            string launcherPath = Constants.PAKS_FOLDER_PATH;
+            if (Directory.Exists(launcherPath))
             {
-                return Constants.PAKS_FOLDER_PATH;
+                return launcherPath;
             }
             return null;
         }
@@ -58,7 +59,7 @@ namespace MCDSaveEdit
                 catch (Exception e)
                 {
                     Console.WriteLine($"Could not load Minecraft Dungeons Paks: {e}");
-                    tcs.SetResult(null);
+                    tcs.SetException(e);
                 }
             });
             return tcs.Task;

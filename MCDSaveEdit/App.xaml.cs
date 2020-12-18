@@ -1,5 +1,6 @@
 ﻿using FModel;
 using PakReader.Parsers.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -80,14 +81,32 @@ namespace MCDSaveEdit
             }
             else
             {
-                loadGameContentAsync(paksFolderPath!);
+                try
+                {
+                    loadGameContentAsync(paksFolderPath!);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"{e.Message}\n{e.StackTrace}", R.ERROR);
+                    this.Shutdown();
+                    return;
+                }
             }
         }
 
         private async void loadGameContentAsync(string paksFolderPath)
         {
             showBusyIndicator();
-            await ImageUriHelper.loadGameContentAsync(paksFolderPath);
+            try
+            {
+                await ImageUriHelper.loadGameContentAsync(paksFolderPath);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"{e.Message}\n{e.StackTrace}", R.ERROR);
+                this.Shutdown();
+                return;
+            }
             await preloadImages();
             showMainWindow();
         }
