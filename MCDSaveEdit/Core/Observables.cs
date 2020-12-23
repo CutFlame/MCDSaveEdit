@@ -101,7 +101,7 @@ namespace MCDSaveEdit
         public TVisible setValue { set { this.value = value; } }
 
 
-        private readonly Dictionary<IObserver<TVisible>, IObserver<THidden>> _dictionary = new Dictionary<IObserver<TVisible>, IObserver<THidden>>();
+        private readonly Dictionary<IObserver<TVisible>, IObserver<THidden>> _lookupHiddenObserver = new Dictionary<IObserver<TVisible>, IObserver<THidden>>();
 
         public override void subscribe(IObserver<TVisible> observer)
         {
@@ -113,16 +113,16 @@ namespace MCDSaveEdit
                     target?.OnNext(_getMethod!(hiddenValue));
                 }
             });
-            _dictionary.Add(observer, convertedObserver);
+            _lookupHiddenObserver.Add(observer, convertedObserver);
             _wrappedProperty.subscribe(convertedObserver);
         }
 
         public override void unsubscribe(IObserver<TVisible> observer)
         {
             base.unsubscribe(observer);
-            if (_dictionary.TryGetValue(observer, out IObserver<THidden> convertedObserver))
+            if (_lookupHiddenObserver.TryGetValue(observer, out IObserver<THidden> convertedObserver))
             {
-                _dictionary.Remove(observer);
+                _lookupHiddenObserver.Remove(observer);
                 _wrappedProperty.unsubscribe(convertedObserver);
             }
         }

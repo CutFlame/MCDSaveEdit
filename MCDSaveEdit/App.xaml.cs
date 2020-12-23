@@ -132,7 +132,6 @@ namespace MCDSaveEdit
         {
             EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", (!string.IsNullOrWhiteSpace(Constants.PAKS_FOLDER_PATH)).ToString() } });
             var mainWindow = new MainWindow();
-            mainWindow.model = new ProfileViewModel();
             this.MainWindow = mainWindow;
 
             _splashWindow?.Close();

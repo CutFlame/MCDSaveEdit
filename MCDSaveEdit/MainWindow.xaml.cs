@@ -26,6 +26,8 @@ namespace MCDSaveEdit
 
         public static void init() { }
 
+        private readonly MainViewModel _mainModel = new MainViewModel();
+
         private ProfileViewModel? _model;
         public ProfileViewModel? model
         {
@@ -49,6 +51,10 @@ namespace MCDSaveEdit
         {
             InitializeComponent();
             translateStaticStrings();
+
+            _mainModel.showError = showError;
+
+            loadRecentFilesList();
             if (ImageUriHelper.gameContentLoaded)
             {
                 useGameContentImages();
@@ -58,6 +64,11 @@ namespace MCDSaveEdit
             updateUI();
 
             checkForNewVersionAsync();
+        }
+
+        private void loadRecentFilesList()
+        {
+            //_mainModel.fileInfos
         }
 
         private void useGameContentImages()
@@ -85,7 +96,6 @@ namespace MCDSaveEdit
             selectedEnchantmentScreen.close = new RelayCommand<Enchantment>(model.selectEnchantment);
             selectedEnchantmentScreen.saveChanges = new RelayCommand<Enchantment>(model.saveEnchantment);
 
-            model.showError = showError;
             model.level.subscribe(_ => this.updateEnchantmentPointsUI());
             model.emeralds.subscribe(updateEmeraldsUI);
             model.selectedItem.subscribe(item => this.selectedItemScreen.item = item);
@@ -228,21 +238,24 @@ namespace MCDSaveEdit
 
         private async void handleFileOpenAsync(string? fileName)
         {
-            if(_model == null || fileName == null) { return; }
+            if(string.IsNullOrWhiteSpace(fileName!)) { return; }
             showBusyIndicator();
             string extension = Path.GetExtension(fileName!);
             EventLogger.logEvent("handleFileOpenAsync", new Dictionary<string, object>() { { "extension", extension } });
-            await _model!.handleFileOpenAsync(fileName);
+            var profile = await _mainModel.handleFileOpenAsync(fileName!);
+            if (this.model == null) { this.model = new ProfileViewModel(); }
+            this.model!.filePath = fileName;
+            this.model!.profile.setValue = profile;
             closeBusyIndicator();
         }
 
         private async void handleFileSaveAsync(string? fileName)
         {
-            if (_model == null || fileName == null) { return; }
+            if (_model == null || _model!.profile.value == null || string.IsNullOrWhiteSpace(fileName)) { return; }
             showBusyIndicator();
             string extension = Path.GetExtension(fileName!);
             EventLogger.logEvent("handleFileSaveAsync", new Dictionary<string, object>() { { "extension", extension } });
-            await _model!.handleFileSaveAsync(fileName);
+            await _mainModel.handleFileSaveAsync(fileName!, _model!.profile.value);
             closeBusyIndicator();
         }
         

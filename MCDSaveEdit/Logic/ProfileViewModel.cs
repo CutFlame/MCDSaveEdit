@@ -21,12 +21,10 @@ namespace MCDSaveEdit
         };
 
 
-        public Action<string>? showError;
-
-        public string? filePath { get; private set; }
+        public string? filePath { get; set; }
         
         private Property<ProfileSaveFile?> _profile = new Property<ProfileSaveFile?>(null);
-        public IReadProperty<ProfileSaveFile?> profile { get { return _profile; } }
+        public IReadWriteProperty<ProfileSaveFile?> profile { get { return _profile; } }
         
         private Property<Item?> _selectedItem = new Property<Item?>(null);
         public IReadProperty<Item?> selectedItem { get { return _selectedItem; } }
@@ -70,120 +68,8 @@ namespace MCDSaveEdit
 
             equippedItemList = _profile.map<ProfileSaveFile?, IEnumerable<Item>>(p => p?.equippedItems() ?? new Item[0]);
 
-            profile.subscribe(p => this.filter.setValue = ItemFilterEnum.All);
+            profile.subscribe(p => { this.filter.setValue = ItemFilterEnum.All; _selectedItem.value = null; });
         }
-
-        #region Open File
-
-        public async Task handleFileOpenAsync(string? filePath)
-        {
-            if (filePath == null) { return; }
-            Console.WriteLine("Reading file: {0}", filePath!);
-            if (Path.GetExtension(filePath!) == Constants.DECRYPTED_FILE_EXTENSION)
-            {
-                await handleJsonFileOpen(filePath!);
-            }
-            else
-            {
-                await handleDatFileOpen(filePath!);
-            }
-        }
-
-        private async Task handleJsonFileOpen(string filePath)
-        {
-            using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            this.filePath = filePath;
-            await tryParseFileStreamAsync(stream);
-        }
-
-        private async Task handleDatFileOpen(string filePath)
-        {
-            var file = new FileInfo(filePath);
-            using FileStream inputStream = file.OpenRead();
-            bool encrypted = SaveFileHandler.IsFileEncrypted(inputStream);
-            if (!encrypted)
-            {
-                EventLogger.logError($"The file \"{file.Name}\" was in an unexpected format.");
-                showError?.Invoke(R.formatFILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE(file.Name));
-                return;
-            }
-            using Stream? processed = await FileProcessHelper.Decrypt(inputStream);
-            if (processed == null)
-            {
-                EventLogger.logError($"Content of file \"{file.Name}\" could not be converted to a supported format.");
-                showError?.Invoke(R.formatFILE_DECRYPT_ERROR_MESSAGE(file.Name));
-                return;
-            }
-            this.filePath = filePath;
-            await tryParseFileStreamAsync(processed!);
-        }
-
-        private async Task tryParseFileStreamAsync(Stream stream)
-        {
-            try
-            {
-                stream.Seek(0, SeekOrigin.Begin);
-                var profile = await ProfileParser.Read(stream);
-                _profile.value = profile;
-                _selectedItem.value = null;
-            }
-            catch (Exception e)
-            {
-                EventLogger.logError(e.ToString());
-                showError?.Invoke(R.FAILED_TO_PARSE_FILE_ERROR_MESSAGE);
-            }
-        }
-
-        #endregion
-
-        #region Save File
-
-        public async Task handleFileSaveAsync(string? filePath)
-        {
-            if(filePath == null) { return; }
-            Console.WriteLine("Writing file: {0}", filePath!);
-            if (Path.GetExtension(filePath!) == Constants.DECRYPTED_FILE_EXTENSION)
-            {
-                await handleJsonFileSave(filePath!);
-            }
-            else
-            {
-                await handleDatFileSave(filePath!);
-            }
-        }
-
-        private async Task handleJsonFileSave(string filePath)
-        {
-            using var stream = await ProfileParser.Write(profile.value);
-            await writeStreamToFileAsync(stream, filePath);
-        }
-
-        private async Task handleDatFileSave(string filePath)
-        {
-            using var inputStream = await ProfileParser.Write(profile.value);
-            inputStream.Seek(0, SeekOrigin.Begin);
-            using Stream? processed = await FileProcessHelper.Encrypt(inputStream);
-            if (processed == null)
-            {
-                EventLogger.logError($"Failed to encrypt the json data.");
-                showError?.Invoke(R.FAILED_TO_ENCRYPT_ERROR_MESSAGE);
-                return;
-            }
-            await writeStreamToFileAsync(processed, filePath);
-        }
-
-        private async Task writeStreamToFileAsync(Stream stream, string filePath)
-        {
-            if (!File.Exists(filePath))
-            {
-                File.WriteAllText(filePath, string.Empty);
-            }
-            using var filestream = new FileStream(filePath, FileMode.Truncate, FileAccess.Write);
-            stream.Seek(0, SeekOrigin.Begin);
-            await stream.CopyToAsync(filestream);
-        }
-
-        #endregion
 
         private static IEnumerable<Item> applyFilter(ItemFilterEnum filter, IEnumerable<Item> items)
         {

@@ -23,7 +23,9 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class MissionScreen : UserControl
     {
-        public ProfileViewModel? model { get; set; }
+        private ProfileViewModel? _model;
+
+        public ProfileViewModel? model { get => _model; set { _model = value; setMissionInfo(null); } }
 
         public MissionScreen()
         {
@@ -49,7 +51,7 @@ namespace MCDSaveEdit
         public void setMissionInfo(string? key)
         {
             var profile = model?.profile.value;
-            if(profile == null || key == null)
+            if (profile == null || key == null)
             {
                 this.Visibility = Visibility.Hidden;
                 return;
@@ -62,6 +64,7 @@ namespace MCDSaveEdit
             var prerequisites = profile!.BonusPrerequisites;
             var progress = profile!.Progress;
             var locked = levelData.levelType == LevelTypeEnum.dungeon && !prerequisites.Contains(key);
+            missionStatusImagePanel.updateDifficultyLevelUI(0);
             missionStatusImagePanel.updateLockedUI(locked);
 
             if (levelData.levelType == LevelTypeEnum.dungeon)
@@ -113,7 +116,7 @@ namespace MCDSaveEdit
 
         private int getThreatLevelCompletedFromCompletedThreatLevel(ThreatLevelEnum completedThreatLevel)
         {
-            switch(completedThreatLevel)
+            switch (completedThreatLevel)
             {
                 case ThreatLevelEnum.Threat_1: return 1;
                 case ThreatLevelEnum.Threat_2: return 2;
@@ -132,7 +135,7 @@ namespace MCDSaveEdit
             string numbersOnly = Regex.Replace(difficultyEnum, "[^0-9]", "");
             if (int.TryParse(numbersOnly, out int result))
             {
-                return result+1;
+                return result + 1;
             }
             throw new NotImplementedException();
         }
@@ -150,8 +153,8 @@ namespace MCDSaveEdit
         private void endlessStruggleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             uint newValue = (uint)Math.Max(0, e.NewValue);
-            if(endlessStruggleTextBox!=null)
-            endlessStruggleTextBox.Text = $"+{newValue}";
+            if (endlessStruggleTextBox != null)
+                endlessStruggleTextBox.Text = $"+{newValue}";
         }
 
         private void threatLevelSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
