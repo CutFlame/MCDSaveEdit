@@ -20,7 +20,8 @@
                Foreground="White"
                Margin="20"
                FontWeight="ExtraBold"
-               Padding="15,5" HorizontalContentAlignment="Center"/>
+               Padding="15,5"
+               HorizontalContentAlignment="Center"/>
         </Canvas>
     </DockPanel>
 </UserControl>

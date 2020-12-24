@@ -191,7 +191,7 @@
     <Compile Include="Logic\Constants.cs" />
     <Compile Include="Core\Observables.cs" />
     <Compile Include="Models\Profiles\UiHintsExpired.cs" />
-    <Compile Include="Logic\RegistryTools.cs" />
+    <Compile Include="Core\RegistryTools.cs" />
     <Compile Include="Screens\CreepingWinterMapScreen.cs" />
     <Compile Include="Screens\HowlingPeaksMapScreen.cs" />
     <Compile Include="Screens\InventoryScreen.xaml.cs">

@@ -11,7 +11,7 @@
         <Label x:Name="secretMissionLabel" Content="*Secret Mission*" />
         <Label x:Name="missionNameLabel" Content="*Pumpkin Pastures*" FontSize="20" FontWeight="ExtraBold"/>
         <Label x:Name="difficultyLabel" Content="*Completed Difficulty:*" Margin="0,20,0,0"/>
-        <ComboBox x:Name="difficultyComboBox" SelectedIndex="0" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
+        <ComboBox x:Name="difficultyComboBox" SelectedIndex="0" Background="{x:Null}" BorderBrush="{x:Null}">
             <ComboBoxItem Content="Locked"/>
             <ComboBoxItem Content="Uncompleted"/>
             <ComboBoxItem Content="Difficulty_1"/>

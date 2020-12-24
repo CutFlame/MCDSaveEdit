@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,7 +53,7 @@ namespace MCDSaveEdit
 
             _mainModel.showError = showError;
 
-            loadRecentFilesList();
+            refreshRecentFilesList();
             if (ImageUriHelper.gameContentLoaded)
             {
                 useGameContentImages();
@@ -66,9 +65,23 @@ namespace MCDSaveEdit
             checkForNewVersionAsync();
         }
 
-        private void loadRecentFilesList()
+        private void refreshRecentFilesList()
         {
-            //_mainModel.fileInfos
+            recentFilesMenuItem.Items.Clear();
+            foreach(var menuItem in _mainModel.fileInfos.Select(createRecentFileMenuItem))
+            {
+                recentFilesMenuItem.Items.Add(menuItem);
+            }
+            recentFilesMenuItem.IsEnabled = recentFilesMenuItem.Items.Count > 0;
+        }
+
+        private MenuItem createRecentFileMenuItem(FileInfo fileInfo)
+        {
+            var menuItem = new MenuItem();
+            menuItem.Header = fileInfo.Name;
+            menuItem.CommandParameter = fileInfo;
+            menuItem.Command = new RelayCommand<FileInfo>(openRecentFileCommandBinding_Executed);
+            return menuItem;
         }
 
         private void useGameContentImages()
@@ -185,6 +198,11 @@ namespace MCDSaveEdit
             handleFileSaveAsync(_model?.filePath);
         }
 
+        private void openRecentFileCommandBinding_Executed(FileInfo fileInfo)
+        {
+            handleFileOpenAsync(fileInfo.FullName);
+        }
+
         private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
             EventLogger.logEvent("aboutMenuItem_Click");
@@ -238,11 +256,13 @@ namespace MCDSaveEdit
 
         private async void handleFileOpenAsync(string? fileName)
         {
-            if(string.IsNullOrWhiteSpace(fileName!)) { return; }
+            if(string.IsNullOrWhiteSpace(fileName)) { return; }
             showBusyIndicator();
             string extension = Path.GetExtension(fileName!);
             EventLogger.logEvent("handleFileOpenAsync", new Dictionary<string, object>() { { "extension", extension } });
             var profile = await _mainModel.handleFileOpenAsync(fileName!);
+            _mainModel.addRecentFile(fileName!);
+            refreshRecentFilesList();
             if (this.model == null) { this.model = new ProfileViewModel(); }
             this.model!.filePath = fileName;
             this.model!.profile.setValue = profile;
@@ -256,6 +276,8 @@ namespace MCDSaveEdit
             string extension = Path.GetExtension(fileName!);
             EventLogger.logEvent("handleFileSaveAsync", new Dictionary<string, object>() { { "extension", extension } });
             await _mainModel.handleFileSaveAsync(fileName!, _model!.profile.value);
+            _mainModel.addRecentFile(fileName!);
+            refreshRecentFilesList();
             closeBusyIndicator();
         }
         

@@ -27,6 +27,8 @@
                 <MenuItem x:Name="saveMenuItem" Header="_Save" Command="Save" InputGestureText="Ctrl+S" />
                 <MenuItem x:Name="saveAsMenuItem" Header="Save _As..." Command="SaveAs"/>
                 <Separator />
+                <MenuItem x:Name="recentFilesMenuItem" Header="Recent Files"/>
+                <Separator />
                 <MenuItem x:Name="exitMenuItem" Header="_Exit" Command="Close" InputGestureText="Ctrl+Q" />
             </MenuItem>
             <MenuItem x:Name="aboutMenuItem" Header="_About" Click="aboutMenuItem_Click"/>
