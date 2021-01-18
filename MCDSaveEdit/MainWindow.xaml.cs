@@ -25,6 +25,8 @@ namespace MCDSaveEdit
 
         public static void init() { }
 
+        public Action? onRelaunch;
+
         private readonly MainViewModel _mainModel = new MainViewModel();
 
         private ProfileViewModel? _model;
@@ -52,6 +54,7 @@ namespace MCDSaveEdit
             translateStaticStrings();
 
             _mainModel.showError = showError;
+            gameFilesLocationMenuItem.Header = ImageUriHelper.instance.path;
 
             refreshRecentFilesList();
             if (ImageUriHelper.gameContentLoaded)
@@ -68,7 +71,7 @@ namespace MCDSaveEdit
         private void refreshRecentFilesList()
         {
             recentFilesMenuItem.Items.Clear();
-            foreach(var menuItem in _mainModel.fileInfos.Select(createRecentFileMenuItem))
+            foreach(var menuItem in _mainModel.recentFilesInfos.Select(createRecentFileMenuItem))
             {
                 recentFilesMenuItem.Items.Add(menuItem);
             }
@@ -155,6 +158,12 @@ namespace MCDSaveEdit
         {
             EventLogger.logEvent("exitCommandBinding_Executed");
             Application.Current.Shutdown();
+        }
+
+        private void relaunchMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            EventLogger.logEvent("relaunchMenuItem_Click");
+            onRelaunch?.Invoke();
         }
 
         private void openCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -393,5 +402,6 @@ namespace MCDSaveEdit
         }
 
         #endregion
+
     }
 }

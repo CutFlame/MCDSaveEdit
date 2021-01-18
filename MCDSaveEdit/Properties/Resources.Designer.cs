@@ -115,6 +115,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string CANCEL {
+            get {
+                return ResourceManager.GetString("CANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common.
         /// </summary>
         public static string COMMON {

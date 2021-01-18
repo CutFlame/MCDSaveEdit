@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MCDSaveEdit"
         mc:Ignorable="d"
-        MinHeight="490" MinWidth="1200" d:DesignWidth="1200"
+        d:DesignWidth="1200"
+        MinHeight="490" MinWidth="1200"
         Title="*Minecraft Dungeons Save File Editor*"
         WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
@@ -27,9 +28,14 @@
                 <MenuItem x:Name="saveMenuItem" Header="_Save" Command="Save" InputGestureText="Ctrl+S" />
                 <MenuItem x:Name="saveAsMenuItem" Header="Save _As..." Command="SaveAs"/>
                 <Separator />
-                <MenuItem x:Name="recentFilesMenuItem" Header="Recent Files"/>
+                <MenuItem x:Name="recentFilesMenuItem" Header="_Recent Files"/>
                 <Separator />
                 <MenuItem x:Name="exitMenuItem" Header="_Exit" Command="Close" InputGestureText="Ctrl+Q" />
+            </MenuItem>
+            <MenuItem Header="_Game Paks">
+                <MenuItem x:Name="gameFilesLocationMenuItem" Header="No Game Files" IsEnabled="false" />
+                <Separator/>
+                <MenuItem x:Name="relaunchToChangeMenuItem" Header="Relaunch to change..." Click="relaunchMenuItem_Click"/>
             </MenuItem>
             <MenuItem x:Name="aboutMenuItem" Header="_About" Click="aboutMenuItem_Click"/>
             <MenuItem x:Name="updateMenuItem" Header="_Get New Version" Visibility="Collapsed" Click="updateMenuItem_Click"/>

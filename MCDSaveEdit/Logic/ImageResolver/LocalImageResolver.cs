@@ -14,6 +14,8 @@ namespace MCDSaveEdit
         private const string IMAGES_URI = @"pack://application:,,/Images";
         private readonly RequestCachePolicy REQUEST_CACHE_POLICY = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
 
+        public string? path { get { return null; } }
+
         public BitmapImage? imageSource(string path)
         {
             return null;

@@ -37,7 +37,7 @@ namespace MCDSaveEdit
             var pakIndex = await loadPakIndex(paksFolderPath);
             if (pakIndex != null)
             {
-                var pakImageResolver = new PakImageResolver(pakIndex);
+                var pakImageResolver = new PakImageResolver(pakIndex, paksFolderPath);
                 await pakImageResolver.loadPakFilesAsync(preloadBitmaps: false);
                 instance = pakImageResolver;
                 gameContentLoaded = true;

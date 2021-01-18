@@ -61,7 +61,7 @@ namespace MCDSaveEdit
             {
                 //show dialog asking for install location
                 EventLogger.logEvent("showGameFilesWindow");
-                var gameFilesWindow = new GameFilesWindow();
+                var gameFilesWindow = new GameFilesWindow(allowNoContent: true);
                 gameFilesWindow.Owner = this.MainWindow;
                 gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 gameFilesWindow.ShowDialog();
@@ -132,12 +132,43 @@ namespace MCDSaveEdit
         {
             EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", (!string.IsNullOrWhiteSpace(Constants.PAKS_FOLDER_PATH)).ToString() } });
             var mainWindow = new MainWindow();
+            mainWindow.onRelaunch = onRelaunch;
             this.MainWindow = mainWindow;
 
             _splashWindow?.Close();
             closeBusyIndicator();
 
             this.MainWindow.Show();
+        }
+
+        private void onRelaunch()
+        {
+            var mainWindow = this.MainWindow;
+
+            _splashWindow = buildSplashWindow();
+            MainWindow = _splashWindow;
+            mainWindow.Close();
+
+            this.MainWindow.Show();
+
+            EventLogger.logEvent("showGameFilesWindow");
+            var gameFilesWindow = new GameFilesWindow(allowNoContent:false);
+            gameFilesWindow.Owner = this.MainWindow;
+            gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            gameFilesWindow.ShowDialog();
+            var gameFilesWindowResult = gameFilesWindow.result;
+            switch (gameFilesWindowResult)
+            {
+                case GameFilesWindow.GameFilesWindowResult.exit:
+                    this.Shutdown();
+                    break;
+                case GameFilesWindow.GameFilesWindowResult.useSelectedPath:
+                    loadGameContentAsync(gameFilesWindow.selectedPath!);
+                    break;
+                case GameFilesWindow.GameFilesWindowResult.noContent:
+                    showMainWindow();
+                    break;
+            }
         }
 
         private Window buildSplashWindow()

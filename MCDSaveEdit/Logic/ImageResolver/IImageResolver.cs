@@ -7,6 +7,7 @@ namespace MCDSaveEdit
 {
     public interface IImageResolver
     {
+        string? path { get; }
         BitmapImage? imageSourceForItem(Item item);
         BitmapImage? imageSourceForItem(string itemType);
         BitmapImage? imageSourceForRarity(Rarity rarity);

@@ -24,13 +24,13 @@ namespace MCDSaveEdit
         public GameFilesWindowResult result { get; private set; }
         public Action? onClose;
 
-        public GameFilesWindow()
+        public GameFilesWindow(bool allowNoContent)
         {
             InitializeComponent();
-            setConstantStrings();
+            setConstantStrings(allowNoContent);
         }
 
-        private void setConstantStrings()
+        private void setConstantStrings(bool allowNoContent)
         {
             Title = R.GAME_FILES_WINDOW_TITLE;
             messageTextBlock.Text = R.GAME_FILES_WINDOW_MESSAGE;
@@ -39,7 +39,14 @@ namespace MCDSaveEdit
             pathTextBox.Text = string.Empty;
             exitButton.Content = R.EXIT;
             okButton.Content = R.OK;
-            noButton.Content = R.GAME_FILES_WINDOW_NO_CONTENT_BUTTON;
+            if(allowNoContent)
+            {
+                noButton.Content = R.GAME_FILES_WINDOW_NO_CONTENT_BUTTON;
+            }
+            else
+            {
+                noButton.Content = R.CANCEL;
+            }
         }
 
         private void exitButton_Click(object sender, RoutedEventArgs e)

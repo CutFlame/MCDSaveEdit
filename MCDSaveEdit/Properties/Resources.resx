@@ -141,6 +141,10 @@
     <value>Artifact</value>
     <comment>Artifact</comment>
   </data>
+  <data name="CANCEL" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Cancel</comment>
+  </data>
   <data name="COMMON" xml:space="preserve">
     <value>Common</value>
     <comment>Common</comment>

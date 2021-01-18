@@ -42,9 +42,11 @@ namespace MCDSaveEdit
         private readonly Dictionary<string, string> _equipment = new Dictionary<string, string>();
         private readonly Dictionary<string, BitmapImage> _bitmaps = new Dictionary<string, BitmapImage>();
         private readonly List<string> _levels = new List<string>();
+        public string? path { get; private set; }
 
-        public PakImageResolver(PakIndex pakIndex)
+        public PakImageResolver(PakIndex pakIndex, string? path)
         {
+            this.path = path;
             _pakIndex = pakIndex;
             _backupResolver = new LocalImageResolver();
         }

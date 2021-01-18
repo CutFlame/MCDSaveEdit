@@ -17,8 +17,8 @@ namespace MCDSaveEdit
 
         // A list of the files.
         private const int _numFiles = 10;
-        private List<FileInfo> _fileInfos = new List<FileInfo>();
-        public IReadOnlyCollection<FileInfo> fileInfos { get { return _fileInfos; } }
+        private List<FileInfo> _recentFilesInfos = new List<FileInfo>();
+        public IReadOnlyCollection<FileInfo> recentFilesInfos { get { return _recentFilesInfos; } }
 
         public MainViewModel()
         {
@@ -35,7 +35,7 @@ namespace MCDSaveEdit
                 string file_name = (string)RegistryTools.GetSetting(_applicationName, "FilePath" + i.ToString(), "");
                 if (file_name != "")
                 {
-                    _fileInfos.Add(new FileInfo(file_name));
+                    _recentFilesInfos.Add(new FileInfo(file_name));
                 }
             }
         }
@@ -51,7 +51,7 @@ namespace MCDSaveEdit
 
             // Save the current entries.
             int index = 0;
-            foreach (FileInfo file_info in _fileInfos)
+            foreach (FileInfo file_info in _recentFilesInfos)
             {
                 RegistryTools.SaveSetting(_applicationName,
                     "FilePath" + index.ToString(), file_info.FullName);
@@ -63,9 +63,9 @@ namespace MCDSaveEdit
         private void removeFileInfo(string file_name)
         {
             // Remove occurrences of the file's information from the list.
-            for (int i = _fileInfos.Count - 1; i >= 0; i--)
+            for (int i = _recentFilesInfos.Count - 1; i >= 0; i--)
             {
-                if (_fileInfos[i].FullName == file_name) _fileInfos.RemoveAt(i);
+                if (_recentFilesInfos[i].FullName == file_name) _recentFilesInfos.RemoveAt(i);
             }
         }
 
@@ -76,10 +76,10 @@ namespace MCDSaveEdit
             removeFileInfo(file_name);
 
             // Add the file to the beginning of the list.
-            _fileInfos.Insert(0, new FileInfo(file_name));
+            _recentFilesInfos.Insert(0, new FileInfo(file_name));
 
             // If we have too many items, remove the last one.
-            if (_fileInfos.Count > _numFiles) _fileInfos.RemoveAt(_numFiles);
+            if (_recentFilesInfos.Count > _numFiles) _recentFilesInfos.RemoveAt(_numFiles);
 
             // Update the Registry.
             saveRecentFilesList();
