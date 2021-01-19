@@ -115,8 +115,10 @@ namespace MCDSaveEdit
         {
             var tcs = new TaskCompletionSource<bool>();
             Task.Run(() => {
+#if !HIDE_MAP_SCREENS
                 LevelImagePanel.preload();
                 MapScreen.preload(); //This takes a while
+#endif
                 InventoryScreen.preload();
                 SelectionWindow.preload();
                 ItemControl.preload();

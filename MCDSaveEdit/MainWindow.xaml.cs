@@ -37,15 +37,13 @@ namespace MCDSaveEdit
             {
                 _model = value;
                 inventoryScreen.model = _model;
-                mainlandMapScreen.model = _model;
-                jungleAwakensMapScreen.model = _model;
-                creepingWinterMapScreen.model = _model;
-                howlingPeaksMapScreen.model = _model;
+                _mapScreens.ForEach(mapScreen => mapScreen.model = _model);
                 setupCommands();
                 updateUI();
             }
         }
 
+        private readonly List<MapScreen> _mapScreens = new List<MapScreen>();
         private Window? _busyWindow = null;
 
         public MainWindow()
@@ -61,6 +59,10 @@ namespace MCDSaveEdit
             {
                 useGameContentImages();
             }
+
+#if !HIDE_MAP_SCREENS
+            createMapScreenTabItems();
+#endif
 
             //Clear out design/testing values
             updateUI();
@@ -96,10 +98,20 @@ namespace MCDSaveEdit
         private void translateStaticStrings()
         {
             inventoryTabItem.Header = R.getString("Quickaction_inventory") ?? R.INVENTORY;
-            mainlandTabItem.Header = R.getString("ArchIllagerRealm_name") ?? R.MAINLAND;
-            jungleAwakensTabItem.Header = R.getString("TheJungleAwakens_name") ?? R.JUNGLE_AWAKENS;
-            creepingWinterTabItem.Header = R.getString("TheCreepingWinter_name") ?? R.CREEPING_WINTER;
-            howlingPeaksTabItem.Header = R.getString("TheHowlingPeaks_name") ?? R.HOWLING_PEAKS;
+        }
+
+        private void createMapScreenTabItems()
+        {
+            foreach(var mapImageData in Constants.ALL_MAP_IMAGE_DATA)
+            {
+                var mapScreen = new MapScreen(mapImageData);
+                var mapScreenTabItem = new TabItem() {
+                    Content = mapScreen,
+                    Header = mapImageData.title(),
+                };
+                _mapScreens.Add(mapScreen);
+                mainTabControl.Items.Add(mapScreenTabItem);
+            }
         }
 
         private void setupCommands()
@@ -338,10 +350,7 @@ namespace MCDSaveEdit
         private void updateMapScreensUI()
         {
             inventoryScreen.updateUI();
-            mainlandMapScreen.updateUI();
-            jungleAwakensMapScreen.updateUI();
-            creepingWinterMapScreen.updateUI();
-            howlingPeaksMapScreen.updateUI();
+            _mapScreens.ForEach(mapScreen => mapScreen.updateUI());
         }
 
         private void updateTitleUI()

@@ -23,11 +23,11 @@ namespace MCDSaveEdit
         protected Dictionary<string, MissionControl> _missionElements = new Dictionary<string, MissionControl>();
         protected IEnumerable<StaticLevelData> _levelData;
 
-        public MapScreen(IEnumerable<StaticLevelData> levelData, MapImageData mapImageData)
+        public MapScreen(MapImageData mapImageData)
         {
             InitializeComponent();
 
-            _levelData = levelData;
+            _levelData = mapImageData.levelData;
             foreach (var staticLevelData in _levelData)
             {
                 var panel = new MissionControl(staticLevelData.levelType);
@@ -39,7 +39,7 @@ namespace MCDSaveEdit
                 _missionElements.Add(staticLevelData.key, panel);
             }
 
-            mapLabel.Content = mapImageData.title;
+            mapLabel.Content = mapImageData.title();
 
             this.Background = new SolidColorBrush(mapImageData.backgroundColor);
 

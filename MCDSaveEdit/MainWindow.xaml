@@ -41,7 +41,7 @@
             <MenuItem x:Name="updateMenuItem" Header="_Get New Version" Visibility="Collapsed" Click="updateMenuItem_Click"/>
         </Menu>
 
-        <TabControl DockPanel.Dock="Bottom">
+        <TabControl x:Name="mainTabControl" DockPanel.Dock="Bottom">
             <TabItem x:Name="inventoryTabItem" Header="*Inventory*">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top"  Height="30" Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
@@ -65,24 +65,6 @@
                 </DockPanel>
             </TabItem>
 
-            
-            <TabItem x:Name="mainlandTabItem" Header="*Mainland*">
-                <local:MainlandMapScreen x:Name="mainlandMapScreen"/>
-            </TabItem>
-
-            <TabItem x:Name="jungleAwakensTabItem" Header="*Jungle Awakens*">
-                <local:JungleAwakensMapScreen x:Name="jungleAwakensMapScreen"/>
-            </TabItem>
-
-            <TabItem x:Name="creepingWinterTabItem" Header="*Creeping Winter*">
-                <local:CreepingWinterMapScreen x:Name="creepingWinterMapScreen"/>
-            </TabItem>
-
-            <TabItem x:Name="howlingPeaksTabItem" Header="*Howling Peaks*">
-                <local:HowlingPeaksMapScreen x:Name="howlingPeaksMapScreen"/>
-            </TabItem>
-
-            
         </TabControl>
 
     </DockPanel>

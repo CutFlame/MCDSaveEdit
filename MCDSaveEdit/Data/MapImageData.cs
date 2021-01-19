@@ -7,11 +7,19 @@ namespace MCDSaveEdit
 {
     public struct MapImageData
     {
-        public string title;
+        public string titleLookupString;
+        public string titleBackupText;
         public string mapImageSourcePath;
         public Color backgroundColor;
         public Int32Rect? cropToRect;
+        public StaticLevelData[] levelData;
+
         public BitmapSource? mapImageSource;
+
+        public string title()
+        {
+            return R.getString(titleLookupString) ?? titleBackupText;
+        }
 
         public void preload()
         {

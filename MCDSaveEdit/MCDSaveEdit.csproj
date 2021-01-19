@@ -198,7 +198,6 @@
       <DependentUpon>InventoryScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\StaticLevelData.cs" />
-    <Compile Include="Screens\MapScreens.cs" />
     <Compile Include="Screens\MapScreen.xaml.cs">
       <DependentUpon>MapScreen.xaml</DependentUpon>
     </Compile>

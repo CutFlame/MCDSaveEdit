@@ -9,7 +9,7 @@ namespace MCDSaveEdit
         public Point mapPosition;
         public LevelTypeEnum levelType;
 
-        public StaticLevelData(string key, Point mapPosition, LevelTypeEnum levelType) : this()
+        public StaticLevelData(string key, Point mapPosition, LevelTypeEnum levelType)
         {
             this.key = key;
             this.mapPosition = mapPosition;
