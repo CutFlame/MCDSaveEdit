@@ -8,8 +8,18 @@ Windows application for modifying [Minecraft: Dungeons](https://www.minecraft.ne
 
 #### DISCLAIMER: Please keep backups of your save files! This app could make your save file unplayable!
 
-#### If you have the Windows Store version of MCD you need to download and run the [storepatcher.exe](https://docs.dungeonsworkshop.net/gettingstarted/) first for the best experience (the .pak files need to be extracted)
 
+---
+
+### Installing and Running
+
+##### IMPORTANT! If you have the Windows Store version of Minecraft: Dungeons you need to download and run the [storepatcher.exe](https://docs.dungeonsworkshop.net/gettingstarted/) first (the .pak files need to be extracted)
+
+1. Download the latest release (MCDSaveEdit_*.zip) from [here](https://github.com/CutFlame/MCDSaveEdit/releases/tag/release/latest)
+1. Extract it (it's just a simple single portable executable)
+1. Run it
+
+For full features and functionality you need Minecraft: Dungeons installed and preferrably in the default install location.
 
 ---
 
@@ -22,7 +32,7 @@ When cloning be sure to recurse through submodules because there are 2:
 
 There is one file deliberately removed from the repo that you will need to create and fill in.
 
-`MCDSaveEdit\Logic\Secrets.cs`
+`MCDSaveEdit\Data\Secrets.cs`
 ```csharp
 namespace MCDSaveEdit
 {
@@ -52,7 +62,7 @@ Other trademarks referenced herein are property of their respective owners.
 
 ### External Credits and Licenses
 
-Images from the game are subject to copyright by Mojang. They are extracted at runtime from the default installed location of Minecraft Dungeons game files. 
+Images from the game are subject to copyright by Mojang. They are extracted at runtime from the .pak files installed as part of the Minecraft: Dungeons game files. 
 
 
 [DungeonTools](https://github.com/HellPie/DungeonTools) © Diego Russi ([AGPL 3.0](https://github.com/HellPie/DungeonTools/blob/master/LICENSE))
