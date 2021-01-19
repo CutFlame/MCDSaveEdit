@@ -31,9 +31,9 @@ namespace MCDSaveEditTests
             PakFilter? filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
             PakIndex? pakIndex = new PakIndex(path: paksFolderPath!, cacheFiles: true, caseSensitive: true, filter: filter);
             pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRING);
-            Assert.AreEqual(54739, pakIndex.Count());
+            Assert.AreEqual(54738, pakIndex.Count());
 
-            var pakImageResolver = new PakImageResolver(pakIndex);
+            var pakImageResolver = new PakImageResolver(pakIndex, null);
             pakImageResolver.loadPakFiles();
             Assert.AreEqual(206, ItemExtensions.all.Count);
             Assert.AreEqual(88, EnchantmentExtensions.allEnchantments.Count);
@@ -63,12 +63,25 @@ namespace MCDSaveEditTests
         [TestMethod]
         public async Task TestReadSaveFile()
         {
-            var filePath = Path.Combine(Constants.FILE_DIALOG_INITIAL_DIRECTORY, "2533274911688652", "Characters", "Blank.dat");
+            var solutionDirectory = TryGetProjectDirectoryInfo()?.FullName;
+            Assert.IsNotNull(solutionDirectory);
+            var filePath = Path.Combine(solutionDirectory, "TestData", "Blank.dat");
+            //var filePath = Path.Combine(Constants.FILE_DIALOG_INITIAL_DIRECTORY, "2533274911688652", "Characters", "Blank.dat");
             using var stream = await decryptFileIntoStream(filePath);
             stream!.Seek(0, SeekOrigin.Begin);
             var profile = await ProfileParser.Read(stream!);
             Assert.AreEqual(0, profile.Xp);
             Assert.AreEqual(0, profile.TotalGearPower);
+        }
+
+        public static DirectoryInfo? TryGetProjectDirectoryInfo(string? currentPath = null)
+        {
+            var directory = new DirectoryInfo(currentPath ?? Directory.GetCurrentDirectory());
+            while (directory != null && !directory.GetFiles("*.csproj").Any())
+            {
+                directory = directory.Parent;
+            }
+            return directory;
         }
 
         private async Task<Stream?> decryptFileIntoStream(string filePath)
