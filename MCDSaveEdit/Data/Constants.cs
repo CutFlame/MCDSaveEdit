@@ -9,7 +9,7 @@ namespace MCDSaveEdit
     public static partial class Constants
     {
         public const string LATEST_RELEASE_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
-        public const string CURRENT_RELEASE_TAG_NAME = "1.3.0";
+        public const string CURRENT_RELEASE_TAG_NAME = "1.2.7";
 
         public const int MAXIMUM_INVENTORY_ITEM_COUNT = 300;
 
