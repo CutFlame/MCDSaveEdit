@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 #nullable enable
 
 namespace MCDSaveEdit
@@ -11,13 +12,18 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class MapScreen : UserControl
     {
+        public static void preload()
+        {
+            Constants.ALL_MAP_IMAGE_DATA.ForEach(mapImageData => mapImageData.preload());
+        }
+
         private ProfileViewModel? _model;
         public ProfileViewModel? model { get => _model; set { _model = value; missionScreen.model = _model; } }
 
         protected Dictionary<string, MissionControl> _missionElements = new Dictionary<string, MissionControl>();
         protected IEnumerable<StaticLevelData> _levelData;
 
-        public MapScreen(IEnumerable<StaticLevelData> levelData)
+        public MapScreen(IEnumerable<StaticLevelData> levelData, MapImageData mapImageData)
         {
             InitializeComponent();
 
@@ -31,6 +37,17 @@ namespace MCDSaveEdit
 
                 canvas.Children.Add(panel);
                 _missionElements.Add(staticLevelData.key, panel);
+            }
+
+            mapLabel.Content = mapImageData.title;
+
+            this.Background = new SolidColorBrush(mapImageData.backgroundColor);
+
+            var mapImageSource = mapImageData.usableImageSource();
+            if (mapImageSource != null)
+            {
+                var background = new ImageBrush(mapImageSource);
+                this.canvas.Background = background;
             }
 
             updateUI();
@@ -85,5 +102,6 @@ namespace MCDSaveEdit
                 Canvas.SetTop(element, (staticLevelData.mapPosition.Y * mapHeight) - (LevelImagePanel.IMAGE_RADIUS));
             }
         }
+
     }
 }

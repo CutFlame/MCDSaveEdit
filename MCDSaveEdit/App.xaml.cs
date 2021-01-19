@@ -116,10 +116,7 @@ namespace MCDSaveEdit
             var tcs = new TaskCompletionSource<bool>();
             Task.Run(() => {
                 LevelImagePanel.preload();
-                MainlandMapScreen.preload();
-                JungleAwakensMapScreen.preload();
-                CreepingWinterMapScreen.preload();
-                HowlingPeaksMapScreen.preload();
+                MapScreen.preload(); //This takes a while
                 InventoryScreen.preload();
                 SelectionWindow.preload();
                 ItemControl.preload();

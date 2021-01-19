@@ -1,65 +1,13 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows;
-using Windows.Management.Deployment;
+using System.Windows.Media;
 #nullable enable
 
 namespace MCDSaveEdit
 {
-    public static class Constants
-    {
-        public const string LATEST_RELEASE_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
-        public const string CURRENT_RELEASE_TAG_NAME = "1.3.0";
-
-        public const int MAXIMUM_INVENTORY_ITEM_COUNT = 300;
-
-        public const int MINIMUM_ENCHANTMENT_TIER = 0;
-        public const int MAXIMUM_ENCHANTMENT_TIER = 3;
-
-        public const int MINIMUM_CHARACTER_LEVEL = 0;
-        public const int MAXIMUM_CHARACTER_LEVEL = 1000000000;
-
-        public const int MINIMUM_ITEM_LEVEL = 0;
-        public const int MAXIMUM_ITEM_LEVEL = 1000000000;
-
-        public const string PAKS_FILTER_STRING = "/Dungeons/Content";
-
-        public const string FIRST_PAK_FILENAME = "pakchunk0-WindowsNoEditor.pak";
-
-        public static string PAKS_FOLDER_PATH {
-            get {
-                var appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                return Path.Combine(appDataFolderPath, "Mojang", "products", "dungeons", "dungeons", "Dungeons", "Content", "Paks");
-            }
-        }
-
-        public static string? WINSTORE_PAKS_FOLDER_IF_EXISTS {
-            get {
-                var pm = new PackageManager();
-                foreach (var pkg in pm.FindPackagesForUser(string.Empty, "Microsoft.Lovika_8wekyb3d8bbwe"))
-                {
-                    if (pkg.IsDevelopmentMode) // Only true if run through the script
-                    {
-                        return Path.Combine(pkg.InstalledLocation.Path, "Dungeons", "Content", "Paks");
-                    }
-                }
-                // Game has not been run through the script, meaning the files are not accessible
-                return null;
-            }
-        }
-
-        public static string FILE_DIALOG_INITIAL_DIRECTORY {
-            get {
-                var userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                return Path.Combine(userFolderPath, "Saved Games", "Mojang Studios", "Dungeons");
-            }
-        }
-        public const string ENCRYPTED_FILE_EXTENSION = ".dat";
-        public const string DECRYPTED_FILE_EXTENSION = ".json";
-
+    public static partial class Constants {
         public readonly static StaticLevelData[] DEBUG_LEVEL_DATA = new StaticLevelData[] {
             new StaticLevelData(".00", new Point(0.00, 0.00), LevelTypeEnum.mission),
             new StaticLevelData(".05", new Point(0.05, 0.05), LevelTypeEnum.mission),
@@ -84,6 +32,13 @@ namespace MCDSaveEdit
             new StaticLevelData("1.0", new Point(1.00, 1.00), LevelTypeEnum.mission),
         };
 
+        public readonly static MapImageData MAINLAND_MAP_IMAGE_DATA = new MapImageData {
+            title = R.getString("ArchIllagerRealm_name") ?? R.MAINLAND,
+            mapImageSourcePath = "/Dungeons/Content/UI/Materials/MissionSelectMap/background/missionselect_map_center_xbox",
+            backgroundColor = Colors.White,
+            cropToRect = new Int32Rect(10, 83, 6136, 2975),
+        };
+
         public readonly static StaticLevelData[] MAINLAND_LEVEL_DATA = new StaticLevelData[] {
             new StaticLevelData("creepycrypt", new Point(.19, .37), LevelTypeEnum.dungeon),
             new StaticLevelData("mooshroomisland", new Point(.26, .24), LevelTypeEnum.dungeon),
@@ -103,16 +58,37 @@ namespace MCDSaveEdit
             new StaticLevelData("squidcoast", new Point(.15, .64), LevelTypeEnum.mission),
         };
 
+        public readonly static MapImageData JUNGLE_AWAKENS_MAP_IMAGE_DATA = new MapImageData {
+            title = R.getString("TheJungleAwakens_name") ?? R.JUNGLE_AWAKENS,
+            mapImageSourcePath = "/Dungeons/Content/UI/Materials/MissionSelectMap/background/islands/DLC_Jungle_Island",
+            backgroundColor = Colors.LightCyan,
+            cropToRect = new Int32Rect(0, 0, 2166, 1455),
+        };
+
         public readonly static StaticLevelData[] JUNGLE_AWAKENS_LEVEL_DATA = new StaticLevelData[] {
             new StaticLevelData("dingyjungle", new Point(.24, .44), LevelTypeEnum.mission),
             new StaticLevelData("overgrowntemple", new Point(.62, .15), LevelTypeEnum.mission),
             new StaticLevelData("bamboobluff", new Point(.65, .55), LevelTypeEnum.dungeon),
         };
 
+        public readonly static MapImageData CREEPING_WINTER_MAP_IMAGE_DATA = new MapImageData {
+            title = R.getString("TheCreepingWinter_name") ?? R.CREEPING_WINTER,
+            mapImageSourcePath = "/Dungeons/Content/UI/Materials/MissionSelectMap/background/islands/DLC_Snowy_Island",
+            backgroundColor = Colors.LightCyan,
+            cropToRect = new Int32Rect(0, 0, 2211, 1437),
+        };
+
         public readonly static StaticLevelData[] CREEPING_WINTER_LEVEL_DATA = new StaticLevelData[] {
             new StaticLevelData("frozenfjord", new Point(.24, .44), LevelTypeEnum.mission),
             new StaticLevelData("lonelyfortress", new Point(.62, .15), LevelTypeEnum.mission),
             new StaticLevelData("lostsettlement", new Point(.65, .55), LevelTypeEnum.dungeon),
+        };
+
+        public readonly static MapImageData HOWLING_PEAKS_MAP_IMAGE_DATA = new MapImageData {
+            title = R.getString("TheHowlingPeaks_name") ?? R.HOWLING_PEAKS,
+            mapImageSourcePath = "/Dungeons/Content/UI/Materials/MissionSelectMap/background/islands/Mountain_base_NOTPOTWO",
+            backgroundColor = Colors.LightCyan,
+            cropToRect = new Int32Rect(0, 0, 2466, 2414),
         };
 
         public readonly static StaticLevelData[] HOWLING_PEAKS_LEVEL_DATA = new StaticLevelData[] {
@@ -127,5 +103,12 @@ namespace MCDSaveEdit
             .Concat(CREEPING_WINTER_LEVEL_DATA)
             .Concat(HOWLING_PEAKS_LEVEL_DATA)
             .ToDictionary(data=>data.key);
+
+        public readonly static List<MapImageData> ALL_MAP_IMAGE_DATA = new List<MapImageData>() {
+            MAINLAND_MAP_IMAGE_DATA,
+            JUNGLE_AWAKENS_MAP_IMAGE_DATA,
+            CREEPING_WINTER_MAP_IMAGE_DATA,
+            HOWLING_PEAKS_MAP_IMAGE_DATA,
+        };
     }
 }
