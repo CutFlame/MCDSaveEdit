@@ -130,6 +130,7 @@ namespace MCDSaveEdit
         private void replaceArmorProperty(string oldArmorPropertyId, string? newArmorPropertyId)
         {
             if (_item == null) { return; }
+            if (newArmorPropertyId == null) { return; }
             var index = _item!.Armorproperties.ToList().FindIndex(prop => prop.Id == oldArmorPropertyId);
             _item!.Armorproperties[index].Id = newArmorPropertyId;
             //var newProperty = new Armorproperty() { Id = newArmorPropertyId, Rarity = Rarity.Common };

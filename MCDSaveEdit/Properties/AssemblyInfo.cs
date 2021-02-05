@@ -8,11 +8,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MCDSaveEdit")]
+[assembly: AssemblyTitle(Constants.APPLICATION_NAME)]
 [assembly: AssemblyDescription("Save game editor for Minecraft Dungeons")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MCDSaveEdit")]
+[assembly: AssemblyProduct(Constants.APPLICATION_NAME)]
 [assembly: AssemblyCopyright("Copyright © 2020 Michael Holt")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

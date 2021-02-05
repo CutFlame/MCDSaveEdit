@@ -5,11 +5,14 @@ using Windows.Management.Deployment;
 
 namespace MCDSaveEdit
 {
-
     public static partial class Constants
     {
-        public const string LATEST_RELEASE_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
         public const string CURRENT_RELEASE_TAG_NAME = "1.2.7";
+        public const string LATEST_RELEASE_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
+
+        // The application's name used for identification in the registry.
+        public const string APPLICATION_NAME = "MCDSaveEdit";
+        public const int MAX_RECENT_FILES = 10;
 
         public const int MAXIMUM_INVENTORY_ITEM_COUNT = 300;
 
