@@ -6,7 +6,7 @@
 
 Windows application for modifying [Minecraft: Dungeons](https://www.minecraft.net/en-us/about-dungeons/) save files.
 
-#### DISCLAIMER: Please keep backups of your save files! This app does not guarantee your save file to be playable!
+#### DISCLAIMER: Please keep backups of your save files! This app does not guarantee your save file to be playable after editing!
 
 
 <img src="screenshot.png"/>
@@ -15,9 +15,9 @@ Windows application for modifying [Minecraft: Dungeons](https://www.minecraft.ne
 
 ### Installing and Running
 
-1. Download and extract the latest release (MCDSaveEdit_*.zip) from [here](https://github.com/CutFlame/MCDSaveEdit/releases/tag/release/latest)
-1. Run the storepatcher.ps1 powershell script to extract the required files from the Windows Store version
-(only if you have the Windows Store version of Minecraft: Dungeons)
+1. Download and extract the latest release (MCDSaveEdit_*.zip) from [the releases section](https://github.com/CutFlame/MCDSaveEdit/releases/tag/release/latest)
+1. If you have the Windows Store version of Minecraft: Dungeons -
+   1. Download and run the [storepatcher.ps1](https://github.com/dungeonsworkshop/dungeonsworkshop.github.io/releases) powershell script to extract the required files from the Windows Store version of Minecraft: Dungeons
 1. Run MCDSaveEdit.exe
 
 For full features and functionality you need Minecraft: Dungeons installed and preferably in the default install location.
@@ -40,7 +40,9 @@ namespace MCDSaveEdit
     public static class Secrets
     {
         // Fill in the value for this one
-        public const string PAKS_AES_KEY_STRING = "<AES key for unlocking the MCD .pak files>";
+        public static string[] PAKS_AES_KEY_STRINGS = new string[] {
+            "<AES key for unlocking the MCD .pak files>",
+        };
 
         // You can leave these empty, they just need to exist
         public const string GAME_ANALYTICS_GAME_KEY = "";
@@ -63,7 +65,7 @@ Other trademarks referenced herein are property of their respective owners.
 
 ### External Credits and Licenses
 
-Images from the game are subject to copyright by Mojang. They are extracted at runtime from the .pak files installed as part of the Minecraft: Dungeons game files. 
+Images from the game are subject to copyright by Mojang. They are extracted at runtime from the .pak files that are installed as part of the Minecraft: Dungeons game files.
 
 
 [DungeonTools](https://github.com/HellPie/DungeonTools) © Diego Russi ([AGPL 3.0](https://github.com/HellPie/DungeonTools/blob/master/LICENSE))

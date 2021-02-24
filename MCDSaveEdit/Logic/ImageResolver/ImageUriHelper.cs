@@ -53,7 +53,10 @@ namespace MCDSaveEdit
                 {
                     var filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
                     var pakIndex = new PakIndex(path: paksFolderPath, cacheFiles: true, caseSensitive: true, filter: filter);
-                    pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRING);
+                    if (!unlockPakIndex(pakIndex))
+                    {
+                        throw new ArgumentException($"Could not decrypt pak files at {paksFolderPath}", "paksFolderPath");
+                    }
                     tcs.SetResult(pakIndex);
                 }
                 catch (Exception e)
@@ -63,6 +66,28 @@ namespace MCDSaveEdit
                 }
             });
             return tcs.Task;
+        }
+
+        private static bool unlockPakIndex(PakIndex pakIndex)
+        {
+            foreach(var keyStr in Secrets.PAKS_AES_KEY_STRINGS)
+            {
+                byte[] keyBytes;
+                if (keyStr.StartsWith("0x"))
+                {
+                    keyBytes = keyStr.Substring(2).ToBytesKey();
+                }
+                else
+                {
+                    keyBytes = keyStr.ToBytesKey();
+                }
+                var count = pakIndex.UseKey(FGuid.Zero, keyBytes);
+                if(count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static BitmapImage bitmapImageFromSKBitmap(SKBitmap image) => bitmapImageFromSKImage(SKImage.FromBitmap(image));
