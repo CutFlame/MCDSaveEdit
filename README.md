@@ -1,4 +1,4 @@
-# &nbsp;[![icon](https://raw.githubusercontent.com/CutFlame/MCDSaveEdit/master/MCDSaveEdit/Properties/icon.ico)]() Minecraft: Dungeons Save File Editor
+# &nbsp;[![icon](MCDSaveEdit/Properties/icon.ico)]() Minecraft: Dungeons Save File Editor
 [![GitHub](https://img.shields.io/github/license/cutflame/mcdsaveedit)](https://github.com/CutFlame/MCDSaveEdit/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cutflame/mcdsaveedit?label=latest)](https://github.com/CutFlame/MCDSaveEdit/releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date/cutflame/mcdsaveedit)](https://github.com/CutFlame/MCDSaveEdit/releases/latest)
@@ -6,20 +6,21 @@
 
 Windows application for modifying [Minecraft: Dungeons](https://www.minecraft.net/en-us/about-dungeons/) save files.
 
-#### DISCLAIMER: Please keep backups of your save files! This app could make your save file unplayable!
+#### DISCLAIMER: Please keep backups of your save files! This app does not guarantee your save file to be playable!
 
+
+<img src="screenshot.png"/>
 
 ---
 
 ### Installing and Running
 
-##### IMPORTANT! If you have the Windows Store version of Minecraft: Dungeons you need to download and run the [storepatcher.exe](https://docs.dungeonsworkshop.net/gettingstarted/) first (the .pak files need to be extracted)
+1. Download and extract the latest release (MCDSaveEdit_*.zip) from [here](https://github.com/CutFlame/MCDSaveEdit/releases/tag/release/latest)
+1. Run the storepatcher.ps1 powershell script to extract the required files from the Windows Store version
+(only if you have the Windows Store version of Minecraft: Dungeons)
+1. Run MCDSaveEdit.exe
 
-1. Download the latest release (MCDSaveEdit_*.zip) from [here](https://github.com/CutFlame/MCDSaveEdit/releases/tag/release/latest)
-1. Extract it (it's just a simple single portable executable)
-1. Run it
-
-For full features and functionality you need Minecraft: Dungeons installed and preferrably in the default install location.
+For full features and functionality you need Minecraft: Dungeons installed and preferably in the default install location.
 
 ---
 
