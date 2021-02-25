@@ -14,6 +14,7 @@ namespace MCDSaveEdit
     public class PakImageResolver : IImageResolver
     {
         private static readonly Dictionary<string, string> _mismatches = new Dictionary<string, string>() {
+            //{"Savefile reference","Imagefile foldername"},
             { "TrickBow","Trickbow" },
             { "LongBow","Longbow" },
             { "LongBow_Unique1","Longbow_Unique1" },
@@ -34,6 +35,8 @@ namespace MCDSaveEdit
             { "Daggers_unique2","Daggers_Unique2" },
 
             { "Beenest","BeeNest" },
+
+            { "Firetrail","FireTrail" },
         };
 
         private readonly LocalImageResolver _backupResolver;
@@ -131,7 +134,17 @@ namespace MCDSaveEdit
                     if (!_enchantments.ContainsKey(enchantmentName))
                     {
                         _enchantments.Add(enchantmentName, fullPath);
-                        EnchantmentExtensions.allEnchantments.Add(enchantmentName);
+                        //Handle exceptions
+                        if (_mismatches.ContainsKey(enchantmentName))
+                        {
+                            var correctedEnchantmentName = _mismatches[enchantmentName];
+                            _enchantments.Add(correctedEnchantmentName, fullPath);
+                            EnchantmentExtensions.allEnchantments.Add(correctedEnchantmentName);
+                        }
+                        else
+                        {
+                            EnchantmentExtensions.allEnchantments.Add(enchantmentName);
+                        }
                         //Debug.WriteLine($"{enchantmentName} - {fullPath}");
                     }
                     continue;
@@ -198,7 +211,8 @@ namespace MCDSaveEdit
                                 var correctedItemName = _mismatches[itemName];
                                 _equipment.Add(correctedItemName, fullPath);
                                 ItemExtensions.artifacts.Add(correctedItemName);
-                            } else
+                            }
+                            else
                             {
                                 ItemExtensions.artifacts.Add(itemName);
                             }

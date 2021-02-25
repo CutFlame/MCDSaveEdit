@@ -25,6 +25,9 @@ namespace MCDSaveEdit
         public const int MINIMUM_ITEM_LEVEL = 0;
         public const int MAXIMUM_ITEM_LEVEL = 1000000000;
 
+        public const string EMERALD_CURRENCY_NAME = "Emerald";
+        public const string GOLD_CURRENCY_NAME = "Gold";
+
         public const string PAKS_FILTER_STRING = "/Dungeons/Content";
 
         public const string FIRST_PAK_FILENAME = "pakchunk0-WindowsNoEditor.pak";

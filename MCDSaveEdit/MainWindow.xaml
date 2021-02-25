@@ -47,6 +47,8 @@
                     <StackPanel DockPanel.Dock="Top"  Height="30" Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
                         <Image x:Name="emeraldsLabelImage" Margin="8,4" Source="Images/Emerald.png"/>
                         <TextBox x:Name="emeraldsTextBox" Text="1234567890" TextChanged="emeraldsTextBox_TextChanged" FontSize="14" Width="100" VerticalContentAlignment="Center" Margin="0,4" MaxLength="8" MaxLines="1" IsUndoEnabled="True" Background="{x:Null}"/>
+                        <Image x:Name="goldLabelImage" Margin="8,4" Source="Images/Gold.png"/>
+                        <TextBox x:Name="goldTextBox" Text="1234567890" TextChanged="goldTextBox_TextChanged" FontSize="14" Width="100" VerticalContentAlignment="Center" Margin="0,4" MaxLength="8" MaxLines="1" IsUndoEnabled="True" Background="{x:Null}"/>
                         <Image x:Name="remainingEnchantmentPointsLabelImage" Margin="8,4" Source="Images/Points.png"/>
                         <Label x:Name="remainingEnchantmentPointsLabel" Content="1234567890" FontSize="14" Width="100" VerticalContentAlignment="Center" Padding="0" />
                     </StackPanel>

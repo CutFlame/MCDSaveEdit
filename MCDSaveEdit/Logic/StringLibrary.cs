@@ -8,6 +8,7 @@ namespace MCDSaveEdit
     public class R : Properties.Resources
     {
         private static readonly Dictionary<string, string> _mismatches = new Dictionary<string, string>() {
+            //{"Imagefile reference","Game.json reference"},
             { "Unset_desc","Unset" },
 
             { "Accelerating","Accelerate" },

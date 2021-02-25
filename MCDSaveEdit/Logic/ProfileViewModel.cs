@@ -36,6 +36,7 @@ namespace MCDSaveEdit
         public IReadProperty<IEnumerable<Item>> equippedItemList;
         public IReadWriteProperty<int?> level;
         public IReadWriteProperty<ulong?> emeralds;
+        public IReadWriteProperty<ulong?> gold;
 
         public ProfileViewModel()
         {
@@ -48,14 +49,22 @@ namespace MCDSaveEdit
                 });
 
             emeralds = _profile.map<ProfileSaveFile?, ulong?>(
-                p => p?.Currency.FirstOrDefault()?.Count,
-                (p, value) =>
-                {
-                    if (p == null || value == null) { return; }
-                    Currency currency = p!.Currency.FirstOrDefault() ?? new Currency() { Type = "Emerald" };
-                    currency.Count = value.Value;
-                    p!.Currency = (new[] { currency }).Concat(p!.Currency.Skip(1)).ToArray();
-                });
+               p => p?.Currency.FirstOrDefault(c => c.Type == Constants.EMERALD_CURRENCY_NAME)?.Count,
+               (p, value) => {
+                   if (p == null || value == null) { return; }
+                   Currency currency = p!.Currency.FirstOrDefault(c => c.Type == Constants.EMERALD_CURRENCY_NAME) ?? new Currency() { Type = Constants.EMERALD_CURRENCY_NAME };
+                   currency.Count = value.Value;
+                   p!.Currency = (new[] { currency }).Concat(p!.Currency.Where(c => c.Type != Constants.EMERALD_CURRENCY_NAME)).OrderBy(c => c.Type).ToArray();
+               });
+
+            gold = _profile.map<ProfileSaveFile?, ulong?>(
+               p => p?.Currency.FirstOrDefault(c => c.Type == Constants.GOLD_CURRENCY_NAME)?.Count,
+               (p, value) => {
+                   if (p == null || value == null) { return; }
+                   Currency currency = p!.Currency.FirstOrDefault(c => c.Type == Constants.GOLD_CURRENCY_NAME) ?? new Currency() { Type = Constants.GOLD_CURRENCY_NAME };
+                   currency.Count = value.Value;
+                   p!.Currency = (new[] { currency }).Concat(p!.Currency.Where(c => c.Type != Constants.GOLD_CURRENCY_NAME)).OrderBy(c => c.Type).ToArray();
+               });
 
             filteredItemList = _filter.map<ItemFilterEnum, IEnumerable<Item>>(
                 f => {

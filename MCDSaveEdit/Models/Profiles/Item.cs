@@ -24,6 +24,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("markedNew")]
         public bool? MarkedNew { get; set; }
 
+        [JsonPropertyName("gifted")]
+        public bool? Gifted { get; set; }
+
         [JsonPropertyName("power")]
         public double Power { get; set; }
 

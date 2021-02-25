@@ -21,6 +21,7 @@ namespace MCDSaveEdit
     public partial class MainWindow : Window
     {
         private static readonly BitmapImage? _emeraldImage = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_emerald");
+        private static readonly BitmapImage? _goldImage = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Currency/GoldIndicator");
         private static readonly BitmapImage? _enchantmentImage = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchantscore_background");
 
         public static void init() { }
@@ -92,6 +93,7 @@ namespace MCDSaveEdit
         private void useGameContentImages()
         {
             emeraldsLabelImage.Source = _emeraldImage;
+            goldLabelImage.Source = _goldImage;
             remainingEnchantmentPointsLabelImage.Source = _enchantmentImage;
         }
 
@@ -126,6 +128,7 @@ namespace MCDSaveEdit
 
             model.level.subscribe(_ => this.updateEnchantmentPointsUI());
             model.emeralds.subscribe(updateEmeraldsUI);
+            model.gold.subscribe(updateGoldUI);
             model.selectedItem.subscribe(item => this.selectedItemScreen.item = item);
             model.selectedEnchantment.subscribe(updateEnchantmentScreenUI);
             model.profile.subscribe(_ => this.updateUI());
@@ -266,6 +269,16 @@ namespace MCDSaveEdit
             }
         }
 
+        private void goldTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_model?.profile.value == null || !goldTextBox.IsEnabled) { return; }
+            EventLogger.logEvent("goldTextBox_TextChanged");
+            if (uint.TryParse(goldTextBox.Text, out uint gold))
+            {
+                _model!.gold.setValue = gold;
+            }
+        }
+
         #endregion
 
         #region Helper Functions
@@ -341,6 +354,7 @@ namespace MCDSaveEdit
         {
             updateTitleUI();
             updateEmeraldsUI(_model?.emeralds.value);
+            updateGoldUI(_model?.gold.value);
             updateMapScreensUI();
             updateEnchantmentPointsUI();
             selectedItemScreen.item = _model?.selectedItem.value;
@@ -379,6 +393,21 @@ namespace MCDSaveEdit
             {
                 emeraldsTextBox.IsEnabled = false;
                 emeraldsTextBox.Text = string.Empty;
+            }
+        }
+
+        private void updateGoldUI(ulong? gold)
+        {
+            if (gold != null)
+            {
+                goldTextBox.IsEnabled = false;
+                goldTextBox.Text = gold!.ToString();
+                goldTextBox.IsEnabled = true;
+            }
+            else
+            {
+                goldTextBox.IsEnabled = false;
+                goldTextBox.Text = string.Empty;
             }
         }
 
