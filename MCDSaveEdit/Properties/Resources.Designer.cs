@@ -313,6 +313,24 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gifted.
+        /// </summary>
+        public static string GIFTED {
+            get {
+                return ResourceManager.GetString("GIFTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gilded.
+        /// </summary>
+        public static string GILDED {
+            get {
+                return ResourceManager.GetString("GILDED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Howling Peaks.
         /// </summary>
         public static string HOWLING_PEAKS {
@@ -466,6 +484,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rare.
+        /// </summary>
+        public static string RARE {
+            get {
+                return ResourceManager.GetString("RARE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Armor.
         /// </summary>
         public static string SELECT_ARMOR {
@@ -534,6 +561,24 @@ namespace MCDSaveEdit.Properties {
         public static string TIER {
             get {
                 return ResourceManager.GetString("TIER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unique.
+        /// </summary>
+        public static string UNIQUE {
+            get {
+                return ResourceManager.GetString("UNIQUE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upgraded.
+        /// </summary>
+        public static string UPGRADED {
+            get {
+                return ResourceManager.GetString("UPGRADED", resourceCulture);
             }
         }
         

@@ -229,6 +229,14 @@
     <value>Launch using game content</value>
     <comment>Launch using game content</comment>
   </data>
+  <data name="GIFTED" xml:space="preserve">
+    <value>Gifted</value>
+    <comment>Gifted</comment>
+  </data>
+  <data name="GILDED" xml:space="preserve">
+    <value>Gilded</value>
+    <comment>Gilded</comment>
+  </data>
   <data name="HOWLING_PEAKS" xml:space="preserve">
     <value>Howling Peaks</value>
     <comment>Howling Peaks</comment>
@@ -297,6 +305,10 @@
     <value>Ranged</value>
     <comment>Ranged</comment>
   </data>
+  <data name="RARE" xml:space="preserve">
+    <value>Rare</value>
+    <comment>Rare</comment>
+  </data>
   <data name="SELECT_ARMOR" xml:space="preserve">
     <value>Select Armor</value>
     <comment>Select Armor</comment>
@@ -328,6 +340,14 @@
   <data name="TIER" xml:space="preserve">
     <value>Tier</value>
     <comment>Tier</comment>
+  </data>
+  <data name="UNIQUE" xml:space="preserve">
+    <value>Unique</value>
+    <comment>Unique</comment>
+  </data>
+  <data name="UPGRADED" xml:space="preserve">
+    <value>Upgraded</value>
+    <comment>Upgraded</comment>
   </data>
   <data name="VERSION_FORMAT" xml:space="preserve">
     <value>Version: {0}</value>

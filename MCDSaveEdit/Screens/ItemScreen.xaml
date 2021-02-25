@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MCDSaveEdit"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="550">
+             d:DesignHeight="500" d:DesignWidth="550">
     <DockPanel>
         <Grid DockPanel.Dock="Top" Height="Auto" VerticalAlignment="Stretch" Margin="0">
             <Button x:Name="inventoryItemButton" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Height="150" Margin="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="inventoryItemButton_Click">
@@ -16,10 +16,21 @@
                     <TextBox x:Name="powerTextBox" TextChanged="powerTextBox_TextChanged" Text="1234567890" FontSize="20" HorizontalAlignment="Center" Width="114" Background="{x:Null}" TextAlignment="Right" VerticalContentAlignment="Center"/>
                     <local:Stepper UpButtonClick="upButton_Click" DownButtonClick="downButton_Click"/>
                     <ComboBox x:Name="rarityComboBox" SelectionChanged="rarityComboBox_SelectionChanged" FontSize="18" Width="120" Margin="10,0" SelectedIndex="0" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" >
-                        <ComboBoxItem Content="Common"/>
-                        <ComboBoxItem Content="Rare"/>
-                        <ComboBoxItem Content="Unique"/>
+                        <ComboBoxItem Content="*Common*"/>
+                        <ComboBoxItem Content="*Rare*"/>
+                        <ComboBoxItem Content="*Unique*"/>
                     </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="32" Margin="0,5,0,0">
+                    <Button x:Name="gildedButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="gildedButton_Click">
+                        <CheckBox x:Name="gildedButtonCheckBox" IsEnabled="false">*Gilded*</CheckBox>
+                    </Button>
+                    <Button x:Name="upgradedButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="upgradedButton_Click">
+                        <CheckBox x:Name="upgradedButtonCheckBox" IsEnabled="false">*Upgraded*</CheckBox>
+                    </Button>
+                    <Button x:Name="giftedButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="giftedButton_Click">
+                        <CheckBox x:Name="giftedButtonCheckBox" IsEnabled="false">*Gifted*</CheckBox>
+                    </Button>
                 </StackPanel>
                 <Label x:Name="nameLabel" Content="Evocation Robe" FontSize="24"/>
                 <StackPanel x:Name="armorPropertiesStack" Margin="5">

@@ -27,9 +27,14 @@ namespace MCDSaveEdit
 
             //Clear out design/testing values
             rarityComboBox.Items.Clear();
-            rarityComboBox.Items.Add(R.getString("rarity_common"));
-            rarityComboBox.Items.Add(R.getString("rarity_rare"));
-            rarityComboBox.Items.Add(R.getString("rarity_unique"));
+            rarityComboBox.Items.Add(R.getString("rarity_common") ?? R.COMMON);
+            rarityComboBox.Items.Add(R.getString("rarity_rare") ?? R.RARE);
+            rarityComboBox.Items.Add(R.getString("rarity_unique") ?? R.UNIQUE);
+
+            gildedButtonCheckBox.Content = R.getString("iteminspector_gilded") ?? R.GILDED;
+            upgradedButtonCheckBox.Content = R.getString("item_diamond_dust_upgraded") ?? R.UPGRADED;
+            giftedButtonCheckBox.Content = R.getString("item_gifted") ?? R.GIFTED;
+
             updateUI();
         }
 
@@ -67,8 +72,30 @@ namespace MCDSaveEdit
                 inventoryItemButton.IsEnabled = ImageUriHelper.gameContentLoaded;
             }
 
+            updateCheckBoxes();
             updateArmorPropertiesUI();
             updateEnchantmentsUI();
+        }
+
+        public void updateCheckBoxes()
+        {
+            if (_item == null)
+            {
+                gildedButton.IsEnabled = false;
+                gildedButtonCheckBox.IsChecked = false;
+                upgradedButton.IsEnabled = false;
+                upgradedButtonCheckBox.IsChecked = false;
+                giftedButton.IsEnabled = false;
+                giftedButtonCheckBox.IsChecked = false;
+            }
+            else
+            {
+                gildedButtonCheckBox.IsChecked = _item.NetheriteEnchant != null;
+                upgradedButtonCheckBox.IsChecked = _item.Upgraded;
+                upgradedButton.IsEnabled = true;
+                giftedButtonCheckBox.IsChecked = _item.Gifted == true;
+                giftedButton.IsEnabled = true;
+            }
         }
 
         public void updateArmorPropertiesUI()
@@ -188,6 +215,26 @@ namespace MCDSaveEdit
 
         public ICommand? saveChanges { get; set; }
         public ICommand? selectEnchantment { get; set; }
+
+        private void gildedButton_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Not Implemented Yet
+            throw new NotImplementedException();
+        }
+
+        private void upgradedButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_item == null) return;
+            _item.Upgraded = !_item.Upgraded;
+            this.saveChanges?.Execute(_item);
+        }
+
+        private void giftedButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_item == null) return;
+            _item.Gifted = (_item.Gifted == null || _item.Gifted == false) ? true : false;
+            this.saveChanges?.Execute(_item);
+        }
 
         private void upButton_Click(object sender, RoutedEventArgs e)
         {

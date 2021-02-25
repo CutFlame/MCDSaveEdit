@@ -148,6 +148,8 @@ namespace MCDSaveEdit
             if (stringLibrary.TryGetValue("", out var clickysDict)
                 && stringLibrary.TryGetValue("Realms", out var realmsDict)
                 && stringLibrary.TryGetValue("DLC", out var dlcDict)
+                && stringLibrary.TryGetValue("AncientLabels", out var ancientLabelsDict)
+                && stringLibrary.TryGetValue("MerchantLabels", out var merchantLabelsDict)
                 && stringLibrary.TryGetValue("Difficulty", out var diffDict)
                 )
             {
@@ -155,6 +157,8 @@ namespace MCDSaveEdit
                     .Concat(realmsDict)
                     .Concat(dlcDict)
                     .Concat(diffDict)
+                    .Concat(ancientLabelsDict)
+                    .Concat(merchantLabelsDict)
                     .ToDictionary(pair => pair.Key.Trim(), pair => pair.Value);
             }
             isStringsLoaded = true;
