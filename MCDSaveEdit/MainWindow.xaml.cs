@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -140,8 +138,8 @@ namespace MCDSaveEdit
 
         private async void checkForNewVersionAsync()
         {
-            string latest = await latestReleaseVersionString(Constants.LATEST_RELEASE_URL);
-            if (string.IsNullOrWhiteSpace(latest) || Constants.CURRENT_RELEASE_TAG_NAME.Equals(latest))
+            bool isNewVersionAvailable = await Config.instance.isNewVersionAvailable();
+            if (isNewVersionAvailable)
             {
                 updateMenuItem.Visibility = Visibility.Collapsed;
             }
@@ -151,20 +149,6 @@ namespace MCDSaveEdit
             }
         }
 
-        private async Task<string> latestReleaseVersionString(string webAddress)
-        {
-            try
-            {
-                var request = WebRequest.Create(webAddress);
-                using var response = await request.GetResponseAsync();
-                return response.ResponseUri.Segments.Last();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return string.Empty;
-        }
         #endregion
 
         #region User Input Methods
@@ -238,7 +222,7 @@ namespace MCDSaveEdit
         private void updateMenuItem_Click(object sender, RoutedEventArgs e)
         {
             EventLogger.logEvent("updateMenuItem_Click");
-            Process.Start(Constants.LATEST_RELEASE_URL);
+            Process.Start(Config.instance.newVersionDownloadURL());
         }
         
         private void window_File_Drop(object sender, DragEventArgs e)

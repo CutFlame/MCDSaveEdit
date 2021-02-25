@@ -151,6 +151,7 @@
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\StreamExtensions.cs" />
+    <Compile Include="Data\Config.cs" />
     <Compile Include="Data\Constants.MapData.cs" />
     <Compile Include="GameFilesWindow.xaml.cs">
       <DependentUpon>GameFilesWindow.xaml</DependentUpon>
