@@ -15,17 +15,17 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("equipmentSlot")]
         public string EquipmentSlot { get; set; }
 
+        [JsonPropertyName("gifted")]
+        public bool? Gifted { get; set; }
+
         [JsonPropertyName("inventoryIndex")]
         public long? InventoryIndex { get; set; }
-
-        [JsonPropertyName("netheriteEnchant")]
-        public Enchantment NetheriteEnchant { get; set; }
 
         [JsonPropertyName("markedNew")]
         public bool? MarkedNew { get; set; }
 
-        [JsonPropertyName("gifted")]
-        public bool? Gifted { get; set; }
+        [JsonPropertyName("netheriteEnchant")]
+        public Enchantment NetheriteEnchant { get; set; }
 
         [JsonPropertyName("power")]
         public double Power { get; set; }
