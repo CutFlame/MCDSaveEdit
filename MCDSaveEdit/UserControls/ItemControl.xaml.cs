@@ -14,6 +14,7 @@ namespace MCDSaveEdit
     public partial class ItemControl : UserControl
     {
         private static readonly BitmapImage? enchantmentPointsImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
+        private static readonly BitmapImage? gildedImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/Content_DLC4/UI/Materials/Inventory/Inventory_slot_gilded_plate");
         public static void preload()
         {
             ImageUriHelper.instance.imageSourceForRarity(Rarity.Common);
@@ -36,6 +37,7 @@ namespace MCDSaveEdit
         private void useGameContentImages()
         {
             enchantmentPointsImage.Source = enchantmentPointsImageSource;
+            gildedImage.Source = gildedImageSource;
         }
 
         private Item? _item;
@@ -52,6 +54,7 @@ namespace MCDSaveEdit
             image.Source = null;
             backImage.Source = null;
             titleLabel.Visibility = Visibility.Hidden;
+            gildedImage.Visibility = Visibility.Hidden;
             enchantmentPointsImage.Visibility = Visibility.Hidden;
             enchantmentPointsLabel.Visibility = Visibility.Hidden;
         }
@@ -77,6 +80,16 @@ namespace MCDSaveEdit
             }
 
             backImage.Source = ImageUriHelper.instance.imageSourceForRarity(_item.Rarity);
+
+            if(_item.NetheriteEnchant != null)
+            {
+                gildedImage.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                gildedImage.Visibility = Visibility.Hidden;
+            }
+
             var enchantmentPoints = _item.enchantmentPoints();
             if (enchantmentPoints > 0)
             {

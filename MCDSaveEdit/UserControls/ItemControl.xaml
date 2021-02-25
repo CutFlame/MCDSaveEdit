@@ -10,6 +10,7 @@
              d:DesignHeight="100" d:DesignWidth="100">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Image x:Name="backImage"/>
+        <Image x:Name="gildedImage" Margin="3,3,4,4"/>
         <Image x:Name="image" Source="../Images/Artifacts.png" Margin="10"/>
         <Label x:Name="titleLabel" Content="*Boots of Swiftness*" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Center" FontSize="12" FontStretch="UltraCondensed"/>
         <Image x:Name="enchantmentPointsImage" Source="../Images/Points.png" Width="12" Height="13" Margin="6,6,82,81"/>
