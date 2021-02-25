@@ -29,6 +29,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("difficulties")]
         public Difficulties Difficulties { get; set; }
 
+        [JsonPropertyName("endGameContentProgress")]
+        public object EndGameContentProgress { get; set; }
+
         [JsonPropertyName("finishedObjectiveTags")]
         public Dictionary<string, long> FinishedObjectiveTags { get; set; }
 
@@ -47,6 +50,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
 
         [JsonPropertyName("merchantData")]
         public object MerchantData { get; set; }
+
+        [JsonPropertyName("missionStatesMap")]
+        public object MissionStatesMap { get; set; }
 
         [JsonPropertyName("mob_kills")]
         public Dictionary<string, long> MobKills { get; set; }

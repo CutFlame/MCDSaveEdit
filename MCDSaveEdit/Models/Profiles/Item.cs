@@ -18,6 +18,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("inventoryIndex")]
         public long? InventoryIndex { get; set; }
 
+        [JsonPropertyName("netheriteEnchant")]
+        public Enchantment NetheriteEnchant { get; set; }
+
         [JsonPropertyName("markedNew")]
         public bool? MarkedNew { get; set; }
 

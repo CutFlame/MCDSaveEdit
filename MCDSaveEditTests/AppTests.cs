@@ -3,6 +3,7 @@ using MCDSaveEdit;
 using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PakReader;
 using PakReader.Pak;
 using PakReader.Parsers.Objects;
 using System;
@@ -30,13 +31,13 @@ namespace MCDSaveEditTests
 
             PakFilter? filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
             PakIndex? pakIndex = new PakIndex(path: paksFolderPath!, cacheFiles: true, caseSensitive: true, filter: filter);
-            pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRING);
-            Assert.AreEqual(54738, pakIndex.Count());
+            pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRINGS[0].Substring(2).ToBytesKey());
+            Assert.AreEqual(57499, pakIndex.Count());
 
             var pakImageResolver = new PakImageResolver(pakIndex, null);
             pakImageResolver.loadPakFiles();
-            Assert.AreEqual(206, ItemExtensions.all.Count);
-            Assert.AreEqual(88, EnchantmentExtensions.allEnchantments.Count);
+            Assert.AreEqual(222, ItemExtensions.all.Count);
+            Assert.AreEqual(101, EnchantmentExtensions.allEnchantments.Count);
 
             //Find all the missing and mismatched strings
 
