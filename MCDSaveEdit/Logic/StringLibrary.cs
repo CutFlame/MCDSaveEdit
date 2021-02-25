@@ -24,6 +24,8 @@ namespace MCDSaveEdit
             { "EnigmaResonatorRanged","EnigmaRanged" },
             { "FireAspect","Fire" },
             { "FireAspect_desc","Fire_desc" },
+            { "Firetrail","FireTrail" },
+            { "Firetrail_desc","FireTrail_desc" },
             { "Gravity","GravityMelee" },
             { "Gravity_desc","GravityMelee_desc" },
             { "JunglePoisonRanged","JunglePoison" },
