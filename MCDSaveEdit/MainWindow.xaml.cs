@@ -419,6 +419,7 @@ namespace MCDSaveEdit
                 selectedEnchantmentScreen.Visibility = Visibility.Visible;
                 selectedEnchantmentScreenBackShadowRectangle.Visibility = Visibility.Visible;
                 selectedEnchantmentScreen.enchantment = enchantment;
+                selectedEnchantmentScreen.isGilded = this.selectedItemScreen.item?.NetheriteEnchant != null;
                 selectedItemScreen.updateEnchantmentsUI();
             }
         }

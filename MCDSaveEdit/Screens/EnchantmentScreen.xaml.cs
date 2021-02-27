@@ -35,10 +35,15 @@ namespace MCDSaveEdit
         }
 
         private Enchantment? _enchantment;
-        public Enchantment? enchantment
-        {
+        public Enchantment? enchantment {
             get { return _enchantment; }
             set { _enchantment = value; updateUI(); }
+        }
+
+        private bool _isGilded;
+        public bool isGilded {
+            get { return _isGilded; }
+            set { _isGilded = value; updateTierUI(); }
         }
 
         private void updateUI()
@@ -82,7 +87,14 @@ namespace MCDSaveEdit
                     enchantmentBackgroundImage.Source = imageForEnchantmentLevel(_enchantment!.Level);
                 }
                 tierTextBox.Text = _enchantment!.Level.ToString();
-                pointsCostLabel.Content = _enchantment!.pointsCost().ToString();
+                if(_isGilded)
+                {
+                    pointsCostLabel.Content = _enchantment!.gildedPointsCost().ToString();
+                }
+                else
+                {
+                    pointsCostLabel.Content = _enchantment!.pointsCost().ToString();
+                }
             }
             else
             {

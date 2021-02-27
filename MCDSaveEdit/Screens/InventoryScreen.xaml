@@ -9,6 +9,12 @@
     <Grid>
 
         <Grid Width="330" Margin="0" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+            <Image x:Name="levelLabelImage" HorizontalAlignment="Left" Width="135" Height="135" Margin="2,0,0,0" VerticalAlignment="Center"/>
+
+            <Label x:Name="levelLabel" Content="*Level*" HorizontalAlignment="Left" Margin="26,-83,0,0" VerticalAlignment="Center" FontSize="20" Width="70" HorizontalContentAlignment="Center" Height="30" Padding="0" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False"/>
+            <TextBox x:Name="levelTextBox" HorizontalAlignment="Left" Height="45" Margin="26,0,0,0" VerticalAlignment="Center" Width="70" FontSize="20" Text="1234567890" Background="{x:Null}" TextChanged="levelTextBox_TextChanged" TextAlignment="Center" VerticalContentAlignment="Center"/>
+            <local:Stepper HorizontalAlignment="Left" Height="45" Margin="96,0,0,0" VerticalAlignment="Center" UpButtonClick="upButton_Click" DownButtonClick="downButton_Click"/>
+
             <Button x:Name="meleeGearSlotButton" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="{x:Null}">
                 <local:ItemControl x:Name="meleeGearSlotItemControl" Height="100" Width="100"></local:ItemControl>
             </Button>
@@ -18,12 +24,6 @@
             <Button x:Name="rangedGearSlotButton" HorizontalAlignment="Left" Margin="220,48,0,0" VerticalAlignment="Top" Width="100" Height="100" Background="{x:Null}">
                 <local:ItemControl x:Name="rangedGearSlotItemControl" Height="100" Width="100"></local:ItemControl>
             </Button>
-
-            <Image x:Name="levelLabelImage" HorizontalAlignment="Left" Width="135" Height="135" Margin="2,0,0,0" VerticalAlignment="Center"/>
-
-            <Label x:Name="levelLabel" Content="*Level*" HorizontalAlignment="Left" Margin="26,-83,0,0" VerticalAlignment="Center" FontSize="20" Width="70" HorizontalContentAlignment="Center" Height="30" Padding="0" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False"/>
-            <TextBox x:Name="levelTextBox" HorizontalAlignment="Left" Height="45" Margin="26,0,0,0" VerticalAlignment="Center" Width="70" FontSize="20" Text="1234567890" Background="{x:Null}" TextChanged="levelTextBox_TextChanged" TextAlignment="Center" VerticalContentAlignment="Center"/>
-            <local:Stepper HorizontalAlignment="Left" Height="45" Margin="96,0,0,0" VerticalAlignment="Center" UpButtonClick="upButton_Click" DownButtonClick="downButton_Click"/>
 
             <Button x:Name="hotbarSlot1Button" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="100" Height="100" Background="{x:Null}">
                 <local:ItemControl x:Name="hotbarSlot1ItemControl" Height="100" Width="100"></local:ItemControl>

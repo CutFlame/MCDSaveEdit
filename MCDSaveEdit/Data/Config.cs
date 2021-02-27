@@ -11,6 +11,16 @@ namespace MCDSaveEdit
     {
         public static Config instance = new GameAnalyticsRemoteConfig();
 
+        public bool showInventoryIndexOrEquipmentSlot {
+            get {
+#if DEBUG
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
+
         public virtual async Task<bool> isNewVersionAvailable()
         {
             string latest = await latestReleaseVersionString();

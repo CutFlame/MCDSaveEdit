@@ -17,7 +17,14 @@ namespace MCDSaveEdit.Save.Models.Enums
             int points = 0;
             foreach (var enchantment in item.Enchantments)
             {
-                points += enchantment.pointsCost();
+                if(item.NetheriteEnchant != null)
+                {
+                    points += enchantment.gildedPointsCost();
+                }
+                else
+                {
+                    points += enchantment.pointsCost();
+                }
             }
             return points;
         }

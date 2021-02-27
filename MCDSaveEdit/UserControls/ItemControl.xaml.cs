@@ -49,12 +49,13 @@ namespace MCDSaveEdit
 
         public void clearAll()
         {
-            powerLabel.Content = null;
-            titleLabel.Content = null;
             image.Source = null;
             backImage.Source = null;
-            titleLabel.Visibility = Visibility.Hidden;
             gildedImage.Visibility = Visibility.Hidden;
+            inventoryIndexLabel.Content = null;
+            powerLabel.Content = null;
+            titleLabel.Content = null;
+            titleLabel.Visibility = Visibility.Hidden;
             enchantmentPointsImage.Visibility = Visibility.Hidden;
             enchantmentPointsLabel.Visibility = Visibility.Hidden;
         }
@@ -88,6 +89,11 @@ namespace MCDSaveEdit
             else
             {
                 gildedImage.Visibility = Visibility.Hidden;
+            }
+
+            if (Config.instance.showInventoryIndexOrEquipmentSlot)
+            {
+                inventoryIndexLabel.Content = _item.InventoryIndex?.ToString() ?? _item.EquipmentSlot;
             }
 
             var enchantmentPoints = _item.enchantmentPoints();

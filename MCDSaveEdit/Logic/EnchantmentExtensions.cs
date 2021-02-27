@@ -1,4 +1,5 @@
 ﻿using MCDSaveEdit.Save.Models.Profiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +21,7 @@ namespace MCDSaveEdit.Save.Models.Enums
             "GravityMelee",
             "Shockwave",
             "Swirling",
-            
+
             "Gravity",
             "TempoTheft",
             "ChainReaction",
@@ -110,28 +111,35 @@ namespace MCDSaveEdit.Save.Models.Enums
 
         public static int pointsCost(this Enchantment enchantment)
         {
+            int cost = 0;
             if (enchantment.isPowerful())
             {
-                if(enchantment.Level < GameCalculator.powerfulEnchantmentCostForLevel.Length)
-                {
-                    return GameCalculator.powerfulEnchantmentCostForLevel[enchantment.Level];
-                }
-                else
-                {
-                    return GameCalculator.powerfulEnchantmentCostForLevel.Last();
-                }
+                int level = Math.Min((int)enchantment.Level, GameCalculator.powerfulEnchantmentCostForLevel.Length);
+                cost = GameCalculator.powerfulEnchantmentCostForLevel[level];
             }
             else
             {
-                if(enchantment.Level < GameCalculator.enchantmentCostForLevel.Length)
-                {
-                    return GameCalculator.enchantmentCostForLevel[enchantment.Level];
-                }
-                else
-                {
-                    return GameCalculator.enchantmentCostForLevel.Last();
-                }
+                int level = Math.Min((int)enchantment.Level, GameCalculator.enchantmentCostForLevel.Length);
+                cost = GameCalculator.enchantmentCostForLevel[level];
             }
+            return cost;
+        }
+
+        public static int gildedPointsCost(this Enchantment enchantment)
+        {
+            int cost = 0;
+            int level = 0;
+            if (enchantment.isPowerful())
+            {
+                level = Math.Min((int)enchantment.Level, GameCalculator.powerfulEnchantmentCostForLevel.Length);
+                cost = GameCalculator.powerfulEnchantmentCostForLevel[level];
+            }
+            else
+            {
+                level = Math.Min((int)enchantment.Level, GameCalculator.enchantmentCostForLevel.Length);
+                cost = GameCalculator.enchantmentCostForLevel[level];
+            }
+            return cost + level;
         }
     }
 }
