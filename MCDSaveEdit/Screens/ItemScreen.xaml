@@ -21,9 +21,9 @@
                         <ComboBoxItem Content="*Unique*"/>
                     </ComboBox>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="32" Margin="0,5,0,0">
-                    <Button x:Name="gildedButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="gildedButton_Click">
-                        <CheckBox x:Name="gildedButtonCheckBox" IsEnabled="false">*Gilded*</CheckBox>
+                <StackPanel Orientation="Horizontal" Height="27" Margin="0,5,0,0">
+                    <Button x:Name="markedNewButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="markedNewButton_Click">
+                        <CheckBox x:Name="markedNewButtonCheckBox" IsEnabled="false">*New*</CheckBox>
                     </Button>
                     <Button x:Name="upgradedButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="upgradedButton_Click">
                         <CheckBox x:Name="upgradedButtonCheckBox" IsEnabled="false">*Upgraded*</CheckBox>
@@ -42,8 +42,10 @@
                     </Button>
                     <Label Content="Common Movespeed" FontSize="16"/>
                     <Label Content="Common Movespeed" FontSize="16"/>
-                    <Label Content="Common Movespeed" FontSize="16"/>
                 </StackPanel>
+
+                <local:NetheriteEnchantmentControl x:Name="netheriteEnchantmentControl" Height="27"/>
+
                 <TextBlock x:Name="descLabel" Text="Evocation Robe" FontSize="16" TextWrapping="Wrap" Padding="5" />
             </StackPanel>
         </Grid>

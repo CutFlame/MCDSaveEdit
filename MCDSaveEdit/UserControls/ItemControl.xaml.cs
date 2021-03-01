@@ -15,6 +15,8 @@ namespace MCDSaveEdit
     {
         private static readonly BitmapImage? enchantmentPointsImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
         private static readonly BitmapImage? gildedImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/Content_DLC4/UI/Materials/Inventory/Inventory_slot_gilded_plate");
+        private static readonly BitmapImage? markedNewImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/HotBar2/Icons/inventoryslot_newitem");
+
         public static void preload()
         {
             ImageUriHelper.instance.imageSourceForRarity(Rarity.Common);
@@ -38,6 +40,7 @@ namespace MCDSaveEdit
         {
             enchantmentPointsImage.Source = enchantmentPointsImageSource;
             gildedImage.Source = gildedImageSource;
+            markedNewImage.Source = markedNewImageSource;
         }
 
         private Item? _item;
@@ -52,6 +55,7 @@ namespace MCDSaveEdit
             image.Source = null;
             backImage.Source = null;
             gildedImage.Visibility = Visibility.Hidden;
+            markedNewImage.Visibility = Visibility.Hidden;
             inventoryIndexLabel.Content = null;
             powerLabel.Content = null;
             titleLabel.Content = null;
@@ -90,6 +94,8 @@ namespace MCDSaveEdit
             {
                 gildedImage.Visibility = Visibility.Hidden;
             }
+
+            markedNewImage.Visibility = _item.MarkedNew == true ? Visibility.Visible : Visibility.Hidden;
 
             if (Config.instance.showInventoryIndexOrEquipmentSlot)
             {

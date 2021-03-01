@@ -12,6 +12,7 @@
         <Image x:Name="backImage"/>
         <Image x:Name="gildedImage" Margin="3,3,4,4"/>
         <Image x:Name="image" Source="../Images/Artifacts.png" Margin="10"/>
+        <Image x:Name="markedNewImage" Height="32" Width="32" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         <Label x:Name="inventoryIndexLabel" Content="12345" FontSize="10" Margin="0" VerticalContentAlignment="Top" HorizontalAlignment="Right" Padding="5,0"/>
         <Label x:Name="titleLabel" Content="*Boots of Swiftness*" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Center" FontSize="12" FontStretch="UltraCondensed"/>
         <Image x:Name="enchantmentPointsImage" Source="../Images/Points.png" Width="12" Height="13" Margin="6,6,82,81"/>

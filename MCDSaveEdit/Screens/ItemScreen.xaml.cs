@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 #nullable enable
 
 namespace MCDSaveEdit
@@ -21,6 +22,7 @@ namespace MCDSaveEdit
         {
             InitializeComponent();
 
+            netheriteEnchantmentControl.saveChanges = new RelayCommand<object>(relaySaveChanges);
             enchantment1Control.command = new RelayCommand<Enchantment>(relaySelectEnchantment);
             enchantment2Control.command = new RelayCommand<Enchantment>(relaySelectEnchantment);
             enchantment3Control.command = new RelayCommand<Enchantment>(relaySelectEnchantment);
@@ -31,7 +33,7 @@ namespace MCDSaveEdit
             rarityComboBox.Items.Add(R.getString("rarity_rare") ?? R.RARE);
             rarityComboBox.Items.Add(R.getString("rarity_unique") ?? R.UNIQUE);
 
-            gildedButtonCheckBox.Content = R.getString("iteminspector_gilded") ?? R.GILDED;
+            markedNewButtonCheckBox.Content = R.getString("Interest_New") ?? R.NEW;
             upgradedButtonCheckBox.Content = R.getString("item_diamond_dust_upgraded") ?? R.UPGRADED;
             giftedButtonCheckBox.Content = R.getString("item_gifted") ?? R.GIFTED;
 
@@ -74,6 +76,7 @@ namespace MCDSaveEdit
 
             updateCheckBoxes();
             updateArmorPropertiesUI();
+            updateNetheriteEnchantmentUI();
             updateEnchantmentsUI();
         }
 
@@ -81,8 +84,8 @@ namespace MCDSaveEdit
         {
             if (_item == null)
             {
-                gildedButton.IsEnabled = false;
-                gildedButtonCheckBox.IsChecked = false;
+                markedNewButton.IsEnabled = false;
+                markedNewButtonCheckBox.IsChecked = false;
                 upgradedButton.IsEnabled = false;
                 upgradedButtonCheckBox.IsChecked = false;
                 giftedButton.IsEnabled = false;
@@ -90,11 +93,53 @@ namespace MCDSaveEdit
             }
             else
             {
-                gildedButtonCheckBox.IsChecked = _item.NetheriteEnchant != null;
+                markedNewButtonCheckBox.IsChecked = _item.MarkedNew == true;
+                markedNewButton.IsEnabled = true;
                 upgradedButtonCheckBox.IsChecked = _item.Upgraded;
                 upgradedButton.IsEnabled = true;
                 giftedButtonCheckBox.IsChecked = _item.Gifted == true;
                 giftedButton.IsEnabled = true;
+            }
+        }
+
+        public class ArmorPropertyButton: Button
+        {
+            public static BitmapImage? bulletImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
+
+            public ArmorPropertyButton(Armorproperty? armorProperty)
+            {
+                var bulletImage = new Image();
+                bulletImage.Height = 20;
+                bulletImage.Width = 20;
+                bulletImage.Margin = new Thickness(5);
+                bulletImage.Source = bulletImageSource;
+
+                var label = new Label();
+                label.FontSize = 16;
+                if(armorProperty == null)
+                {
+                    label.Content = "<null>";
+                }
+                else
+                {
+                    label.Content = string.Format("{0}: {1}", R.armorProperty(armorProperty.Id), R.armorPropertyDescription(armorProperty.Id));
+                }
+                label.VerticalAlignment = VerticalAlignment.Center;
+                label.Padding = new Thickness(0);
+
+                var armorPropertyStack = new StackPanel();
+                armorPropertyStack.Orientation = Orientation.Horizontal;
+                armorPropertyStack.Children.Add(bulletImage);
+                armorPropertyStack.Children.Add(label);
+
+                this.IsEnabled = ImageUriHelper.gameContentLoaded;
+                this.Tag = armorProperty;
+                this.HorizontalContentAlignment = HorizontalAlignment.Left;
+                this.VerticalContentAlignment = VerticalAlignment.Center;
+                this.Height = 32;
+                this.Background = null;
+                this.Padding = new Thickness(0);
+                this.Content = armorPropertyStack;
             }
         }
 
@@ -103,40 +148,27 @@ namespace MCDSaveEdit
             armorPropertiesStack.Children.Clear();
             if (_item?.Armorproperties != null)
             {
-                var bulletImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
-
                 foreach (var armorProperty in _item.Armorproperties)
                 {
-                    var bulletImage = new Image();
-                    bulletImage.Height = 20;
-                    bulletImage.Width = 20;
-                    bulletImage.Source = bulletImageSource;
-                    bulletImage.Margin = new Thickness(5);
-
-                    var label = new Label();
-                    label.FontSize = 16;
-                    label.Content = string.Format("{0}: {1}", R.armorProperty(armorProperty.Id), R.armorPropertyDescription(armorProperty.Id));
-                    label.VerticalAlignment = VerticalAlignment.Center;
-                    label.Padding = new Thickness(0);
-
-                    var armorPropertyStack = new StackPanel();
-                    armorPropertyStack.Orientation = Orientation.Horizontal;
-                    armorPropertyStack.Children.Add(bulletImage);
-                    armorPropertyStack.Children.Add(label);
-
-                    var button = new Button();
-                    button.IsEnabled = ImageUriHelper.gameContentLoaded;
-                    button.Tag = armorProperty;
-                    button.HorizontalContentAlignment = HorizontalAlignment.Left;
-                    button.VerticalContentAlignment = VerticalAlignment.Center;
-                    button.Height = 32;
-                    button.Background = null;
-                    button.Padding = new Thickness(0);
-                    button.Content = armorPropertyStack;
+                    var button = new ArmorPropertyButton(armorProperty);
                     button.CommandParameter = armorProperty;
                     button.Command = new RelayCommand<Armorproperty>(armorPropertyButton_Click);
                     armorPropertiesStack.Children.Add(button);
                 }
+            }
+        }
+
+        public void updateNetheriteEnchantmentUI()
+        {
+            if (_item == null || _item.isArtifact())
+            {
+                netheriteEnchantmentControl.Visibility = Visibility.Collapsed;
+                netheriteEnchantmentControl.item = null;
+            }
+            else
+            {
+                netheriteEnchantmentControl.Visibility = Visibility.Visible;
+                netheriteEnchantmentControl.item = _item;
             }
         }
 
@@ -192,6 +224,11 @@ namespace MCDSaveEdit
             selectEnchantment?.Execute(enchantment);
         }
 
+        private void relaySaveChanges(object sender)
+        {
+            this.saveChanges?.Execute(_item);
+        }
+
         private int indexForRarity(Rarity rarity)
         {
             switch (rarity)
@@ -216,10 +253,11 @@ namespace MCDSaveEdit
         public ICommand? saveChanges { get; set; }
         public ICommand? selectEnchantment { get; set; }
 
-        private void gildedButton_Click(object sender, RoutedEventArgs e)
+        private void markedNewButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Not Implemented Yet
-            throw new NotImplementedException();
+            if (_item == null) return;
+            _item.MarkedNew = (_item.MarkedNew == null || _item.MarkedNew == false) ? true : false;
+            this.saveChanges?.Execute(_item);
         }
 
         private void upgradedButton_Click(object sender, RoutedEventArgs e)

@@ -282,6 +282,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\NetheriteEnchantmentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Stepper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -290,6 +294,9 @@
   <ItemGroup>
     <Compile Include="Logic\ProfileExtensions.cs" />
     <Compile Include="Logic\ProfileViewModel.cs" />
+    <Compile Include="UserControls\NetheriteEnchantmentControl.xaml.cs">
+      <DependentUpon>NetheriteEnchantmentControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SelectionWindow.cs" />
     <Compile Include="UserControls\Stepper.xaml.cs">
       <DependentUpon>Stepper.xaml</DependentUpon>

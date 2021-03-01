@@ -136,6 +136,7 @@ namespace MCDSaveEdit
                 updateTierUI();
             }
         }
+
         private void enchantmentImageButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ImageUriHelper.gameContentLoaded) { return; }

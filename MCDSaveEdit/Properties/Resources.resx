@@ -285,6 +285,10 @@
     <value>Missions</value>
     <comment>Missions</comment>
   </data>
+  <data name="NEW" xml:space="preserve">
+    <value>New</value>
+    <comment>New</comment>
+  </data>
   <data name="NOT_COMPLETED" xml:space="preserve">
     <value>Not Completed</value>
     <comment>Not Completed</comment>

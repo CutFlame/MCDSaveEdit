@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="MCDSaveEdit.NetheriteEnchantmentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MCDSaveEdit"
+             mc:Ignorable="d" 
+             d:DesignHeight="27" d:DesignWidth="300">
+    <DockPanel>
+        <Button x:Name="gildedButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="gildedButton_Click" DockPanel.Dock="Left">
+            <CheckBox x:Name="gildedButtonCheckBox" IsEnabled="false">*Gilded*</CheckBox>
+        </Button>
+        <StackPanel x:Name="netheriteEnchantmentStack" Orientation="Horizontal" DockPanel.Dock="Left">
+            <Button x:Name="netheriteEnchantmentButton" Margin="0,0,5,0" Padding="0" Background="{x:Null}" Click="enchantmentImageButton_Click">
+                <Image Width="20" Height="20" Margin="5"/>
+            </Button>
+            <TextBox x:Name="netheriteEnchantmentTextBox" TextChanged="tierTextBox_TextChanged" Text="3" FontSize="20" HorizontalAlignment="Center" Width="17" Background="{x:Null}" TextAlignment="Right" VerticalContentAlignment="Center"/>
+            <local:Stepper x:Name="netheriteEnchantmentStepper" UpButtonClick="upButton_Click" DownButtonClick="downButton_Click"/>
+            <Label x:Name="netheriteEnchantmentLabel" Content="*Unset*" FontSize="16" Padding="0" VerticalAlignment="Center" Margin="5,0"/>
+        </StackPanel>
+        <Button x:Name="netheriteEnchantmentRemoveButton" DockPanel.Dock="Right" Width="28" HorizontalAlignment="Right" Click="netheriteEnchantmentRemoveButton_Click">X</Button>
+    </DockPanel>
+</UserControl>
