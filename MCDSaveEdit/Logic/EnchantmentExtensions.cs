@@ -26,6 +26,7 @@ namespace MCDSaveEdit.Save.Models.Enums
             "TempoTheft",
             "ChainReaction",
             "RadianceRanged",
+            "ShockWeb",
         };
 
         public static HashSet<string> forArmor = new HashSet<string>() {

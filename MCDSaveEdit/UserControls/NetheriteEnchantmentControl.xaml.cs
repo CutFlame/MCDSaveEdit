@@ -34,20 +34,19 @@ namespace MCDSaveEdit
 
         public void updateUI()
         {
-            if(_item == null)
+            if (_item == null)
             {
                 gildedButton.IsEnabled = false;
                 gildedButtonCheckBox.IsEnabled = false;
                 gildedButton.Visibility = Visibility.Visible;
                 netheriteEnchantmentStack.Visibility = Visibility.Collapsed;
                 netheriteEnchantmentRemoveButton.Visibility = Visibility.Collapsed;
-
                 return;
             }
 
             if(_item.NetheriteEnchant == null)
             {
-                gildedButton.IsEnabled = true;
+                gildedButton.IsEnabled = ImageUriHelper.gameContentLoaded;
                 gildedButton.Visibility = Visibility.Visible;
                 netheriteEnchantmentStack.Visibility = Visibility.Collapsed;
                 netheriteEnchantmentRemoveButton.Visibility = Visibility.Collapsed;
@@ -57,13 +56,11 @@ namespace MCDSaveEdit
             gildedButton.IsEnabled = false;
             gildedButton.Visibility = Visibility.Collapsed;
             netheriteEnchantmentStack.Visibility = Visibility.Visible;
+            netheriteEnchantmentButton.IsEnabled = ImageUriHelper.gameContentLoaded;
             netheriteEnchantmentRemoveButton.Visibility = Visibility.Visible;
-            netheriteEnchantmentRemoveButton.IsEnabled = true;
+            netheriteEnchantmentRemoveButton.IsEnabled = ImageUriHelper.gameContentLoaded;
             
-            var image = new Image();
-            image.Margin = new Thickness(0);
-            image.Source = ImageUriHelper.instance.imageSourceForEnchantment(enchantment!);
-            netheriteEnchantmentButton.Content = image;
+            netheriteEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(enchantment!);
             
             netheriteEnchantmentTextBox.Text = enchantment!.Level.ToString();
             netheriteEnchantmentLabel.Content = R.enchantmentName(enchantment!.Id);

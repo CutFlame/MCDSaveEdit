@@ -67,6 +67,8 @@ namespace MCDSaveEdit
             { "Flavour_LongBow","Flavour_Longbow" },
             { "LongBow_Unique1","Longbow_Unique1" },
             { "LongBow_Unique2","Longbow_Unique2" },
+            { "TwistingVineBow_UNique1","TwistingVineBow_Unique1" },
+            { "Flavour_TwistingVineBow_UNique1","Flavour_TwistingVineBow_Unique1" },
             { "OakWoodBrew","OakwoodBrew" },
             { "Pickaxe_Steel","Pickaxe" },
             { "Flavour_Pickaxe_Steel","Flavour_Pickaxe" },
@@ -111,6 +113,7 @@ namespace MCDSaveEdit
             { "ItemDamageBoost_description","ArtifactDamageBoost_description" },
             { "SlowResistance","FreezingResistance" },
             { "SlowResistance_description","FreezingResistance_description" },
+            { "Reckless_desc","ShardArmor_desc" },
 
             { "underhalls_name","highblockhallsbonus_name" },
             { "lowertemple_name","deserttemplebonus_name" },

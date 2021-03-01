@@ -14,7 +14,7 @@ namespace MCDSaveEdit
     public class PakImageResolver : IImageResolver
     {
         private static readonly Dictionary<string, string> _mismatches = new Dictionary<string, string>() {
-            //{"Savefile reference","Imagefile foldername"},
+            //{"Imagefile foldername","Savefile reference"},
             { "TrickBow","Trickbow" },
             { "LongBow","Longbow" },
             { "LongBow_Unique1","Longbow_Unique1" },
@@ -26,6 +26,7 @@ namespace MCDSaveEdit
             { "ShortBow_Unique1","Shortbow_Unique1" },
             { "ShortBow_Unique2","Shortbow_Unique2" },
             { "Huntingbow_Unique1","HuntingBow_Unique1" },
+            { "TwistingVineBow_UNique1","TwistingVineBow_Unique1" },
 
             { "Battlerobe_unique1","BattleRobe_Unique1" },
 
