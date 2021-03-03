@@ -128,7 +128,7 @@ namespace MCDSaveEdit
         private void tierTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_enchantment == null) { return; }
-            if (int.TryParse(tierTextBox.Text, out int level))
+            if (int.TryParse(tierTextBox.Text, out int level) && _enchantment.Level != level)
             {
                 EventLogger.logEvent("tierTextBox_TextChanged", new Dictionary<string, object>() { { "level", level } });
                 _enchantment.Level = level;

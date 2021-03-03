@@ -23,7 +23,7 @@
             <Button Content="Support me on Patreon!" Padding="6" Click="patreonButton_Click" Margin="5,0,0,0"/>
         </StackPanel>
         <TextBlock HorizontalAlignment="Stretch" Margin="10,116,10,10" VerticalAlignment="Stretch">
-            <Bold>Imported from Minecraft Dungeons<LineBreak/>Images Copyright © Mojang</Bold><LineBreak/>
+            <Bold>Images imported from Minecraft: Dungeons are Copyright © Mojang</Bold><LineBreak/>
             <LineBreak/>
             <Bold>External Credits and Licenses</Bold><LineBreak/>
             <Hyperlink NavigateUri="https://github.com/HellPie/DungeonTools">DungeonTools</Hyperlink> © Diego Russi (<Hyperlink NavigateUri="https://github.com/HellPie/DungeonTools/blob/master/LICENSE">AGPL 3.0</Hyperlink>)<LineBreak/>
