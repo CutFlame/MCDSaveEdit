@@ -378,11 +378,15 @@ namespace MCDSaveEdit
                 emeraldsTextBox.IsEnabled = false;
                 emeraldsTextBox.Text = emeralds!.ToString();
                 emeraldsTextBox.IsEnabled = true;
+                emeraldsTextBox.Visibility = Visibility.Visible;
+                emeraldsAddButton.Visibility = Visibility.Collapsed;
             }
             else
             {
                 emeraldsTextBox.IsEnabled = false;
                 emeraldsTextBox.Text = string.Empty;
+                emeraldsTextBox.Visibility = Visibility.Collapsed;
+                emeraldsAddButton.Visibility = Visibility.Visible;
             }
         }
 
@@ -393,11 +397,15 @@ namespace MCDSaveEdit
                 goldTextBox.IsEnabled = false;
                 goldTextBox.Text = gold!.ToString();
                 goldTextBox.IsEnabled = true;
+                goldTextBox.Visibility = Visibility.Visible;
+                goldAddButton.Visibility = Visibility.Collapsed;
             }
             else
             {
                 goldTextBox.IsEnabled = false;
                 goldTextBox.Text = string.Empty;
+                goldTextBox.Visibility = Visibility.Collapsed;
+                goldAddButton.Visibility = Visibility.Visible;
             }
         }
 
@@ -432,5 +440,16 @@ namespace MCDSaveEdit
 
         #endregion
 
+        private void emeraldsAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_model?.profile.value == null) { return; }
+            _model.emeralds.setValue = 0;
+        }
+
+        private void goldAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_model?.profile.value == null) { return; }
+            _model.gold.setValue = 0;
+        }
     }
 }
