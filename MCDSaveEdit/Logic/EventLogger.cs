@@ -20,7 +20,7 @@ namespace MCDSaveEdit
             GameAnalytics.SetEnabledVerboseLog(false);
             GameAnalytics.SetEnabledEventSubmission(true);
 #endif
-            GameAnalytics.ConfigureBuild(Constants.CURRENT_RELEASE_TAG_NAME);
+            GameAnalytics.ConfigureBuild(Constants.CURRENT_VERSION_NUMBER);
 
             //Comment out this line or fill in your own GameAnalytics game key and secret key
             GameAnalytics.Initialize(Secrets.GAME_ANALYTICS_GAME_KEY, Secrets.GAME_ANALYTICS_SECRET_KEY);

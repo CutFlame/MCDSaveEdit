@@ -13,7 +13,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct(Constants.APPLICATION_NAME)]
-[assembly: AssemblyCopyright("Copyright © 2020 Michael Holt")]
+[assembly: AssemblyCopyright("Copyright © 2020 - 2021 Michael Holt")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -52,4 +52,4 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(Constants.CURRENT_RELEASE_TAG_NAME)]
+[assembly: AssemblyVersion(Constants.CURRENT_VERSION_NUMBER)]

@@ -24,7 +24,7 @@ namespace MCDSaveEdit
         public virtual async Task<bool> isNewVersionAvailable()
         {
             string latest = await latestReleaseVersionString();
-            return string.IsNullOrWhiteSpace(latest) || Constants.CURRENT_RELEASE_TAG_NAME.Equals(latest);
+            return string.IsNullOrWhiteSpace(latest) || Constants.CURRENT_VERSION_NUMBER.Equals(latest);
         }
 
         public virtual async Task<string> latestReleaseVersionString()

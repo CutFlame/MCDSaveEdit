@@ -14,7 +14,7 @@ namespace MCDSaveEdit
             InitializeComponent();
 
             Title = R.ABOUT_WINDOW_TITLE;
-            versionLabel.Content = R.formatVERSION(Constants.CURRENT_RELEASE_TAG_NAME);
+            versionLabel.Content = R.formatVERSION(Constants.CURRENT_VERSION_NUMBER);
         }
 
         private void patreonButton_Click(object sender, RoutedEventArgs e)
