@@ -269,10 +269,10 @@ namespace MCDSaveEdit
         {
             switch (filter)
             {
-                case ItemFilterEnum.RangedWeapons: return "Bow";
-                case ItemFilterEnum.Armor: return "ArchersStrappings";
-                case ItemFilterEnum.Artifacts: return "FireworksArrowItem";
-                case ItemFilterEnum.MeleeWeapons: return "Sword";
+                case ItemFilterEnum.MeleeWeapons: return Constants.DEFAULT_MELEE_WEAPON_ID;
+                case ItemFilterEnum.Armor: return Constants.DEFAULT_ARMOR_ID;
+                case ItemFilterEnum.RangedWeapons: return Constants.DEFAULT_RANGED_WEAPON_ID;
+                case ItemFilterEnum.Artifacts: return Constants.DEFAULT_ARTIFACT_ID;
             }
             throw new ArgumentException($"Invalid filter value {filter}", "filter");
         }

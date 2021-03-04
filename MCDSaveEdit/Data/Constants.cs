@@ -7,7 +7,7 @@ namespace MCDSaveEdit
 {
     public static partial class Constants
     {
-        public const string CURRENT_VERSION_NUMBER = "1.2.9.1";
+        public const string CURRENT_VERSION_NUMBER = "1.3.0";
         public const string LATEST_RELEASE_GITHUB_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
         public const string LATEST_RELEASE_MOD_URL_FORMAT = "https://www.nexusmods.com/minecraftdungeons/mods/{0}?tab=files";
 
@@ -30,6 +30,10 @@ namespace MCDSaveEdit
 
         public const string DEFAULT_ENCHANTMENT_ID = "Unset";
         public const string DEFAULT_ARMOR_PROPERTY_ID = "AllyDamageBoost";
+        public const string DEFAULT_MELEE_WEAPON_ID = "Sword";
+        public const string DEFAULT_ARMOR_ID = "ArchersStrappings";
+        public const string DEFAULT_RANGED_WEAPON_ID = "Bow";
+        public const string DEFAULT_ARTIFACT_ID = "FireworksArrowItem";
 
         public const string EMERALD_CURRENCY_NAME = "Emerald";
         public const string GOLD_CURRENCY_NAME = "Gold";
