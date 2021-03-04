@@ -16,6 +16,7 @@ namespace MCDSaveEdit
         private static readonly Dictionary<string, string> _mismatches = new Dictionary<string, string>() {
             //{"Imagefile foldername","Savefile reference"},
             { "TrickBow","Trickbow" },
+            { "TrickBow_Unique1","Trickbow_Unique1" },
             { "LongBow","Longbow" },
             { "LongBow_Unique1","Longbow_Unique1" },
             { "LongBow_Unique2","Longbow_Unique2" },
