@@ -146,16 +146,66 @@ namespace MCDSaveEdit
         public void updateArmorPropertiesUI()
         {
             armorPropertiesStack.Children.Clear();
+            if (_item == null || !_item.isArmor()) {
+                armorPropertiesScrollViewer.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            armorPropertiesScrollViewer.Visibility = Visibility.Visible;
             if (_item?.Armorproperties != null)
             {
                 foreach (var armorProperty in _item.Armorproperties)
                 {
+                    var stack = new DockPanel() {
+                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                    };
+
+                    var removeButton = new Button();
+                    removeButton.Content = "X";
+                    removeButton.Width = 20;
+                    removeButton.CommandParameter = armorProperty;
+                    removeButton.Command = new RelayCommand<Armorproperty>(armorPropertyRemoveButton_Click);
+                    stack.Children.Add(removeButton);
+                    DockPanel.SetDock(removeButton, Dock.Right);
+
                     var button = new ArmorPropertyButton(armorProperty);
+                    button.ClipToBounds = true;
                     button.CommandParameter = armorProperty;
                     button.Command = new RelayCommand<Armorproperty>(armorPropertyButton_Click);
-                    armorPropertiesStack.Children.Add(button);
+                    stack.Children.Add(button);
+                    DockPanel.SetDock(button, Dock.Left);
+
+                    armorPropertiesStack.Children.Add(stack);
                 }
             }
+
+            //Add Plus button
+            var label = new Label();
+            label.FontSize = 16;
+            label.Content = "+";
+            label.Padding = new Thickness(0);
+
+            var plusButton = new Button();
+            plusButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+            plusButton.HorizontalContentAlignment = HorizontalAlignment.Center;
+            plusButton.VerticalContentAlignment = VerticalAlignment.Center;
+            plusButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            plusButton.Height = 32;
+            plusButton.Padding = new Thickness(0);
+            plusButton.Content = label;
+            plusButton.Command = new RelayCommand<object>(plusArmorPropertyButton_Click);
+
+            armorPropertiesStack.Children.Add(plusButton);
+        }
+
+        private void plusArmorPropertyButton_Click(object sender)
+        {
+            if (_item == null || !_item.isArmor()) { return; }
+            EventLogger.logEvent("plusArmorPropertyButton_Click");
+            var armorProperties = _item.Armorproperties.ToList();
+            armorProperties.Add(new Armorproperty() { Id = Constants.DEFAULT_ARMOR_PROPERTY_ID, Rarity = Rarity.Common });
+            _item.Armorproperties = armorProperties.ToArray();
+            updateArmorPropertiesUI();
         }
 
         public void updateNetheriteEnchantmentUI()
@@ -186,10 +236,22 @@ namespace MCDSaveEdit
             selectionWindow.Show();
         }
 
+        private void armorPropertyRemoveButton_Click(Armorproperty armorProperty)
+        {
+            if (_item == null) { return; }
+            if (armorProperty == null) { return; }
+            EventLogger.logEvent("armorPropertyRemoveButton_Click", new Dictionary<string, object>() { { "armorProperty", armorProperty.Id } });
+            var list = _item!.Armorproperties.ToList();
+            list.Remove(armorProperty);
+            _item!.Armorproperties = list.ToArray();
+            updateArmorPropertiesUI();
+        }
+
         private void replaceArmorProperty(string oldArmorPropertyId, string? newArmorPropertyId)
         {
             if (_item == null) { return; }
             if (newArmorPropertyId == null) { return; }
+            EventLogger.logEvent("replaceArmorProperty", new Dictionary<string, object>() { { "oldArmorPropertyId", oldArmorPropertyId }, { "newArmorPropertyId", newArmorPropertyId } });
             var index = _item!.Armorproperties.ToList().FindIndex(prop => prop.Id == oldArmorPropertyId);
             _item!.Armorproperties[index].Id = newArmorPropertyId;
             //var newProperty = new Armorproperty() { Id = newArmorPropertyId, Rarity = Rarity.Common };

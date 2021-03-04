@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="27" d:DesignWidth="300">
     <DockPanel>
+        <Button x:Name="netheriteEnchantmentRemoveButton" DockPanel.Dock="Right" Width="28" HorizontalAlignment="Right" Click="netheriteEnchantmentRemoveButton_Click">X</Button>
         <Button x:Name="gildedButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="gildedButton_Click" DockPanel.Dock="Left">
             <CheckBox x:Name="gildedButtonCheckBox" IsEnabled="false">*Gilded*</CheckBox>
         </Button>
@@ -18,6 +19,5 @@
             <local:Stepper x:Name="netheriteEnchantmentStepper" UpButtonClick="upButton_Click" DownButtonClick="downButton_Click"/>
             <Label x:Name="netheriteEnchantmentLabel" Content="*Unset*" FontSize="16" Padding="0" VerticalAlignment="Center" Margin="5,0"/>
         </StackPanel>
-        <Button x:Name="netheriteEnchantmentRemoveButton" DockPanel.Dock="Right" Width="28" HorizontalAlignment="Right" Click="netheriteEnchantmentRemoveButton_Click">X</Button>
     </DockPanel>
 </UserControl>

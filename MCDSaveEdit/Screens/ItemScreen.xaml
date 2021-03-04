@@ -33,16 +33,18 @@
                     </Button>
                 </StackPanel>
                 <Label x:Name="nameLabel" Content="Evocation Robe" FontSize="24"/>
-                <StackPanel x:Name="armorPropertiesStack" Margin="5">
-                    <Button HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="32" Padding="0" Background="{x:Null}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="20" Height="20" Margin="5"/>
-                            <Label Content="Common Movespeed" FontSize="16" VerticalAlignment="Center" Padding="0"/>
-                        </StackPanel>
-                    </Button>
-                    <Label Content="Common Movespeed" FontSize="16"/>
-                    <Label Content="Common Movespeed" FontSize="16"/>
-                </StackPanel>
+                <ScrollViewer x:Name="armorPropertiesScrollViewer" MaxHeight="200">
+                    <StackPanel x:Name="armorPropertiesStack" Margin="5">
+                        <Button HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="32" Padding="0" Background="{x:Null}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="20" Height="20" Margin="5"/>
+                                <Label Content="Common Movespeed" FontSize="16" VerticalAlignment="Center" Padding="0"/>
+                            </StackPanel>
+                        </Button>
+                        <Label Content="Common Movespeed" FontSize="16"/>
+                        <Label Content="Common Movespeed" FontSize="16"/>
+                    </StackPanel>
+                </ScrollViewer>
 
                 <local:NetheriteEnchantmentControl x:Name="netheriteEnchantmentControl" Height="27"/>
 
