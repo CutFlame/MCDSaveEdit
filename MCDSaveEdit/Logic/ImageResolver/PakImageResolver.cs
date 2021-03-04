@@ -281,7 +281,7 @@ namespace MCDSaveEdit
         public BitmapImage? imageSourceForEnchantment(string enchantment)
         {
             var enchantmentId = enchantment;
-            if (enchantmentId == "Unset")
+            if (enchantmentId == Constants.DEFAULT_ENCHANTMENT_ID)
             {
                 return imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/locked_node");
             }

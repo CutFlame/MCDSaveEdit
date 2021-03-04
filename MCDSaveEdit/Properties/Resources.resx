@@ -194,12 +194,16 @@
     <comment>Failed to encrypt the json data.</comment>
   </data>
   <data name="FAILED_TO_PARSE_FILE_ERROR_MESSAGE" xml:space="preserve">
-    <value>File was not in an expected format</value>
-    <comment>File was not in an expected format</comment>
+    <value>File was not in an expected format.</value>
+    <comment>File was not in an expected format.</comment>
   </data>
   <data name="FILE_DECRYPT_ERROR_MESSAGE" xml:space="preserve">
     <value>Content of file \"{0}\" could not be converted to a supported format.</value>
     <comment>Content of file \"{0}\" could not be converted to a supported format.</comment>
+  </data>
+  <data name="FILE_DOESNT_EXIST_ERROR_MESSAGE" xml:space="preserve">
+    <value>File doesn't exist.</value>
+    <comment>File doesn't exist.</comment>
   </data>
   <data name="FILE_DROP_ERROR_MESSAGE" xml:space="preserve">
     <value>Expected a file.</value>

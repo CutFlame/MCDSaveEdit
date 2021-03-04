@@ -19,10 +19,10 @@ namespace MCDSaveEdit
 
 
         public string? filePath { get; set; }
-        
+
         private Property<ProfileSaveFile?> _profile = new Property<ProfileSaveFile?>(null);
         public IReadWriteProperty<ProfileSaveFile?> profile { get { return _profile; } }
-        
+
         private Property<Item?> _selectedItem = new Property<Item?>(null);
         public IReadProperty<Item?> selectedItem { get { return _selectedItem; } }
 
@@ -42,8 +42,7 @@ namespace MCDSaveEdit
         {
             level = _profile.map<ProfileSaveFile?, int?>(
                 p => p?.level() ?? Constants.MINIMUM_CHARACTER_LEVEL,
-                (p, value) =>
-                {
+                (p, value) => {
                     if (p == null || !value.HasValue) { return; }
                     p!.Xp = GameCalculator.experienceForLevel(value.Value);
                 });
@@ -138,5 +137,17 @@ namespace MCDSaveEdit
             saveItem(selectedItem.value!);
         }
 
+        public void addEnchantment(object sender)
+        {
+            if (profile.value == null || selectedItem.value == null) { return; }
+            var enchantments = selectedItem.value!.Enchantments.ToList();
+            if(enchantments.Count >= Constants.MAXIMUM_ENCHANTMENT_OPTIONS_PER_ITEM) { return; }
+            enchantments.Add(new Enchantment() { Id = Constants.DEFAULT_ENCHANTMENT_ID, Level = 0 });
+            enchantments.Add(new Enchantment() { Id = Constants.DEFAULT_ENCHANTMENT_ID, Level = 0 });
+            enchantments.Add(new Enchantment() { Id = Constants.DEFAULT_ENCHANTMENT_ID, Level = 0 });
+            selectedItem.value!.Enchantments = enchantments.Take(Constants.MAXIMUM_ENCHANTMENT_OPTIONS_PER_ITEM).ToArray();
+
+            saveItem(selectedItem.value!);
+        }
     }
 }

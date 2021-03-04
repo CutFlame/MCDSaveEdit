@@ -112,7 +112,7 @@ namespace MCDSaveEdit
             _isProcessing = true;
             _listBox.Items.Clear();
 
-            foreach (var enchantment in EnchantmentExtensions.allEnchantments.OrderBy(str => str).Concat(new[] { "Unset" }))
+            foreach (var enchantment in EnchantmentExtensions.allEnchantments.OrderBy(str => str).Concat(new[] { Constants.DEFAULT_ENCHANTMENT_ID }))
             {
                 var imageSource = ImageUriHelper.instance.imageSourceForEnchantment(enchantment);
                 if (imageSource == null)

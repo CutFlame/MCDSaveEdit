@@ -221,7 +221,16 @@ namespace MCDSaveEdit
 
         private void relaySelectEnchantment(Enchantment enchantment)
         {
-            selectEnchantment?.Execute(enchantment);
+            if (enchantment == null)
+            {
+                addEnchantment?.Execute(this);
+                updateEnchantmentsUI();
+            }
+            else
+            {
+                selectEnchantment?.Execute(enchantment);
+            }
+
         }
 
         private void relaySaveChanges(object sender)
@@ -252,6 +261,7 @@ namespace MCDSaveEdit
 
         public ICommand? saveChanges { get; set; }
         public ICommand? selectEnchantment { get; set; }
+        public ICommand? addEnchantment { get; set; }
 
         private void markedNewButton_Click(object sender, RoutedEventArgs e)
         {

@@ -232,7 +232,7 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File was not in an expected format.
+        ///   Looks up a localized string similar to File was not in an expected format..
         /// </summary>
         public static string FAILED_TO_PARSE_FILE_ERROR_MESSAGE {
             get {
@@ -246,6 +246,15 @@ namespace MCDSaveEdit.Properties {
         public static string FILE_DECRYPT_ERROR_MESSAGE {
             get {
                 return ResourceManager.GetString("FILE_DECRYPT_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File doesn&apos;t exist..
+        /// </summary>
+        public static string FILE_DOESNT_EXIST_ERROR_MESSAGE {
+            get {
+                return ResourceManager.GetString("FILE_DOESNT_EXIST_ERROR_MESSAGE", resourceCulture);
             }
         }
         

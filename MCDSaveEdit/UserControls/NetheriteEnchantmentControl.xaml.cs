@@ -69,7 +69,7 @@ namespace MCDSaveEdit
 
         private void gildedButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedEnchantmentId("Unset");
+            selectedEnchantmentId(Constants.DEFAULT_ENCHANTMENT_ID);
         }
 
         private void upButton_Click(object sender, RoutedEventArgs e)

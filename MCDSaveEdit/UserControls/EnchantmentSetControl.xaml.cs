@@ -48,7 +48,7 @@ namespace MCDSaveEdit
             enchantment3Image.Source = null;
             enchantment3Button.CommandParameter = null;
             upgradedEnchantmentButton.Visibility = Visibility.Visible;
-            upgradedEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment("Unset");
+            upgradedEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(Constants.DEFAULT_ENCHANTMENT_ID);
             upgradedEnchantmentButton.CommandParameter = null;
         }
         public void updateUI()

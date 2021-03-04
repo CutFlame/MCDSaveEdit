@@ -26,6 +26,9 @@ namespace MCDSaveEdit
         public const int MINIMUM_ITEM_LEVEL = 0;
         public const int MAXIMUM_ITEM_LEVEL = 1000000000;
 
+        public const int MAXIMUM_ENCHANTMENT_OPTIONS_PER_ITEM = 9;
+
+        public const string DEFAULT_ENCHANTMENT_ID = "Unset";
         public const string EMERALD_CURRENCY_NAME = "Emerald";
         public const string GOLD_CURRENCY_NAME = "Gold";
 

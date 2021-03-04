@@ -121,6 +121,7 @@ namespace MCDSaveEdit
 
             selectedItemScreen.selectEnchantment = new RelayCommand<Enchantment>(model.selectEnchantment);
             selectedItemScreen.saveChanges = new RelayCommand<Item>(model.saveItem);
+            selectedItemScreen.addEnchantment = new RelayCommand<object>(model.addEnchantment);
             selectedEnchantmentScreen.close = new RelayCommand<Enchantment>(model.selectEnchantment);
             selectedEnchantmentScreen.saveChanges = new RelayCommand<Enchantment>(model.saveEnchantment);
 
@@ -275,6 +276,11 @@ namespace MCDSaveEdit
         private async void handleFileOpenAsync(string? fileName)
         {
             if(string.IsNullOrWhiteSpace(fileName)) { return; }
+            if (!File.Exists(fileName))
+            {
+                showError(R.FILE_DOESNT_EXIST_ERROR_MESSAGE);
+                return;
+            }
             showBusyIndicator();
             string extension = Path.GetExtension(fileName!);
             EventLogger.logEvent("handleFileOpenAsync", new Dictionary<string, object>() { { "extension", extension } });

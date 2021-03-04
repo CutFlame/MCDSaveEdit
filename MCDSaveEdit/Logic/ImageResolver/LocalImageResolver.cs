@@ -120,7 +120,7 @@ namespace MCDSaveEdit
         public BitmapImage? imageSourceForEnchantment(string enchantment)
         {
             var enchantmentId = enchantment;
-            if (enchantmentId == "Unset")
+            if (enchantmentId == Constants.DEFAULT_ENCHANTMENT_ID)
             {
                 return null;
             }
