@@ -202,7 +202,7 @@ namespace MCDSaveEdit
         {
             if (_item == null || !_item.isArmor()) { return; }
             EventLogger.logEvent("plusArmorPropertyButton_Click");
-            var armorProperties = _item.Armorproperties.ToList();
+            var armorProperties = _item.Armorproperties?.ToList() ?? new List<Armorproperty>();
             armorProperties.Add(new Armorproperty() { Id = Constants.DEFAULT_ARMOR_PROPERTY_ID, Rarity = Rarity.Common });
             _item.Armorproperties = armorProperties.ToArray();
             updateArmorPropertiesUI();
