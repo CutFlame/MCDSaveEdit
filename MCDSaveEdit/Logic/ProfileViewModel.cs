@@ -30,7 +30,7 @@ namespace MCDSaveEdit
         public IReadProperty<Enchantment?> selectedEnchantment { get { return _selectedEnchantment; } }
 
         private Property<ItemFilterEnum> _filter = new Property<ItemFilterEnum>(ItemFilterEnum.All);
-        public IWriteProperty<ItemFilterEnum> filter { get { return _filter; } }
+        public IReadWriteProperty<ItemFilterEnum> filter { get { return _filter; } }
 
         public IReadProperty<IEnumerable<Item>> filteredItemList;
         public IReadProperty<IEnumerable<Item>> equippedItemList;
@@ -96,6 +96,18 @@ namespace MCDSaveEdit
             _selectedItem.value = item;
         }
 
+        public void addItem(Item item)
+        {
+            if (item == null || profile.value == null) { return; }
+            var inventory = profile.value!.Items.ToList();
+            var maxIndex = inventory.Count > 0 ? inventory.Select(i => i.InventoryIndex ?? 0).Max() : -1;
+            item.InventoryIndex = maxIndex + 1;
+            inventory.Add(item);
+            profile.value!.Items = inventory.ToArray();
+
+            triggerSubscribersForItem(item);
+        }
+
         public void saveItem(Item item)
         {
             if (item == null || profile.value == null || selectedItem.value == null) { return; }
@@ -106,6 +118,11 @@ namespace MCDSaveEdit
             inventory.Insert(index, item);
             profile.value!.Items = inventory.ToArray();
 
+            triggerSubscribersForItem(item);
+        }
+
+        private void triggerSubscribersForItem(Item item)
+        {
             if (item.EquipmentSlot != null)
             {
                 ((MappedProperty<ProfileSaveFile?, IEnumerable<Item>>)this.equippedItemList).value = this.equippedItemList.value;
@@ -137,10 +154,10 @@ namespace MCDSaveEdit
             saveItem(selectedItem.value!);
         }
 
-        public void addEnchantment(object sender)
+        public void addEnchantmentSlot(object sender)
         {
             if (profile.value == null || selectedItem.value == null) { return; }
-            var enchantments = selectedItem.value!.Enchantments.ToList();
+            var enchantments = selectedItem.value!.Enchantments?.ToList() ?? new List<Enchantment>();
             if(enchantments.Count >= Constants.MAXIMUM_ENCHANTMENT_OPTIONS_PER_ITEM) { return; }
             enchantments.Add(new Enchantment() { Id = Constants.DEFAULT_ENCHANTMENT_ID, Level = 0 });
             enchantments.Add(new Enchantment() { Id = Constants.DEFAULT_ENCHANTMENT_ID, Level = 0 });

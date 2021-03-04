@@ -261,7 +261,7 @@ namespace MCDSaveEdit
 
         public void updateEnchantmentsUI()
         {
-            if (_item == null || _item.Enchantments == null || _item.isArtifact())
+            if (_item == null || _item.isArtifact())
             {
                 enchantment1Control.enchantments = null;
                 enchantment1Control.Visibility = Visibility.Hidden;
@@ -272,11 +272,20 @@ namespace MCDSaveEdit
             }
             else
             {
-                enchantment1Control.enchantments = _item.Enchantments.Skip(0).Take(3);
+                if(_item.Enchantments != null)
+                {
+                    enchantment1Control.enchantments = _item.Enchantments.Skip(0).Take(3);
+                    enchantment2Control.enchantments = _item.Enchantments.Skip(3).Take(3);
+                    enchantment3Control.enchantments = _item.Enchantments.Skip(6).Take(3);
+                }
+                else
+                {
+                    enchantment1Control.enchantments = new List<Enchantment>();
+                    enchantment2Control.enchantments = new List<Enchantment>();
+                    enchantment3Control.enchantments = new List<Enchantment>();
+                }
                 enchantment1Control.Visibility = Visibility.Visible;
-                enchantment2Control.enchantments = _item.Enchantments.Skip(3).Take(3);
                 enchantment2Control.Visibility = Visibility.Visible;
-                enchantment3Control.enchantments = _item.Enchantments.Skip(6).Take(3);
                 enchantment3Control.Visibility = Visibility.Visible;
             }
         }
@@ -285,7 +294,7 @@ namespace MCDSaveEdit
         {
             if (enchantment == null)
             {
-                addEnchantment?.Execute(this);
+                addEnchantmentSlot?.Execute(this);
                 updateEnchantmentsUI();
             }
             else
@@ -323,7 +332,7 @@ namespace MCDSaveEdit
 
         public ICommand? saveChanges { get; set; }
         public ICommand? selectEnchantment { get; set; }
-        public ICommand? addEnchantment { get; set; }
+        public ICommand? addEnchantmentSlot { get; set; }
 
         private void markedNewButton_Click(object sender, RoutedEventArgs e)
         {

@@ -83,7 +83,7 @@ namespace MCDSaveEdit
             { "Flavour_Sword_Unique1", "Desc_Sword_Unique1" },
             { "TrickBow","Trickbow" },
             { "TrickBow_Unique1","Trickbow_Unique1" },
-            { "TrickBow_Unique2","Trickbow_Unique1" },
+            { "TrickBow_Unique2","Trickbow_Unique2" },
             { "Flavour_LongBow_Unique1","Flavour_Longbow_Unique1" },
             { "Flavour_LongBow_Unique2","Flavour_Longbow_Unique2" },
             { "Flavour_PowerBow","Flavour_Powerbow" },
@@ -104,6 +104,7 @@ namespace MCDSaveEdit
             { "EmeraldArmor_Unique1","Emerald_Armor_Unique1" },
             { "EmeraldArmor_Unique2","Emerald_Armor_Unique2" },
             { "Flavour_ClimbingGear_Unique1","Flavour_ClimbingGearSolid" },
+            { "Flavour_ThunderingQuiver","Flavour_ThunderQuiver" },
 
             { "ReviveChance","Unset" }, //missing
             { "ReviveChance_description","Unset" }, //missing

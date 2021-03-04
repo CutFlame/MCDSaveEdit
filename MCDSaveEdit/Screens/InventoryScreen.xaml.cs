@@ -206,6 +206,30 @@ namespace MCDSaveEdit
                 itemCount++;
             }
 
+            var currentFilter = _model?.filter.value;
+            if (currentFilter != null && currentFilter != ItemFilterEnum.Enchanted && currentFilter != ItemFilterEnum.All)
+            {
+                var newItemButton = new Button();
+                newItemButton.HorizontalAlignment = HorizontalAlignment.Center;
+                newItemButton.VerticalAlignment = VerticalAlignment.Center;
+                newItemButton.Height = 100;
+                newItemButton.Width = 100;
+                newItemButton.Margin = new Thickness(0);
+                newItemButton.Content = "+";
+                newItemButton.Command = new RelayCommand<object>(_ => { this.addNewItemButton_Click(_model?.filter.value); });
+
+                if (itemCount % ITEMS_PER_ROW == 0)
+                {
+                    var rowDef = new RowDefinition();
+                    rowDef.Height = new GridLength(100);
+                    itemsGrid.RowDefinitions.Add(rowDef);
+                }
+
+                itemsGrid.Children.Add(newItemButton);
+                Grid.SetRow(newItemButton, itemCount / ITEMS_PER_ROW);
+                Grid.SetColumn(newItemButton, itemCount % ITEMS_PER_ROW);
+            }
+
             string? gameContentString = R.getString("inventory_count");
             if(gameContentString != null)
             {
@@ -218,6 +242,39 @@ namespace MCDSaveEdit
                 gameContentString = R.formatITEMS_COUNT_LABEL(itemCount, Constants.MAXIMUM_INVENTORY_ITEM_COUNT);
             }
             inventoryCountLabel.Content = gameContentString;
+        }
+
+        private void addNewItemButton_Click(ItemFilterEnum? currentFilter)
+        {
+            if (currentFilter == null || currentFilter == ItemFilterEnum.Enchanted || currentFilter == ItemFilterEnum.All) { return; }
+            EventLogger.logEvent("addNewItemButton_Click", new Dictionary<string, object>() { { "currentFilter", currentFilter.ToString() } });
+            var item = createDefaultItemForFilter(currentFilter!.Value);
+            model?.addItem(item);
+            model?.selectItem(item);
+        }
+
+        private Item createDefaultItemForFilter(ItemFilterEnum filter)
+        {
+            var itemID = defaultItemIDForFilter(filter);
+            return new Item() {
+                MarkedNew = true,
+                Upgraded = false,
+                Power = 1,
+                Rarity = Rarity.Common,
+                Type = itemID,
+            };
+        }
+
+        private string defaultItemIDForFilter(ItemFilterEnum filter)
+        {
+            switch (filter)
+            {
+                case ItemFilterEnum.RangedWeapons: return "Bow";
+                case ItemFilterEnum.Armor: return "ArchersStrappings";
+                case ItemFilterEnum.Artifacts: return "FireworksArrowItem";
+                case ItemFilterEnum.MeleeWeapons: return "Sword";
+            }
+            throw new ArgumentException($"Invalid filter value {filter}", "filter");
         }
 
 

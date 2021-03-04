@@ -121,7 +121,7 @@ namespace MCDSaveEdit
 
             selectedItemScreen.selectEnchantment = new RelayCommand<Enchantment>(model.selectEnchantment);
             selectedItemScreen.saveChanges = new RelayCommand<Item>(model.saveItem);
-            selectedItemScreen.addEnchantment = new RelayCommand<object>(model.addEnchantment);
+            selectedItemScreen.addEnchantmentSlot = new RelayCommand<object>(model.addEnchantmentSlot);
             selectedEnchantmentScreen.close = new RelayCommand<Enchantment>(model.selectEnchantment);
             selectedEnchantmentScreen.saveChanges = new RelayCommand<Enchantment>(model.saveEnchantment);
 
@@ -301,6 +301,8 @@ namespace MCDSaveEdit
             EventLogger.logEvent("handleFileSaveAsync", new Dictionary<string, object>() { { "extension", extension } });
             await _mainModel.handleFileSaveAsync(fileName!, _model!.profile.value);
             _mainModel.addRecentFile(fileName!);
+            this.model!.filePath = fileName;
+            updateTitleUI();
             refreshRecentFilesList();
             closeBusyIndicator();
         }
