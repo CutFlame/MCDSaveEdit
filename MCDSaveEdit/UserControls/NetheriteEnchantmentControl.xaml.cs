@@ -69,6 +69,7 @@ namespace MCDSaveEdit
 
         private void gildedButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("gildedButton_Click");
             selectedEnchantmentId(Constants.DEFAULT_ENCHANTMENT_ID);
         }
 
@@ -99,7 +100,7 @@ namespace MCDSaveEdit
             if (enchantment == null) { return; }
             if (int.TryParse(netheriteEnchantmentTextBox.Text, out int level) && enchantment.Level != level)
             {
-                EventLogger.logEvent("tierTextBox_TextChanged", new Dictionary<string, object>() { { "level", level } });
+                EventLogger.logEvent("netheriteEnchantmentTierTextBox_TextChanged", new Dictionary<string, object>() { { "level", level } });
                 enchantment.Level = level;
                 this.saveChanges?.Execute(item);
                 //updateTierUI();
@@ -109,7 +110,7 @@ namespace MCDSaveEdit
         private void enchantmentImageButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ImageUriHelper.gameContentLoaded) { return; }
-            EventLogger.logEvent("enchantmentImageButton_Click", new Dictionary<string, object>() { { "enchantment", enchantment?.Id ?? "null" } });
+            EventLogger.logEvent("netheriteEnchantmentImageButton_Click", new Dictionary<string, object>() { { "enchantment", enchantment?.Id ?? "null" } });
             var selectionWindow = new SelectionWindow();
             selectionWindow.Owner = Application.Current.MainWindow;
             selectionWindow.loadEnchantments(enchantment?.Id);
@@ -142,6 +143,7 @@ namespace MCDSaveEdit
 
         private void netheriteEnchantmentRemoveButton_Click(object sender, RoutedEventArgs e)
         {
+            EventLogger.logEvent("netheriteEnchantmentRemoveButton_Click");
             selectedEnchantmentId(null);
         }
     }

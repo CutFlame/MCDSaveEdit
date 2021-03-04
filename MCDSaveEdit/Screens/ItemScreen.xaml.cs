@@ -329,6 +329,7 @@ namespace MCDSaveEdit
         {
             if (_item == null) return;
             _item.MarkedNew = (_item.MarkedNew == null || _item.MarkedNew == false) ? true : false;
+            EventLogger.logEvent("markedNewButton_Click", new Dictionary<string, object>() { { "markedNew", _item.MarkedNew.ToString() } });
             this.saveChanges?.Execute(_item);
         }
 
@@ -336,6 +337,7 @@ namespace MCDSaveEdit
         {
             if (_item == null) return;
             _item.Upgraded = !_item.Upgraded;
+            EventLogger.logEvent("upgradedButton_Click", new Dictionary<string, object>() { { "upgraded", _item.Upgraded.ToString() } });
             this.saveChanges?.Execute(_item);
         }
 
@@ -343,6 +345,7 @@ namespace MCDSaveEdit
         {
             if (_item == null) return;
             _item.Gifted = (_item.Gifted == null || _item.Gifted == false) ? true : false;
+            EventLogger.logEvent("giftedButton_Click", new Dictionary<string, object>() { { "gifted", _item.Gifted.ToString() } });
             this.saveChanges?.Execute(_item);
         }
 
