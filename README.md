@@ -14,24 +14,24 @@ Windows application for modifying [Minecraft: Dungeons](https://www.minecraft.ne
 ---
 
 ### Installing and Running
+For full features and functionality you need Minecraft: Dungeons installed and preferably in the default install location.
 
 1. Download and extract the latest release (MCDSaveEdit_*.zip) from [the releases section](https://github.com/CutFlame/MCDSaveEdit/releases)
 1. If you have the Windows Store version of Minecraft: Dungeons -
-   1. Download and run the [storepatcher.ps1](https://github.com/dungeonsworkshop/dungeonsworkshop.github.io/releases) powershell script to extract the required files from the Windows Store version of Minecraft: Dungeons
+   1. Download and run the [storepatcher.ps1](https://github.com/dungeonsworkshop/dungeonsworkshop.github.io/releases) powershell script to extract the .pak files from the game
 1. Run MCDSaveEdit.exe
-
-For full features and functionality you need Minecraft: Dungeons installed and preferably in the default install location.
+   1. If it can't find the .pak files, it will ask where to find them
 
 ---
 
 ### Compiling
 This application was developed entirely in Visual Studio 2019.
 
-When cloning be sure to recurse through submodules because there are 2:
+[] When cloning be sure to recurse through submodules because there are 2:
 - [DungeonTools](https://github.com/HellPie/DungeonTools)
 - [PakReader](https://github.com/WorkingRobot/PakReader)
 
-There is one file deliberately removed from the repo that you will need to create and fill in.
+[] There is one file deliberately removed from the repo that you will need to create and fill in.
 
 `MCDSaveEdit\Data\Secrets.cs`
 ```csharp
@@ -50,6 +50,10 @@ namespace MCDSaveEdit
     }
 }
 ```
+
+[] Another bit of trouble you might run into is the error: "The referenced component 'Windows' could not be found" in `MCDSaveEdit/Data/Constants.cs` line 3: `using Windows.Management.Deployment;`
+- Try the accepted answer here: https://stackoverflow.com/questions/54454214/how-to-access-windows-management-deployment-namespace-in-a-desktop-project-in-vs
+- This bit of code is only required for the windows store version though. So if you have the launcher version then you can just comment out line 3 (and then you will have to comment out lines 54-61 to get it to compile).
 
 
 ---
