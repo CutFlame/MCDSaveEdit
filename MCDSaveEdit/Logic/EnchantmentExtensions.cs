@@ -112,34 +112,23 @@ namespace MCDSaveEdit.Save.Models.Enums
 
         public static int pointsCost(this Enchantment enchantment)
         {
-            int cost = 0;
+            int level = (int)enchantment.Level;
+            int cost;
             if (enchantment.isPowerful())
             {
-                int level = Math.Min((int)enchantment.Level, GameCalculator.powerfulEnchantmentCostForLevel.Length);
-                cost = GameCalculator.powerfulEnchantmentCostForLevel[level];
+                cost = GameCalculator.powerfulEnchantmentCostForLevel(level);
             }
             else
             {
-                int level = Math.Min((int)enchantment.Level, GameCalculator.enchantmentCostForLevel.Length);
-                cost = GameCalculator.enchantmentCostForLevel[level];
+                cost = GameCalculator.enchantmentCostForLevel(level);
             }
             return cost;
         }
 
         public static int gildedPointsCost(this Enchantment enchantment)
         {
-            int cost = 0;
-            int level = 0;
-            if (enchantment.isPowerful())
-            {
-                level = Math.Min((int)enchantment.Level, GameCalculator.powerfulEnchantmentCostForLevel.Length);
-                cost = GameCalculator.powerfulEnchantmentCostForLevel[level];
-            }
-            else
-            {
-                level = Math.Min((int)enchantment.Level, GameCalculator.enchantmentCostForLevel.Length);
-                cost = GameCalculator.enchantmentCostForLevel[level];
-            }
+            int level = (int)enchantment.Level;
+            int cost = pointsCost(enchantment);
             return cost + level;
         }
     }

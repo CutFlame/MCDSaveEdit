@@ -114,11 +114,9 @@ namespace MCDSaveEdit
 
         private BitmapImage? fullImageForEnchantmentLevel(long level)
         {
-            if (level < 0 || level > Constants.MAXIMUM_ENCHANTMENT_TIER)
-            {
-                return null;
-            }
-            var imageName = $"/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv{level}_frame";
+            //clamp to 0 and Constants.MAXIMUM_ENCHANTMENT_TIER
+            var clampedLevel = Math.Max(0, Math.Min(Constants.MAXIMUM_ENCHANTMENT_TIER, level));
+            var imageName = $"/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv{clampedLevel}_frame";
             return ImageUriHelper.instance.imageSource(imageName);
         }
 

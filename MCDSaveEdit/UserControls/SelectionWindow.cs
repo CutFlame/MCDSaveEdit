@@ -139,7 +139,7 @@ namespace MCDSaveEdit
 
                 stackPanel.Children.Add(image);
                 stackPanel.Children.Add(label);
-                if (EnchantmentExtensions.powerful.Any(str => { return enchantment == str; }))
+                if (EnchantmentExtensions.powerful.Contains(enchantment))
                 {
                     var powerfulImage = new Image {
                         Height = 25,

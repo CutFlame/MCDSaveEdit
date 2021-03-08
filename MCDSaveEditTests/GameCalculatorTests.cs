@@ -90,6 +90,36 @@ namespace MCDSaveEditTests
             }
         }
 
+        [TestMethod]
+        public void TestEnchantmentCostForLevel()
+        {
+            Assert.AreEqual(0, GameCalculator.enchantmentCostForLevel(0));
+            Assert.AreEqual(1, GameCalculator.enchantmentCostForLevel(1));
+            Assert.AreEqual(3, GameCalculator.enchantmentCostForLevel(2));
+            Assert.AreEqual(6, GameCalculator.enchantmentCostForLevel(3));
+            Assert.AreEqual(10, GameCalculator.enchantmentCostForLevel(4));
+            Assert.AreEqual(15, GameCalculator.enchantmentCostForLevel(5));
+            Assert.AreEqual(21, GameCalculator.enchantmentCostForLevel(6));
+            Assert.AreEqual(28, GameCalculator.enchantmentCostForLevel(7));
+            Assert.AreEqual(36, GameCalculator.enchantmentCostForLevel(8));
+            Assert.AreEqual(45, GameCalculator.enchantmentCostForLevel(9));
+            Assert.AreEqual(55, GameCalculator.enchantmentCostForLevel(10));
+        }
 
+        [TestMethod]
+        public void TestPowerfulEnchantmentCostForLevel()
+        {
+            Assert.AreEqual(0, GameCalculator.powerfulEnchantmentCostForLevel(0));
+            Assert.AreEqual(2, GameCalculator.powerfulEnchantmentCostForLevel(1));
+            Assert.AreEqual(5, GameCalculator.powerfulEnchantmentCostForLevel(2));
+            Assert.AreEqual(9, GameCalculator.powerfulEnchantmentCostForLevel(3));
+            Assert.AreEqual(14, GameCalculator.powerfulEnchantmentCostForLevel(4));
+            Assert.AreEqual(20, GameCalculator.powerfulEnchantmentCostForLevel(5));
+            Assert.AreEqual(27, GameCalculator.powerfulEnchantmentCostForLevel(6));
+            Assert.AreEqual(35, GameCalculator.powerfulEnchantmentCostForLevel(7));
+            Assert.AreEqual(44, GameCalculator.powerfulEnchantmentCostForLevel(8));
+            Assert.AreEqual(54, GameCalculator.powerfulEnchantmentCostForLevel(9));
+            Assert.AreEqual(65, GameCalculator.powerfulEnchantmentCostForLevel(10));
+        }
     }
 }
