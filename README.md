@@ -15,7 +15,7 @@ Windows application for modifying [Minecraft: Dungeons](https://www.minecraft.ne
 
 ### Installing and Running
 
-1. Download and extract the latest release (MCDSaveEdit_*.zip) from [the releases section](https://github.com/CutFlame/MCDSaveEdit/releases/tag/release/latest)
+1. Download and extract the latest release (MCDSaveEdit_*.zip) from [the releases section](https://github.com/CutFlame/MCDSaveEdit/releases)
 1. If you have the Windows Store version of Minecraft: Dungeons -
    1. Download and run the [storepatcher.ps1](https://github.com/dungeonsworkshop/dungeonsworkshop.github.io/releases) powershell script to extract the required files from the Windows Store version of Minecraft: Dungeons
 1. Run MCDSaveEdit.exe
