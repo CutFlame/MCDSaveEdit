@@ -104,10 +104,60 @@ namespace MCDSaveEditTests
             return stream;
         }
 
-        [TestMethod]
-        public async Task TestNoDataLossOnWrite()
+        private const string BLANK = @"
+{
+  ""bonus_prerequisites"": [],
+  ""clone"": false,
+  ""cosmetics"": [],
+  ""cosmeticsEverEquipped"": [],
+  ""creationDate"": ""Jun 23, 2020"",
+  ""currency"": [],
+  ""customized"": false,
+  ""items"": [],
+  ""itemsFound"": [],
+  ""name"": """",
+  ""playerId"": ""C2BC12F8-4800-51B5-D9E3-6F9E2865F96D"",
+  ""progressionKeys"": [],
+  ""skin"": ""steve"",
+  ""timestamp"": 1592978132,
+  ""totalGearPower"": 0,
+  ""trialsCompleted"": [],
+  ""version"": 1,
+  ""xp"": 0
+}
+";
+
+        private static Stream GenerateStreamFromString(string s)
         {
-            var filePath = Path.Combine(Constants.FILE_DIALOG_INITIAL_DIRECTORY, "2533274911688652", "Characters", "Power200.dat");
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
+        }
+
+        [TestMethod]
+        public async Task TestHandleReadAndWriteBlank()
+        {
+            using var stream = GenerateStreamFromString(BLANK);
+
+            var copy = new MemoryStream();
+            await stream!.CopyToAsync(copy);
+
+            stream!.Seek(0, SeekOrigin.Begin);
+            var profile = await ProfileParser.Read(stream!);
+            using var output = await ProfileParser.Write(profile);
+            verifyNoDataLossOnWrite(copy, output);
+        }
+
+        [DataRow("Power200.dat")]
+        [DataRow("Blank.dat")]
+        [DataRow("UnreasonableCheating.dat")]
+        [DataTestMethod]
+        public async Task TestNoDataLossOnWrite(string filename)
+        {
+            var filePath = Path.Combine(Constants.FILE_DIALOG_INITIAL_DIRECTORY, "2533274911688652", "Characters", filename);
             using var stream = await decryptFileIntoStream(filePath);
 
             var copy = new MemoryStream();
@@ -130,6 +180,8 @@ namespace MCDSaveEditTests
             {
                 if (inputLines[inputLineIndex].StartsWith("\"pendingRewardItem\"")) { inputLineIndex++; }
                 if (outputLines[outputLineIndex].StartsWith("\"pendingRewardItem\"")) { outputLineIndex++; }
+                if (inputLines[inputLineIndex].StartsWith("\"finishedObjectiveTags\"")) { inputLineIndex++; }
+                if (outputLines[outputLineIndex].StartsWith("\"finishedObjectiveTags\"")) { outputLineIndex++; }
                 if (!inputLines[inputLineIndex].Equals(outputLines[outputLineIndex]))
                 {
                     if (inputLines[inputLineIndex].StartsWith("\"power\"") || outputLines[outputLineIndex].StartsWith("\"power\"")) { continue; }
