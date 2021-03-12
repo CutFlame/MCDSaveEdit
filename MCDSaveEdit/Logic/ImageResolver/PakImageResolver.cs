@@ -17,6 +17,7 @@ namespace MCDSaveEdit
             //{"Imagefile foldername","Savefile reference"},
             { "TrickBow","Trickbow" },
             { "TrickBow_Unique1","Trickbow_Unique1" },
+            { "TrickBow_Unique2","Trickbow_Unique2" },
             { "LongBow","Longbow" },
             { "LongBow_Unique1","Longbow_Unique1" },
             { "LongBow_Unique2","Longbow_Unique2" },
