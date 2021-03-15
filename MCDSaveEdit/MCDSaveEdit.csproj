@@ -181,6 +181,7 @@
     <Compile Include="Models\Profiles\Enchantment.cs" />
     <Compile Include="Models\Profiles\Item.cs" />
     <Compile Include="Data\MapImageData.cs" />
+    <Compile Include="Models\Profiles\MerchantDef.cs" />
     <Compile Include="Models\Profiles\Progress.cs" />
     <Compile Include="Models\Profiles\LobbyChest.cs" />
     <Compile Include="Models\Profiles\MapUiState.cs" />

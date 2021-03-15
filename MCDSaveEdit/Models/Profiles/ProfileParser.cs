@@ -16,6 +16,7 @@ namespace MCDSaveEdit.Save.Models.Profiles
             _options.Converters.Add(new AttributeBasedConverterFactory());
             _options.Converters.Add(new GuidConverterFactory());
             _options.Converters.Add(new JsonStringEnumConverter());
+            //_options.Converters.Add(new TextDoubleJsonConverter());
             _options.IgnoreNullValues = true;
             _options.WriteIndented = true;
         }

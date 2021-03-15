@@ -49,7 +49,7 @@ namespace MCDSaveEdit.Save.Models.Profiles
         //public MapUiState MapUiState { get; set; }
 
         [JsonPropertyName("merchantData")]
-        public object MerchantData { get; set; }
+        public Dictionary<string, MerchantDef> MerchantData { get; set; }
 
         [JsonPropertyName("missionStatesMap")]
         public object MissionStatesMap { get; set; }

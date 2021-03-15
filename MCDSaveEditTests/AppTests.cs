@@ -178,16 +178,17 @@ namespace MCDSaveEditTests
             long totalUnequal = 0;
             for (; inputLineIndex < inputLines.Length && outputLineIndex < outputLines.Length; inputLineIndex++, outputLineIndex++)
             {
-                if (inputLines[inputLineIndex].StartsWith("\"pendingRewardItem\"")) { inputLineIndex++; }
-                if (outputLines[outputLineIndex].StartsWith("\"pendingRewardItem\"")) { outputLineIndex++; }
-                if (inputLines[inputLineIndex].StartsWith("\"finishedObjectiveTags\"")) { inputLineIndex++; }
-                if (outputLines[outputLineIndex].StartsWith("\"finishedObjectiveTags\"")) { outputLineIndex++; }
+                if (inputLines[inputLineIndex].EndsWith("null,")) { inputLineIndex++; }
+                if (outputLines[outputLineIndex].EndsWith("null,")) { outputLineIndex++; }
+
                 if (!inputLines[inputLineIndex].Equals(outputLines[outputLineIndex]))
                 {
-                    if (inputLines[inputLineIndex].StartsWith("\"power\"") || outputLines[outputLineIndex].StartsWith("\"power\"")) { continue; }
+                    if (inputLines[inputLineIndex].StartsWith("\"power\"") && outputLines[outputLineIndex].StartsWith("\"power\"")) { continue; }
+                    if (inputLines[inputLineIndex].StartsWith("\"priceMultiplier\"") && outputLines[outputLineIndex].StartsWith("\"priceMultiplier\"")) { continue; }
+                    if (inputLines[inputLineIndex].StartsWith("\"rebateFraction\"") && outputLines[outputLineIndex].StartsWith("\"rebateFraction\"")) { continue; }
                     totalUnequal++;
-                    Console.WriteLine("{0}:{1}", inputLineIndex, inputLines[inputLineIndex]);
-                    Console.WriteLine("{0}:{1}", outputLineIndex, outputLines[outputLineIndex]);
+                    Console.WriteLine(">>> {0}:{1}", inputLineIndex, inputLines[inputLineIndex]);
+                    Console.WriteLine("<<< {0}:{1}", outputLineIndex, outputLines[outputLineIndex]);
                 }
             }
             Assert.AreEqual(0, totalUnequal);
