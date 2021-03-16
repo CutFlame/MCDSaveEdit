@@ -50,6 +50,7 @@ namespace MCDSaveEdit
             { "DeathBarter_desc","DeathBarter_effect_desc" },
 
             { "Powerbow","PowerBow" },
+            { "Powerbow_Unique1","PowerBow_Unique1" },
             { "Powerbow_Unique2","PowerBow_Unique2" },
             { "Flavour_Sword","Desc_Sword" },
             { "Flavour_Sword_Steel","Desc_Sword" },

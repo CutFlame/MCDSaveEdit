@@ -22,6 +22,7 @@ namespace MCDSaveEdit
             { "LongBow_Unique1","Longbow_Unique1" },
             { "LongBow_Unique2","Longbow_Unique2" },
             { "PowerBow","Powerbow" },
+            { "PowerBow_Unique1","Powerbow_Unique1" },
             { "PowerBow_Unique2","Powerbow_Unique2" },
             { "Slowbow_Unique1","SlowBow_Unique1" },
             { "ShortBow","Shortbow" },
