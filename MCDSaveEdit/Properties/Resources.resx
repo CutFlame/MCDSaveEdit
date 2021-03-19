@@ -289,6 +289,10 @@
     <value>Missions</value>
     <comment>Missions</comment>
   </data>
+  <data name="MOB_KILLS" xml:space="preserve">
+    <value>Mob Kills</value>
+    <comment>Mob Kills</comment>
+  </data>
   <data name="NEW" xml:space="preserve">
     <value>New</value>
     <comment>New</comment>
@@ -308,6 +312,10 @@
   <data name="POWERFUL" xml:space="preserve">
     <value>Powerful</value>
     <comment>Powerful</comment>
+  </data>
+  <data name="PROGRESS_STAT_COUNTERS" xml:space="preserve">
+    <value>Progress Stat Counters</value>
+    <comment>Progress Stat Counters</comment>
   </data>
   <data name="RANGED_ITEMS_FILTER" xml:space="preserve">
     <value>Ranged</value>
@@ -344,6 +352,10 @@
   <data name="SELECT_RANGED_WEAPON" xml:space="preserve">
     <value>Select Ranged Weapon</value>
     <comment>Select Ranged Weapon</comment>
+  </data>
+  <data name="STATS_COUNTERS" xml:space="preserve">
+    <value>Stats/Counters</value>
+    <comment>Stats/Counters</comment>
   </data>
   <data name="TIER" xml:space="preserve">
     <value>Tier</value>

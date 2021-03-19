@@ -448,6 +448,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mob Kills.
+        /// </summary>
+        public static string MOB_KILLS {
+            get {
+                return ResourceManager.GetString("MOB_KILLS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         public static string NEW {
@@ -489,6 +498,15 @@ namespace MCDSaveEdit.Properties {
         public static string POWERFUL {
             get {
                 return ResourceManager.GetString("POWERFUL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progress Stat Counters.
+        /// </summary>
+        public static string PROGRESS_STAT_COUNTERS {
+            get {
+                return ResourceManager.GetString("PROGRESS_STAT_COUNTERS", resourceCulture);
             }
         }
         
@@ -570,6 +588,15 @@ namespace MCDSaveEdit.Properties {
         public static string SELECT_RANGED_WEAPON {
             get {
                 return ResourceManager.GetString("SELECT_RANGED_WEAPON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stats/Counters.
+        /// </summary>
+        public static string STATS_COUNTERS {
+            get {
+                return ResourceManager.GetString("STATS_COUNTERS", resourceCulture);
             }
         }
         
