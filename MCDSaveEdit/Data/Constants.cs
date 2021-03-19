@@ -42,6 +42,7 @@ namespace MCDSaveEdit
 
         public const string FIRST_PAK_FILENAME = "pakchunk0-WindowsNoEditor.pak";
 
+        //NOTE: default location of files for Launcher version: %localappdata%\Mojang\products\dungeons\dungeons\Dungeons\Content\Paks
         public static string PAKS_FOLDER_PATH {
             get {
                 var appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -49,6 +50,7 @@ namespace MCDSaveEdit
             }
         }
 
+        //NOTE: location of files for WinStore version is where ever the storepatcher script dumped them
         public static string? WINSTORE_PAKS_FOLDER_IF_EXISTS {
             get {
                 var pm = new PackageManager();
@@ -64,6 +66,7 @@ namespace MCDSaveEdit
             }
         }
 
+        //NOTE: default location of save game files: ~\Saved Games\Mojang Studios\Dungeons\2533274911688652\Characters
         public static string FILE_DIALOG_INITIAL_DIRECTORY {
             get {
                 var userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

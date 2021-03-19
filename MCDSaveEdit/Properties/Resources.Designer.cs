@@ -286,7 +286,7 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not find game content files in the default install location. Please provide the path to the game files or launch with limited features and no game content..
+        ///   Looks up a localized string similar to Could not find game content files in the default install location. Please provide the path to the game files or launch with no game content and limited features..
         /// </summary>
         public static string GAME_FILES_WINDOW_MESSAGE {
             get {

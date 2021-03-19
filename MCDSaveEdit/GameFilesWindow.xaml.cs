@@ -72,18 +72,25 @@ namespace MCDSaveEdit
 
         private bool isValidSelectedPath()
         {
-            if (string.IsNullOrWhiteSpace(selectedPath))
+            var testPath = selectedPath?.Trim();
+            if (string.IsNullOrWhiteSpace(testPath))
             {
                 return false;
             }
 
-            var testPath = selectedPath!;
-            if (File.Exists(Path.Combine(testPath, Constants.FIRST_PAK_FILENAME)))
+            var fullPath = Environment.ExpandEnvironmentVariables(testPath!);
+            if (!Directory.Exists(fullPath))
             {
+                return false;
+            }
+
+            if (File.Exists(Path.Combine(fullPath, Constants.FIRST_PAK_FILENAME)))
+            {
+                selectedPath = fullPath;
                 return true;
             }
 
-            return foundInDirectory(testPath);
+            return foundInDirectory(fullPath);
         }
 
         private static string[] highPriorityFolderNames = new string[] { "Mojang", "Dungeons", "Content", "Paks", "dungeons", "products" };

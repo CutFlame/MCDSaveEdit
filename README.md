@@ -24,6 +24,33 @@ For full features and functionality you need Minecraft: Dungeons installed and p
 
 ---
 
+### How to Use
+
+##### Fix Missing Images
+<img src="GameContentLocationDialog.png"/>
+
+If you see this popup, that means it couldn't find the game content in the default location. You need to provide the path to these .pak files:
+
+<img src="LocatePakFiles.png"/>
+
+The default location for these files is: `%localappdata%\Mojang\products\dungeons\dungeons\Dungeons\Content\Paks`
+
+If you have the Windows Store version, this will need to be the path you selected when you ran the storepatcher script.
+
+<p></p>
+
+##### Adding Items
+<img src="AddItemTutorial.png"/>
+
+<p></p>
+
+##### Adding/Changing Enchantments
+<img src="AddEnchantmentTutorial.png"/>
+
+<p></p>
+
+---
+
 ### Compiling
 This application was developed entirely in Visual Studio 2019.
 
