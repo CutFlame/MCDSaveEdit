@@ -129,7 +129,7 @@ namespace MCDSaveEdit
 
         private void showMainWindow()
         {
-            EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "canUseGameContent", (!string.IsNullOrWhiteSpace(Constants.PAKS_FOLDER_PATH)).ToString() } });
+            EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "gameContentLoaded", ImageUriHelper.gameContentLoaded.ToString() } });
             var mainWindow = new MainWindow();
             mainWindow.Width = 1200;
             mainWindow.Height = 675;
