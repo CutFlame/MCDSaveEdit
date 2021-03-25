@@ -7,7 +7,7 @@ namespace MCDSaveEdit
 {
     public static partial class Constants
     {
-        public const string CURRENT_VERSION_NUMBER = "1.3.1";
+        public const string CURRENT_VERSION_NUMBER = "1.3.2";
         public const string LATEST_RELEASE_GITHUB_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
         public const string LATEST_RELEASE_MOD_URL_FORMAT = "https://www.nexusmods.com/minecraftdungeons/mods/{0}?tab=files";
 
