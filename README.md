@@ -55,8 +55,8 @@ If you have the Windows Store version, this will need to be the path you selecte
 This application was developed entirely in Visual Studio 2019.
 
 [] When cloning be sure to recurse through submodules because there are 2:
-- [DungeonTools](https://github.com/HellPie/DungeonTools)
-- [PakReader](https://github.com/WorkingRobot/PakReader)
+- [DungeonTools](https://github.com/CutFlame/DungeonTools/tree/save-file-editor-1.1)
+- [PakReader](https://github.com/CutFlame/PakReader/tree/MCDSaveEdit)
 
 [] There is one file deliberately removed from the repo that you will need to create and fill in.
 
