@@ -62,7 +62,7 @@ namespace MCDSaveEdit
             }
             else
             {
-                inventoryIconImage.Source = ImageUriHelper.instance.imageSourceForItem(_item);
+                inventoryIconImage.Source = AppModel.instance.imageSourceForItem(_item);
                 powerTextBox.IsEnabled = false;
                 powerTextBox.Text = _item.level().ToString();
                 powerTextBox.IsEnabled = true;
@@ -71,7 +71,7 @@ namespace MCDSaveEdit
                 rarityComboBox.IsEnabled = true;
                 nameLabel.Content = R.itemName(_item.Type);
                 descLabel.Text = R.itemDesc(_item.Type);
-                inventoryItemButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+                inventoryItemButton.IsEnabled = AppModel.gameContentLoaded;
             }
 
             updateCheckBoxes();
@@ -104,7 +104,7 @@ namespace MCDSaveEdit
 
         public class ArmorPropertyButton: Button
         {
-            public static BitmapImage? bulletImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
+            public static BitmapImage? bulletImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
 
             public ArmorPropertyButton(Armorproperty? armorProperty)
             {
@@ -132,7 +132,7 @@ namespace MCDSaveEdit
                 armorPropertyStack.Children.Add(bulletImage);
                 armorPropertyStack.Children.Add(label);
 
-                this.IsEnabled = ImageUriHelper.gameContentLoaded;
+                this.IsEnabled = AppModel.gameContentLoaded;
                 this.Tag = armorProperty;
                 this.HorizontalContentAlignment = HorizontalAlignment.Left;
                 this.VerticalContentAlignment = VerticalAlignment.Center;
@@ -186,7 +186,7 @@ namespace MCDSaveEdit
             label.Padding = new Thickness(0);
 
             var plusButton = new Button();
-            plusButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+            plusButton.IsEnabled = AppModel.gameContentLoaded;
             plusButton.HorizontalContentAlignment = HorizontalAlignment.Center;
             plusButton.VerticalContentAlignment = VerticalAlignment.Center;
             plusButton.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -224,7 +224,7 @@ namespace MCDSaveEdit
 
         private void armorPropertyButton_Click(Armorproperty armorProperty)
         {
-            if (!ImageUriHelper.gameContentLoaded) { return; }
+            if (!AppModel.gameContentLoaded) { return; }
             EventLogger.logEvent("armorPropertyButton_Click", new Dictionary<string, object>() { { "armorProperty", armorProperty.Id } });
             var selectionWindow = new SelectionWindow();
             selectionWindow.Owner = Application.Current.MainWindow;
@@ -408,7 +408,7 @@ namespace MCDSaveEdit
         private void inventoryItemButton_Click(object sender, RoutedEventArgs e)
         {
             if(_item == null) { return; }
-            if (!ImageUriHelper.gameContentLoaded) { return; }
+            if (!AppModel.gameContentLoaded) { return; }
             EventLogger.logEvent("inventoryItemButton_Click", new Dictionary<string, object>() { { "item", _item!.Type } });
             var selectionWindow = new SelectionWindow();
             selectionWindow.Owner = Application.Current.MainWindow;

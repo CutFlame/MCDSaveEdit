@@ -18,7 +18,7 @@ namespace MCDSaveEdit
         public EnchantmentSetControl()
         {
             InitializeComponent();
-            if (ImageUriHelper.gameContentLoaded)
+            if (AppModel.gameContentLoaded)
             {
                 useGameContentImages();
             }
@@ -28,8 +28,8 @@ namespace MCDSaveEdit
 
         private void useGameContentImages()
         {
-            backgroundImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/StatusEffect/Enchantment/EnchantmentsBackground");
-            topEnchantmentSymbolImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
+            backgroundImage.Source = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/StatusEffect/Enchantment/EnchantmentsBackground");
+            topEnchantmentSymbolImage.Source = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
         }
 
         private Enchantment[]? _enchantments;
@@ -48,7 +48,7 @@ namespace MCDSaveEdit
             enchantment3Image.Source = null;
             enchantment3Button.CommandParameter = null;
             upgradedEnchantmentButton.Visibility = Visibility.Visible;
-            upgradedEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(Constants.DEFAULT_ENCHANTMENT_ID);
+            upgradedEnchantmentImage.Source = AppModel.instance.imageSourceForEnchantment(Constants.DEFAULT_ENCHANTMENT_ID);
             upgradedEnchantmentButton.CommandParameter = null;
         }
         public void updateUI()
@@ -69,16 +69,16 @@ namespace MCDSaveEdit
                 enchantment3Image.Source = null;
                 enchantment3Button.CommandParameter = null;
                 upgradedEnchantmentButton.Visibility = Visibility.Visible;
-                upgradedEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(upgradedEnchantment);
+                upgradedEnchantmentImage.Source = AppModel.instance.imageSourceForEnchantment(upgradedEnchantment);
                 upgradedEnchantmentButton.CommandParameter = upgradedEnchantment;
             }
             else
             {
-                enchantment1Image.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantments[0]);
+                enchantment1Image.Source = AppModel.instance.imageSourceForEnchantment(_enchantments[0]);
                 enchantment1Button.CommandParameter = _enchantments[0];
-                enchantment2Image.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantments[1]);
+                enchantment2Image.Source = AppModel.instance.imageSourceForEnchantment(_enchantments[1]);
                 enchantment2Button.CommandParameter = _enchantments[1];
-                enchantment3Image.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantments[2]);
+                enchantment3Image.Source = AppModel.instance.imageSourceForEnchantment(_enchantments[2]);
                 enchantment3Button.CommandParameter = _enchantments[2];
                 upgradedEnchantmentButton.Visibility = Visibility.Collapsed;
                 upgradedEnchantmentImage.Source = null;

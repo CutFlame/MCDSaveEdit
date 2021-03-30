@@ -273,7 +273,7 @@
     <Compile Include="Logic\EnchantmentExtensions.cs" />
     <Compile Include="Models\Enums\EquipmentSlotEnum.cs" />
     <Compile Include="Logic\GameCalculator.cs" />
-    <Compile Include="Logic\ImageResolver\ImageUriHelper.cs" />
+    <Compile Include="Logic\AppModel.cs" />
     <Compile Include="UserControls\ItemControl.xaml.cs">
       <DependentUpon>ItemControl.xaml</DependentUpon>
     </Compile>

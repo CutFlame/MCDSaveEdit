@@ -13,21 +13,21 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class ItemControl : UserControl
     {
-        private static readonly BitmapImage? enchantmentPointsImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
-        private static readonly BitmapImage? gildedImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/Content_DLC4/UI/Materials/Inventory/Inventory_slot_gilded_plate");
-        private static readonly BitmapImage? markedNewImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/HotBar2/Icons/inventoryslot_newitem");
+        private static readonly BitmapImage? enchantmentPointsImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Mobs/enchant_common_icon");
+        private static readonly BitmapImage? gildedImageSource = AppModel.instance.imageSource("/Dungeons/Content/Content_DLC4/UI/Materials/Inventory/Inventory_slot_gilded_plate");
+        private static readonly BitmapImage? markedNewImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/HotBar2/Icons/inventoryslot_newitem");
 
         public static void preload()
         {
-            ImageUriHelper.instance.imageSourceForRarity(Rarity.Common);
-            ImageUriHelper.instance.imageSourceForRarity(Rarity.Rare);
-            ImageUriHelper.instance.imageSourceForRarity(Rarity.Unique);
+            AppModel.instance.imageSourceForRarity(Rarity.Common);
+            AppModel.instance.imageSourceForRarity(Rarity.Rare);
+            AppModel.instance.imageSourceForRarity(Rarity.Unique);
         }
 
         public ItemControl()
         {
             InitializeComponent();
-            if (ImageUriHelper.gameContentLoaded)
+            if (AppModel.gameContentLoaded)
             {
                 useGameContentImages();
             }
@@ -74,8 +74,8 @@ namespace MCDSaveEdit
 
             powerLabel.Content = _item.level();
             titleLabel.Content = R.itemName(_item.Type);
-            image.Source = ImageUriHelper.instance.imageSourceForItem(_item);
-            if (image.Source == null || !ImageUriHelper.gameContentLoaded)
+            image.Source = AppModel.instance.imageSourceForItem(_item);
+            if (image.Source == null || !AppModel.gameContentLoaded)
             {
                 titleLabel.Visibility = Visibility.Visible;
             }
@@ -84,7 +84,7 @@ namespace MCDSaveEdit
                 titleLabel.Visibility = Visibility.Hidden;
             }
 
-            backImage.Source = ImageUriHelper.instance.imageSourceForRarity(_item.Rarity);
+            backImage.Source = AppModel.instance.imageSourceForRarity(_item.Rarity);
 
             if(_item.NetheriteEnchant != null)
             {
