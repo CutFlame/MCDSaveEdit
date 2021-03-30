@@ -108,6 +108,7 @@ namespace MCDSaveEdit
                 return;
             }
             await preloadImages();
+            RegistryTools.SaveSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, paksFolderPath);
             showMainWindow();
         }
 
