@@ -19,9 +19,9 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly BitmapImage? _emeraldImage = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_emerald");
-        private static readonly BitmapImage? _goldImage = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Currency/GoldIndicator");
-        private static readonly BitmapImage? _enchantmentImage = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchantscore_background");
+        private static readonly BitmapImage? _emeraldImage = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_emerald");
+        private static readonly BitmapImage? _goldImage = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Currency/GoldIndicator");
+        private static readonly BitmapImage? _enchantmentImage = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchantscore_background");
 
         public static void init() { }
 
@@ -52,10 +52,10 @@ namespace MCDSaveEdit
             translateStaticStrings();
 
             _mainModel.showError = showError;
-            gameFilesLocationMenuItem.Header = ImageUriHelper.instance.path;
+            gameFilesLocationMenuItem.Header = AppModel.instance.path;
 
             refreshRecentFilesList();
-            if (ImageUriHelper.gameContentLoaded)
+            if (AppModel.gameContentLoaded)
             {
                 useGameContentImages();
             }

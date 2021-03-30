@@ -15,18 +15,18 @@ namespace MCDSaveEdit
     /// </summary>
     public class SelectionWindow : Window
     {
-        private static readonly BitmapImage? powerfulImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
-        private static readonly BitmapImage? bulletImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
+        private static readonly BitmapImage? powerfulImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
+        private static readonly BitmapImage? bulletImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Inspector/regular_bullit");
 
         public static void preload()
         {
             foreach (var item in ItemExtensions.all)
             {
-                ImageUriHelper.instance.imageSourceForItem(item);
+                AppModel.instance.imageSourceForItem(item);
             }
             foreach (var enchantment in EnchantmentExtensions.allEnchantments)
             {
-                ImageUriHelper.instance.imageSourceForEnchantment(enchantment);
+                AppModel.instance.imageSourceForEnchantment(enchantment);
             }
         }
 
@@ -114,7 +114,7 @@ namespace MCDSaveEdit
 
             foreach (var enchantment in EnchantmentExtensions.allEnchantments.OrderBy(str => str).Concat(new[] { Constants.DEFAULT_ENCHANTMENT_ID }))
             {
-                var imageSource = ImageUriHelper.instance.imageSourceForEnchantment(enchantment);
+                var imageSource = AppModel.instance.imageSourceForEnchantment(enchantment);
                 if (imageSource == null)
                 {
                     continue;
@@ -226,7 +226,7 @@ namespace MCDSaveEdit
 
         private ImageSource? imageSourceForFilter(ItemFilterEnum filter)
         {
-            return ImageUriHelper.instance.imageSourceForItem(mysteryBoxStringForFilter(filter));
+            return AppModel.instance.imageSourceForItem(mysteryBoxStringForFilter(filter));
         }
 
         private string mysteryBoxStringForFilter(ItemFilterEnum filter)
@@ -257,7 +257,7 @@ namespace MCDSaveEdit
 
             foreach (var item in itemsForFilter(filter).OrderBy(str => str))
             {
-                var imageSource = ImageUriHelper.instance.imageSourceForItem(item);
+                var imageSource = AppModel.instance.imageSourceForItem(item);
                 if (imageSource == null)
                 {
                     continue;
@@ -267,7 +267,7 @@ namespace MCDSaveEdit
                 var listItem = new ListBoxItem { Content = stackPanel, Tag = item };
                 if (item.ToLowerInvariant().Contains("unique"))
                 {
-                    var backgroundImage = ImageUriHelper.instance.imageSourceForRarity(Rarity.Unique);
+                    var backgroundImage = AppModel.instance.imageSourceForRarity(Rarity.Unique);
                     var brush = new ImageBrush(backgroundImage);
                     listItem.Background = brush;
                 }

@@ -19,10 +19,12 @@ namespace MCDSaveEditTests
     [TestClass]
     public class AppTests
     {
+        private readonly AppModel _model = new AppModel();
+
         [TestMethod]
         public void TestExtractGameFiles()
         {
-            string? paksFolderPath = ImageUriHelper.usableGameContentIfExists();
+            string? paksFolderPath = _model.usableGameContentIfExists();
             if (string.IsNullOrWhiteSpace(paksFolderPath))
             {
                 Assert.Fail("No usable Game Content Files found");
@@ -32,7 +34,7 @@ namespace MCDSaveEditTests
             PakFilter? filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
             PakIndex? pakIndex = new PakIndex(path: paksFolderPath!, cacheFiles: true, caseSensitive: true, filter: filter);
             pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRINGS[0].Substring(2).ToBytesKey());
-            Assert.AreEqual(57499, pakIndex.Count());
+            Assert.AreEqual(57555, pakIndex.Count());
 
             var pakImageResolver = new PakImageResolver(pakIndex, null);
             pakImageResolver.loadPakFiles();

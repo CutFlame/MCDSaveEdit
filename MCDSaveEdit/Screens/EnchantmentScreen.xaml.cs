@@ -18,7 +18,7 @@ namespace MCDSaveEdit
         public EnchantmentScreen()
         {
             InitializeComponent();
-            if (ImageUriHelper.gameContentLoaded)
+            if (AppModel.gameContentLoaded)
             {
                 useGameContentImages();
             }
@@ -31,7 +31,7 @@ namespace MCDSaveEdit
         private void useGameContentImages()
         {
             enchantmentBackgroundImage.Source = fullImageForEnchantmentLevel(0);
-            enchantmentPointsSymbolImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchant_counter");
+            enchantmentPointsSymbolImage.Source = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchant_counter");
         }
 
         private Enchantment? _enchantment;
@@ -61,7 +61,7 @@ namespace MCDSaveEdit
 
             if (_enchantment.isPowerful())
             {
-                powerfulImage.Source = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
+                powerfulImage.Source = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
                 powerfulLabel.Content = R.POWERFUL;
             }
             else
@@ -70,10 +70,10 @@ namespace MCDSaveEdit
                 powerfulLabel.Content = R.COMMON;
             }
 
-            enchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(_enchantment);
+            enchantmentImage.Source = AppModel.instance.imageSourceForEnchantment(_enchantment);
             enchantmentLabel.Content = R.enchantmentName(_enchantment.Id);
             enchantmentDescLabel.Text = R.enchantmentDescription(_enchantment.Id);
-            enchantmentImageButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+            enchantmentImageButton.IsEnabled = AppModel.gameContentLoaded;
 
             updateTierUI();
         }
@@ -82,7 +82,7 @@ namespace MCDSaveEdit
         {
             if(_enchantment != null)
             {
-                if (ImageUriHelper.gameContentLoaded)
+                if (AppModel.gameContentLoaded)
                 {
                     enchantmentBackgroundImage.Source = imageForEnchantmentLevel(_enchantment!.Level);
                 }
@@ -117,7 +117,7 @@ namespace MCDSaveEdit
             //clamp to 0 and Constants.MAXIMUM_ENCHANTMENT_TIER
             var clampedLevel = Math.Max(0, Math.Min(Constants.MAXIMUM_ENCHANTMENT_TIER, level));
             var imageName = $"/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector2/lv{clampedLevel}_frame";
-            return ImageUriHelper.instance.imageSource(imageName);
+            return AppModel.instance.imageSource(imageName);
         }
 
         public ICommand? saveChanges { get; set; }
@@ -137,7 +137,7 @@ namespace MCDSaveEdit
 
         private void enchantmentImageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!ImageUriHelper.gameContentLoaded) { return; }
+            if (!AppModel.gameContentLoaded) { return; }
             EventLogger.logEvent("enchantmentImageButton_Click", new Dictionary<string, object>() { { "enchantment", _enchantment?.Id ?? "null" } });
             var selectionWindow = new SelectionWindow();
             selectionWindow.Owner = Application.Current.MainWindow;

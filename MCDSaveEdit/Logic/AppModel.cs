@@ -11,18 +11,24 @@ using System.Windows.Media.Imaging;
 
 namespace MCDSaveEdit
 {
-
-    public static class ImageUriHelper
+    public class AppModel
     {
         public static IImageResolver instance = new LocalImageResolver();
 
-        public static string? usableGameContentIfExists()
+        public string? usableGameContentIfExists()
         {
+            string? registryPath = RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, "") as string;
+            if (!string.IsNullOrWhiteSpace(registryPath))
+            {
+                return registryPath;
+            }
+
             string? winstorePath = Constants.WINSTORE_PAKS_FOLDER_IF_EXISTS;
             if (!string.IsNullOrWhiteSpace(winstorePath) && Directory.Exists(winstorePath))
             {
                 return winstorePath;
             }
+
             string launcherPath = Constants.PAKS_FOLDER_PATH;
             if (Directory.Exists(launcherPath))
             {
@@ -32,7 +38,7 @@ namespace MCDSaveEdit
         }
 
         public static bool gameContentLoaded { get; private set; } = false;
-        public static async Task loadGameContentAsync(string paksFolderPath)
+        public async Task loadGameContentAsync(string paksFolderPath)
         {
             var pakIndex = await loadPakIndex(paksFolderPath);
             if (pakIndex != null)

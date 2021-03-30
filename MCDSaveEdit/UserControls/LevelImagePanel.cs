@@ -11,18 +11,18 @@ namespace MCDSaveEdit
     {
         public const double IMAGE_RADIUS = 18;
 
-        private static readonly BitmapImage? _missionImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/mission_marker_front");
-        private static readonly BitmapImage? _dungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon");
+        private static readonly BitmapImage? _missionImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/mission_marker_front");
+        private static readonly BitmapImage? _dungeonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon");
 
-        private static readonly BitmapImage? _lockedDungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/locked_dungeons");
-        private static readonly BitmapImage? _incompleteMissionImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/mission_marker_iconSword_A");
-        private static readonly BitmapImage? _unlockedDungeonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/icon_dungeon");
+        private static readonly BitmapImage? _lockedDungeonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/locked_dungeons");
+        private static readonly BitmapImage? _incompleteMissionImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/mission_marker_iconSword_A");
+        private static readonly BitmapImage? _unlockedDungeonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/MissionSelectMap/marker/icon_dungeon");
 
-        private static readonly BitmapImage? _difficulty1ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level1");
-        private static readonly BitmapImage? _difficulty2ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level2");
-        private static readonly BitmapImage? _difficulty3ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level3");
-        private static readonly BitmapImage? _difficulty4ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level4");
-        private static readonly BitmapImage? _difficulty5ImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level5");
+        private static readonly BitmapImage? _difficulty1ImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level1");
+        private static readonly BitmapImage? _difficulty2ImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level2");
+        private static readonly BitmapImage? _difficulty3ImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level3");
+        private static readonly BitmapImage? _difficulty4ImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level4");
+        private static readonly BitmapImage? _difficulty5ImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Difficulty/asset_mapnode_done_level5");
 
         public static void preload() { }
 

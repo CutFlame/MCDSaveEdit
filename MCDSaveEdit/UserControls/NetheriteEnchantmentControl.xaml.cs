@@ -46,7 +46,7 @@ namespace MCDSaveEdit
 
             if(_item.NetheriteEnchant == null)
             {
-                gildedButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+                gildedButton.IsEnabled = AppModel.gameContentLoaded;
                 gildedButton.Visibility = Visibility.Visible;
                 netheriteEnchantmentStack.Visibility = Visibility.Collapsed;
                 netheriteEnchantmentRemoveButton.Visibility = Visibility.Collapsed;
@@ -56,11 +56,11 @@ namespace MCDSaveEdit
             gildedButton.IsEnabled = false;
             gildedButton.Visibility = Visibility.Collapsed;
             netheriteEnchantmentStack.Visibility = Visibility.Visible;
-            netheriteEnchantmentButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+            netheriteEnchantmentButton.IsEnabled = AppModel.gameContentLoaded;
             netheriteEnchantmentRemoveButton.Visibility = Visibility.Visible;
-            netheriteEnchantmentRemoveButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+            netheriteEnchantmentRemoveButton.IsEnabled = AppModel.gameContentLoaded;
             
-            netheriteEnchantmentImage.Source = ImageUriHelper.instance.imageSourceForEnchantment(enchantment!);
+            netheriteEnchantmentImage.Source = AppModel.instance.imageSourceForEnchantment(enchantment!);
             
             netheriteEnchantmentTextBox.Text = enchantment!.Level.ToString();
             netheriteEnchantmentLabel.Content = R.enchantmentName(enchantment!.Id);
@@ -109,7 +109,7 @@ namespace MCDSaveEdit
 
         private void enchantmentImageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!ImageUriHelper.gameContentLoaded) { return; }
+            if (!AppModel.gameContentLoaded) { return; }
             EventLogger.logEvent("netheriteEnchantmentImageButton_Click", new Dictionary<string, object>() { { "enchantment", enchantment?.Id ?? "null" } });
             var selectionWindow = new SelectionWindow();
             selectionWindow.Owner = Application.Current.MainWindow;

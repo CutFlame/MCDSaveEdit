@@ -34,7 +34,7 @@ namespace MCDSaveEdit
                 EventLogger.logError($"Could not get texture from package {fullPath}");
                 return null;
             }
-            var bitmap = ImageUriHelper.bitmapImageFromSKImage(texture.Image);
+            var bitmap = AppModel.bitmapImageFromSKImage(texture.Image);
             if (bitmap == null)
             {
                 EventLogger.logError($"Could not get bitmap from texture {fullPath}");
@@ -56,5 +56,4 @@ namespace MCDSaveEdit
             return entries;
         }
     }
-
 }

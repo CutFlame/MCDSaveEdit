@@ -23,7 +23,7 @@ namespace MCDSaveEdit
 
         public void preload()
         {
-            this.mapImageSource = ImageUriHelper.instance.imageSource(mapImageSourcePath);
+            this.mapImageSource = AppModel.instance.imageSource(mapImageSourcePath);
         }
 
         public ImageSource? usableImageSource()

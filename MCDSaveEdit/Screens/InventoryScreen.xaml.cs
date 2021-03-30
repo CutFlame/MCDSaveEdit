@@ -15,13 +15,13 @@ namespace MCDSaveEdit
     /// </summary>
     public partial class InventoryScreen : UserControl
     {
-        private static readonly BitmapImage? _levelFrameImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_LV_frame");
-        private static readonly BitmapImage? _allItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_all_default");
-        private static readonly BitmapImage? _meleeItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee_default");
-        private static readonly BitmapImage? _rangedItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged_default");
-        private static readonly BitmapImage? _armorItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_armour_default");
-        private static readonly BitmapImage? _artifactItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_consume_default");
-        private static readonly BitmapImage? _enchantedItemsButtonImageSource = ImageUriHelper.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_enchant_default");
+        private static readonly BitmapImage? _levelFrameImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_LV_frame");
+        private static readonly BitmapImage? _allItemsButtonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_all_default");
+        private static readonly BitmapImage? _meleeItemsButtonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee_default");
+        private static readonly BitmapImage? _rangedItemsButtonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged_default");
+        private static readonly BitmapImage? _armorItemsButtonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_armour_default");
+        private static readonly BitmapImage? _artifactItemsButtonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_consume_default");
+        private static readonly BitmapImage? _enchantedItemsButtonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_enchant_default");
 
         public static void preload() { }
 
@@ -41,14 +41,14 @@ namespace MCDSaveEdit
         {
             InitializeComponent();
             translateStaticStrings();
-            if (ImageUriHelper.gameContentLoaded)
+            if (AppModel.gameContentLoaded)
             {
                 useGameContentImages();
             }
-            meleeItemsButton.IsEnabled = ImageUriHelper.gameContentLoaded;
-            rangedItemsButton.IsEnabled = ImageUriHelper.gameContentLoaded;
-            armorItemsButton.IsEnabled = ImageUriHelper.gameContentLoaded;
-            artifactItemsButton.IsEnabled = ImageUriHelper.gameContentLoaded;
+            meleeItemsButton.IsEnabled = AppModel.gameContentLoaded;
+            rangedItemsButton.IsEnabled = AppModel.gameContentLoaded;
+            armorItemsButton.IsEnabled = AppModel.gameContentLoaded;
+            artifactItemsButton.IsEnabled = AppModel.gameContentLoaded;
         }
 
         private void useGameContentImages()

@@ -10,11 +10,14 @@ using System.Windows.Controls;
 
 namespace MCDSaveEdit
 {
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
+        private readonly AppModel _model = new AppModel();
+
         private Window? _splashWindow = null;
         private Window? _busyWindow = null;
         private bool _askForGameContentLocation = false;
@@ -56,7 +59,7 @@ namespace MCDSaveEdit
         private void load()
         {
             //check default install locations
-            string? paksFolderPath = ImageUriHelper.usableGameContentIfExists();
+            string? paksFolderPath = _model.usableGameContentIfExists();
             if (_askForGameContentLocation || string.IsNullOrWhiteSpace(paksFolderPath))
             {
                 //show dialog asking for install location
@@ -99,7 +102,7 @@ namespace MCDSaveEdit
             showBusyIndicator();
             try
             {
-                await ImageUriHelper.loadGameContentAsync(paksFolderPath);
+                await _model.loadGameContentAsync(paksFolderPath);
             }
             catch (Exception e)
             {
@@ -108,6 +111,7 @@ namespace MCDSaveEdit
                 return;
             }
             await preloadImages();
+            RegistryTools.SaveSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, paksFolderPath);
             showMainWindow();
         }
 
@@ -129,7 +133,7 @@ namespace MCDSaveEdit
 
         private void showMainWindow()
         {
-            EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "gameContentLoaded", ImageUriHelper.gameContentLoaded.ToString() } });
+            EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "gameContentLoaded", AppModel.gameContentLoaded.ToString() } });
             var mainWindow = new MainWindow();
             mainWindow.Width = 1200;
             mainWindow.Height = 675;
