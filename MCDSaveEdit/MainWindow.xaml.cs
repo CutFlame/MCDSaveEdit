@@ -133,7 +133,7 @@ namespace MCDSaveEdit
         private void fillMobKillsStack()
         {
             mobKillsStack.Children.Clear();
-            if (_model?.profile.value == null) { return; }
+            if (_model?.profile.value?.MobKills == null) { return; }
 
             foreach (var pair in _model!.profile.value!.MobKills)
             {
