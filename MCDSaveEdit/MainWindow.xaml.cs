@@ -121,7 +121,7 @@ namespace MCDSaveEdit
         private void fillStatsStack()
         {
             statsStack.Children.Clear();
-            if (_model == null || _model?.profile.value == null) { return; }
+            if (_model?.profile.value?.ProgressStatCounters == null) { return; }
 
             foreach (var pair in _model!.profile.value!.ProgressStatCounters)
             {
