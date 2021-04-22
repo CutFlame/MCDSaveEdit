@@ -7,7 +7,7 @@ namespace MCDSaveEdit
 {
     public static partial class Constants
     {
-        public const string CURRENT_VERSION_NUMBER = "1.3.2";
+        public const string CURRENT_VERSION_NUMBER = "1.3.3";
         public const string LATEST_RELEASE_GITHUB_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
         public const string LATEST_RELEASE_MOD_URL_FORMAT = "https://www.nexusmods.com/minecraftdungeons/mods/{0}?tab=files";
 
@@ -67,7 +67,7 @@ namespace MCDSaveEdit
             }
         }
 
-        //NOTE: default location of save game files: ~\Saved Games\Mojang Studios\Dungeons\2533274911688652\Characters
+        //NOTE: default location of save game files: %home%\Saved Games\Mojang Studios\Dungeons\2533274911688652\Characters
         public static string FILE_DIALOG_INITIAL_DIRECTORY {
             get {
                 var userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
