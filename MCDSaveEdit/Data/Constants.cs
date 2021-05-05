@@ -7,7 +7,7 @@ namespace MCDSaveEdit
 {
     public static partial class Constants
     {
-        public const string CURRENT_VERSION_NUMBER = "1.3.3";
+        public const string CURRENT_VERSION_NUMBER = "1.3.4";
         public const string LATEST_RELEASE_GITHUB_URL = "https://github.com/CutFlame/MCDSaveEdit/releases/latest";
         public const string LATEST_RELEASE_MOD_URL_FORMAT = "https://www.nexusmods.com/minecraftdungeons/mods/{0}?tab=files";
 
@@ -22,10 +22,10 @@ namespace MCDSaveEdit
         public const int MAXIMUM_ENCHANTMENT_TIER = 3;
 
         public const int MINIMUM_CHARACTER_LEVEL = 0;
-        public const int MAXIMUM_CHARACTER_LEVEL = 1000000000;
+        public const int MAXIMUM_CHARACTER_LEVEL = 1_000_000_000;
 
         public const int MINIMUM_ITEM_LEVEL = 0;
-        public const int MAXIMUM_ITEM_LEVEL = 1000000000;
+        public const int MAXIMUM_ITEM_LEVEL = 1_000_000_000;
 
         public const int MAXIMUM_ENCHANTMENT_OPTIONS_PER_ITEM = 9;
 
