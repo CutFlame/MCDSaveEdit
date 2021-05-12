@@ -121,5 +121,32 @@ namespace MCDSaveEditTests
             Assert.AreEqual(54, GameCalculator.powerfulEnchantmentCostForLevel(9));
             Assert.AreEqual(65, GameCalculator.powerfulEnchantmentCostForLevel(10));
         }
+
+        [TestMethod]
+        public void TestCharacterPowerWhereAllEqual()
+        {
+            var data = new[] {
+                0,
+                1, 2, 3, 4, 5, 6, 7, 8, 9,
+                10, 20, 30, 40, 50, 60, 70, 80, 90,
+                100, 200, 300, 400, 500, 600, 700, 800, 900,
+                1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000,
+                10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000,
+            };
+            foreach (var value in data)
+            {
+                Assert.AreEqual(value, GameCalculator.characterPowerFromEquippedItemPowers(value, value, value, value, value, value));
+            }
+        }
+
+        [TestMethod]
+        public void TestCharacterPowerWithSpecificValues()
+        {
+            Assert.AreEqual(69, GameCalculator.characterPowerFromEquippedItemPowers(0, 27, 36, 420, 120, 100), 0.5);
+            Assert.AreEqual(86, GameCalculator.characterPowerFromEquippedItemPowers(100, 27, 36, 420, 120, 0), 0.5);
+            Assert.AreEqual(73, GameCalculator.characterPowerFromEquippedItemPowers(16, 27, 36, 420, 120, 100), 0.5);
+            Assert.AreEqual(25, GameCalculator.characterPowerFromEquippedItemPowers(100, 0, 0, 0, 0, 0), 0.5);
+            Assert.AreEqual(8, GameCalculator.characterPowerFromEquippedItemPowers(0, 0, 0, 0, 0, 100), 0.5);
+        }
     }
 }

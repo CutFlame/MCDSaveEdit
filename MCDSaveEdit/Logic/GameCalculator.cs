@@ -35,5 +35,13 @@ namespace MCDSaveEdit
         {
             return 100 * (level - 1) * (3 * level - 1);
         }
+
+        public static double characterPowerFromEquippedItemPowers(double melee, double armor, double ranged, double slot1, double slot2, double slot3)
+        {
+            var weightedAverage
+                = (melee + armor + ranged) / 4
+                + (slot1 + slot2 + slot3) / 12;
+            return weightedAverage;
+        }
     }
 }

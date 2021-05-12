@@ -157,6 +157,7 @@ namespace MCDSaveEdit
         public async Task handleFileSaveAsync(string? filePath, ProfileSaveFile profile)
         {
             if (filePath == null) { return; }
+            profile.TotalGearPower = profile.computeCharacterPower();
             Console.WriteLine("Writing file: {0}", filePath!);
             if (Path.GetExtension(filePath!) == Constants.DECRYPTED_FILE_EXTENSION)
             {
