@@ -34,7 +34,7 @@ namespace MCDSaveEditTests
             PakFilter? filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
             PakIndex? pakIndex = new PakIndex(path: paksFolderPath!, cacheFiles: true, caseSensitive: true, filter: filter);
             pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRINGS[0].Substring(2).ToBytesKey());
-            Assert.AreEqual(57555, pakIndex.Count());
+            Assert.AreEqual(57557, pakIndex.Count());
 
             var pakImageResolver = new PakImageResolver(pakIndex, null);
             pakImageResolver.loadPakFiles();
