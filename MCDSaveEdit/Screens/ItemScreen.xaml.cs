@@ -226,8 +226,7 @@ namespace MCDSaveEdit
         {
             if (!AppModel.gameContentLoaded) { return; }
             EventLogger.logEvent("armorPropertyButton_Click", new Dictionary<string, object>() { { "armorProperty", armorProperty.Id } });
-            var selectionWindow = new SelectionWindow();
-            selectionWindow.Owner = Application.Current.MainWindow;
+            var selectionWindow = WindowFactory.createSelectionWindow();
             selectionWindow.loadArmorProperties(armorProperty.Id);
             selectionWindow.onSelection = newArmorPropertyId => {
                 this.replaceArmorProperty(armorProperty.Id, newArmorPropertyId);
@@ -410,8 +409,7 @@ namespace MCDSaveEdit
             if(_item == null) { return; }
             if (!AppModel.gameContentLoaded) { return; }
             EventLogger.logEvent("inventoryItemButton_Click", new Dictionary<string, object>() { { "item", _item!.Type } });
-            var selectionWindow = new SelectionWindow();
-            selectionWindow.Owner = Application.Current.MainWindow;
+            var selectionWindow = WindowFactory.createSelectionWindow();
             var filter = getFilter(_item);
             if(filter != ItemFilterEnum.All)
             {

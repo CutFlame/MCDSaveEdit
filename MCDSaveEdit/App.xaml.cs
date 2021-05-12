@@ -5,12 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 #nullable enable
 
 namespace MCDSaveEdit
 {
-
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
@@ -31,7 +29,7 @@ namespace MCDSaveEdit
             EventLogger.init();
             initPakReader();
 
-            _splashWindow = buildSplashWindow();
+            _splashWindow = WindowFactory.createSplashWindow();
             MainWindow = _splashWindow;
             this.MainWindow.Show();
 
@@ -64,9 +62,7 @@ namespace MCDSaveEdit
             {
                 //show dialog asking for install location
                 EventLogger.logEvent("showGameFilesWindow");
-                var gameFilesWindow = new GameFilesWindow(allowNoContent: true);
-                gameFilesWindow.Owner = this.MainWindow;
-                gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                var gameFilesWindow = WindowFactory.createGameFilesWindow(allowNoContent: true);
                 gameFilesWindow.ShowDialog();
                 var gameFilesWindowResult = gameFilesWindow.result;
                 switch (gameFilesWindowResult)
@@ -134,9 +130,7 @@ namespace MCDSaveEdit
         private void showMainWindow()
         {
             EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "gameContentLoaded", AppModel.gameContentLoaded.ToString() } });
-            var mainWindow = new MainWindow();
-            mainWindow.Width = 1200;
-            mainWindow.Height = 675;
+            var mainWindow = WindowFactory.createMainWindow();
             mainWindow.onRelaunch = onRelaunch;
             this.MainWindow = mainWindow;
 
@@ -150,16 +144,14 @@ namespace MCDSaveEdit
         {
             var mainWindow = this.MainWindow;
 
-            _splashWindow = buildSplashWindow();
+            _splashWindow = WindowFactory.createSplashWindow();
             MainWindow = _splashWindow;
             mainWindow.Close();
 
             this.MainWindow.Show();
 
             EventLogger.logEvent("showGameFilesWindow");
-            var gameFilesWindow = new GameFilesWindow(allowNoContent:false);
-            gameFilesWindow.Owner = this.MainWindow;
-            gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var gameFilesWindow = WindowFactory.createGameFilesWindow(allowNoContent: false);
             gameFilesWindow.ShowDialog();
             var gameFilesWindowResult = gameFilesWindow.result;
             switch (gameFilesWindowResult)
@@ -176,37 +168,14 @@ namespace MCDSaveEdit
             }
         }
 
-        private Window buildSplashWindow()
-        {
-            var label = new Label();
-            label.FontSize = 40;
-            label.FontWeight = FontWeights.ExtraBold;
-            label.Content = R.APPLICATION_TITLE;
-
-            var window = new Window();
-            window.SizeToContent = SizeToContent.Width;
-            window.ResizeMode = ResizeMode.NoResize;
-            window.WindowStyle = WindowStyle.None;
-            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            window.Content = label;
-
-            return window;
-        }
-
         private void showBusyIndicator()
         {
             closeBusyIndicator();
 
-            _busyWindow = new Window();
-            _busyWindow.Owner = this.MainWindow;
-            _busyWindow.Height = 200;
-            _busyWindow.Width = 200;
-            _busyWindow.ResizeMode = ResizeMode.NoResize;
-            _busyWindow.WindowStyle = WindowStyle.None;
-            _busyWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _busyWindow.Content = new BusyIndicator();
+            _busyWindow = WindowFactory.createBusyWindow();
             _busyWindow.Show();
         }
+
         private void closeBusyIndicator()
         {
             if (_busyWindow != null)

@@ -111,8 +111,7 @@ namespace MCDSaveEdit
         {
             if (!AppModel.gameContentLoaded) { return; }
             EventLogger.logEvent("netheriteEnchantmentImageButton_Click", new Dictionary<string, object>() { { "enchantment", enchantment?.Id ?? "null" } });
-            var selectionWindow = new SelectionWindow();
-            selectionWindow.Owner = Application.Current.MainWindow;
+            var selectionWindow = WindowFactory.createSelectionWindow();
             selectionWindow.loadEnchantments(enchantment?.Id);
             selectionWindow.onSelection = selectedEnchantmentId;
             selectionWindow.Show();

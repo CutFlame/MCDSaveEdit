@@ -341,8 +341,7 @@ namespace MCDSaveEdit
         private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
             EventLogger.logEvent("aboutMenuItem_Click");
-            var aboutWindow = new AboutWindow();
-            aboutWindow.Owner = this;
+            var aboutWindow = WindowFactory.createAboutWindow();
             aboutWindow.ShowDialog();
         }
 
@@ -447,14 +446,8 @@ namespace MCDSaveEdit
         {
             closeBusyIndicator();
 
-            _busyWindow = new Window();
+            _busyWindow = WindowFactory.createBusyWindow();
             _busyWindow.Owner = this;
-            _busyWindow.Height = 200;
-            _busyWindow.Width = 200;
-            _busyWindow.ResizeMode = ResizeMode.NoResize;
-            _busyWindow.WindowStyle = WindowStyle.None;
-            _busyWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            _busyWindow.Content = new BusyIndicator();
             _busyWindow.Show();
         }
 
