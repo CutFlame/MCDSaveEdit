@@ -493,6 +493,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Power.
+        /// </summary>
+        public static string POWER {
+            get {
+                return ResourceManager.GetString("POWER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Powerful.
         /// </summary>
         public static string POWERFUL {

@@ -309,6 +309,10 @@
     <value>OK</value>
     <comment>OK</comment>
   </data>
+  <data name="POWER" xml:space="preserve">
+    <value>Power</value>
+    <comment>Power</comment>
+  </data>
   <data name="POWERFUL" xml:space="preserve">
     <value>Powerful</value>
     <comment>Powerful</comment>

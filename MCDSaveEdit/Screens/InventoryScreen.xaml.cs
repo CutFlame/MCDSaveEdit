@@ -75,9 +75,8 @@ namespace MCDSaveEdit
 
         private void translateStaticStrings()
         {
-            //"UnlockRequirements_level"
-            //"HUD_Level"
-            levelLabel.Content = R.getString("HUD_Level") ?? R.LEVEL;
+            levelTitleLabel.Content = R.getString("HUD_Level") ?? R.LEVEL;
+            powerTitleLabel.Content = R.getString("gearpower_POWER") ?? R.POWER;
             allItemsButton.Content = R.ALL_ITEMS_FILTER;
             meleeItemsButton.Content = R.MELEE_ITEMS_FILTER;
             rangedItemsButton.Content = R.RANGED_ITEMS_FILTER;
@@ -142,6 +141,8 @@ namespace MCDSaveEdit
                 hotbarSlot2Button.CommandParameter = null;
                 hotbarSlot3ItemControl.item = null;
                 hotbarSlot3Button.CommandParameter = null;
+
+                powerLabel.Content = string.Empty;
                 return;
             }
             var profile = _model!.profile.value!;
@@ -158,6 +159,8 @@ namespace MCDSaveEdit
             hotbarSlot2Button.CommandParameter = hotbarSlot2ItemControl.item;
             hotbarSlot3ItemControl.item = profile.hotbarSlot3Item();
             hotbarSlot3Button.CommandParameter = hotbarSlot3ItemControl.item;
+
+            powerLabel.Content = profile.computeCharacterPower();
         }
 
         private const int ITEMS_PER_ROW = 3;
