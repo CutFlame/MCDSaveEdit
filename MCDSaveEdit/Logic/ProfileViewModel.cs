@@ -108,12 +108,34 @@ namespace MCDSaveEdit
             triggerSubscribersForItem(item);
         }
 
+        public void removeItem(Item item)
+        {
+            if (item == null || profile.value == null) { return; }
+            var inventory = profile.value!.Items.ToList();
+            var index = inventory.IndexOf(item!);
+
+            if(index < 0 || index >= inventory.Count)
+            {
+                EventLogger.logError($"Could not get valid index for item: {item}");
+                return;
+            }
+            inventory.RemoveAt(index);
+            profile.value!.Items = inventory.ToArray();
+
+            triggerSubscribersForItem(item);
+        }
+
         public void saveItem(Item item)
         {
             if (item == null || profile.value == null || selectedItem.value == null) { return; }
             var inventory = profile.value!.Items.ToList();
             var index = inventory.IndexOf(selectedItem.value!);
 
+            if (index < 0 || index >= inventory.Count)
+            {
+                EventLogger.logError($"Could not get valid index for item: {item}");
+                return;
+            }
             inventory.RemoveAt(index);
             inventory.Insert(index, item);
             profile.value!.Items = inventory.ToArray();

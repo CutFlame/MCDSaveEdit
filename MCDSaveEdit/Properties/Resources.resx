@@ -169,6 +169,14 @@
     <value>Decrypted Character Save files</value>
     <comment>Decrypted Character Save files</comment>
   </data>
+  <data name="DELETE" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="DUPLICATE" xml:space="preserve">
+    <value>Duplicate</value>
+    <comment>Duplicate</comment>
+  </data>
   <data name="EMERALDS" xml:space="preserve">
     <value>Emeralds</value>
     <comment>Emeralds</comment>

@@ -24,6 +24,11 @@ namespace MCDSaveEdit
             return enumerable.Take(count - numberToDropFromEnd);
         }
 
+        public static IEnumerable<T> deepClone<T>(this IEnumerable<T> enumerable) where T:ICloneable
+        {
+            return enumerable.Select(element => element.Clone()).Cast<T>();
+        }
+
         public static async Task<string> wgetAsync(string requestUriString)
         {
             try

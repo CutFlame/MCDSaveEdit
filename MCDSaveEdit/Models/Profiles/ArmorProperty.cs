@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 using MCDSaveEdit.Save.Models.Enums;
 
 namespace MCDSaveEdit.Save.Models.Profiles
@@ -10,5 +11,21 @@ namespace MCDSaveEdit.Save.Models.Profiles
 
         [JsonPropertyName("rarity")]
         public Rarity Rarity { get; set; }
+    }
+
+    public partial class Armorproperty : ICloneable
+    {
+        public object Clone()
+        {
+            return Copy();
+        }
+
+        public Armorproperty Copy()
+        {
+            var copy = new Armorproperty();
+            copy.Id = this.Id;
+            copy.Rarity = this.Rarity;
+            return copy;
+        }
     }
 }

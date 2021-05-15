@@ -11,6 +11,10 @@
             <Button x:Name="inventoryItemButton" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Height="150" Margin="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="inventoryItemButton_Click">
                 <Image x:Name="inventoryIconImage" Source="../Images/Armor.png" />
             </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Height="27" Margin="0,180,20,0">
+                <Button x:Name="duplicateItemButton" Content="*Duplicate*" Width="65" Margin="5,0" IsEnabled="false" Click="duplicateItemButton_Click"/>
+                <Button x:Name="deleteItemButton" Content="*Delete*" Width="65" Margin="5,0" IsEnabled="false" Click="deleteItemButton_Click"/>
+            </StackPanel>
             <StackPanel Margin="10,30,170,10">
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="powerTextBox" TextChanged="powerTextBox_TextChanged" Text="1234567890" FontSize="20" HorizontalAlignment="Center" Width="114" Background="{x:Null}" TextAlignment="Right" VerticalContentAlignment="Center"/>

@@ -247,6 +247,8 @@ namespace MCDSaveEdit
 
             selectedItemScreen.selectEnchantment = new RelayCommand<Enchantment>(model.selectEnchantment);
             selectedItemScreen.saveChanges = new RelayCommand<Item>(model.saveItem);
+            selectedItemScreen.duplicateItem = new RelayCommand<Item>(duplicateItem);
+            selectedItemScreen.deleteItem = new RelayCommand<Item>(removeItem);
             selectedItemScreen.addEnchantmentSlot = new RelayCommand<object>(model.addEnchantmentSlot);
             selectedEnchantmentScreen.close = new RelayCommand<Enchantment>(model.selectEnchantment);
             selectedEnchantmentScreen.saveChanges = new RelayCommand<Enchantment>(model.saveEnchantment);
@@ -259,6 +261,20 @@ namespace MCDSaveEdit
             model.profile.subscribe(_ => this.updateUI());
             model.equippedItemList.subscribe(_ => this.updateEnchantmentPointsUI());
             model.filteredItemList.subscribe(_ => this.updateEnchantmentPointsUI());
+        }
+
+        private void duplicateItem(Item item)
+        {
+            model?.selectEnchantment(null);
+            model?.addItem(item);
+            model?.selectItem(item);
+        }
+
+        private void removeItem(Item item)
+        {
+            model?.selectEnchantment(null);
+            model?.selectItem(null);
+            model?.removeItem(item);
         }
 
         #region Version Check

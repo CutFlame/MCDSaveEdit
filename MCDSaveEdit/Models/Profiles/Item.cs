@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 using MCDSaveEdit.Save.Models.Enums;
 
@@ -38,6 +40,29 @@ namespace MCDSaveEdit.Save.Models.Profiles
 
         [JsonPropertyName("upgraded")]
         public bool Upgraded { get; set; }
+    }
 
+    public partial class Item : ICloneable
+    {
+        public object Clone()
+        {
+            return Copy();
+        }
+
+        public Item Copy()
+        {
+            var copy = new Item();
+            //NOTE: deliberately skipping EquipmentSlot and InventoryIndex
+            copy.Armorproperties = this.Armorproperties?.deepClone().ToArray();
+            copy.Enchantments = this.Enchantments?.deepClone().ToArray();
+            copy.Gifted = this.Gifted;
+            copy.MarkedNew = this.MarkedNew;
+            copy.NetheriteEnchant = this.NetheriteEnchant?.Copy();
+            copy.Power = this.Power;
+            copy.Rarity = this.Rarity;
+            copy.Type = this.Type;
+            copy.Upgraded = this.Upgraded;
+            return copy;
+        }
     }
 }

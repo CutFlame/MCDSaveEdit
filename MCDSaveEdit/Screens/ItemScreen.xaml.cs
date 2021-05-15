@@ -37,6 +37,9 @@ namespace MCDSaveEdit
             upgradedButtonCheckBox.Content = R.getString("item_diamond_dust_upgraded") ?? R.UPGRADED;
             giftedButtonCheckBox.Content = R.getString("item_gifted") ?? R.GIFTED;
 
+            duplicateItemButton.Content = R.DUPLICATE;
+            deleteItemButton.Content = R.DELETE;
+
             updateUI();
         }
 
@@ -90,6 +93,8 @@ namespace MCDSaveEdit
                 upgradedButtonCheckBox.IsChecked = false;
                 giftedButton.IsEnabled = false;
                 giftedButtonCheckBox.IsChecked = false;
+                duplicateItemButton.IsEnabled = false;
+                deleteItemButton.IsEnabled = false;
             }
             else
             {
@@ -99,6 +104,8 @@ namespace MCDSaveEdit
                 upgradedButton.IsEnabled = true;
                 giftedButtonCheckBox.IsChecked = _item.Gifted == true;
                 giftedButton.IsEnabled = true;
+                duplicateItemButton.IsEnabled = true;
+                deleteItemButton.IsEnabled = true;
             }
         }
 
@@ -329,6 +336,8 @@ namespace MCDSaveEdit
             throw new NotImplementedException();
         }
 
+        public ICommand? duplicateItem { get; set; }
+        public ICommand? deleteItem { get; set; }
         public ICommand? saveChanges { get; set; }
         public ICommand? selectEnchantment { get; set; }
         public ICommand? addEnchantmentSlot { get; set; }
@@ -421,6 +430,18 @@ namespace MCDSaveEdit
             }
             selectionWindow.onSelection = selectedItemType;
             selectionWindow.Show();
+        }
+
+        private void duplicateItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_item == null) { return; }
+            this.duplicateItem?.Execute(_item.Copy());
+        }
+
+        private void deleteItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_item == null) { return; }
+            this.deleteItem?.Execute(_item);
         }
 
         private ItemFilterEnum getFilter(Item? item)
