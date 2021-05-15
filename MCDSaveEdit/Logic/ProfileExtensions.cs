@@ -58,7 +58,6 @@ namespace MCDSaveEdit.Save.Models.Profiles
             var characterPower = GameCalculator.characterPowerFromEquippedItemPowers(melee, armor, ranged, slot1, slot2, slot3);
             var chacarterDisplayPower = GameCalculator.levelFromPower(characterPower);
             return chacarterDisplayPower;
-
         }
         public static int remainingEnchantmentPoints(this ProfileSaveFile profile)
         {

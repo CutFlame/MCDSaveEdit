@@ -16,6 +16,7 @@ namespace MCDSaveEdit
     public partial class InventoryScreen : UserControl
     {
         private static readonly BitmapImage? _levelFrameImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_LV_frame");
+        private static readonly BitmapImage? _powerFrameImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Power/gearstrenght_icon");
         private static readonly BitmapImage? _allItemsButtonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_all_default");
         private static readonly BitmapImage? _meleeItemsButtonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee_default");
         private static readonly BitmapImage? _rangedItemsButtonImageSource = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged_default");
@@ -54,6 +55,7 @@ namespace MCDSaveEdit
         private void useGameContentImages()
         {
             levelLabelImage.Source = _levelFrameImageSource;
+            powerLabelImage.Source = _powerFrameImageSource;
 
             tryLoadAndSetImage(allItemsButton, _allItemsButtonImageSource);
             tryLoadAndSetImage(meleeItemsButton, _meleeItemsButtonImageSource);
