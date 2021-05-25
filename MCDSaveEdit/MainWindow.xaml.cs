@@ -266,7 +266,7 @@ namespace MCDSaveEdit
         private void duplicateItem(Item item)
         {
             model?.selectEnchantment(null);
-            model?.addItem(item);
+            model?.addItemToInventory(item);
             model?.selectItem(item);
         }
 

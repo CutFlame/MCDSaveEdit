@@ -67,7 +67,7 @@ namespace MCDSaveEdit
             }
         }
 
-        //NOTE: default location of save game files: %home%\Saved Games\Mojang Studios\Dungeons\2533274911688652\Characters
+        //NOTE: default location of save game files: %userprofile%\Saved Games\Mojang Studios\Dungeons\2533274911688652\Characters
         public static string FILE_DIALOG_INITIAL_DIRECTORY {
             get {
                 var userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

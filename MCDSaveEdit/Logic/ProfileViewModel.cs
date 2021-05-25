@@ -96,7 +96,18 @@ namespace MCDSaveEdit
             _selectedItem.value = item;
         }
 
-        public void addItem(Item item)
+        public void addEquippedItem(Item item)
+        {
+            if (item == null || profile.value == null) { return; }
+            var inventory = profile.value!.Items.ToList();
+            inventory.Add(item);
+            profile.value!.Items = inventory.ToArray();
+
+            triggerSubscribersForItem(item);
+        }
+
+
+        public void addItemToInventory(Item item)
         {
             if (item == null || profile.value == null) { return; }
             var inventory = profile.value!.Items.ToList();
