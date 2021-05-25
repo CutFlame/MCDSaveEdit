@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Core\StreamExtensions.cs" />
     <Compile Include="Data\Config.cs" />
+    <Compile Include="Data\Constants.FileSystemData.cs" />
     <Compile Include="Data\Constants.MapData.cs" />
     <Compile Include="GameFilesWindow.xaml.cs">
       <DependentUpon>GameFilesWindow.xaml</DependentUpon>
@@ -319,6 +320,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Include="Data\Constants.ItemData.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

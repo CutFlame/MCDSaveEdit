@@ -346,9 +346,10 @@ namespace MCDSaveEdit
             model?.addEquippedItem(item);
             model?.selectItem(item);
         }
+
         private Item createDefaultItemForEquipmentSlot(EquipmentSlotEnum equipmentSlot)
         {
-            var itemID = defaultItemIDForEquipmentSlot(equipmentSlot);
+            var itemID = Constants.defaultItemIDForEquipmentSlot(equipmentSlot);
             return new Item() {
                 MarkedNew = true,
                 Upgraded = false,
@@ -357,20 +358,6 @@ namespace MCDSaveEdit
                 Type = itemID,
                 EquipmentSlot = equipmentSlot.ToString(),
             };
-        }
-        private string defaultItemIDForEquipmentSlot(EquipmentSlotEnum equipmentSlot)
-        {
-            switch (equipmentSlot)
-            {
-                case EquipmentSlotEnum.MeleeGear: return defaultItemIDForFilter(ItemFilterEnum.MeleeWeapons);
-                case EquipmentSlotEnum.ArmorGear: return defaultItemIDForFilter(ItemFilterEnum.Armor);
-                case EquipmentSlotEnum.RangedGear: return defaultItemIDForFilter(ItemFilterEnum.RangedWeapons);
-                case EquipmentSlotEnum.HotbarSlot1:
-                case EquipmentSlotEnum.HotbarSlot2:
-                case EquipmentSlotEnum.HotbarSlot3:
-                    return defaultItemIDForFilter(ItemFilterEnum.Artifacts);
-            }
-            throw new ArgumentException($"Invalid equipmentSlot value {equipmentSlot}", "equipmentSlot");
         }
 
         private void addNewItemButton_Click(ItemFilterEnum? currentFilter)
@@ -384,7 +371,7 @@ namespace MCDSaveEdit
 
         private Item createDefaultItemForFilter(ItemFilterEnum filter)
         {
-            var itemID = defaultItemIDForFilter(filter);
+            var itemID = Constants.defaultItemIDForFilter(filter);
             return new Item() {
                 MarkedNew = true,
                 Upgraded = false,
@@ -392,18 +379,6 @@ namespace MCDSaveEdit
                 Rarity = Rarity.Common,
                 Type = itemID,
             };
-        }
-
-        private string defaultItemIDForFilter(ItemFilterEnum filter)
-        {
-            switch (filter)
-            {
-                case ItemFilterEnum.MeleeWeapons: return Constants.DEFAULT_MELEE_WEAPON_ID;
-                case ItemFilterEnum.Armor: return Constants.DEFAULT_ARMOR_ID;
-                case ItemFilterEnum.RangedWeapons: return Constants.DEFAULT_RANGED_WEAPON_ID;
-                case ItemFilterEnum.Artifacts: return Constants.DEFAULT_ARTIFACT_ID;
-            }
-            throw new ArgumentException($"Invalid filter value {filter}", "filter");
         }
 
         private void levelTextBox_TextChanged(object sender, TextChangedEventArgs e)
