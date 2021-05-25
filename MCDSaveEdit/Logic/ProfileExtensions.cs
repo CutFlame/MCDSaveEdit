@@ -7,6 +7,10 @@ namespace MCDSaveEdit.Save.Models.Profiles
 {
     public static class ProfileExtensions
     {
+        public static bool isValid(this ProfileSaveFile profile)
+        {
+            return profile.Items != null;
+        }
         public static Item meleeGearItem(this ProfileSaveFile profile)
         {
             return profile.equipmentSlot(EquipmentSlotEnum.MeleeGear);

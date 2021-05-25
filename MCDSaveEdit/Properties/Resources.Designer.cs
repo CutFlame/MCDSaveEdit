@@ -124,6 +124,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Character File format not recognized. Please select a valid Character File..
+        /// </summary>
+        public static string CHARACTER_FILE_FORMAT_NOT_RECOGNIZED_ERROR_MESSAGE {
+            get {
+                return ResourceManager.GetString("CHARACTER_FILE_FORMAT_NOT_RECOGNIZED_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common.
         /// </summary>
         public static string COMMON {

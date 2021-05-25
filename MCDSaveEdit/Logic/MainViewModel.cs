@@ -140,6 +140,11 @@ namespace MCDSaveEdit
             {
                 stream.Seek(0, SeekOrigin.Begin);
                 var profile = await ProfileParser.Read(stream);
+                if(!profile.isValid())
+                {
+                    showError?.Invoke(R.CHARACTER_FILE_FORMAT_NOT_RECOGNIZED_ERROR_MESSAGE);
+                    return null;
+                }
                 return profile;
             }
             catch (Exception e)

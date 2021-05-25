@@ -145,6 +145,10 @@
     <value>Cancel</value>
     <comment>Cancel</comment>
   </data>
+  <data name="CHARACTER_FILE_FORMAT_NOT_RECOGNIZED_ERROR_MESSAGE" xml:space="preserve">
+    <value>Character File format not recognized. Please select a valid Character File.</value>
+    <comment>Character File format not recognized. Please select a valid Character File.</comment>
+  </data>
   <data name="COMMON" xml:space="preserve">
     <value>Common</value>
     <comment>Common</comment>
