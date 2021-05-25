@@ -75,14 +75,14 @@ namespace MCDSaveEditTests
             foreach (var pair in data)
             {
                 Assert.AreEqual(pair.Item2, GameCalculator.levelFromPower(pair.Item1));
-                //Assert.AreEqual(pair.Item1, GameCalculator.powerFromLevel(pair.Item2));
+                Assert.AreEqual(pair.Item1, GameCalculator.powerFromLevel(pair.Item2), 0.1);
             }
         }
 
         [TestMethod]
         public void TestLevelToPowerToLevel()
         {
-            for(int i=1; i<1_000_000; i++)
+            for(int i=0; i<1_000_000; i++)
             {
                 var power = GameCalculator.powerFromLevel(i);
                 var level = GameCalculator.levelFromPower(power);
@@ -147,6 +147,9 @@ namespace MCDSaveEditTests
             Assert.AreEqual(73, GameCalculator.characterPowerFromEquippedItemPowers(16, 27, 36, 420, 120, 100), 0.5);
             Assert.AreEqual(25, GameCalculator.characterPowerFromEquippedItemPowers(100, 0, 0, 0, 0, 0), 0.5);
             Assert.AreEqual(8, GameCalculator.characterPowerFromEquippedItemPowers(0, 0, 0, 0, 0, 100), 0.5);
+            Assert.AreEqual(0, GameCalculator.characterPowerFromEquippedItemPowers(0, 0, 0, 0, 0, 0), 0.5);
+            Assert.AreEqual(1, GameCalculator.levelFromPower(GameCalculator.characterPowerFromEquippedItemPowers(GameCalculator.powerFromLevel(1), 0, GameCalculator.powerFromLevel(1), 0, 0, 0)), 0.5);
+            Assert.AreEqual(1, GameCalculator.levelFromPower(GameCalculator.characterPowerFromEquippedItemPowers(0, 0, 0, GameCalculator.powerFromLevel(1), 0, 0)), 0.5);
         }
     }
 }

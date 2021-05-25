@@ -9,6 +9,7 @@ namespace MCDSaveEdit
             if (level == 0) return 0;
             return (level * (level + 1)) / 2;
         }
+
         public static int powerfulEnchantmentCostForLevel(int level)
         {
             if (level == 0) return 0;
@@ -17,12 +18,14 @@ namespace MCDSaveEdit
 
         public static int levelFromPower(double power)
         {
-            return (int)Math.Floor((power - 1 + 0.00001) * 10) + 1;
+            if (power <= 0) return 0;
+            return (int)Math.Floor((Math.Max(1, power) - 1 + 0.00001) * 10) + 1;
         }
 
         public static double powerFromLevel(int level)
         {
-            return (((level - 1) / 10.0) + 1) + 0.00001; //not sure if this last part is needed
+            if (level <= 0) return 0;
+            return ((Math.Max(1, level) - 1) / 10.0) + 1 + 0.00001; //not sure if this last part is needed
         }
 
         public static int levelForExperience(long xp)
