@@ -435,12 +435,14 @@ namespace MCDSaveEdit
         private void duplicateItemButton_Click(object sender, RoutedEventArgs e)
         {
             if (_item == null) { return; }
+            EventLogger.logEvent("duplicateItemButton_Click", new Dictionary<string, object>() { { "item", _item!.Type } });
             this.duplicateItem?.Execute(_item.Copy());
         }
 
         private void deleteItemButton_Click(object sender, RoutedEventArgs e)
         {
             if (_item == null) { return; }
+            EventLogger.logEvent("deleteItemButton_Click", new Dictionary<string, object>() { { "item", _item!.Type } });
             this.deleteItem?.Execute(_item);
         }
 

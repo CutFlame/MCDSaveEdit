@@ -341,7 +341,7 @@ namespace MCDSaveEdit
 
         private void addNewEquippedItemButton_Click(EquipmentSlotEnum equipmentSlot)
         {
-            EventLogger.logEvent("addNewItemButton_Click", new Dictionary<string, object>() { { "equipmentSlot", equipmentSlot.ToString() } });
+            EventLogger.logEvent("addNewEquippedItemButton_Click", new Dictionary<string, object>() { { "equipmentSlot", equipmentSlot.ToString() } });
             var item = createDefaultItemForEquipmentSlot(equipmentSlot);
             model?.addEquippedItem(item);
             model?.selectItem(item);
