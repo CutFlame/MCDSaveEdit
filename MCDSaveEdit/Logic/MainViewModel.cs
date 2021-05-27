@@ -27,8 +27,8 @@ namespace MCDSaveEdit
             // Reload items from the registry.
             for (int i = 0; i < Constants.MAX_RECENT_FILES; i++)
             {
-                string file_name = (string)RegistryTools.GetSetting(Constants.APPLICATION_NAME, "FilePath" + i.ToString(), "");
-                if (file_name != "")
+                string file_name = (string)RegistryTools.GetSetting(Constants.APPLICATION_NAME, "FilePath" + i.ToString(), string.Empty);
+                if (!string.IsNullOrWhiteSpace(file_name))
                 {
                     _recentFilesInfos.Add(new FileInfo(file_name));
                 }

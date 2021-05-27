@@ -412,6 +412,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Launch with no game content and limited features?.
+        /// </summary>
+        public static string LAUNCH_WITH_LIMITED_FEATURES_QUESTION {
+            get {
+                return ResourceManager.GetString("LAUNCH_WITH_LIMITED_FEATURES_QUESTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string LEVEL {
@@ -516,6 +525,15 @@ namespace MCDSaveEdit.Properties {
         public static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please make sure you have the latest version..
+        /// </summary>
+        public static string PLEASE_HAVE_LATEST_VERSION {
+            get {
+                return ResourceManager.GetString("PLEASE_HAVE_LATEST_VERSION", resourceCulture);
             }
         }
         

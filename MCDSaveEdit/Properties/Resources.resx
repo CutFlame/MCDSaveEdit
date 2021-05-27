@@ -273,6 +273,10 @@
     <value>Jungle Awakens</value>
     <comment>Jungle Awakens</comment>
   </data>
+  <data name="LAUNCH_WITH_LIMITED_FEATURES_QUESTION" xml:space="preserve">
+    <value>Launch with no game content and limited features?</value>
+    <comment>Launch with no game content and limited features?</comment>
+  </data>
   <data name="LEVEL" xml:space="preserve">
     <value>Level</value>
     <comment>Level</comment>
@@ -320,6 +324,10 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
     <comment>OK</comment>
+  </data>
+  <data name="PLEASE_HAVE_LATEST_VERSION" xml:space="preserve">
+    <value>Please make sure you have the latest version.</value>
+    <comment>Please make sure you have the latest version.</comment>
   </data>
   <data name="POWER" xml:space="preserve">
     <value>Power</value>

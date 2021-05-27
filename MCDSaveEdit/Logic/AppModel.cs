@@ -1,9 +1,11 @@
-﻿using PakReader;
+﻿using FModel;
+using PakReader;
 using PakReader.Pak;
 using PakReader.Parsers.Objects;
 using SkiaSharp;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -15,10 +17,15 @@ namespace MCDSaveEdit
     {
         public static IImageResolver instance = new LocalImageResolver();
 
+        public void initPakReader()
+        {
+            Globals.Game = new FGame(EGame.MinecraftDungeons, EPakVersion.FNAME_BASED_COMPRESSION_METHOD);
+        }
+
         public string? usableGameContentIfExists()
         {
-            string? registryPath = RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, "") as string;
-            if (!string.IsNullOrWhiteSpace(registryPath))
+            string? registryPath = RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, string.Empty) as string;
+            if (!string.IsNullOrWhiteSpace(registryPath) && Directory.Exists(registryPath))
             {
                 return registryPath;
             }
@@ -38,16 +45,20 @@ namespace MCDSaveEdit
         }
 
         public static bool gameContentLoaded { get; private set; } = false;
+
         public async Task loadGameContentAsync(string paksFolderPath)
         {
             var pakIndex = await loadPakIndex(paksFolderPath);
-            if (pakIndex != null)
+            if (pakIndex == null)
             {
-                var pakImageResolver = new PakImageResolver(pakIndex, paksFolderPath);
-                await pakImageResolver.loadPakFilesAsync(preloadBitmaps: false);
-                instance = pakImageResolver;
-                gameContentLoaded = true;
+                throw new NullReferenceException($"PakIndex is null. Cannot Continue.");
             }
+            var pakImageResolver = new PakImageResolver(pakIndex!, paksFolderPath);
+            await pakImageResolver.loadPakFilesAsync(preloadBitmaps: false);
+            instance = pakImageResolver;
+            gameContentLoaded = true;
+
+            RegistryTools.SaveSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, paksFolderPath!);
         }
 
         private static Task<PakIndex?> loadPakIndex(string paksFolderPath)
@@ -59,9 +70,13 @@ namespace MCDSaveEdit
                 {
                     var filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
                     var pakIndex = new PakIndex(path: paksFolderPath, cacheFiles: true, caseSensitive: true, filter: filter);
+                    if(pakIndex.PakFileCount == 0)
+                    {
+                        throw new FileNotFoundException($"No files were found at {paksFolderPath}");
+                    }
                     if (!unlockPakIndex(pakIndex))
                     {
-                        throw new ArgumentException($"Could not decrypt pak files at {paksFolderPath}", "paksFolderPath");
+                        throw new InvalidOperationException($"Could not decrypt pak files at {paksFolderPath}");
                     }
                     tcs.SetResult(pakIndex);
                 }
@@ -94,6 +109,18 @@ namespace MCDSaveEdit
                 }
             }
             return false;
+        }
+
+        public void unloadGameContent()
+        {
+            //Clear the path saved in the registry
+            RegistryTools.DeleteSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY);
+
+            if (gameContentLoaded)
+            {
+                gameContentLoaded = false;
+                instance = new LocalImageResolver();
+            }
         }
 
         public static BitmapImage bitmapImageFromSKBitmap(SKBitmap image) => bitmapImageFromSKImage(SKImage.FromBitmap(image));

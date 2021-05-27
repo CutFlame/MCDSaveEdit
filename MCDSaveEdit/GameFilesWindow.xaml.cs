@@ -24,19 +24,19 @@ namespace MCDSaveEdit
         public GameFilesWindowResult result { get; private set; }
         public Action? onClose;
 
-        public GameFilesWindow(bool allowNoContent)
+        public GameFilesWindow(string? defaultPath, bool allowNoContent)
         {
             InitializeComponent();
-            setConstantStrings(allowNoContent);
+            setConstantStrings(defaultPath, allowNoContent);
         }
 
-        private void setConstantStrings(bool allowNoContent)
+        private void setConstantStrings(string? defaultPath, bool allowNoContent)
         {
             Title = R.GAME_FILES_WINDOW_TITLE;
             messageTextBlock.Text = R.GAME_FILES_WINDOW_MESSAGE;
             gameFilesGroupBox.Header = R.GAME_FILES_WINDOW_GROUPBOX_HEADER;
             pathLabel.Content = R.GAME_FILES_WINDOW_TEXTBOX_LABEL;
-            pathTextBox.Text = string.Empty;
+            pathTextBox.Text = defaultPath ?? string.Empty;
             exitButton.Content = R.EXIT;
             okButton.Content = R.OK;
             if(allowNoContent)

@@ -52,7 +52,7 @@ namespace MCDSaveEdit
             translateStaticStrings();
 
             _mainModel.showError = showError;
-            gameFilesLocationMenuItem.Header = AppModel.instance.path;
+            gameFilesLocationMenuItem.Header = AppModel.instance.path ?? R.GAME_FILES_WINDOW_NO_CONTENT_BUTTON;
 
             refreshRecentFilesList();
             if (AppModel.gameContentLoaded)

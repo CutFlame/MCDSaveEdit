@@ -1,6 +1,4 @@
-﻿using FModel;
-using PakReader.Parsers.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,28 +16,23 @@ namespace MCDSaveEdit
 
         private Window? _splashWindow = null;
         private Window? _busyWindow = null;
-        private bool _askForGameContentLocation = false;
-        private bool _skipGameContent = false;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            _askForGameContentLocation = e.Args.Contains("ASK_FOR_GAME_CONTENT_LOCATION");
-            _skipGameContent = e.Args.Contains("SKIP_GAME_CONTENT");
+            bool askForGameContentLocation = e.Args.Contains("ASK_FOR_GAME_CONTENT_LOCATION");
+            bool skipGameContent = e.Args.Contains("SKIP_GAME_CONTENT");
             EventLogger.init();
-            initPakReader();
 
-            _splashWindow = WindowFactory.createSplashWindow();
-            MainWindow = _splashWindow;
-            this.MainWindow.Show();
+            showSplashWindowReplacingOldWindow();
 
-            if (_skipGameContent)
+            if (skipGameContent)
             {
                 showMainWindow();
             }
             else
             {
-                load();
+                loadAsync(askForGameContentLocation);
             }
         }
 
@@ -49,66 +42,81 @@ namespace MCDSaveEdit
             base.OnExit(e);
         }
 
-        private void initPakReader()
+        private async void loadAsync(bool askForGameContentLocation)
         {
-            Globals.Game = new FGame(EGame.MinecraftDungeons, EPakVersion.FNAME_BASED_COMPRESSION_METHOD);
-        }
-
-        private void load()
-        {
+            bool canContinue = true;
             //check default install locations
             string? paksFolderPath = _model.usableGameContentIfExists();
-            if (_askForGameContentLocation || string.IsNullOrWhiteSpace(paksFolderPath))
+            if (askForGameContentLocation || string.IsNullOrWhiteSpace(paksFolderPath))
             {
                 //show dialog asking for install location
-                EventLogger.logEvent("showGameFilesWindow");
-                var gameFilesWindow = WindowFactory.createGameFilesWindow(allowNoContent: true);
-                gameFilesWindow.ShowDialog();
-                var gameFilesWindowResult = gameFilesWindow.result;
-                switch (gameFilesWindowResult)
+                canContinue = showGameFilesWindow(ref paksFolderPath);
+            }
+
+            if (!string.IsNullOrWhiteSpace(paksFolderPath))
+            {
+                try
                 {
-                    case GameFilesWindow.GameFilesWindowResult.exit:
-                        this.Shutdown();
-                        break;
-                    case GameFilesWindow.GameFilesWindowResult.useSelectedPath:
-                        loadGameContentAsync(gameFilesWindow.selectedPath!);
-                        break;
-                    case GameFilesWindow.GameFilesWindowResult.noContent:
-                        showMainWindow();
-                        break;
+                    await loadGameContentAsync(paksFolderPath!);
+                }
+                catch (Exception e)
+                {
+                    //Clear the path saved in the registry because it might be the cause of the exception
+                    _model.unloadGameContent();
+
+                    var title = $"{Constants.APPLICATION_NAME} {Constants.CURRENT_VERSION_NUMBER} - {R.ERROR}";
+                    var message = $"{e.Message}\n\n{R.PLEASE_HAVE_LATEST_VERSION}\n\n{R.LAUNCH_WITH_LIMITED_FEATURES_QUESTION}";
+                    var result = MessageBox.Show(message, title, MessageBoxButton.YesNo);
+                    canContinue = result == MessageBoxResult.Yes || result == MessageBoxResult.OK;
                 }
             }
             else
             {
-                try
-                {
-                    loadGameContentAsync(paksFolderPath!);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show($"{e.Message}\n{e.StackTrace}", R.ERROR);
-                    this.Shutdown();
-                    return;
-                }
+                //Clear the path saved in the registry
+                _model.unloadGameContent();
             }
-        }
 
-        private async void loadGameContentAsync(string paksFolderPath)
-        {
-            showBusyIndicator();
-            try
+            if (!canContinue)
             {
-                await _model.loadGameContentAsync(paksFolderPath);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"{e.Message}\n{e.StackTrace}", R.ERROR);
+                //User opted to Exit
+                _splashWindow?.Close();
+                closeBusyIndicator();
+                this.MainWindow?.Close();
                 this.Shutdown();
                 return;
             }
-            await preloadImages();
-            RegistryTools.SaveSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, paksFolderPath);
+
             showMainWindow();
+        }
+
+        private bool showGameFilesWindow(ref string? selectedPath)
+        {
+            EventLogger.logEvent("showGameFilesWindow");
+            var gameFilesWindow = WindowFactory.createGameFilesWindow(selectedPath, allowNoContent: true);
+            gameFilesWindow.ShowDialog();
+            var gameFilesWindowResult = gameFilesWindow.result;
+            switch (gameFilesWindowResult)
+            {
+                case GameFilesWindow.GameFilesWindowResult.exit:
+                    selectedPath = null;
+                    return false;
+                case GameFilesWindow.GameFilesWindowResult.useSelectedPath:
+                    selectedPath = gameFilesWindow.selectedPath!;
+                    return true;
+                case GameFilesWindow.GameFilesWindowResult.noContent:
+                    selectedPath = null;
+                    return true;
+            }
+            throw new NotImplementedException();
+        }
+
+        private async Task<bool> loadGameContentAsync(string paksFolderPath)
+        {
+            showBusyIndicator();
+            _model.initPakReader();
+            await _model.loadGameContentAsync(paksFolderPath);
+            await preloadImages();
+            return true;
         }
 
         private Task<bool> preloadImages()
@@ -142,30 +150,17 @@ namespace MCDSaveEdit
 
         private void onRelaunch()
         {
-            var mainWindow = this.MainWindow;
+            showSplashWindowReplacingOldWindow();
+            loadAsync(true);
+        }
 
+        private void showSplashWindowReplacingOldWindow()
+        {
+            var oldMainWindow = this.MainWindow;
             _splashWindow = WindowFactory.createSplashWindow();
             MainWindow = _splashWindow;
-            mainWindow.Close();
-
+            oldMainWindow?.Close();
             this.MainWindow.Show();
-
-            EventLogger.logEvent("showGameFilesWindow");
-            var gameFilesWindow = WindowFactory.createGameFilesWindow(allowNoContent: false);
-            gameFilesWindow.ShowDialog();
-            var gameFilesWindowResult = gameFilesWindow.result;
-            switch (gameFilesWindowResult)
-            {
-                case GameFilesWindow.GameFilesWindowResult.exit:
-                    this.Shutdown();
-                    break;
-                case GameFilesWindow.GameFilesWindowResult.useSelectedPath:
-                    loadGameContentAsync(gameFilesWindow.selectedPath!);
-                    break;
-                case GameFilesWindow.GameFilesWindowResult.noContent:
-                    showMainWindow();
-                    break;
-            }
         }
 
         private void showBusyIndicator()

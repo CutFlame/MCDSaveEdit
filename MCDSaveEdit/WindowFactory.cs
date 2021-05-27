@@ -36,9 +36,9 @@ namespace MCDSaveEdit
             return busyWindow;
         }
 
-        public static GameFilesWindow createGameFilesWindow(bool allowNoContent)
+        public static GameFilesWindow createGameFilesWindow(string? defaultPath, bool allowNoContent)
         {
-            var gameFilesWindow = new GameFilesWindow(allowNoContent: allowNoContent);
+            var gameFilesWindow = new GameFilesWindow(defaultPath, allowNoContent: allowNoContent);
             gameFilesWindow.Owner = Application.Current.MainWindow;
             gameFilesWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             return gameFilesWindow;
