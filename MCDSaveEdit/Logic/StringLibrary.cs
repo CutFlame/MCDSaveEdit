@@ -85,6 +85,8 @@ namespace MCDSaveEdit
             { "TrickBow","Trickbow" },
             { "TrickBow_Unique1","Trickbow_Unique1" },
             { "TrickBow_Unique2","Trickbow_Unique2" },
+            { "TrickBow_Year1","Trickbow_Year1" },
+            { "Flavour_TrickBow_Year1","Flavour_Trickbow_Year1" },
             { "Flavour_LongBow_Unique1","Flavour_Longbow_Unique1" },
             { "Flavour_LongBow_Unique2","Flavour_Longbow_Unique2" },
             { "Flavour_PowerBow","Flavour_Powerbow" },
@@ -106,6 +108,14 @@ namespace MCDSaveEdit
             { "EmeraldArmor_Unique2","Emerald_Armor_Unique2" },
             { "Flavour_ClimbingGear_Unique1","Flavour_ClimbingGearSolid" },
             { "Flavour_ThunderingQuiver","Flavour_ThunderQuiver" },
+            { "Flavour_Anchor","Flavour_Anchor_Unique1" },
+            { "Flavour_CoralBlade","Flavour_CoralBlade_Unique1" },
+            { "Flavour_HarpoonCrossbow","Flavour_HarpoonCrossbow_Unique1" },
+            { "Flavour_WaterBreathingPotion","Desc_WaterBreathingPotion" },
+            { "SatchelofNeed","SatchelOfNeed" },
+            { "Flavour_SatchelofNeed","Flavour_SatchelOfNeed" },
+            { "SatchelofNourishment","Desc_SatchelOfNourishment" },
+            { "Flavour_SatchelofNourishment","Flavour_SatchelOfNourishment" },
 
             { "ReviveChance","Unset" }, //missing
             { "ReviveChance_description","Unset" }, //missing
@@ -116,6 +126,8 @@ namespace MCDSaveEdit
             { "SlowResistance","FreezingResistance" },
             { "SlowResistance_description","FreezingResistance_description" },
             { "Reckless_desc","ShardArmor_desc" },
+            { "Flee_desc","Flee_effect_desc" },
+            { "ReliableRicochet_desc","Ricochet_desc" },
 
             { "underhalls_name","highblockhallsbonus_name" },
             { "lowertemple_name","deserttemplebonus_name" },

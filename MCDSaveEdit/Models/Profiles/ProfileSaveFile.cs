@@ -20,6 +20,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("creationDate")]
         public string CreationDate { get; set; }
 
+        [JsonPropertyName("currenciesFound")]
+        public string[] CurrenciesFound { get; set; }
+
         [JsonPropertyName("currency")]
         public Currency[] Currency { get; set; }
 
@@ -40,6 +43,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
 
         [JsonPropertyName("itemsFound")]
         public string[] ItemsFound { get; set; }
+
+        [JsonPropertyName("legendaryStatus")]
+        public double? LegendaryStatus { get; set; }
 
         [JsonPropertyName("lobbychest_progress")]
         public Dictionary<string, LobbychestProgress> LobbychestProgress { get; set; }
@@ -62,6 +68,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
 
         [JsonPropertyName("pendingRewardItem")]
         public object PendingRewardItem { get; set; }
+        
+        [JsonPropertyName("pendingRewardItems")]
+        public object PendingRewardItems { get; set; }
 
         [JsonPropertyName("playerId")]
         public string PlayerId { get; set; }
