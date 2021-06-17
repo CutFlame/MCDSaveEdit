@@ -482,9 +482,8 @@ namespace MCDSaveEdit
             {
                 if (_item == null)
                 {
-                    Debug.WriteLine("This should not happen");
-                    EventLogger.logError("_item was null when itemType was not null");
-                    throw new Exception();
+                    MessageBox.Show(R.ITEM_WAS_DELETED_ERROR_MESSAGE, R.ERROR);
+                    return;
                 }
                 else
                 {
