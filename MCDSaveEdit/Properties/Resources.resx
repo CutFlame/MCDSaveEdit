@@ -141,6 +141,14 @@
     <value>Artifact</value>
     <comment>Artifact</comment>
   </data>
+  <data name="BETA_UPDATE_MENU_ITEM_HEADER" xml:space="preserve">
+    <value>Beta _Update</value>
+    <comment>Beta _Update</comment>
+  </data>
+  <data name="BETA_VERSION_LABEL" xml:space="preserve">
+    <value>Beta</value>
+    <comment>Beta</comment>
+  </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Cancel</value>
     <comment>Cancel</comment>
@@ -269,6 +277,10 @@
     <value>Items: {0}/{1} Max</value>
     <comment>Items: {0}/{1} Max</comment>
   </data>
+  <data name="ITEM_WAS_DELETED_ERROR_MESSAGE" xml:space="preserve">
+    <value>Item was deleted.</value>
+    <comment>Item was deleted.</comment>
+  </data>
   <data name="JUNGLE_AWAKENS" xml:space="preserve">
     <value>Jungle Awakens</value>
     <comment>Jungle Awakens</comment>
@@ -325,6 +337,10 @@
     <value>OK</value>
     <comment>OK</comment>
   </data>
+  <data name="OLD_VERSION_LABEL" xml:space="preserve">
+    <value>Old</value>
+    <comment>Old</comment>
+  </data>
   <data name="PLEASE_HAVE_LATEST_VERSION" xml:space="preserve">
     <value>Please make sure you have the latest version.</value>
     <comment>Please make sure you have the latest version.</comment>
@@ -377,6 +393,14 @@
     <value>Select Ranged Weapon</value>
     <comment>Select Ranged Weapon</comment>
   </data>
+  <data name="STABLE_UPDATE_MENU_ITEM_HEADER" xml:space="preserve">
+    <value>_Update</value>
+    <comment>_Update</comment>
+  </data>
+  <data name="STABLE_VERSION_LABEL" xml:space="preserve">
+    <value>Stable</value>
+    <comment>Stable</comment>
+  </data>
   <data name="STATS_COUNTERS" xml:space="preserve">
     <value>Stats/Counters</value>
     <comment>Stats/Counters</comment>
@@ -389,12 +413,16 @@
     <value>Unique</value>
     <comment>Unique</comment>
   </data>
+  <data name="UNRELEASED_VERSION_LABEL" xml:space="preserve">
+    <value>Unreleased</value>
+    <comment>Unreleased</comment>
+  </data>
   <data name="UPGRADED" xml:space="preserve">
     <value>Upgraded</value>
     <comment>Upgraded</comment>
   </data>
   <data name="VERSION_FORMAT" xml:space="preserve">
-    <value>Version: {0}</value>
-    <comment>Version: {0}</comment>
+    <value>Version: {0} {1}</value>
+    <comment>Version: {0} {1}</comment>
   </data>
 </root>

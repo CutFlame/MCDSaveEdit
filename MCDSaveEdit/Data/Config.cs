@@ -11,6 +11,13 @@ namespace MCDSaveEdit
     {
         public static Config instance = new GameAnalyticsRemoteConfig();
 
+        public Config()
+        {
+            _ = downloadAsync();
+        }
+
+        public bool isConfigsReady { get; protected set; }
+
         public bool showInventoryIndexOrEquipmentSlot {
             get {
 #if DEBUG
@@ -21,64 +28,95 @@ namespace MCDSaveEdit
             }
         }
 
-        public virtual async Task<bool> isNewVersionAvailable()
-        {
-            string latest = await latestReleaseVersionString();
-            return string.IsNullOrWhiteSpace(latest) || Constants.CURRENT_VERSION_NUMBER.Equals(latest);
-        }
+        public string? stableReleaseVersionString { get; protected set; }
+        public string? betaReleaseVersionString { get; protected set; }
 
-        public virtual async Task<string> latestReleaseVersionString()
+        protected virtual async Task downloadAsync()
         {
             //Using GitHub
             try
             {
                 var request = WebRequest.Create(Constants.LATEST_RELEASE_GITHUB_URL);
                 using var response = await request.GetResponseAsync();
-                return response.ResponseUri.Segments.Last();
+                stableReleaseVersionString = response.ResponseUri.Segments.Last();
+                betaReleaseVersionString = string.Empty;
+                isConfigsReady = true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            return string.Empty;
         }
 
         public virtual string newVersionDownloadURL()
         {
             return Constants.LATEST_RELEASE_GITHUB_URL;
         }
+
+        public string versionLabel()
+        {
+            if (!string.IsNullOrWhiteSpace(stableReleaseVersionString) && Constants.CURRENT_VERSION.Equals(new Version(stableReleaseVersionString!)))
+            {
+                return R.STABLE_VERSION_LABEL;
+            }
+            if (!string.IsNullOrWhiteSpace(betaReleaseVersionString) && Constants.CURRENT_VERSION.Equals(new Version(betaReleaseVersionString!)))
+            {
+                return R.BETA_VERSION_LABEL;
+            }
+            if(!string.IsNullOrWhiteSpace(betaReleaseVersionString) && Constants.CURRENT_VERSION > (new Version(betaReleaseVersionString!)))
+            {
+                return R.UNRELEASED_VERSION_LABEL;
+            }
+            return R.OLD_VERSION_LABEL;
+        }
+
+        public bool isNewBetaVersionAvailable()
+        {
+            if (string.IsNullOrWhiteSpace(betaReleaseVersionString))
+            {
+                return false;
+            }
+            var betaVersion = new Version(betaReleaseVersionString!);
+            return Constants.CURRENT_VERSION < betaVersion;
+        }
+
+        public bool isNewStableVersionAvailable()
+        {
+            if(string.IsNullOrWhiteSpace(stableReleaseVersionString))
+            {
+                return false;
+            }
+            var stableVersion = new Version(stableReleaseVersionString!);
+            return Constants.CURRENT_VERSION < stableVersion;
+        }
+
     }
 
     public class GameAnalyticsRemoteConfig: Config
     {
-        public override Task<string> latestReleaseVersionString()
+        private readonly TimeSpan configDownloadTimeout = TimeSpan.FromSeconds(5);
+
+        public GameAnalyticsRemoteConfig() : base() { }
+
+        protected override Task downloadAsync()
         {
-            var tcs = new TaskCompletionSource<string>();
+            var tcs = new TaskCompletionSource<bool>();
             Task.Run(() => {
+                var startTime = DateTime.Now;
+                var timeoutTime = startTime + configDownloadTimeout;
+                while (!GameAnalytics.IsRemoteConfigsReady() && DateTime.Now.CompareTo(timeoutTime) < 0)
+                {
+                    Console.WriteLine("Waiting for configs...");
+                }
                 if (GameAnalytics.IsRemoteConfigsReady())
                 {
-                    var latestVersionString = GameAnalytics.GetRemoteConfigsValueAsString("LATEST_VER", string.Empty);
-                    tcs.SetResult(latestVersionString);
+                    stableReleaseVersionString = GameAnalytics.GetRemoteConfigsValueAsString("STABLE_VER", string.Empty);
+                    betaReleaseVersionString = GameAnalytics.GetRemoteConfigsValueAsString("BETA_VER", string.Empty);
+                    isConfigsReady = true;
                 }
-                else
-                {
-                    tcs.SetResult(string.Empty);
-                }
+                tcs.SetResult(isConfigsReady);
             });
             return tcs.Task;
-        }
-
-        public override string newVersionDownloadURL()
-        {
-            if (GameAnalytics.IsRemoteConfigsReady())
-            {
-                var useMod = GameAnalytics.GetRemoteConfigsValueAsString("USE_MOD_URL", string.Empty);
-                if (!string.IsNullOrWhiteSpace(useMod))
-                {
-                    return string.Format(Constants.LATEST_RELEASE_MOD_URL_FORMAT, useMod);
-                }
-            }
-            return base.newVersionDownloadURL();
         }
 
     }

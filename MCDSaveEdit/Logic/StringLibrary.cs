@@ -189,7 +189,7 @@ namespace MCDSaveEdit
 
         internal static string formatITEMS_COUNT_LABEL(int items, int max) { return string.Format(ITEMS_COUNT_LABEL, items, max); }
 
-        internal static string formatVERSION(string versionString) { return string.Format(VERSION_FORMAT, versionString); }
+        internal static string formatVERSION(string versionLabel, string versionString) { return string.Format(VERSION_FORMAT, versionLabel, versionString); }
 
         public static string itemName(string type)
         {

@@ -13,14 +13,14 @@
         ShowInTaskbar="False">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="51" Padding="0">
-            Copyright © 2020 Michael Holt (<Hyperlink NavigateUri="https://github.com/CutFlame">CutFlame</Hyperlink>)<LineBreak/>
+            Copyright © 2020-2021 Michael Holt (<Hyperlink NavigateUri="https://github.com/CutFlame">CutFlame</Hyperlink>)<LineBreak/>
             Source code: <Hyperlink NavigateUri="https://github.com/CutFlame/MCDSaveEdit">GitHub</Hyperlink><LineBreak/>
             License: <Hyperlink NavigateUri="https://github.com/CutFlame/MCDSaveEdit/blob/master/LICENSE">MIT</Hyperlink><LineBreak/>
         </TextBlock>
-        <Label x:Name="versionLabel" Content="*Version 1.0*" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top" Height="20" Padding="0" VerticalContentAlignment="Top"/>
+        <Label x:Name="versionLabel" Content="*Version: Debug 1.0*" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top" Height="20" Padding="0" VerticalContentAlignment="Top"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,66,0,0">
             <Button Content="BuyMeACoffee!" Padding="6" Click="buyMeACoffeeButton_Click" Margin="0,0,5,0"/>
-            <Button Content="Support me on Patreon!" Padding="6" Click="patreonButton_Click" Margin="5,0,0,0"/>
+            <Button Content="Beta versions on Patreon!" Padding="6" Click="patreonButton_Click" Margin="5,0,0,0"/>
         </StackPanel>
         <TextBlock HorizontalAlignment="Stretch" Margin="10,116,10,10" VerticalAlignment="Stretch">
             <Bold>Images imported from Minecraft: Dungeons are Copyright © Mojang</Bold><LineBreak/>

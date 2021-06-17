@@ -115,6 +115,24 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Beta _Update.
+        /// </summary>
+        public static string BETA_UPDATE_MENU_ITEM_HEADER {
+            get {
+                return ResourceManager.GetString("BETA_UPDATE_MENU_ITEM_HEADER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beta.
+        /// </summary>
+        public static string BETA_VERSION_LABEL {
+            get {
+                return ResourceManager.GetString("BETA_VERSION_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CANCEL {
@@ -394,6 +412,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item was deleted..
+        /// </summary>
+        public static string ITEM_WAS_DELETED_ERROR_MESSAGE {
+            get {
+                return ResourceManager.GetString("ITEM_WAS_DELETED_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Items: {0}/{1} Max.
         /// </summary>
         public static string ITEMS_COUNT_LABEL {
@@ -529,6 +556,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Old.
+        /// </summary>
+        public static string OLD_VERSION_LABEL {
+            get {
+                return ResourceManager.GetString("OLD_VERSION_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please make sure you have the latest version..
         /// </summary>
         public static string PLEASE_HAVE_LATEST_VERSION {
@@ -646,6 +682,24 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Update.
+        /// </summary>
+        public static string STABLE_UPDATE_MENU_ITEM_HEADER {
+            get {
+                return ResourceManager.GetString("STABLE_UPDATE_MENU_ITEM_HEADER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stable.
+        /// </summary>
+        public static string STABLE_VERSION_LABEL {
+            get {
+                return ResourceManager.GetString("STABLE_VERSION_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stats/Counters.
         /// </summary>
         public static string STATS_COUNTERS {
@@ -673,6 +727,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unreleased.
+        /// </summary>
+        public static string UNRELEASED_VERSION_LABEL {
+            get {
+                return ResourceManager.GetString("UNRELEASED_VERSION_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upgraded.
         /// </summary>
         public static string UPGRADED {
@@ -682,7 +745,7 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version: {0}.
+        ///   Looks up a localized string similar to Version: {0} {1}.
         /// </summary>
         public static string VERSION_FORMAT {
             get {

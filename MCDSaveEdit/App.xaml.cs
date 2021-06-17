@@ -64,7 +64,7 @@ namespace MCDSaveEdit
                     //Clear the path saved in the registry because it might be the cause of the exception
                     _model.unloadGameContent();
 
-                    var title = $"{Constants.APPLICATION_NAME} {Constants.CURRENT_VERSION_NUMBER} - {R.ERROR}";
+                    var title = $"{Constants.APPLICATION_NAME} {Constants.CURRENT_VERSION} - {R.ERROR}";
                     var message = $"{e.Message}\n\n{R.PLEASE_HAVE_LATEST_VERSION}\n\n{R.LAUNCH_WITH_LIMITED_FEATURES_QUESTION}";
                     var result = MessageBox.Show(message, title, MessageBoxButton.YesNo);
                     canContinue = result == MessageBoxResult.Yes || result == MessageBoxResult.OK;

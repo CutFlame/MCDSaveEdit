@@ -279,16 +279,21 @@ namespace MCDSaveEdit
 
         #region Version Check
 
-        private async void checkForNewVersionAsync()
+        private void checkForNewVersionAsync()
         {
-            bool isNewVersionAvailable = await Config.instance.isNewVersionAvailable();
-            if (isNewVersionAvailable)
+            if (Config.instance.isNewBetaVersionAvailable())
             {
-                updateMenuItem.Visibility = Visibility.Collapsed;
+                updateMenuItem.Header = R.BETA_UPDATE_MENU_ITEM_HEADER;
+                updateMenuItem.Visibility = Visibility.Visible;
+            }
+            else if (Config.instance.isNewStableVersionAvailable())
+            {
+                updateMenuItem.Header = R.STABLE_UPDATE_MENU_ITEM_HEADER;
+                updateMenuItem.Visibility = Visibility.Visible;
             }
             else
             {
-                updateMenuItem.Visibility = Visibility.Visible;
+                updateMenuItem.Visibility = Visibility.Collapsed;
             }
         }
 
