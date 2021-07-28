@@ -23,6 +23,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("inventoryIndex")]
         public long? InventoryIndex { get; set; }
 
+        [JsonPropertyName("modified")]
+        public bool? Modified { get; set; }
+
         [JsonPropertyName("markedNew")]
         public bool? MarkedNew { get; set; }
 

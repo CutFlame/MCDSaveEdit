@@ -34,12 +34,12 @@ namespace MCDSaveEditTests
             PakFilter? filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
             PakIndex? pakIndex = new PakIndex(path: paksFolderPath!, cacheFiles: true, caseSensitive: true, filter: filter);
             pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRINGS[0].Substring(2).ToBytesKey());
-            Assert.AreEqual(64969, pakIndex.Count());
+            Assert.AreEqual(72891, pakIndex.Count());
 
             var pakImageResolver = new PakImageResolver(pakIndex, null);
             pakImageResolver.loadPakFiles();
-            Assert.AreEqual(242, ItemExtensions.all.Count);
-            Assert.AreEqual(108, EnchantmentExtensions.allEnchantments.Count);
+            Assert.AreEqual(276, ItemExtensions.all.Count);
+            Assert.AreEqual(118, EnchantmentExtensions.allEnchantments.Count);
 
             //Find all the missing and mismatched strings
 

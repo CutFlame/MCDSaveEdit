@@ -87,6 +87,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("skin")]
         public string Skin { get; set; }
 
+        [JsonPropertyName("strongholdProgress")]
+        public Dictionary<string, bool> StrongholdProgess { get; set; }
+
         [JsonPropertyName("threatLevels")]
         public ThreatLevels ThreatLevels { get; set; }
 
@@ -105,6 +108,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
 
         [JsonPropertyName("version")]
         public long Version { get; set; }
+
+        [JsonPropertyName("videosPlayed")]
+        public string[] VideosPlayed { get; set; }
 
         [JsonPropertyName("xp")]
         public long Xp { get; set; }
