@@ -39,6 +39,8 @@ namespace MCDSaveEdit
             { "Daggers_unique2","Daggers_Unique2" },
 
             { "Beenest","BeeNest" },
+            { "SatchelofNourishment","SatchelOfNourishment" },
+            { "SatchelofNeed","SatchelOfNeed" },
 
             { "Firetrail","FireTrail" },
         };
@@ -175,7 +177,8 @@ namespace MCDSaveEdit
                             var correctedItemName = _mismatches[itemName];
                             _equipment.Add(correctedItemName, fullPath);
                             ItemExtensions.meleeWeapons.Add(correctedItemName);
-                        } else
+                        }
+                        else
                         {
                             ItemExtensions.meleeWeapons.Add(itemName);
                         }
@@ -188,7 +191,8 @@ namespace MCDSaveEdit
                             var correctedItemName = _mismatches[itemName];
                             _equipment.Add(correctedItemName, fullPath);
                             ItemExtensions.rangedWeapons.Add(correctedItemName);
-                        } else
+                        }
+                        else
                         {
                             ItemExtensions.rangedWeapons.Add(itemName);
                         }
@@ -201,14 +205,15 @@ namespace MCDSaveEdit
                             var correctedItemName = _mismatches[itemName];
                             _equipment.Add(correctedItemName, fullPath);
                             ItemExtensions.armor.Add(correctedItemName);
-                        } else
+                        }
+                        else
                         {
                             ItemExtensions.armor.Add(itemName);
                         }
                     }
                     if (fullPath.Contains("Items"))
                     {
-                        if (!itemName.StartsWith("MysteryBox"))
+                        if (!itemName.StartsWith("MysteryBox") && !fullPath.Contains("Potions") && !fullPath.Contains("Food"))
                         {
                             if (_mismatches.ContainsKey(itemName))
                             {
