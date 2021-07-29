@@ -10,23 +10,33 @@ namespace MCDSaveEdit.Save.Models.Enums
         public static HashSet<string> allEnchantments = new HashSet<string>();
 
         public static HashSet<string> powerful = new HashSet<string>() {
+            "Backstabber",
             "FinalShout",
             "Chilling",
             "Protection",
+            "PotionThirstMelee",
+            "PotionThirstRanged",
             "GravityPulse",
-            
             "CriticalHit",
             "Exploding",
             "RadianceMelee",
             "GravityMelee",
             "Shockwave",
             "Swirling",
-
             "Gravity",
             "TempoTheft",
             "ChainReaction",
             "RadianceRanged",
             "ShockWeb",
+            "VoidTouchedMelee",
+            "VoidTouchedRanged",
+            "MultiCharge",
+            "DeathBarter",
+            "FireFocus",
+            "LightningFocus",
+            "MultiDodge",
+            "PoisonFocus",
+            "SoulFocus",
         };
 
         public static HashSet<string> forArmor = new HashSet<string>() {

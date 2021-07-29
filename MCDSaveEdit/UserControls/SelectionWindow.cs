@@ -30,6 +30,105 @@ namespace MCDSaveEdit
             }
         }
 
+        private class ArmorPropertyView : ItemView
+        {
+            public ArmorPropertyView()
+            {
+                image.Height = 25;
+                image.Width = 25;
+                image.Source = bulletImageSource;
+            }
+        }
+
+        private class EnchantmentView : ItemView
+        {
+            public readonly Image powerfulImage;
+            public bool powerful {
+                get { return powerfulImage.Visibility == Visibility.Visible; }
+                set { powerfulImage.Visibility = value ? Visibility.Visible : Visibility.Collapsed; }
+            }
+
+            public EnchantmentView()
+            {
+                powerfulImage = new Image {
+                    Height = 25,
+                    Width = 25,
+                    Source = powerfulImageSource,
+                    Visibility = Visibility.Collapsed,
+                };
+                Children.Add(powerfulImage);
+            }
+        }
+
+        private class ItemView : StackPanel
+        {
+            public readonly Image image;
+            public readonly Label titleLabel;
+            public readonly Label subtitleLabel;
+
+            public ImageSource? imageSource {
+                get { return image.Source; }
+                set { image.Source = value; }
+            }
+
+            public object titleContent {
+                get { return titleLabel.Content; }
+                set { titleLabel.Content = value; }
+            }
+
+            public object subtitleContent {
+                get { return subtitleLabel.Content; }
+                set { subtitleLabel.Content = value; updateSubtitleUI(); }
+            }
+
+            public ItemView()
+            {
+                image = new Image {
+                    VerticalAlignment = VerticalAlignment.Center,
+                };
+                image.Height = 50;
+                image.Width = 50;
+
+                titleLabel = new Label {
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 14,
+                };
+                subtitleLabel = new Label {
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 10,
+                };
+
+                var labelStack = new StackPanel {
+                    Height = 50,
+                    //HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    Orientation = Orientation.Vertical,
+                };
+                labelStack.Children.Add(titleLabel);
+                labelStack.Children.Add(subtitleLabel);
+
+                Orientation = Orientation.Horizontal;
+                Children.Add(image);
+                Children.Add(labelStack);
+            }
+
+            private void updateSubtitleUI()
+            {
+                if(subtitleLabel.Content == null)
+                {
+                    subtitleLabel.Visibility = Visibility.Collapsed;
+                }
+                else if(subtitleLabel.Content is string)
+                {
+                    subtitleLabel.Visibility = string.IsNullOrWhiteSpace(subtitleLabel.Content as string) ? Visibility.Collapsed : Visibility.Visible;
+                }
+                else
+                {
+                    subtitleLabel.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
         private ListBox _listBox = new ListBox();
         private bool _isProcessing = true;
 
@@ -72,27 +171,13 @@ namespace MCDSaveEdit
 
             foreach (var armorProperty in ItemExtensions.armorProperties.OrderBy(str => str))
             {
-                var image = new Image {
-                    Height = 25,
-                    Width = 25,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Source = bulletImageSource,
-                };
-                var label = new Label {
-                    VerticalAlignment = VerticalAlignment.Center,
-                    FontSize = 14,
-                    Content = R.armorProperty(armorProperty),
-                };
+                var itemView = new ArmorPropertyView { titleContent = R.armorProperty(armorProperty) };
+                if (Config.instance.showIDsInSelectionWindow)
+                {
+                    itemView.subtitleContent = armorProperty;
+                }
 
-                var stackPanel = new StackPanel {
-                    Height = 45,
-                    Orientation = Orientation.Horizontal,
-                };
-
-                stackPanel.Children.Add(image);
-                stackPanel.Children.Add(label);
-
-                var listItem = new ListBoxItem { Content = stackPanel, Tag = armorProperty };
+                var listItem = new ListBoxItem { Content = itemView, Tag = armorProperty };
                 _listBox.Items.Add(listItem);
 
                 if (selectedArmorProperty == armorProperty)
@@ -120,36 +205,14 @@ namespace MCDSaveEdit
                     continue;
                 }
 
-                var image = new Image {
-                    Height = 50,
-                    Width = 50,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Source = imageSource,
-                };
-                var label = new Label {
-                    VerticalAlignment = VerticalAlignment.Center,
-                    FontSize = 14,
-                    Content = R.enchantmentName(enchantment),
-                };
-
-                var stackPanel = new StackPanel {
-                    Height = 45,
-                    Orientation = Orientation.Horizontal,
-                };
-
-                stackPanel.Children.Add(image);
-                stackPanel.Children.Add(label);
-                if (EnchantmentExtensions.powerful.Contains(enchantment))
+                var itemView = new EnchantmentView { imageSource = imageSource, titleContent = R.enchantmentName(enchantment) };
+                itemView.powerful = EnchantmentExtensions.powerful.Contains(enchantment);
+                if(Config.instance.showIDsInSelectionWindow)
                 {
-                    var powerfulImage = new Image {
-                        Height = 25,
-                        Width = 25,
-                        Source = powerfulImageSource,
-                    };
-                    stackPanel.Children.Add(powerfulImage);
+                    itemView.subtitleContent = enchantment;
                 }
 
-                var listItem = new ListBoxItem { Content = stackPanel, Tag = enchantment };
+                var listItem = new ListBoxItem { Content = itemView, Tag = enchantment };
                 _listBox.Items.Add(listItem);
 
                 if (selectedEnchantment == enchantment)
@@ -263,8 +326,13 @@ namespace MCDSaveEdit
                     continue;
                 }
 
-                var stackPanel = createStackPanel(imageSource, R.itemName(item));
-                var listItem = new ListBoxItem { Content = stackPanel, Tag = item };
+                var itemView = new ItemView { imageSource = imageSource, titleContent = R.itemName(item) };
+                if(Config.instance.showIDsInSelectionWindow)
+                {
+                    itemView.subtitleContent = item;
+                }
+
+                var listItem = new ListBoxItem { Content = itemView, Tag = item };
                 if (item.ToLowerInvariant().Contains("unique"))
                 {
                     var backgroundImage = AppModel.instance.imageSourceForRarity(Rarity.Unique);
@@ -292,31 +360,6 @@ namespace MCDSaveEdit
                 case ItemFilterEnum.All: return ItemExtensions.all;
             }
             return new string[0];
-        }
-
-        private StackPanel createStackPanel(BitmapImage? imageSource, string labelText)
-        {
-            var image = new Image {
-                Height = 50,
-                Width = 50,
-                VerticalAlignment = VerticalAlignment.Center,
-                Source = imageSource,
-            };
-            var label = new Label {
-                VerticalAlignment = VerticalAlignment.Center,
-                FontSize = 14,
-                Content = labelText,
-            };
-
-            var stackPanel = new StackPanel {
-                Height = 50,
-                Orientation = Orientation.Horizontal,
-            };
-
-            stackPanel.Children.Add(image);
-            stackPanel.Children.Add(label);
-
-            return stackPanel;
         }
     }
 }

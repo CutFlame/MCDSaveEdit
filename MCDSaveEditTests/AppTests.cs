@@ -38,7 +38,7 @@ namespace MCDSaveEditTests
 
             var pakImageResolver = new PakImageResolver(pakIndex, null);
             pakImageResolver.loadPakFiles();
-            Assert.AreEqual(254, ItemExtensions.all.Count);
+            Assert.AreEqual(255, ItemExtensions.all.Count);
             Assert.AreEqual(118, EnchantmentExtensions.allEnchantments.Count);
 
             //Find all the missing and mismatched strings

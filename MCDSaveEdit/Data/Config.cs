@@ -16,15 +16,27 @@ namespace MCDSaveEdit
             _ = downloadAsync();
         }
 
-        public bool isConfigsReady { get; protected set; }
-
-        public bool showInventoryIndexOrEquipmentSlot {
+        public bool isDebug {
             get {
 #if DEBUG
                 return true;
 #else
                 return false;
 #endif
+            }
+        }
+
+        public bool isConfigsReady { get; protected set; }
+
+        public bool showInventoryIndexOrEquipmentSlot {
+            get {
+                return this.isDebug;
+            }
+        }
+
+        public bool showIDsInSelectionWindow {
+            get {
+                return this.isDebug;
             }
         }
 

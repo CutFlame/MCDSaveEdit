@@ -18,6 +18,7 @@ namespace MCDSaveEdit
             { "TrickBow","Trickbow" },
             { "TrickBow_Unique1","Trickbow_Unique1" },
             { "TrickBow_Unique2","Trickbow_Unique2" },
+            { "TrickBow_Year1","Trickbow_Year1" },
             { "LongBow","Longbow" },
             { "LongBow_Unique1","Longbow_Unique1" },
             { "LongBow_Unique2","Longbow_Unique2" },
@@ -28,6 +29,7 @@ namespace MCDSaveEdit
             { "ShortBow","Shortbow" },
             { "ShortBow_Unique1","Shortbow_Unique1" },
             { "ShortBow_Unique2","Shortbow_Unique2" },
+            { "ShortBow_Unique3","Shortbow_Unique3" },
             { "Huntingbow_Unique1","HuntingBow_Unique1" },
             { "TwistingVineBow_UNique1","TwistingVineBow_Unique1" },
 
@@ -120,6 +122,7 @@ namespace MCDSaveEdit
                 }
 
                 var filename = Path.GetFileName(fullPath);
+                var fullPathLowercase = fullPath.ToLowerInvariant();
 
                 if (fullPath.Contains("data") && fullPath.Contains("levels"))
                 {
@@ -128,7 +131,7 @@ namespace MCDSaveEdit
                     continue;
                 }
 
-                if (!filename.StartsWith("T") || !fullPath.Contains("_Icon"))
+                if (!filename.StartsWith("T") || !fullPathLowercase.Contains("_icon"))
                 {
                     //Debug.WriteLine($"Package is not an icon {fullPath}");
                     continue;
@@ -144,7 +147,7 @@ namespace MCDSaveEdit
                 }
 
                 var foldername = Path.GetDirectoryName(fullPath).Split(Path.DirectorySeparatorChar).Last();
-                if (fullPath.Contains("Enchantments") && fullPath.EndsWith("_Icon"))
+                if (fullPath.Contains("Enchantments") && fullPathLowercase.EndsWith("_icon"))
                 {
                     var enchantmentName = foldername;
                     if (enchantmentName.EndsWith("Shine")) continue;
@@ -167,7 +170,7 @@ namespace MCDSaveEdit
                     continue;
                 }
 
-                if (fullPath.EndsWith("_Icon_inventory") || fullPath.EndsWith("_Icon_Inventory"))
+                if (fullPathLowercase.EndsWith("_icon_inventory"))
                 {
                     var itemName = foldername;
                     if (!_equipment.ContainsKey(itemName))
@@ -180,63 +183,41 @@ namespace MCDSaveEdit
                         //Debug.WriteLine($"{itemName} - {fullPath}");
                     }
 
-                    if (fullPath.Contains("Equipment") && fullPath.Contains("MeleeWeapons"))
+                    if (fullPath.Contains("Equipment"))
                     {
                         //Handle exceptions
+                        string? correctedItemName = null;
                         if (_mismatches.ContainsKey(itemName))
                         {
-                            var correctedItemName = _mismatches[itemName];
+                            correctedItemName = _mismatches[itemName];
                             _equipment.Add(correctedItemName, fullPath);
-                            ItemExtensions.meleeWeapons.Add(correctedItemName);
                         }
-                        else
+
+                        if (fullPath.Contains("MeleeWeapons"))
                         {
-                            ItemExtensions.meleeWeapons.Add(itemName);
+                            ItemExtensions.meleeWeapons.Add(correctedItemName ?? itemName);
+                        }
+                        if (fullPath.Contains("RangedWeapons"))
+                        {
+                            ItemExtensions.rangedWeapons.Add(correctedItemName ?? itemName);
+                        }
+                        if (fullPath.Contains("Armor"))
+                        {
+                            ItemExtensions.armor.Add(correctedItemName ?? itemName);
                         }
                     }
-                    if (fullPath.Contains("Equipment") && fullPath.Contains("RangedWeapons"))
+                    
+                    if (fullPath.Contains("Items") && !_blockedItems.Any(fullPath.Contains))
                     {
                         //Handle exceptions
+                        string? correctedItemName = null;
                         if (_mismatches.ContainsKey(itemName))
                         {
-                            var correctedItemName = _mismatches[itemName];
+                            correctedItemName = _mismatches[itemName];
                             _equipment.Add(correctedItemName, fullPath);
-                            ItemExtensions.rangedWeapons.Add(correctedItemName);
                         }
-                        else
-                        {
-                            ItemExtensions.rangedWeapons.Add(itemName);
-                        }
-                    }
-                    if (fullPath.Contains("Equipment") && fullPath.Contains("Armor"))
-                    {
-                        //Handle exceptions
-                        if (_mismatches.ContainsKey(itemName))
-                        {
-                            var correctedItemName = _mismatches[itemName];
-                            _equipment.Add(correctedItemName, fullPath);
-                            ItemExtensions.armor.Add(correctedItemName);
-                        }
-                        else
-                        {
-                            ItemExtensions.armor.Add(itemName);
-                        }
-                    }
-                    if (fullPath.Contains("Items"))
-                    {
-                        if (!_blockedItems.Any(fullPath.Contains))
-                        {
-                            if (_mismatches.ContainsKey(itemName))
-                            {
-                                var correctedItemName = _mismatches[itemName];
-                                _equipment.Add(correctedItemName, fullPath);
-                                ItemExtensions.artifacts.Add(correctedItemName);
-                            }
-                            else
-                            {
-                                ItemExtensions.artifacts.Add(itemName);
-                            }
-                        }
+
+                        ItemExtensions.artifacts.Add(correctedItemName ?? itemName);
                     }
                 }
             }
