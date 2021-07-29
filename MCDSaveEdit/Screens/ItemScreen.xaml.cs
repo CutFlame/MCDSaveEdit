@@ -28,10 +28,9 @@ namespace MCDSaveEdit
             enchantment3Control.command = new RelayCommand<Enchantment>(relaySelectEnchantment);
 
             //Clear out design/testing values
-            rarityComboBox.Items.Clear();
-            rarityComboBox.Items.Add(R.getString("rarity_common") ?? R.COMMON);
-            rarityComboBox.Items.Add(R.getString("rarity_rare") ?? R.RARE);
-            rarityComboBox.Items.Add(R.getString("rarity_unique") ?? R.UNIQUE);
+            commonComboBoxItem.Content = R.getString("rarity_common") ?? R.COMMON;
+            rareComboBoxItem.Content = R.getString("rarity_rare") ?? R.RARE;
+            uniqueComboBoxItem.Content = R.getString("rarity_unique") ?? R.UNIQUE;
 
             markedNewButtonCheckBox.Content = R.getString("Interest_New") ?? R.NEW;
             upgradedButtonCheckBox.Content = R.getString("item_diamond_dust_upgraded") ?? R.UPGRADED;
