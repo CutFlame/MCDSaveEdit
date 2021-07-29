@@ -19,8 +19,9 @@
         </TextBlock>
         <Label x:Name="versionLabel" Content="*Version: Debug 1.0*" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top" Height="20" Padding="0" VerticalContentAlignment="Top"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,66,0,0">
-            <Button Content="BuyMeACoffee!" Padding="6" Click="buyMeACoffeeButton_Click" Margin="0,0,5,0"/>
-            <Button Content="Beta versions on Patreon!" Padding="6" Click="patreonButton_Click" Margin="5,0,0,0"/>
+            <Button Content="BuyMeACoffee!" Padding="6" Click="buyMeACoffeeButton_Click" Margin="5"/>
+            <Button Content="Donate on Ko-Fi!" Padding="6" Click="koFiButton_Click" Margin="5"/>
+            <Button Content="Beta versions on Patreon!" Padding="6" Click="patreonButton_Click" Margin="5"/>
         </StackPanel>
         <TextBlock HorizontalAlignment="Stretch" Margin="10,116,10,10" VerticalAlignment="Stretch">
             <Bold>Images imported from Minecraft: Dungeons are Copyright © Mojang</Bold><LineBreak/>
