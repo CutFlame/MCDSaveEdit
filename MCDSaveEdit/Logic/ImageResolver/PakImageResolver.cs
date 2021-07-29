@@ -45,6 +45,17 @@ namespace MCDSaveEdit
             { "Firetrail","FireTrail" },
         };
 
+        private static readonly string[] _blockedItems = new[] {
+            "MysteryBox",
+            "Potions",
+            "Food",
+            "Elytra",
+            "EyeOfEnder",
+            "Arrow_Icon",
+            "TNTBox",
+            "Trident",
+        };
+
         private readonly LocalImageResolver _backupResolver;
         private readonly PakIndex _pakIndex;
         private readonly Dictionary<string, string> _enchantments = new Dictionary<string, string>();
@@ -162,7 +173,7 @@ namespace MCDSaveEdit
                     if (!_equipment.ContainsKey(itemName))
                     {
                         _equipment.Add(itemName, fullPath);
-                        if (!itemName.StartsWith("MysteryBox"))
+                        if (!_blockedItems.Any(fullPath.Contains))
                         {
                             ItemExtensions.all.Add(itemName);
                         }
@@ -213,7 +224,7 @@ namespace MCDSaveEdit
                     }
                     if (fullPath.Contains("Items"))
                     {
-                        if (!itemName.StartsWith("MysteryBox") && !fullPath.Contains("Potions") && !fullPath.Contains("Food"))
+                        if (!_blockedItems.Any(fullPath.Contains))
                         {
                             if (_mismatches.ContainsKey(itemName))
                             {

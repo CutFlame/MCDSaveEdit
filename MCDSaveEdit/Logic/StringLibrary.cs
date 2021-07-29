@@ -48,6 +48,10 @@ namespace MCDSaveEdit
             { "SoulSiphon_desc","Soul_desc" },
             { "EmeraldDivination_desc","EmeraldDivination_effect_desc" },
             { "DeathBarter_desc","DeathBarter_effect_desc" },
+            { "VoidTouchedMelee","VoidStrikeMelee" },
+            { "VoidTouchedMelee_desc","VoidStrikeMelee_desc" },
+            { "VoidTouchedRanged","VoidStrikeRanged" },
+            { "VoidTouchedRanged_desc","VoidStrikeRanged_desc" },
 
             { "Powerbow","PowerBow" },
             { "Powerbow_Unique1","PowerBow_Unique1" },
@@ -116,6 +120,12 @@ namespace MCDSaveEdit
             { "Flavour_SatchelofNeed","Flavour_SatchelOfNeed" },
             { "SatchelofNourishment","Desc_SatchelOfNourishment" },
             { "Flavour_SatchelofNourishment","Flavour_SatchelOfNourishment" },
+            { "Flavour_Backstabber_Unique1","Desc_Backstabber_Unique1" },
+            { "Flavour_Backstabber","Desc_Backstabber" },
+            { "Flavour_Trident","Desc_Trident" },
+            { "Flavour_LostEvocation","Flavor_LostEvocation" },
+            { "Flavour_Elytra","Desc_Elytra" },
+            { "Flavour_EyeOfEnder","Desc_EyeOfEnder" },
 
             { "ReviveChance","Unset" }, //missing
             { "ReviveChance_description","Unset" }, //missing
@@ -125,6 +135,8 @@ namespace MCDSaveEdit
             { "ItemDamageBoost_description","ArtifactDamageBoost_description" },
             { "SlowResistance","FreezingResistance" },
             { "SlowResistance_description","FreezingResistance_description" },
+            { "FallResistance","EnviromentalProtection" }, //note the spelling error
+            { "FallResistance_description","EnviromentalProtection_description" }, //note the spelling error
             { "Reckless_desc","ShardArmor_desc" },
             { "Flee_desc","Flee_effect_desc" },
             { "ReliableRicochet_desc","Ricochet_desc" },
