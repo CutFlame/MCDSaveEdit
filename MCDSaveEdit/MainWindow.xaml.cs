@@ -26,7 +26,7 @@ namespace MCDSaveEdit
         public static void init() { }
 
         public Action? onRelaunch;
-        public Action? onReload;
+        public Action<string?, ProfileSaveFile?>? onReload;
 
         private readonly MainViewModel _mainModel = new MainViewModel();
 
@@ -388,7 +388,7 @@ namespace MCDSaveEdit
         {
             EventLogger.logEvent("languageSelectedMenuItem_Click", new Dictionary<string, object> { { "langSpecifier", langSpecifier } });
             AppModel.loadLanguageStrings(langSpecifier);
-            onReload?.Invoke();
+            onReload?.Invoke(_model?.filePath, _model?.profile.value);
         }
 
         private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
@@ -461,7 +461,7 @@ namespace MCDSaveEdit
             return string.Join("|", dict.Select(x => string.Join("|", string.Format("{0} ({1})", x.Value, x.Key), x.Key)));
         }
 
-        private async void handleFileOpenAsync(string? fileName)
+        public async void handleFileOpenAsync(string? fileName)
         {
             if(string.IsNullOrWhiteSpace(fileName)) { return; }
             if (!File.Exists(fileName))

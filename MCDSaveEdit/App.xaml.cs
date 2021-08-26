@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCDSaveEdit.Save.Models.Profiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -155,15 +156,32 @@ namespace MCDSaveEdit
             loadAsync(askForGameContentLocation: true);
         }
 
-        private void onReload()
+        private void onReload(string? autoReloadFilename, ProfileSaveFile? profile)
         {
             var oldMainWindow = this.MainWindow;
             var mainWindow = WindowFactory.createMainWindow();
             mainWindow.onRelaunch = onRelaunch;
             mainWindow.onReload = onReload;
-            MainWindow = mainWindow;
+            this.MainWindow = mainWindow;
             oldMainWindow?.Close();
             this.MainWindow.Show();
+
+            if (!string.IsNullOrWhiteSpace(autoReloadFilename))
+            {
+                if(profile != null)
+                {
+                    if(mainWindow.model == null)
+                    {
+                        mainWindow.model = new ProfileViewModel();
+                    }
+                    mainWindow.model!.filePath = autoReloadFilename;
+                    mainWindow.model!.profile.setValue = profile;
+                }
+                else
+                {
+                    mainWindow.handleFileOpenAsync(autoReloadFilename!);
+                }
+            }
         }
 
         private void showSplashWindowReplacingOldWindow()
