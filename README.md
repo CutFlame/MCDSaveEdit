@@ -63,6 +63,14 @@ The default location for these files is: `%localappdata%\Mojang\products\dungeon
 
 If you have the Microsoft Store version, this will need to be changed to the path you selected when you ran the storepatcher script or wherever you copied your game files to.
 
+
+##### Application Stopped Working
+
+If during launch you get a popup saying that MCDSaveEdit has stopped working,
+this means an internal error ocurred and could have various fixes.
+MCDSaveEdit has a dependency on .NET Framework 4.7.1 so you could try installing that.
+- [.NET Framework Offline installer](https://support.microsoft.com/en-us/topic/the-net-framework-4-7-1-offline-installer-for-windows-2a7d0d5e-92f2-b12d-aed4-4f5d14c8ef0c)
+
 ---
 
 ### Compiling
