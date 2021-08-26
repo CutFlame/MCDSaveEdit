@@ -79,12 +79,12 @@ namespace MCDSaveEdit
         {
             levelTitleLabel.Content = R.getString("HUD_Level") ?? R.LEVEL;
             powerTitleLabel.Content = R.getString("gearpower_POWER") ?? R.POWER;
-            allItemsButton.Content = R.ALL_ITEMS_FILTER;
-            meleeItemsButton.Content = R.MELEE_ITEMS_FILTER;
-            rangedItemsButton.Content = R.RANGED_ITEMS_FILTER;
-            armorItemsButton.Content = R.ARMOR_ITEMS_FILTER;
-            artifactItemsButton.Content = R.ARTIFACT_ITEMS_FILTER;
-            enchantedItemsButton.Content = R.ENCHANTED_ITEMS_FILTER;
+            allItemsButton.Content = R.getString("ItemTag_All") ?? R.ALL_ITEMS_FILTER;
+            meleeItemsButton.Content = R.getString("ItemTag_Melee") ?? R.MELEE_ITEMS_FILTER;
+            rangedItemsButton.Content = R.getString("ItemTag_Ranged") ?? R.RANGED_ITEMS_FILTER;
+            armorItemsButton.Content = R.getString("ItemTag_Armor") ?? R.ARMOR_ITEMS_FILTER;
+            artifactItemsButton.Content = R.getString("ItemTag_Items") ?? R.ARTIFACT_ITEMS_FILTER;
+            enchantedItemsButton.Content = R.getString("ItemTag_Enchanted") ?? R.ENCHANTED_ITEMS_FILTER;
         }
 
         private void setupCommands()

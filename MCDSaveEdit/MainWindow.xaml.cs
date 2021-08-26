@@ -124,7 +124,7 @@ namespace MCDSaveEdit
         private void createLangMenuItems()
         {
             langMenuItem.Items.Clear();
-            var noneMenuItem = createLangMenuItem(R.NONE);
+            var noneMenuItem = createLangMenuItem(R.getString("rebind_none") ?? R.NONE);
             langMenuItem.Items.Add(noneMenuItem);
             langMenuItem.Items.Add(new Separator());
             foreach(var menuItem in AppModel.instance.localizationOptions.Select(createLangMenuItem))

@@ -192,7 +192,7 @@ namespace MCDSaveEdit
 
         public void loadEnchantments(string? selectedEnchantment = null)
         {
-            Title = R.SELECT_ENCHANTMENT;
+            Title = R.getString("UIHints_SelectEnchantmentTitle") ?? R.SELECT_ENCHANTMENT;
             Content = _listBox;
             _isProcessing = true;
             _listBox.Items.Clear();
@@ -238,17 +238,17 @@ namespace MCDSaveEdit
         {
             switch(filter)
             {
-                case ItemFilterEnum.Armor: return R.SELECT_ARMOR;
-                case ItemFilterEnum.Artifacts: return R.SELECT_ARTIFACT;
-                case ItemFilterEnum.MeleeWeapons: return R.SELECT_MELEE_WEAPON;
-                case ItemFilterEnum.RangedWeapons: return R.SELECT_RANGED_WEAPON;
-                default: return R.SELECT_ITEM;
+                case ItemFilterEnum.Armor: return R.getString("merchant_slot_select_item") ?? R.SELECT_ARMOR;
+                case ItemFilterEnum.Artifacts: return R.getString("merchant_slot_select_item") ?? R.SELECT_ARTIFACT;
+                case ItemFilterEnum.MeleeWeapons: return R.getString("merchant_slot_select_item") ?? R.SELECT_MELEE_WEAPON;
+                case ItemFilterEnum.RangedWeapons: return R.getString("merchant_slot_select_item") ?? R.SELECT_RANGED_WEAPON;
+                default: return R.getString("merchant_slot_select_item") ?? R.SELECT_ITEM;
             }
         }
 
         public void loadItems(string? selectedItem = null)
         {
-            Title = R.SELECT_ITEM;
+            Title = R.getString("merchant_slot_select_item") ?? R.SELECT_ITEM;
 
             var anyButton = createFilterButton(ItemFilterEnum.All);
             var meleeButton = createFilterButton(ItemFilterEnum.MeleeWeapons);

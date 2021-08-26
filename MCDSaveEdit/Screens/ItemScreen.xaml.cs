@@ -37,7 +37,7 @@ namespace MCDSaveEdit
             giftedButtonCheckBox.Content = R.getString("item_gifted") ?? R.GIFTED;
 
             duplicateItemButton.Content = R.DUPLICATE;
-            deleteItemButton.Content = R.DELETE;
+            deleteItemButton.Content = R.getString("Delete_Nav_Button") ?? R.DELETE;
 
             updateUI();
         }

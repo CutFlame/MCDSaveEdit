@@ -252,11 +252,13 @@ namespace MCDSaveEdit
             {
                 if(enchantment.ToLowerInvariant().Contains("ranged"))
                 {
-                    return $"{value} ({R.RANGED_ITEMS_FILTER})";
+                    var classification = R.getString("ItemTag_Ranged") ?? R.RANGED_ITEMS_FILTER;
+                    return $"{value} ({classification})";
                 }
                 else if (enchantment.ToLowerInvariant().Contains("melee"))
                 {
-                    return $"{value} ({R.MELEE_ITEMS_FILTER})";
+                    var classification = R.getString("ItemTag_Melee") ?? R.MELEE_ITEMS_FILTER;
+                    return $"{value} ({classification})";
                 }
                 else
                 {

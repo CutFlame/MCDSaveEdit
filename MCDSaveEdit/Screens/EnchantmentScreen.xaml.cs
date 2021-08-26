@@ -23,7 +23,7 @@ namespace MCDSaveEdit
                 useGameContentImages();
             }
 
-            tierLabel.Content = R.TIER;
+            tierLabel.Content = R.getString("enchantment_upgrade_tiers") ?? R.TIER;
 
             updateUI();
         }
@@ -62,12 +62,12 @@ namespace MCDSaveEdit
             if (_enchantment.isPowerful())
             {
                 powerfulImage.Source = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/Inspector/element_powerful");
-                powerfulLabel.Content = R.POWERFUL;
+                powerfulLabel.Content = R.getString("enchantment_rarity_powerful") ?? R.POWERFUL;
             }
             else
             {
                 powerfulImage.Source = null;
-                powerfulLabel.Content = R.COMMON;
+                powerfulLabel.Content = R.getString("enchantment_rarity_common") ?? R.COMMON;
             }
 
             enchantmentImage.Source = AppModel.instance.imageSourceForEnchantment(_enchantment);
