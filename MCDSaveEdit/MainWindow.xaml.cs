@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -136,7 +137,16 @@ namespace MCDSaveEdit
         private MenuItem createLangMenuItem(string lang)
         {
             var specificLangMenuItem = new MenuItem();
-            specificLangMenuItem.Header = lang;
+            string header;
+            try
+            {
+                header = CultureInfo.GetCultureInfo(lang).NativeName;
+            }
+            catch
+            {
+                header = lang;
+            }
+            specificLangMenuItem.Header = header;
             specificLangMenuItem.IsChecked = AppModel.currentLangSpecifier == lang;
             specificLangMenuItem.CommandParameter = lang;
             specificLangMenuItem.Command = new RelayCommand<string>(languageSelectedMenuItem_Click);
