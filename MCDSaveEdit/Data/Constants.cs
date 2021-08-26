@@ -13,6 +13,7 @@ namespace MCDSaveEdit
         // The application's name used for identification in the registry.
         public const string APPLICATION_NAME = "MCDSaveEdit";
         public const string PAK_FILE_LOCATION_REGISTRY_KEY = "PakFilesPath";
+        public const string LANG_SPECIFIER_REGISTRY_KEY = "LangSpecifier";
         public const int MAX_RECENT_FILES = 10;
 
         public const int MAXIMUM_INVENTORY_ITEM_COUNT = 300;

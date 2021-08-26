@@ -19,7 +19,7 @@ namespace MCDSaveEdit
             }
         }
 
-        //NOTE: location of files for WinStore version is where ever the storepatcher script dumped them
+        //NOTE: location of files for WinStore version is where ever the UWPDumper script dumped them
         public static string? WINSTORE_PAKS_FOLDER_IF_EXISTS {
             get {
                 var pm = new PackageManager();
@@ -42,6 +42,7 @@ namespace MCDSaveEdit
                 return Path.Combine(userFolderPath, "Saved Games", "Mojang Studios", "Dungeons");
             }
         }
+
         public const string ENCRYPTED_FILE_EXTENSION = ".dat";
         public const string DECRYPTED_FILE_EXTENSION = ".json";
     }

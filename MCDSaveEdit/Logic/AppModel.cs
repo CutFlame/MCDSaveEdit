@@ -24,7 +24,7 @@ namespace MCDSaveEdit
 
         public string? usableGameContentIfExists()
         {
-            string? registryPath = RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, string.Empty) as string;
+            string registryPath = RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, string.Empty);
             if (!string.IsNullOrWhiteSpace(registryPath) && Directory.Exists(registryPath))
             {
                 return registryPath;
@@ -45,6 +45,7 @@ namespace MCDSaveEdit
         }
 
         public static bool gameContentLoaded { get; private set; } = false;
+        public static string currentLangSpecifier { get; private set; } = string.Empty;
 
         public async Task loadGameContentAsync(string paksFolderPath)
         {
@@ -59,6 +60,15 @@ namespace MCDSaveEdit
             gameContentLoaded = true;
 
             RegistryTools.SaveSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, paksFolderPath!);
+
+            //Load language strings
+            var lang = RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.LANG_SPECIFIER_REGISTRY_KEY, "en");
+            var stringLibrary = pakImageResolver.loadLanguageStrings(lang);
+            if (stringLibrary != null)
+            {
+                R.loadExternalStrings(stringLibrary);
+                currentLangSpecifier = lang;
+            }
         }
 
         private static Task<PakIndex?> loadPakIndex(string paksFolderPath)
@@ -70,7 +80,7 @@ namespace MCDSaveEdit
                 {
                     var filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
                     var pakIndex = new PakIndex(path: paksFolderPath, cacheFiles: true, caseSensitive: true, filter: filter);
-                    if(pakIndex.PakFileCount == 0)
+                    if (pakIndex.PakFileCount == 0)
                     {
                         throw new FileNotFoundException($"No files were found at {paksFolderPath}");
                     }
@@ -120,6 +130,11 @@ namespace MCDSaveEdit
             {
                 gameContentLoaded = false;
                 instance = new LocalImageResolver();
+            }
+
+            if(!string.IsNullOrWhiteSpace(currentLangSpecifier))
+            {
+                R.unloadExternalStrings();
             }
         }
 

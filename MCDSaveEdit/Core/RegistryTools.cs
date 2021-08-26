@@ -14,11 +14,11 @@ namespace MCDSaveEdit
         }
 
         // Get a value.
-        public static object GetSetting(string app_name, string name, object default_value)
+        public static T GetSetting<T>(string app_name, string name, T default_value)
         {
             RegistryKey reg_key = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey sub_key = reg_key.CreateSubKey(app_name);
-            return sub_key.GetValue(name, default_value);
+            return (T)sub_key.GetValue(name, default_value);
         }
 
         // Delete a value.
@@ -32,6 +32,7 @@ namespace MCDSaveEdit
             }
             catch
             {
+                //Intentionally left blank to ignore errors
             }
         }
     }

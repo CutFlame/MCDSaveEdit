@@ -195,6 +195,16 @@ namespace MCDSaveEdit
             isStringsLoaded = true;
         }
 
+        public static void unloadExternalStrings()
+        {
+            _itemType.Clear();
+            _enchantment.Clear();
+            _armorProperties.Clear();
+            _mission.Clear();
+            _clickys.Clear();
+            isStringsLoaded = false;
+        }
+
         internal static string formatFILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE(string filename) { return string.Format(FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE, filename); }
 
         internal static string formatFILE_DECRYPT_ERROR_MESSAGE(string filename) { return string.Format(FILE_DECRYPT_ERROR_MESSAGE, filename); }

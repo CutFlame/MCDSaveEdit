@@ -65,6 +65,7 @@ namespace MCDSaveEdit
         private readonly Dictionary<string, string> _enchantments = new Dictionary<string, string>();
         private readonly Dictionary<string, string> _equipment = new Dictionary<string, string>();
         private readonly Dictionary<string, BitmapImage> _bitmaps = new Dictionary<string, BitmapImage>();
+        private readonly Dictionary<string, string> _localizations = new Dictionary<string, string>();
         private readonly List<string> _levels = new List<string>();
         public string? path { get; private set; }
 
@@ -99,17 +100,7 @@ namespace MCDSaveEdit
                 {
                     //Get the folder name because it will be the language specifier
                     string lang = Path.GetDirectoryName(fullPath).Split(Path.DirectorySeparatorChar).Last();
-                    //Handle english language strings
-                    if (lang == "en")
-                    {
-                        var stringLibrary = _pakIndex.extractLocResFile(fullPath);
-                        if (stringLibrary != null)
-                        {
-                            R.loadExternalStrings(stringLibrary);
-                            long totalStringCount = stringLibrary.Sum(pair => pair.Value.LongCount());
-                            Debug.WriteLine($"Loaded {totalStringCount} {lang} LocRes");
-                        }
-                    }
+                    _localizations.Add(lang, fullPath);
                     continue;
                 }
 
@@ -224,6 +215,7 @@ namespace MCDSaveEdit
                 }
             }
 
+            Debug.WriteLine($"Found {_localizations.Count()} localizations");
             Debug.WriteLine($"Found {_levels.Count()} levels");
             Debug.WriteLine($"Found {ItemExtensions.armorProperties.Count()} armor properties");
             Debug.WriteLine($"Loaded {_equipment.Count()} equipment images");
@@ -237,6 +229,18 @@ namespace MCDSaveEdit
         private bool isItemValid(string fullPath)
         {
             return !_blockedItems.Any(fullPath.Contains);
+        }
+
+        public Dictionary<string, Dictionary<string, string>>? loadLanguageStrings(string langSpecifier)
+        {
+            var fullPath = _localizations[langSpecifier];
+            var stringLibrary = _pakIndex.extractLocResFile(fullPath);
+            if (stringLibrary != null)
+            {
+                long totalStringCount = stringLibrary.Sum(pair => pair.Value.LongCount());
+                Debug.WriteLine($"Loaded {totalStringCount} strings from {langSpecifier} LocRes");
+            }
+            return stringLibrary;
         }
 
         public BitmapImage? imageSource(string pathWithoutExtension)
