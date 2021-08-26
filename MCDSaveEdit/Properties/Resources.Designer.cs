@@ -538,6 +538,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string NONE {
+            get {
+                return ResourceManager.GetString("NONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not Completed.
         /// </summary>
         public static string NOT_COMPLETED {

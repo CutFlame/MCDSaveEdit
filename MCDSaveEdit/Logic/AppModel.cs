@@ -63,12 +63,22 @@ namespace MCDSaveEdit
 
             //Load language strings
             var lang = RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.LANG_SPECIFIER_REGISTRY_KEY, "en");
-            var stringLibrary = pakImageResolver.loadLanguageStrings(lang);
+            loadLanguageStrings(lang);
+        }
+
+        public static void loadLanguageStrings(string lang)
+        {
+            if (!string.IsNullOrWhiteSpace(currentLangSpecifier))
+            {
+                R.unloadExternalStrings();
+            }
+
+            var stringLibrary = instance.loadLanguageStrings(lang);
             if (stringLibrary != null)
             {
                 R.loadExternalStrings(stringLibrary);
-                currentLangSpecifier = lang;
             }
+            currentLangSpecifier = lang;
         }
 
         private static Task<PakIndex?> loadPakIndex(string paksFolderPath)

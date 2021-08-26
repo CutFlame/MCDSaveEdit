@@ -325,6 +325,10 @@
     <value>New</value>
     <comment>New</comment>
   </data>
+  <data name="NONE" xml:space="preserve">
+    <value>None</value>
+    <comment>None</comment>
+  </data>
   <data name="NOT_COMPLETED" xml:space="preserve">
     <value>Not Completed</value>
     <comment>Not Completed</comment>

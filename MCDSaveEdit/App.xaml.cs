@@ -140,6 +140,7 @@ namespace MCDSaveEdit
             EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "gameContentLoaded", AppModel.gameContentLoaded.ToString() } });
             var mainWindow = WindowFactory.createMainWindow();
             mainWindow.onRelaunch = onRelaunch;
+            mainWindow.onReload = onReload;
             this.MainWindow = mainWindow;
 
             _splashWindow?.Close();
@@ -151,7 +152,18 @@ namespace MCDSaveEdit
         private void onRelaunch()
         {
             showSplashWindowReplacingOldWindow();
-            loadAsync(true);
+            loadAsync(askForGameContentLocation: true);
+        }
+
+        private void onReload()
+        {
+            var oldMainWindow = this.MainWindow;
+            var mainWindow = WindowFactory.createMainWindow();
+            mainWindow.onRelaunch = onRelaunch;
+            mainWindow.onReload = onReload;
+            MainWindow = mainWindow;
+            oldMainWindow?.Close();
+            this.MainWindow.Show();
         }
 
         private void showSplashWindowReplacingOldWindow()

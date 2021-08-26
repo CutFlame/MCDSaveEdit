@@ -66,6 +66,7 @@ namespace MCDSaveEdit
         private readonly Dictionary<string, string> _equipment = new Dictionary<string, string>();
         private readonly Dictionary<string, BitmapImage> _bitmaps = new Dictionary<string, BitmapImage>();
         private readonly Dictionary<string, string> _localizations = new Dictionary<string, string>();
+        public IReadOnlyCollection<string> localizationOptions { get { return _localizations.Keys; } }
         private readonly List<string> _levels = new List<string>();
         public string? path { get; private set; }
 
@@ -100,7 +101,11 @@ namespace MCDSaveEdit
                 {
                     //Get the folder name because it will be the language specifier
                     string lang = Path.GetDirectoryName(fullPath).Split(Path.DirectorySeparatorChar).Last();
-                    _localizations.Add(lang, fullPath);
+                    if (lang != "Game") //Exception for specific invalid language file
+                    {
+                        _localizations.Add(lang, fullPath);
+                        //Debug.WriteLine($"LocRes {lang} - {fullPath}");
+                    }
                     continue;
                 }
 
@@ -233,7 +238,10 @@ namespace MCDSaveEdit
 
         public Dictionary<string, Dictionary<string, string>>? loadLanguageStrings(string langSpecifier)
         {
-            var fullPath = _localizations[langSpecifier];
+            if(!_localizations.TryGetValue(langSpecifier, out string fullPath))
+            {
+                return null;
+            }
             var stringLibrary = _pakIndex.extractLocResFile(fullPath);
             if (stringLibrary != null)
             {

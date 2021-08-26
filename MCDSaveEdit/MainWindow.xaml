@@ -37,6 +37,10 @@
                 <Separator/>
                 <MenuItem x:Name="relaunchToChangeMenuItem" Header="Relaunch to change..." Click="relaunchMenuItem_Click"/>
             </MenuItem>
+            <MenuItem x:Name="langMenuItem" Header="_Language">
+                <MenuItem x:Name="noneLangMenuItem" Header="None" IsChecked="true"/>
+                <Separator/>
+            </MenuItem>
             <MenuItem x:Name="aboutMenuItem" Header="_About" Click="aboutMenuItem_Click"/>
             <MenuItem x:Name="updateMenuItem" Header="_Get New Version" Visibility="Collapsed" Click="updateMenuItem_Click"/>
         </Menu>

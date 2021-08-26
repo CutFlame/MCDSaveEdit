@@ -1,6 +1,7 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Cache;
 using System.Windows.Media.Imaging;
@@ -15,6 +16,9 @@ namespace MCDSaveEdit
         private readonly RequestCachePolicy REQUEST_CACHE_POLICY = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
 
         public string? path { get { return null; } }
+        public IReadOnlyCollection<string> localizationOptions { get { return new List<string>(); } }
+
+        public Dictionary<string, Dictionary<string, string>>? loadLanguageStrings(string langSpecifier) { return null; }
 
         public BitmapImage? imageSource(string path)
         {

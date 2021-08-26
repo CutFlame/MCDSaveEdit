@@ -26,6 +26,7 @@ namespace MCDSaveEdit
         public static void init() { }
 
         public Action? onRelaunch;
+        public Action? onReload;
 
         private readonly MainViewModel _mainModel = new MainViewModel();
 
@@ -63,6 +64,8 @@ namespace MCDSaveEdit
 #if !HIDE_MAP_SCREENS
             createMapScreenTabItems();
 #endif
+
+            createLangMenuItems();
 
             //Clear out design/testing values
             updateUI();
@@ -116,6 +119,28 @@ namespace MCDSaveEdit
                 _mapScreens.Add(mapScreen);
                 mainTabControl.Items.Add(mapScreenTabItem);
             }
+        }
+
+        private void createLangMenuItems()
+        {
+            langMenuItem.Items.Clear();
+            var noneMenuItem = createLangMenuItem(R.NONE);
+            langMenuItem.Items.Add(noneMenuItem);
+            langMenuItem.Items.Add(new Separator());
+            foreach(var menuItem in AppModel.instance.localizationOptions.Select(createLangMenuItem))
+            {
+                langMenuItem.Items.Add(menuItem);
+            }
+        }
+
+        private MenuItem createLangMenuItem(string lang)
+        {
+            var specificLangMenuItem = new MenuItem();
+            specificLangMenuItem.Header = lang;
+            specificLangMenuItem.IsChecked = AppModel.currentLangSpecifier == lang;
+            specificLangMenuItem.CommandParameter = lang;
+            specificLangMenuItem.Command = new RelayCommand<string>(languageSelectedMenuItem_Click);
+            return specificLangMenuItem;
         }
 
         private void fillStatsStack()
@@ -357,6 +382,13 @@ namespace MCDSaveEdit
         private void openRecentFileCommandBinding_Executed(FileInfo fileInfo)
         {
             handleFileOpenAsync(fileInfo.FullName);
+        }
+
+        private void languageSelectedMenuItem_Click(string langSpecifier)
+        {
+            EventLogger.logEvent("languageSelectedMenuItem_Click", new Dictionary<string, object> { { "langSpecifier", langSpecifier } });
+            AppModel.loadLanguageStrings(langSpecifier);
+            onReload?.Invoke();
         }
 
         private void aboutMenuItem_Click(object sender, RoutedEventArgs e)
