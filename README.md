@@ -19,21 +19,23 @@ For full features and functionality you need Minecraft: Dungeons installed and p
 
 1. Download and extract the latest release (MCDSaveEdit_*.zip) from [the releases section](https://github.com/CutFlame/MCDSaveEdit/releases)
 1. If you have the Microsoft Store version of Minecraft: Dungeons you will need to extract the `.pak` files from the game
-   1. Download and run the [storepatcher.ps1](https://github.com/dungeonsworkshop/dungeonsworkshop.github.io/releases) powershell script  
-   **OR**
-   2. Download and run [UWPDumper](https://github.com/Wunkolo/UWPDumper) if you don't want to change your game files
+   1. Download and run [UWPDumper](https://github.com/Wunkolo/UWPDumper) (recommended)
+<br/>
+         **OR**
+<br/>
+   2. Download and run the [storepatcher.ps1](https://github.com/dungeonsworkshop/dungeonsworkshop.github.io/releases) powershell script if you want to be able to mod your game files
 1. Run `MCDSaveEdit.exe`
-   1. If it can't find the `.pak` files, it will ask where to find them
+   1. If it can't find the `.pak` files, it will ask where to find them and you can put in the path to where you had them dumped
 
 ---
 
 ### How to Use
 
 1. Go to `File > Open` in the menu bar.
-2. Open the folder `%HOMEPATH%\Saved Games\Mojang Studios\Dungeons`. *Be sure to backup this folder before editing your save.*
+2. Open the folder `%HOMEPATH%\Saved Games\Mojang Studios\Dungeons`. *Be sure to backup this folder before editing your save files.*
 3. You will see a folder with a 16-digit number (E.g. 2612325419657064). Open this folder, then open the "Characters" folder.
-    1. If multiple Mojang or Microsoft accounts where used in-game you might see more than one folder. 
-4. Select one of the files ending in `.dat`. There will be one for each character on your save.
+    1. If multiple Mojang or Microsoft accounts were used in-game you might see more than one folder. 
+4. Select one of the files ending in `.dat`. There will be one for each character.
 5. Click `Open` and edit your save. When ready go to `File > Save` or `File > Save As...` to save your edits.
 
 <p></p>
@@ -67,7 +69,7 @@ If you have the Microsoft Store version, this will need to be changed to the pat
 ##### Application Stopped Working
 
 If during launch you get a popup saying that MCDSaveEdit has stopped working,
-this means an internal error ocurred and could have various fixes.
+this means an internal error ocurred and could mean various issues.
 MCDSaveEdit has a dependency on .NET Framework 4.7.1 so you could try installing that.
 - [.NET Framework Offline installer](https://support.microsoft.com/en-us/topic/the-net-framework-4-7-1-offline-installer-for-windows-2a7d0d5e-92f2-b12d-aed4-4f5d14c8ef0c)
 
@@ -80,7 +82,7 @@ When cloning be sure to recurse through submodules because there are 2:
 - [DungeonTools](https://github.com/CutFlame/DungeonTools/tree/save-file-editor-1.1)
 - [PakReader](https://github.com/CutFlame/PakReader/tree/MCDSaveEdit)
 
-Provide your own AES key to decrypt the game files
+Provide the AES key to decrypt the game files:
 
 `MCDSaveEdit\Data\Secrets.cs`
 ```csharp
