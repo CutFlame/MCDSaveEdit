@@ -32,6 +32,7 @@ namespace MCDSaveEdit
 
         public const string EMERALD_CURRENCY_NAME = "Emerald";
         public const string GOLD_CURRENCY_NAME = "Gold";
+        public const string DEFAULT_LANG_SPECIFIER = "en";
 
         public static readonly Version CURRENT_VERSION = new Version(CURRENT_VERSION_NUMBER);
     }

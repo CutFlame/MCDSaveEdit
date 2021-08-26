@@ -242,11 +242,27 @@ namespace MCDSaveEdit
             {
                 return null;
             }
+
+            var defaultStringLibrary = _pakIndex.extractLocResFile(_localizations[Constants.DEFAULT_LANG_SPECIFIER]);
+            if(langSpecifier == Constants.DEFAULT_LANG_SPECIFIER)
+            {
+                return defaultStringLibrary;
+            }
+
             var stringLibrary = _pakIndex.extractLocResFile(fullPath);
             if (stringLibrary != null)
             {
                 long totalStringCount = stringLibrary.Sum(pair => pair.Value.LongCount());
                 Debug.WriteLine($"Loaded {totalStringCount} strings from {langSpecifier} LocRes");
+
+                //Fill in any missing strings using the defaultStringLibrary
+                // i.e. fr-FR is missing "Glaive", "Claymore", and "Katana"
+                foreach(var pair in stringLibrary.ToArray())
+                {
+                    var defaultValue = defaultStringLibrary![pair.Key];
+                    var newValue = pair.Value.concatMissingFrom(defaultValue);
+                    stringLibrary[pair.Key] = newValue;
+                }
             }
             return stringLibrary;
         }

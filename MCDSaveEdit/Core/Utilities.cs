@@ -29,6 +29,11 @@ namespace MCDSaveEdit
             return enumerable.Select(element => element.Clone()).Cast<T>();
         }
 
+        public static Dictionary<T1, T2> concatMissingFrom<T1, T2>(this Dictionary<T1, T2> dictA, Dictionary<T1, T2> dictB)
+        {
+            return dictA.Concat(dictB.Where(kvp => !dictA.ContainsKey(kvp.Key))).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
+
         public static async Task<string> wgetAsync(string requestUriString)
         {
             try
