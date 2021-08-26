@@ -47,6 +47,7 @@ namespace MCDSaveEdit
             { "Firetrail","FireTrail" },
         };
 
+        //These items should be hidden from any and all lists because they won't work in the game.
         private static readonly string[] _blockedItems = new[] {
             "MysteryBox",
             "Potions",
@@ -56,6 +57,7 @@ namespace MCDSaveEdit
             "Arrow_Icon",
             "TNTBox",
             "Trident",
+            "HighlanderLongSword",
         };
 
         private readonly LocalImageResolver _backupResolver;
@@ -176,14 +178,14 @@ namespace MCDSaveEdit
                     if (!_equipment.ContainsKey(itemName))
                     {
                         _equipment.Add(itemName, fullPath);
-                        if (!_blockedItems.Any(fullPath.Contains))
+                        if (isItemValid(fullPath))
                         {
                             ItemExtensions.all.Add(itemName);
                         }
                         //Debug.WriteLine($"{itemName} - {fullPath}");
                     }
 
-                    if (fullPath.Contains("Equipment"))
+                    if (fullPath.Contains("Equipment") && isItemValid(fullPath))
                     {
                         //Handle exceptions
                         string? correctedItemName = null;
@@ -207,7 +209,7 @@ namespace MCDSaveEdit
                         }
                     }
                     
-                    if (fullPath.Contains("Items") && !_blockedItems.Any(fullPath.Contains))
+                    if (fullPath.Contains("Items") && isItemValid(fullPath))
                     {
                         //Handle exceptions
                         string? correctedItemName = null;
@@ -230,6 +232,11 @@ namespace MCDSaveEdit
             {
                 Debug.WriteLine($"Preloaded {_bitmaps.Count()} bitmaps");
             }
+        }
+
+        private bool isItemValid(string fullPath)
+        {
+            return !_blockedItems.Any(fullPath.Contains);
         }
 
         public BitmapImage? imageSource(string pathWithoutExtension)
