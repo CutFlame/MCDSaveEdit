@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Costura.Fody.5.4.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.4.0\build\Costura.Fody.props')" />
+  <Import Project="..\packages\Costura.Fody.5.5.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.5.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
@@ -69,8 +69,8 @@
     <ApplicationIcon>Properties\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Costura, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Costura.Fody.5.4.0\lib\netstandard1.0\Costura.dll</HintPath>
+    <Reference Include="Costura, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.5.5.0\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
     <Reference Include="GameAnalytics.Mono, Version=1.0.7702.25490, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GameAnalytics.Mono.SDK.3.1.2\lib\net45\GameAnalytics.Mono.dll</HintPath>
@@ -277,14 +277,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AboutWindow.xaml.cs">
+    <Compile Include="UserControls\ControlWriter.cs" />
+    <Compile Include="Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\StreamExtensions.cs" />
     <Compile Include="Data\Config.cs" />
     <Compile Include="Data\Constants.FileSystemData.cs" />
     <Compile Include="Data\Constants.MapData.cs" />
-    <Compile Include="GameFilesWindow.xaml.cs">
+    <Compile Include="Windows\GameFilesWindow.xaml.cs">
       <DependentUpon>GameFilesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\MainViewModel.cs" />
@@ -356,12 +357,12 @@
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Logic\StringLibrary.cs" />
     <Compile Include="Core\Utilities.cs" />
-    <Compile Include="WindowFactory.cs" />
-    <Page Include="AboutWindow.xaml">
+    <Compile Include="Windows\WindowFactory.cs" />
+    <Page Include="Windows\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GameFilesWindow.xaml">
+    <Page Include="Windows\GameFilesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -397,7 +398,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -413,7 +414,7 @@
       <DependentUpon>ItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\ItemExtensions.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -514,9 +515,9 @@
     <Error Condition="!Exists('..\packages\SkiaSharp.2.80.3\build\net462\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.2.80.3\build\net462\SkiaSharp.targets'))" />
     <Error Condition="!Exists('..\packages\Fody.6.5.2\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.5.2\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\GameAnalytics.Mono.SDK.3.1.2\build\net45\GameAnalytics.Mono.SDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GameAnalytics.Mono.SDK.3.1.2\build\net45\GameAnalytics.Mono.SDK.targets'))" />
-    <Error Condition="!Exists('..\packages\Costura.Fody.5.4.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.4.0\build\Costura.Fody.props'))" />
-    <Error Condition="!Exists('..\packages\Costura.Fody.5.4.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.4.0\build\Costura.Fody.targets'))" />
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.5.5.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.5.0\build\Costura.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.5.5.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.5.0\build\Costura.Fody.targets'))" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
@@ -525,6 +526,6 @@
   <Import Project="..\packages\SkiaSharp.2.80.3\build\net462\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.2.80.3\build\net462\SkiaSharp.targets')" />
   <Import Project="..\packages\Fody.6.5.2\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.2\build\Fody.targets')" />
   <Import Project="..\packages\GameAnalytics.Mono.SDK.3.1.2\build\net45\GameAnalytics.Mono.SDK.targets" Condition="Exists('..\packages\GameAnalytics.Mono.SDK.3.1.2\build\net45\GameAnalytics.Mono.SDK.targets')" />
-  <Import Project="..\packages\Costura.Fody.5.4.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.4.0\build\Costura.Fody.targets')" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="..\packages\Costura.Fody.5.5.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.5.0\build\Costura.Fody.targets')" />
 </Project>

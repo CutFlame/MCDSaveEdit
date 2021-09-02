@@ -23,6 +23,7 @@ namespace MCDSaveEdit
         public BusyIndicator()
         {
             InitializeComponent();
+            Background = new SolidColorBrush(Colors.Transparent);
         }
     }
 }

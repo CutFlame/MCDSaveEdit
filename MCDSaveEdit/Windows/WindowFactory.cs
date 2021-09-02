@@ -1,26 +1,45 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 #nullable enable
 
 namespace MCDSaveEdit
 {
-    public static class WindowFactory
+    public class SplashWindow : Window
     {
-        public static Window createSplashWindow()
+        public Label label = new Label();
+        public TextBox textbox = new TextBox();
+        public StackPanel stack = new StackPanel();
+
+        public SplashWindow() : base()
         {
-            var label = new Label();
             label.FontSize = 40;
             label.FontWeight = FontWeights.ExtraBold;
             label.Content = R.APPLICATION_TITLE;
 
-            var window = new Window();
-            window.SizeToContent = SizeToContent.Width;
-            window.ResizeMode = ResizeMode.NoResize;
-            window.WindowStyle = WindowStyle.None;
-            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            window.Content = label;
+            textbox.Width = 700;
+            textbox.Height = 700;
+            textbox.TextWrapping = TextWrapping.NoWrap;
 
-            return window;
+            stack.Orientation = Orientation.Vertical;
+            stack.VerticalAlignment = VerticalAlignment.Stretch;
+            stack.Children.Add(label);
+            stack.Children.Add(textbox);
+
+            this.SizeToContent = SizeToContent.Width;
+            this.ResizeMode = ResizeMode.NoResize;
+            this.WindowStyle = WindowStyle.None;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.Content = stack;
+        }
+    }
+
+
+    public static class WindowFactory
+    {
+        public static SplashWindow createSplashWindow()
+        {
+            return new SplashWindow();
         }
 
         public static Window createBusyWindow()
@@ -32,6 +51,8 @@ namespace MCDSaveEdit
             busyWindow.ResizeMode = ResizeMode.NoResize;
             busyWindow.WindowStyle = WindowStyle.None;
             busyWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            busyWindow.AllowsTransparency = true;
+            busyWindow.Background = new SolidColorBrush(Colors.Transparent);
             busyWindow.Content = new BusyIndicator();
             return busyWindow;
         }

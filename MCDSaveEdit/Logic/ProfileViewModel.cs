@@ -3,7 +3,6 @@ using MCDSaveEdit.Save.Models.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 #nullable enable
 
 namespace MCDSaveEdit

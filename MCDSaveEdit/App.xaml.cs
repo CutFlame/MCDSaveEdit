@@ -14,13 +14,18 @@ namespace MCDSaveEdit
     public partial class App : Application
     {
         private readonly AppModel _model = new AppModel();
+        private readonly MultiTextWriter _outputWriter = new MultiTextWriter();
 
-        private Window? _splashWindow = null;
+        private ControlWriter? _controlWriter = null;
+        private SplashWindow? _splashWindow = null;
         private Window? _busyWindow = null;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            _outputWriter.addWriter(Console.Out);
+            Console.SetOut(_outputWriter);
+
             bool askForGameContentLocation = e.Args.Contains("ASK_FOR_GAME_CONTENT_LOCATION");
             bool skipGameContent = e.Args.Contains("SKIP_GAME_CONTENT");
             EventLogger.init();
@@ -40,6 +45,7 @@ namespace MCDSaveEdit
         protected override void OnExit(ExitEventArgs e)
         {
             EventLogger.dispose();
+            _outputWriter.Dispose();
             base.OnExit(e);
         }
 
@@ -188,6 +194,9 @@ namespace MCDSaveEdit
         {
             var oldMainWindow = this.MainWindow;
             _splashWindow = WindowFactory.createSplashWindow();
+            _controlWriter = new ControlWriter(_splashWindow.textbox);
+            _outputWriter.addWriter(_controlWriter);
+            
             MainWindow = _splashWindow;
             oldMainWindow?.Close();
             this.MainWindow.Show();

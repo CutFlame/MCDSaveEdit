@@ -29,7 +29,7 @@ namespace MCDSaveEdit
 
         public Enchantment? enchantment {
             get { return _item?.NetheriteEnchant; }
-            set { _item!.NetheriteEnchant = value; updateUI(); }
+            set { if (_item != null) { _item!.NetheriteEnchant = value; updateUI(); } }
         }
 
         public void updateUI()
