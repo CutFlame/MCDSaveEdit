@@ -194,9 +194,12 @@ namespace MCDSaveEdit
         {
             var oldMainWindow = this.MainWindow;
             _splashWindow = WindowFactory.createSplashWindow();
-            _controlWriter = new ControlWriter(_splashWindow.textbox);
-            _outputWriter.addWriter(_controlWriter);
-            
+            if (Constants.IS_DEBUG)
+            {
+                _controlWriter = new ControlWriter(_splashWindow.textbox);
+                _outputWriter.addWriter(_controlWriter);
+            }
+
             MainWindow = _splashWindow;
             oldMainWindow?.Close();
             this.MainWindow.Show();

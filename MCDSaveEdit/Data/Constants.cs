@@ -35,6 +35,15 @@ namespace MCDSaveEdit
         public const string DEFAULT_LANG_SPECIFIER = "en";
 
         public static readonly Version CURRENT_VERSION = new Version(CURRENT_VERSION_NUMBER);
-    }
+        public static bool IS_DEBUG {
+            get {
+#if DEBUG
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
 
+    }
 }
