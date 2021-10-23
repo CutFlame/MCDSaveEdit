@@ -36,6 +36,7 @@ namespace MCDSaveEdit
         public IReadWriteProperty<int?> level;
         public IReadWriteProperty<ulong?> emeralds;
         public IReadWriteProperty<ulong?> gold;
+        public IReadWriteProperty<ulong?> eyeOfEnder;
 
         public ProfileViewModel()
         {
@@ -63,6 +64,20 @@ namespace MCDSaveEdit
                    currency.Count = value.Value;
                    p!.Currency = (new[] { currency }).Concat(p!.Currency.Where(c => c.Type != Constants.GOLD_CURRENCY_NAME)).OrderBy(c => c.Type).ToArray();
                });
+
+            eyeOfEnder = _profile.map(
+                p => p?.Currency.FirstOrDefault(c => c.Type == Constants.EYE_OF_ENDER_CURRENCY_NAME)?.Count,
+                (p, value) => {
+                    if (p == null || value == null) { return; }
+
+                    Currency currency =
+                        p.Currency.FirstOrDefault(c => c.Type == Constants.EYE_OF_ENDER_CURRENCY_NAME) ??
+                        new Currency { Type = Constants.EYE_OF_ENDER_CURRENCY_NAME };
+                    currency.Count = value.Value;
+                    p.Currency = (new[] { currency })
+                        .Concat(p.Currency.Where(c => c.Type != Constants.EYE_OF_ENDER_CURRENCY_NAME))
+                        .OrderBy(c => c.Type).ToArray();
+                });
 
             filteredItemList = _filter.map<ItemFilterEnum, IEnumerable<Item>>(
                 f => {
