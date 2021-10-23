@@ -79,7 +79,7 @@ namespace MCDSaveEdit
         public static void ExecuteOnMainThreadWithWeakThis<T>(this T lhs, Action<WeakReference<T>> funcToRun) where T : class
         {
             var weakThis = new WeakReference<T>(lhs);
-            _ = Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate {
+            _ = Application.Current?.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate {
                 funcToRun(weakThis);
             }));
         }

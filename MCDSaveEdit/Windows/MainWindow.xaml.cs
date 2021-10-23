@@ -339,7 +339,7 @@ namespace MCDSaveEdit
         private void exitCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             EventLogger.logEvent("exitCommandBinding_Executed");
-            Application.Current.Shutdown();
+            Application.Current?.Shutdown();
         }
 
         private void relaunchMenuItem_Click(object sender, RoutedEventArgs e)
