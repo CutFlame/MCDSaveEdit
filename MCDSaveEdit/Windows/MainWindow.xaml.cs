@@ -1,4 +1,4 @@
-﻿using MCDSaveEdit.Save.Models.Profiles;
+using MCDSaveEdit.Save.Models.Profiles;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -293,6 +293,7 @@ namespace MCDSaveEdit
             model.level.subscribe(_ => this.updateEnchantmentPointsUI());
             model.emeralds.subscribe(updateEmeraldsUI);
             model.gold.subscribe(updateGoldUI);
+            model.eyeOfEnder.subscribe(updateEyeOfEnder);
             model.selectedItem.subscribe(item => this.selectedItemScreen.item = item);
             model.selectedEnchantment.subscribe(updateEnchantmentScreenUI);
             model.profile.subscribe(_ => this.updateUI());
