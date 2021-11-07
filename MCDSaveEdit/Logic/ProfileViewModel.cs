@@ -1,4 +1,4 @@
-﻿using MCDSaveEdit.Save.Models.Enums;
+using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
 using System;
 using System.Collections.Generic;
@@ -33,6 +33,7 @@ namespace MCDSaveEdit
 
         public IReadProperty<IEnumerable<Item>> filteredItemList;
         public IReadProperty<IEnumerable<Item>> equippedItemList;
+        public IReadWriteProperty<bool?> unlockPortal;
         public IReadWriteProperty<int?> level;
         public IReadWriteProperty<ulong?> emeralds;
         public IReadWriteProperty<ulong?> gold;
@@ -86,6 +87,15 @@ namespace MCDSaveEdit
                 });
 
             equippedItemList = _profile.map<ProfileSaveFile?, IEnumerable<Item>>(p => p?.equippedItems() ?? new Item[0]);
+
+            unlockPortal = _profile.map(p =>
+                p?.StrongholdProgess?.Where(x => x.Key.EndsWith("Unlocked")).All(x => x.Value),
+                (p, value) => {
+                    if (p == null || value == null) { return; }
+                    
+                    p.StrongholdProgess = p.StrongholdProgess?
+                        .ToDictionary(x => x.Key, x => x.Key.EndsWith("Unlocked") ? value.Value : x.Value);
+                });
 
             profile.subscribe(p => { this.filter.setValue = ItemFilterEnum.All; _selectedItem.value = null; });
         }

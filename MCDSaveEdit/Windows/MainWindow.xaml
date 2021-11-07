@@ -58,6 +58,7 @@
                         <Image x:Name="eyeOfEnderLabelImage" Margin="8,4" Source="../Images/EyeOfEnder.png"/>
                         <TextBox x:Name="eyeOfEnderTextBox" Text="1234567890" TextChanged="eyeOfEnderTextBox_TextChanged" FontSize="14" Width="100" VerticalContentAlignment="Center" Margin="0,4" MaxLength="8" MaxLines="1" IsUndoEnabled="True" Background="{x:Null}" Visibility="Collapsed"/>
                         <Button x:Name="eyeOfEnderAddButton" FontSize="14" Content="+" Width="100" Height="22" Click="eyeOfEnderAddButton_Click"/>
+                        <Button x:Name="unlockPortalButton" FontSize="14" Content="_Unlock Portal" ToolTip="Unlocking the ability to insert eyes of ender in stronghold" Width="100" Height="22" Margin="4,4" Visibility="Collapsed" Click="unlockPortalButton_Click"/>
                         <Image x:Name="remainingEnchantmentPointsLabelImage" Margin="8,4" Source="../Images/Points.png"/>
                         <Label x:Name="remainingEnchantmentPointsLabel" Content="1234567890" FontSize="14" Width="100" VerticalContentAlignment="Center" Padding="0" />
                     </StackPanel>

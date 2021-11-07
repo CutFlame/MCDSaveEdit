@@ -293,7 +293,8 @@ namespace MCDSaveEdit
             model.level.subscribe(_ => this.updateEnchantmentPointsUI());
             model.emeralds.subscribe(updateEmeraldsUI);
             model.gold.subscribe(updateGoldUI);
-            model.eyeOfEnder.subscribe(updateEyeOfEnder);
+            model.eyeOfEnder.subscribe(updateEyeOfEnderUI);
+            model.unlockPortal.subscribe(updateUnlockPortalUI);
             model.selectedItem.subscribe(item => this.selectedItemScreen.item = item);
             model.selectedEnchantment.subscribe(updateEnchantmentScreenUI);
             model.profile.subscribe(_ => this.updateUI());
@@ -558,7 +559,8 @@ namespace MCDSaveEdit
             updateTitleUI();
             updateEmeraldsUI(_model?.emeralds.value);
             updateGoldUI(_model?.gold.value);
-            updateEyeOfEnder(_model?.eyeOfEnder.value);
+            updateEyeOfEnderUI(_model?.eyeOfEnder.value);
+            updateUnlockPortalUI(_model?.unlockPortal.value);
             fillStatsStack();
             fillMobKillsStack();
             updateMapScreensUI();
@@ -625,7 +627,7 @@ namespace MCDSaveEdit
             }
         }
 
-        private void updateEyeOfEnder(ulong? eyeOfEnder)
+        private void updateEyeOfEnderUI(ulong? eyeOfEnder)
         {
             if (eyeOfEnder != null)
             {
@@ -642,6 +644,17 @@ namespace MCDSaveEdit
                 eyeOfEnderTextBox.Visibility = Visibility.Collapsed;
                 eyeOfEnderAddButton.Visibility = Visibility.Visible;
             }
+        }
+
+        private void updateUnlockPortalUI(bool? value)
+        {
+            if (_model?.profile.value == null || !value.HasValue)
+            {
+                unlockPortalButton.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            unlockPortalButton.Visibility = value.Value ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void updateEnchantmentPointsUI()
@@ -691,6 +704,12 @@ namespace MCDSaveEdit
         {
             if (_model?.profile.value == null) { return; }
             _model.eyeOfEnder.setValue = 0;
+        }
+        
+        private void unlockPortalButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_model?.profile.value == null) { return; }
+            _model.unlockPortal.setValue = true;
         }
     }
 }
