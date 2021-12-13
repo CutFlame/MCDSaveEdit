@@ -88,7 +88,7 @@ namespace MCDSaveEdit.Save.Models.Profiles
         public string Skin { get; set; }
 
         [JsonPropertyName("strongholdProgress")]
-        public Dictionary<string, bool> StrongholdProgess { get; set; }
+        public Dictionary<string, bool>? StrongholdProgess { get; set; }
 
         [JsonPropertyName("threatLevels")]
         public ThreatLevels ThreatLevels { get; set; }
