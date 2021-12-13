@@ -488,6 +488,7 @@
     <Resource Include="Images\Points.png" />
     <Resource Include="Images\Emerald.png" />
     <Resource Include="Images\Gold.png" />
+    <Resource Include="Images\EyeOfEnder.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Costura32\libSkiaSharp.dll" />

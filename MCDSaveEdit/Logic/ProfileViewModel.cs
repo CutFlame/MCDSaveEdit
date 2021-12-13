@@ -1,4 +1,4 @@
-﻿using MCDSaveEdit.Save.Models.Enums;
+using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
 using System;
 using System.Collections.Generic;
@@ -33,9 +33,11 @@ namespace MCDSaveEdit
 
         public IReadProperty<IEnumerable<Item>> filteredItemList;
         public IReadProperty<IEnumerable<Item>> equippedItemList;
+        public IReadWriteProperty<bool?> unlockPortal;
         public IReadWriteProperty<int?> level;
         public IReadWriteProperty<ulong?> emeralds;
         public IReadWriteProperty<ulong?> gold;
+        public IReadWriteProperty<ulong?> eyeOfEnder;
 
         public ProfileViewModel()
         {
@@ -64,6 +66,20 @@ namespace MCDSaveEdit
                    p!.Currency = (new[] { currency }).Concat(p!.Currency.Where(c => c.Type != Constants.GOLD_CURRENCY_NAME)).OrderBy(c => c.Type).ToArray();
                });
 
+            eyeOfEnder = _profile.map(
+                p => p?.Currency.FirstOrDefault(c => c.Type == Constants.EYE_OF_ENDER_CURRENCY_NAME)?.Count,
+                (p, value) => {
+                    if (p == null || value == null) { return; }
+
+                    Currency currency =
+                        p.Currency.FirstOrDefault(c => c.Type == Constants.EYE_OF_ENDER_CURRENCY_NAME) ??
+                        new Currency { Type = Constants.EYE_OF_ENDER_CURRENCY_NAME };
+                    currency.Count = value.Value;
+                    p.Currency = (new[] { currency })
+                        .Concat(p.Currency.Where(c => c.Type != Constants.EYE_OF_ENDER_CURRENCY_NAME))
+                        .OrderBy(c => c.Type).ToArray();
+                });
+
             filteredItemList = _filter.map<ItemFilterEnum, IEnumerable<Item>>(
                 f => {
                     var items = this.profile.value?.unequippedItems() ?? new Item[0];
@@ -71,6 +87,15 @@ namespace MCDSaveEdit
                 });
 
             equippedItemList = _profile.map<ProfileSaveFile?, IEnumerable<Item>>(p => p?.equippedItems() ?? new Item[0]);
+
+            unlockPortal = _profile.map(p =>
+                p?.StrongholdProgess?.Where(x => x.Key.EndsWith("Unlocked")).All(x => x.Value),
+                (p, value) => {
+                    if (p == null || value == null) { return; }
+                    
+                    p.StrongholdProgess = p.StrongholdProgess?
+                        .ToDictionary(x => x.Key, x => x.Key.EndsWith("Unlocked") ? value.Value : x.Value);
+                });
 
             profile.subscribe(p => { this.filter.setValue = ItemFilterEnum.All; _selectedItem.value = null; });
         }

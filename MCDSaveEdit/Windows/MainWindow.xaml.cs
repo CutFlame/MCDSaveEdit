@@ -1,4 +1,4 @@
-﻿using MCDSaveEdit.Save.Models.Profiles;
+using MCDSaveEdit.Save.Models.Profiles;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -22,6 +22,7 @@ namespace MCDSaveEdit
     {
         private static readonly BitmapImage? _emeraldImage = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Character/STATS_emerald");
         private static readonly BitmapImage? _goldImage = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Currency/GoldIndicator");
+        private static readonly BitmapImage? _eyeOfEnderImage = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Currency/T_EyeOfEnder_Currency");
         private static readonly BitmapImage? _enchantmentImage = AppModel.instance.imageSource("/Dungeons/Content/UI/Materials/Inventory2/Enchantment/enchantscore_background");
 
         public static void init() { }
@@ -97,6 +98,7 @@ namespace MCDSaveEdit
         {
             emeraldsLabelImage.Source = _emeraldImage;
             goldLabelImage.Source = _goldImage;
+            eyeOfEnderLabelImage.Source = _eyeOfEnderImage;
             remainingEnchantmentPointsLabelImage.Source = _enchantmentImage;
         }
 
@@ -291,6 +293,8 @@ namespace MCDSaveEdit
             model.level.subscribe(_ => this.updateEnchantmentPointsUI());
             model.emeralds.subscribe(updateEmeraldsUI);
             model.gold.subscribe(updateGoldUI);
+            model.eyeOfEnder.subscribe(updateEyeOfEnderUI);
+            model.unlockPortal.subscribe(updateUnlockPortalUI);
             model.selectedItem.subscribe(item => this.selectedItemScreen.item = item);
             model.selectedEnchantment.subscribe(updateEnchantmentScreenUI);
             model.profile.subscribe(_ => this.updateUI());
@@ -462,6 +466,22 @@ namespace MCDSaveEdit
             }
         }
 
+        private void eyeOfEnderTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_model?.profile.value == null || !eyeOfEnderTextBox.IsEnabled)
+                return;
+            if (uint.TryParse(eyeOfEnderTextBox.Text, out uint eyeOfEnder))
+            {
+                EventLogger.logEvent("eyeOfEnderTextBox_TextChanged");
+                eyeOfEnderTextBox.BorderBrush = Brushes.Gray;
+                _model!.eyeOfEnder.setValue = eyeOfEnder;
+            }
+            else
+            {
+                eyeOfEnderTextBox.BorderBrush = Brushes.Red;
+            }
+        }
+
         #endregion
 
         #region Helper Functions
@@ -539,6 +559,8 @@ namespace MCDSaveEdit
             updateTitleUI();
             updateEmeraldsUI(_model?.emeralds.value);
             updateGoldUI(_model?.gold.value);
+            updateEyeOfEnderUI(_model?.eyeOfEnder.value);
+            updateUnlockPortalUI(_model?.unlockPortal.value);
             fillStatsStack();
             fillMobKillsStack();
             updateMapScreensUI();
@@ -605,6 +627,36 @@ namespace MCDSaveEdit
             }
         }
 
+        private void updateEyeOfEnderUI(ulong? eyeOfEnder)
+        {
+            if (eyeOfEnder != null)
+            {
+                eyeOfEnderTextBox.IsEnabled = false;
+                eyeOfEnderTextBox.Text = eyeOfEnder!.ToString();
+                eyeOfEnderTextBox.IsEnabled = true;
+                eyeOfEnderTextBox.Visibility = Visibility.Visible;
+                eyeOfEnderAddButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                eyeOfEnderTextBox.IsEnabled = false;
+                eyeOfEnderTextBox.Text = string.Empty;
+                eyeOfEnderTextBox.Visibility = Visibility.Collapsed;
+                eyeOfEnderAddButton.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void updateUnlockPortalUI(bool? value)
+        {
+            if (_model?.profile.value == null || !value.HasValue)
+            {
+                unlockPortalButton.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            unlockPortalButton.Visibility = value.Value ? Visibility.Collapsed : Visibility.Visible;
+        }
+
         private void updateEnchantmentPointsUI()
         {
             if (_model?.profile.value != null)
@@ -646,6 +698,18 @@ namespace MCDSaveEdit
         {
             if (_model?.profile.value == null) { return; }
             _model.gold.setValue = 0;
+        }
+        
+        private void eyeOfEnderAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_model?.profile.value == null) { return; }
+            _model.eyeOfEnder.setValue = 0;
+        }
+        
+        private void unlockPortalButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_model?.profile.value == null) { return; }
+            _model.unlockPortal.setValue = true;
         }
     }
 }
