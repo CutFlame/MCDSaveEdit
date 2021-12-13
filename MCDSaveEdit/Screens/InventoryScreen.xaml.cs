@@ -1,7 +1,7 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -113,7 +113,7 @@ namespace MCDSaveEdit
 
             model.profile.subscribe(_ => this.updateUI());
             model.level.subscribe(updateLevelUI);
-            model.filteredItemList.subscribe(updateGridItemsUI);
+            model.filteredItemList.subscribe(updateGridItemsUIReloadingAll);
             model.equippedItemList.subscribe(_ => this.updateEquippedItemsUI());
         }
 
@@ -256,32 +256,46 @@ namespace MCDSaveEdit
         }
 
         private const int ITEMS_PER_ROW = 3;
+        private const double INVENTORY_ITEM_SIDE_LENGTH = 100;
 
-        private void updateGridItemsUI(IEnumerable<Item>? items)
+        private void updateGridItemsUIReloadingAll(IEnumerable<Item>? items)
         {
-            itemsGrid.RowDefinitions.Clear();
-            itemsGrid.Children.Clear();
+            updateGridItemsUI(items, true);
+        }
 
+        private void updateGridItemsUI(IEnumerable<Item>? items, bool forceReloadAll = false)
+        {
             if (_model == null || items == null)
             {
                 inventoryCountLabel.Content = string.Empty;
+                itemsGrid.RowDefinitions.Clear();
+                itemsGrid.Children.Clear();
                 return;
             }
+
+            //Optimization. Only reload the grid if necessary or forced
+            if(forceReloadAll == false && itemsGrid.Children.Count == items.Count())
+            {
+                return;
+            }
+
+            itemsGrid.RowDefinitions.Clear();
+            itemsGrid.Children.Clear();
 
             int itemCount = 0;
             foreach (var item in items!)
             {
                 var itemControl = new ItemControl();
                 itemControl.item = item;
-                itemControl.Height = 100;
-                itemControl.Width = 100;
+                itemControl.Height = INVENTORY_ITEM_SIDE_LENGTH;
+                itemControl.Width = INVENTORY_ITEM_SIDE_LENGTH;
 
                 var itemButton = new Button();
                 itemButton.Background = null;
                 itemButton.HorizontalAlignment = HorizontalAlignment.Center;
                 itemButton.VerticalAlignment = VerticalAlignment.Center;
-                itemButton.Height = 100;
-                itemButton.Width = 100;
+                itemButton.Height = INVENTORY_ITEM_SIDE_LENGTH;
+                itemButton.Width = INVENTORY_ITEM_SIDE_LENGTH;
                 itemButton.Margin = new Thickness(0);
                 itemButton.Content = itemControl;
                 itemButton.Command = new RelayCommand<Item>(_model!.selectItem);
@@ -290,7 +304,7 @@ namespace MCDSaveEdit
                 if (itemCount % ITEMS_PER_ROW == 0)
                 {
                     var rowDef = new RowDefinition();
-                    rowDef.Height = new GridLength(100);
+                    rowDef.Height = new GridLength(INVENTORY_ITEM_SIDE_LENGTH);
                     itemsGrid.RowDefinitions.Add(rowDef);
                 }
 
@@ -307,8 +321,8 @@ namespace MCDSaveEdit
                 var newItemButton = new Button();
                 newItemButton.HorizontalAlignment = HorizontalAlignment.Center;
                 newItemButton.VerticalAlignment = VerticalAlignment.Center;
-                newItemButton.Height = 100;
-                newItemButton.Width = 100;
+                newItemButton.Height = INVENTORY_ITEM_SIDE_LENGTH;
+                newItemButton.Width = INVENTORY_ITEM_SIDE_LENGTH;
                 newItemButton.Margin = new Thickness(0);
                 newItemButton.Content = "+";
                 newItemButton.Command = new RelayCommand<object>(_ => { this.addNewItemButton_Click(_model?.filter.value); });
@@ -316,7 +330,7 @@ namespace MCDSaveEdit
                 if (itemCount % ITEMS_PER_ROW == 0)
                 {
                     var rowDef = new RowDefinition();
-                    rowDef.Height = new GridLength(100);
+                    rowDef.Height = new GridLength(INVENTORY_ITEM_SIDE_LENGTH);
                     itemsGrid.RowDefinitions.Add(rowDef);
                 }
 
