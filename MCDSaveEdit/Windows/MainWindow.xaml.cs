@@ -75,6 +75,17 @@ namespace MCDSaveEdit
             checkForNewVersionAsync();
         }
 
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+
+            //Capture the delete key
+            if(e.Key == Key.Delete && selectedItemScreen.item != null)
+            {
+                removeItem(selectedItemScreen.item!);
+            }
+        }
+
         private void refreshRecentFilesList()
         {
             recentFilesMenuItem.Items.Clear();
