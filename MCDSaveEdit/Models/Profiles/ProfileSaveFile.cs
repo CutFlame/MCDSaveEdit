@@ -58,7 +58,7 @@ namespace MCDSaveEdit.Save.Models.Profiles
         public Dictionary<string, MerchantDef> MerchantData { get; set; }
 
         [JsonPropertyName("missionStatesMap")]
-        public object MissionStatesMap { get; set; }
+        public Dictionary<string, object>? MissionStatesMap { get; set; }
 
         [JsonPropertyName("mob_kills")]
         public Dictionary<string, long> MobKills { get; set; }

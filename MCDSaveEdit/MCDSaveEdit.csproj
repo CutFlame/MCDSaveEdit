@@ -268,6 +268,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Profiles\MerchantDef\MerchantPricing.cs" />
+    <Compile Include="Models\Profiles\MerchantDef\MerchantQuest.cs" />
+    <Compile Include="Models\Profiles\MerchantDef\MerchantSlot.cs" />
+    <Compile Include="Models\Profiles\TheTower\MissionDifficulty.cs" />
+    <Compile Include="Models\Profiles\TheTower\NestedTowerInfo.cs" />
+    <Compile Include="Models\Profiles\TheTower\TowerConfig.cs" />
+    <Compile Include="Models\Profiles\TheTower\TowerFloor.cs" />
+    <Compile Include="Models\Profiles\TheTower\TowerFloorTypeEnum.cs" />
+    <Compile Include="Models\Profiles\TheTower\TowerFloorTypeObject.cs" />
+    <Compile Include="Models\Profiles\TheTower\TowerInfo.cs" />
+    <Compile Include="Models\Profiles\TheTower\TowerMissionState.cs" />
     <Compile Include="UserControls\ControlWriter.cs" />
     <Compile Include="Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
@@ -307,7 +318,7 @@
     <Compile Include="Models\Profiles\Enchantment.cs" />
     <Compile Include="Models\Profiles\Item.cs" />
     <Compile Include="Data\MapImageData.cs" />
-    <Compile Include="Models\Profiles\MerchantDef.cs" />
+    <Compile Include="Models\Profiles\MerchantDef\MerchantDef.cs" />
     <Compile Include="Models\Profiles\Progress.cs" />
     <Compile Include="Models\Profiles\LobbyChest.cs" />
     <Compile Include="Models\Profiles\MapUiState.cs" />

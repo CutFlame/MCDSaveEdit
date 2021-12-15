@@ -156,6 +156,16 @@ namespace MCDSaveEdit
 
         public static bool isStringsLoaded { get; private set; } = false;
 
+        public static int totalStringCount {
+            get {
+                return _itemType.Count
+                    + _enchantment.Count
+                    + _armorProperties.Count
+                    + _mission.Count
+                    + _clickys.Count;
+            }
+        }
+
         public static void loadExternalStrings(Dictionary<string, Dictionary<string, string>> stringLibrary)
         {
             if (stringLibrary.TryGetValue("ItemType", out var itemDict))

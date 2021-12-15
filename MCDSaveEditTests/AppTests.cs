@@ -41,25 +41,31 @@ namespace MCDSaveEditTests
             Assert.AreEqual(260, ItemExtensions.all.Count);
             Assert.AreEqual(118, EnchantmentExtensions.allEnchantments.Count);
 
+            var stringLibrary = pakImageResolver.loadLanguageStrings("ru-RU");
+            //Using Russian language in order to guarantee every string will not match the english key
+            Assert.IsNotNull(stringLibrary);
+            R.loadExternalStrings(stringLibrary);
+            Assert.AreEqual(2391, R.totalStringCount);
+
             //Find all the missing and mismatched strings
 
             foreach(var item in ItemExtensions.all)
             {
-                R.itemName(item);
-                R.itemDesc(item);
+                Assert.AreNotEqual(item, R.itemName(item), $"itemName({item}) failed");
+                Assert.AreNotEqual(item, R.itemDesc(item), $"itemDesc({item}) failed");
             }
 
             foreach(var enchantment in EnchantmentExtensions.allEnchantments)
             {
-                R.enchantmentName(enchantment);
+                Assert.AreNotEqual(enchantment, R.enchantmentName(enchantment), $"enchantmentName({enchantment}) failed");
                 //R.enchantmentEffect(enchantment); //missing many of these strings
-                R.enchantmentDescription(enchantment);
+                Assert.AreNotEqual(enchantment, R.enchantmentDescription(enchantment), $"enchantmentDescription({enchantment}) failed");
             }
 
             foreach (var armorProperty in ItemExtensions.armorProperties)
             {
-                R.armorProperty(armorProperty);
-                R.armorPropertyDescription(armorProperty);
+                Assert.AreNotEqual(armorProperty, R.armorProperty(armorProperty), $"armorProperty({armorProperty}) failed");
+                Assert.AreNotEqual(armorProperty, R.armorPropertyDescription(armorProperty), $"armorPropertyDescription({armorProperty}) failed");
             }
         }
 
