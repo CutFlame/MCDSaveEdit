@@ -135,6 +135,7 @@ namespace MCDSaveEdit
                 MapScreen.preload(); //This takes a while
 #endif
                 InventoryScreen.preload();
+                EquipmentScreen.preload();
                 SelectionWindow.preload();
                 ItemControl.preload();
                 tcs.SetResult(true);
