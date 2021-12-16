@@ -19,10 +19,8 @@ For full features and functionality you need Minecraft: Dungeons installed and p
 
 1. Download and extract the latest release (MCDSaveEdit_*.zip) from [the releases section](https://github.com/CutFlame/MCDSaveEdit/releases)
 1. If you have the Microsoft Store version of Minecraft: Dungeons you will need to extract the `.pak` files from the game
-   1. Download and run [UWPDumper](https://github.com/Wunkolo/UWPDumper) (recommended)
-<br/>
-         **OR**
-<br/>
+   1. Download and run [UWPDumper](https://github.com/Wunkolo/UWPDumper) (recommended)<br/>
+         **OR**<br/>
    2. Download and run the [storepatcher.ps1](https://github.com/dungeonsworkshop/dungeonsworkshop.github.io/releases) powershell script if you want to be able to mod your game files
 1. Run `MCDSaveEdit.exe`
    1. If it can't find the `.pak` files, it will ask where to find them and you can put in the path to where you had them dumped
