@@ -1,0 +1,10 @@
+﻿Build Order of the folders/namespaces:
+
+Core
+Data / Save.Models.Profiles / Save.Models.Enums / Save.Models.Mapping
+Interfaces
+Services
+Logic
+ViewModels
+UI
+App

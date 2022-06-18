@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="MCDSaveEdit.UI.ChestTab"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MCDSaveEdit.UI"
+      mc:Ignorable="d" 
+      d:DesignHeight="450"
+      d:DesignWidth="1200">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top"  Height="30" Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+            <Image x:Name="remainingEnchantmentPointsLabelImage" Margin="8,4" Source="../../Images/Points.png"/>
+            <Label x:Name="remainingEnchantmentPointsLabel" Content="1234567890" FontSize="14" Width="100" VerticalContentAlignment="Center" Padding="0" />
+        </StackPanel>
+
+        <Grid DockPanel.Dock="Left" Width="710" Height="Auto" Margin="0" VerticalAlignment="Stretch">
+            <local:ItemListScreen x:Name="itemListScreen" Width="350" HorizontalAlignment="Left"/>
+
+            <Rectangle x:Name="selectedEnchantmentScreenBackShadowRectangle" Visibility="Collapsed" Fill="#7F000000" />
+
+            <local:EnchantmentScreen x:Name="selectedEnchantmentScreen" Visibility="Collapsed" Margin="30" Background="White"/>
+
+        </Grid>
+
+        <local:ItemScreen x:Name="selectedItemScreen" DockPanel.Dock="Right" Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+    </DockPanel>
+
+
+</UserControl>

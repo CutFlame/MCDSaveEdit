@@ -1,9 +1,8 @@
-﻿using System;
-using System.Reactive;
-using MCDSaveEdit;
+﻿using MCDSaveEdit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Reactive;
 
-namespace MCDSaveEditTests
+namespace MCDSaveEditTests.CoreTests
 {
     [TestClass]
     public class ObservablesTests
@@ -40,7 +39,7 @@ namespace MCDSaveEditTests
         }
 
         [TestMethod]
-        public void TestPropertyCallsSubscriberOnSetValue()
+        public void TestPropertyDoesCallSubscriberOnSetValue()
         {
             var intProp = new Property<int>(0);
             bool actionWasCalled = false;
@@ -61,7 +60,7 @@ namespace MCDSaveEditTests
         }
 
         [TestMethod]
-        public void TestPropertyCallsSubscriberOnValue()
+        public void TestPropertyDoesCallSubscriberOnValue()
         {
             var intProp = new Property<int>(0);
             bool actionWasCalled = false;
@@ -71,7 +70,7 @@ namespace MCDSaveEditTests
         }
 
         [TestMethod]
-        public void TestPropertyCallsObserverSubscriberOnValue()
+        public void TestPropertyDoesCallObserverSubscriberOnValue()
         {
             var intProp = new Property<int>(0);
             bool actionWasCalled = false;
@@ -82,7 +81,7 @@ namespace MCDSaveEditTests
         }
 
         [TestMethod]
-        public void TestPropertyDoesNotCallsSubscriberAfterUnsubscription()
+        public void TestPropertyDoesNotCallSubscriberAfterUnsubscription()
         {
             var intProp = new Property<int>(0);
             bool actionWasCalled = false;
@@ -94,7 +93,7 @@ namespace MCDSaveEditTests
         }
 
         [TestMethod]
-        public void TestPropertyCallsObserverSubscriberOnlyOnce()
+        public void TestPropertyDoesCallObserverSubscriberOnlyOnce()
         {
             var intProp = new Property<int>(0);
             int actionCalledCount = 0;
@@ -105,7 +104,7 @@ namespace MCDSaveEditTests
         }
 
         [TestMethod]
-        public void TestPropertyPreventsDoubleSubscription()
+        public void TestPropertyDoesPreventDoubleSubscription()
         {
             var intProp = new Property<int>(0);
             int actionCalledCount = 0;
@@ -117,7 +116,7 @@ namespace MCDSaveEditTests
         }
 
         [TestMethod]
-        public void TestPropertyCallsAllSubscribers()
+        public void TestPropertyDoesCallAllSubscribers()
         {
             var intProp = new Property<int>(0);
             int actionCalledCount = 0;

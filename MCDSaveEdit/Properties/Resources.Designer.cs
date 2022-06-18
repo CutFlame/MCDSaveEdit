@@ -106,11 +106,29 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arrows.
+        /// </summary>
+        public static string ARROWS {
+            get {
+                return ResourceManager.GetString("ARROWS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Artifact.
         /// </summary>
         public static string ARTIFACT_ITEMS_FILTER {
             get {
                 return ResourceManager.GetString("ARTIFACT_ITEMS_FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempts Left.
+        /// </summary>
+        public static string ATTEMPTS_LEFT {
+            get {
+                return ResourceManager.GetString("ATTEMPTS_LEFT", resourceCulture);
             }
         }
         
@@ -133,6 +151,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bosses Defeated.
+        /// </summary>
+        public static string BOSSES_DEFEATED {
+            get {
+                return ResourceManager.GetString("BOSSES_DEFEATED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CANCEL {
@@ -147,6 +174,15 @@ namespace MCDSaveEdit.Properties {
         public static string CHARACTER_FILE_FORMAT_NOT_RECOGNIZED_ERROR_MESSAGE {
             get {
                 return ResourceManager.GetString("CHARACTER_FILE_FORMAT_NOT_RECOGNIZED_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chest.
+        /// </summary>
+        public static string CHEST {
+            get {
+                return ResourceManager.GetString("CHEST", resourceCulture);
             }
         }
         
@@ -196,6 +232,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Floor.
+        /// </summary>
+        public static string CURRENT_FLOOR {
+            get {
+                return ResourceManager.GetString("CURRENT_FLOOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decrypted Character Save files.
         /// </summary>
         public static string DECRYPTED_CHARACTER_SAVE_FILES {
@@ -210,6 +255,33 @@ namespace MCDSaveEdit.Properties {
         public static string DELETE {
             get {
                 return ResourceManager.GetString("DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adventure.
+        /// </summary>
+        public static string DIFFICULTY_ADVENTURE {
+            get {
+                return ResourceManager.GetString("DIFFICULTY_ADVENTURE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apocalypse.
+        /// </summary>
+        public static string DIFFICULTY_APOCALYPSE {
+            get {
+                return ResourceManager.GetString("DIFFICULTY_APOCALYPSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string DIFFICULTY_DEFAULT {
+            get {
+                return ResourceManager.GetString("DIFFICULTY_DEFAULT", resourceCulture);
             }
         }
         
@@ -277,6 +349,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to load game content..
+        /// </summary>
+        public static string FAILED_TO_LOAD_GAME_CONTENT_ERROR_TITLE {
+            get {
+                return ResourceManager.GetString("FAILED_TO_LOAD_GAME_CONTENT_ERROR_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File was not in an expected format..
         /// </summary>
         public static string FAILED_TO_PARSE_FILE_ERROR_MESSAGE {
@@ -318,6 +399,51 @@ namespace MCDSaveEdit.Properties {
         public static string FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE {
             get {
                 return ResourceManager.GetString("FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Final Floor.
+        /// </summary>
+        public static string FINAL_FLOOR {
+            get {
+                return ResourceManager.GetString("FINAL_FLOOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Challenges.
+        /// </summary>
+        public static string FLOOR_CHALLENGES {
+            get {
+                return ResourceManager.GetString("FLOOR_CHALLENGES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rewards.
+        /// </summary>
+        public static string FLOOR_REWARDS {
+            get {
+                return ResourceManager.GetString("FLOOR_REWARDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tile.
+        /// </summary>
+        public static string FLOOR_TILE {
+            get {
+                return ResourceManager.GetString("FLOOR_TILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string FLOOR_TYPE {
+            get {
+                return ResourceManager.GetString("FLOOR_TYPE", resourceCulture);
             }
         }
         
@@ -381,6 +507,15 @@ namespace MCDSaveEdit.Properties {
         public static string GILDED {
             get {
                 return ResourceManager.GetString("GILDED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Give up Tower Run.
+        /// </summary>
+        public static string GIVE_UP_TOWER_RUN {
+            get {
+                return ResourceManager.GetString("GIVE_UP_TOWER_RUN", resourceCulture);
             }
         }
         
@@ -520,6 +655,24 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move to Inventory.
+        /// </summary>
+        public static string MOVE_TO_INVENTORY {
+            get {
+                return ResourceManager.GetString("MOVE_TO_INVENTORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to Storage.
+        /// </summary>
+        public static string MOVE_TO_STORAGE {
+            get {
+                return ResourceManager.GetString("MOVE_TO_STORAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         public static string NEW {
@@ -529,11 +682,29 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next Floor {0} / {1} : {2}.
+        /// </summary>
+        public static string NEXT_LEVEL_LABEL {
+            get {
+                return ResourceManager.GetString("NEXT_LEVEL_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not find game content files at the given path..
         /// </summary>
         public static string NO_GAME_FILES_FOUND_ERROR_MESSAGE {
             get {
                 return ResourceManager.GetString("NO_GAME_FILES_FOUND_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown game version.
+        /// </summary>
+        public static string NO_GAME_VERSION_DETECTED {
+            get {
+                return ResourceManager.GetString("NO_GAME_VERSION_DETECTED", resourceCulture);
             }
         }
         
@@ -628,6 +799,15 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seed.
+        /// </summary>
+        public static string SEED {
+            get {
+                return ResourceManager.GetString("SEED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Armor.
         /// </summary>
         public static string SELECT_ARMOR {
@@ -709,11 +889,29 @@ namespace MCDSaveEdit.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start Tower Run.
+        /// </summary>
+        public static string START_TOWER_RUN {
+            get {
+                return ResourceManager.GetString("START_TOWER_RUN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stats/Counters.
         /// </summary>
         public static string STATS_COUNTERS {
             get {
                 return ResourceManager.GetString("STATS_COUNTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Tower.
+        /// </summary>
+        public static string THE_TOWER {
+            get {
+                return ResourceManager.GetString("THE_TOWER", resourceCulture);
             }
         }
         

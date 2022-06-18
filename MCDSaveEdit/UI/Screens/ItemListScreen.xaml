@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="MCDSaveEdit.UI.ItemListScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MCDSaveEdit.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="350">
+        <DockPanel Margin="0" Width="350">
+            <Grid DockPanel.Dock="Top" Height="35">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="allItemsButton" Content="*All*" Margin="4" Click="allItemsButton_Click" Background="{x:Null}"/>
+                <Button Grid.Column="1" x:Name="meleeItemsButton" Content="*Melee*" Margin="4" Click="allMeleeItemsButton_Click" Background="{x:Null}"/>
+                <Button Grid.Column="2" x:Name="rangedItemsButton" Content="*Ranged*" Margin="4" Click="allRangedItemsButton_Click" Background="{x:Null}"/>
+                <Button Grid.Column="3" x:Name="armorItemsButton" Content="*Armor*" Margin="4" Click="allArmorItemsButton_Click" Background="{x:Null}"/>
+                <Button Grid.Column="4" x:Name="artifactItemsButton" Content="*Artifacts*" Margin="4" Click="allArtifactItemsButton_Click" Background="{x:Null}"/>
+                <Button Grid.Column="5" x:Name="enchantedItemsButton" Content="*Enchanted*" Margin="4" Click="allEnchantedItemsButton_Click" Background="{x:Null}"/>
+            </Grid>
+
+            <Grid DockPanel.Dock="Bottom" Height="35" HorizontalAlignment="Stretch" Margin="0">
+                <Label x:Name="inventoryCountLabel" Content="*Items: 130/180 Max*" HorizontalContentAlignment="Center"/>
+            </Grid>
+
+            <ScrollViewer DockPanel.Dock="Left" Margin="10" HorizontalAlignment="Stretch">
+                <Grid x:Name="itemsGrid" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Children>
+                        <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Height="100" Margin="0" VerticalAlignment="Center" Width="100">
+                            <Image Source="../../Images/Unknown.png"/>
+                        </Button>
+
+                        <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Height="100" Margin="0" VerticalAlignment="Center" Width="100">
+                            <Image Source="../../Images/Armor.png"/>
+                        </Button>
+                        <Button Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" Height="100" Margin="0" VerticalAlignment="Center" Width="100">
+                            <Image Source="../../Images/Armor.png"/>
+                        </Button>
+                    </Grid.Children>
+                </Grid>
+            </ScrollViewer>
+
+        </DockPanel>
+
+</UserControl>

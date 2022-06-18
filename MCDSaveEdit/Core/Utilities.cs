@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,20 +12,9 @@ namespace MCDSaveEdit
     {
         public static string prettyJson(string unPrettyJson)
         {
-            var options = new JsonSerializerOptions() { WriteIndented = true };
             var jsonElement = JsonSerializer.Deserialize<JsonElement>(unPrettyJson);
+            var options = new JsonSerializerOptions() { WriteIndented = true };
             return JsonSerializer.Serialize(jsonElement, options);
-        }
-
-        public static IEnumerable<T> dropLast<T>(this IEnumerable<T> enumerable, int numberToDropFromEnd)
-        {
-            var count = enumerable.Count();
-            return enumerable.Take(count - numberToDropFromEnd);
-        }
-
-        public static IEnumerable<T> deepClone<T>(this IEnumerable<T> enumerable) where T:ICloneable
-        {
-            return enumerable.Select(element => element.Clone()).Cast<T>();
         }
 
         public static Dictionary<T1, T2> concatMissingFrom<T1, T2>(this Dictionary<T1, T2> dictA, Dictionary<T1, T2> dictB)

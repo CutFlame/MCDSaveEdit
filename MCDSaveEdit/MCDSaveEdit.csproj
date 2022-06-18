@@ -22,6 +22,8 @@
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -36,8 +38,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,22 +45,14 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;HIDE_MAP_SCREENS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;HIDE_MAP_SCREENS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>CS8618</NoWarn>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>MCDSaveEdit.App</StartupObject>
@@ -68,12 +60,24 @@
   <PropertyGroup>
     <ApplicationIcon>Properties\icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\ReleaseFree\</OutputPath>
+    <DefineConstants>TRACE;CODE_ANALYSIS;HIDE_MAP_SCREENS;HIDE_THE_TOWER</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>CS8618</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="GameAnalytics.Mono, Version=1.0.7996.22590, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GameAnalytics.Mono.SDK.3.3.1\lib\net45\GameAnalytics.Mono.dll</HintPath>
+    <Reference Include="GameAnalytics.Mono, Version=1.0.8074.30490, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GameAnalytics.Mono.SDK.3.3.5\lib\net45\GameAnalytics.Mono.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -91,7 +95,7 @@
     </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.7.13\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.7.15\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.2.80.3\lib\net462\SkiaSharp.dll</HintPath>
@@ -116,7 +120,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\GameAnalytics.Mono.SDK.3.3.1\lib\net45\System.Data.SQLite.dll</HintPath>
+      <HintPath>..\packages\GameAnalytics.Mono.SDK.3.3.5\lib\net45\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -224,8 +228,8 @@
     <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Json, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.6.0.1\lib\net461\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=6.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.6.0.3\lib\net461\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.RegularExpressions.4.3.1\lib\net463\System.Text.RegularExpressions.dll</HintPath>
@@ -269,146 +273,190 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Profiles\MerchantDef\MerchantPricing.cs" />
-    <Compile Include="Models\Profiles\MerchantDef\MerchantQuest.cs" />
-    <Compile Include="Models\Profiles\MerchantDef\MerchantSlot.cs" />
-    <Compile Include="Models\Profiles\TheTower\MissionDifficulty.cs" />
-    <Compile Include="Models\Profiles\TheTower\NestedTowerInfo.cs" />
-    <Compile Include="Models\Profiles\TheTower\TowerConfig.cs" />
-    <Compile Include="Models\Profiles\TheTower\TowerFloor.cs" />
-    <Compile Include="Models\Profiles\TheTower\TowerFloorTypeEnum.cs" />
-    <Compile Include="Models\Profiles\TheTower\TowerFloorTypeObject.cs" />
-    <Compile Include="Models\Profiles\TheTower\TowerInfo.cs" />
-    <Compile Include="Models\Profiles\TheTower\TowerMissionState.cs" />
-    <Compile Include="Screens\EquipmentScreen.xaml.cs">
+    <Compile Include="Core\IEnumerableExtensions.cs" />
+    <Compile Include="Data\Constants\Constants.EnchantmentData.cs" />
+    <Compile Include="Data\Enums\ItemLocationEnum.cs" />
+    <Compile Include="Logic\Extensions\MapImageDataExtensions.cs" />
+    <Compile Include="Data\Constants\Constants.StringData.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Databases\ItemDatabase.cs" />
+    <Compile Include="Services\Databases\EnchantmentDatabase.cs" />
+    <Compile Include="Interfaces\ILanguageResolver.cs" />
+    <Compile Include="Services\ContentResolvers\ImageResolver.cs" />
+    <Compile Include="Services\ContentResolvers\LanguageResolver.cs" />
+    <Compile Include="Data\Profiles\MerchantDef\MerchantPricing.cs" />
+    <Compile Include="Data\Profiles\MerchantDef\MerchantQuest.cs" />
+    <Compile Include="Data\Profiles\MerchantDef\MerchantSlot.cs" />
+    <Compile Include="Data\Models\AesKey.cs" />
+    <Compile Include="Services\GameAnalyticsRemoteConfig.cs" />
+    <Compile Include="UI\Screens\EquipmentScreen.xaml.cs">
       <DependentUpon>EquipmentScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ControlWriter.cs" />
-    <Compile Include="Windows\AboutWindow.xaml.cs">
+    <Compile Include="UI\Screens\ItemListScreen.xaml.cs">
+      <DependentUpon>ItemListScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Tabs\ChestTab.xaml.cs">
+      <DependentUpon>ChestTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\StatField.xaml.cs">
+      <DependentUpon>StatField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Windows\SplashWindow.cs" />
+    <Compile Include="ViewModels\EquipmentViewModel.cs" />
+    <Compile Include="Interfaces\IEquipItems.cs" />
+    <Compile Include="UI\Tabs\InventoryTab.xaml.cs">
+      <DependentUpon>InventoryTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Tabs\StatsTab.xaml.cs">
+      <DependentUpon>StatsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\ControlWriter.cs" />
+    <Compile Include="Interfaces\IListItems.cs" />
+    <Compile Include="ViewModels\ItemListViewModel.cs" />
+    <Compile Include="ViewModels\MainEquipmentViewModel.cs" />
+    <Compile Include="ViewModels\StorageChestEquipmentViewModel.cs" />
+    <Compile Include="UI\Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\StreamExtensions.cs" />
-    <Compile Include="Data\Config.cs" />
-    <Compile Include="Data\Constants.FileSystemData.cs" />
-    <Compile Include="Data\Constants.MapData.cs" />
-    <Compile Include="Windows\GameFilesWindow.xaml.cs">
+    <Compile Include="Services\Config.cs" />
+    <Compile Include="Data\Constants\Constants.FileSystemData.cs" />
+    <Compile Include="Data\Constants\Constants.MapData.cs" />
+    <Compile Include="UI\Windows\GameFilesWindow.xaml.cs">
       <DependentUpon>GameFilesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logic\MainViewModel.cs" />
-    <Compile Include="Models\Enums\DifficultyEnum.cs" />
-    <Compile Include="Models\Enums\LevelTypeEnum.cs" />
-    <Compile Include="Logic\EventLogger.cs" />
-    <Compile Include="Logic\ImageResolver\IImageResolver.cs" />
-    <Compile Include="Logic\ImageResolver\LocalImageResolver.cs" />
-    <Compile Include="Logic\ImageResolver\PakImageResolver.cs" />
-    <Compile Include="Logic\ImageResolver\PakIndexExtensions.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Data\Enums\DifficultyEnum.cs" />
+    <Compile Include="Data\Enums\LevelTypeEnum.cs" />
+    <Compile Include="Services\EventLogger.cs" />
+    <Compile Include="Interfaces\IImageResolver.cs" />
+    <Compile Include="Services\ContentResolvers\LocalContentResolver.cs" />
+    <Compile Include="Services\ContentResolvers\PakContentResolver.cs" />
+    <Compile Include="Services\ContentResolvers\PakIndexExtensions.cs" />
     <Compile Include="Data\Secrets.cs" />
-    <Compile Include="Models\Enums\Rarity.cs" />
-    <Compile Include="Models\Enums\ThreatLevelEnum.cs" />
-    <Compile Include="Models\Mapping\AttributeBasedConverterFactory.cs" />
-    <Compile Include="Models\Mapping\CustomNamingEnumJsonConverter.cs" />
-    <Compile Include="Models\Mapping\EpochDateTimeJsonConverter.cs" />
-    <Compile Include="Models\Mapping\GuidConverterFactory.cs" />
-    <Compile Include="Models\Mapping\GuidJsonConverter.cs" />
-    <Compile Include="Models\Mapping\INamingPolicy.cs" />
-    <Compile Include="Models\Mapping\LowercaseNamingPolicy.cs" />
-    <Compile Include="Models\Mapping\PrettyDateTimeJsonConverter.cs" />
-    <Compile Include="Models\Mapping\SnakeCaseNamingPolicy.cs" />
-    <Compile Include="Models\Mapping\TextDoubleJsonConverter.cs" />
-    <Compile Include="Models\Profiles\ArmorProperty.cs" />
-    <Compile Include="Models\Profiles\Cosmetic.cs" />
-    <Compile Include="Models\Profiles\Currency.cs" />
-    <Compile Include="Models\Profiles\Difficulties.cs" />
-    <Compile Include="Models\Profiles\Enchantment.cs" />
-    <Compile Include="Models\Profiles\Item.cs" />
-    <Compile Include="Data\MapImageData.cs" />
-    <Compile Include="Models\Profiles\MerchantDef\MerchantDef.cs" />
-    <Compile Include="Models\Profiles\Progress.cs" />
-    <Compile Include="Models\Profiles\LobbyChest.cs" />
-    <Compile Include="Models\Profiles\MapUiState.cs" />
-    <Compile Include="Models\Profiles\ProfileParser.cs" />
-    <Compile Include="Models\Profiles\ProfileSaveFile.cs" />
-    <Compile Include="Models\Profiles\Threats.cs" />
-    <Compile Include="Data\Constants.cs" />
+    <Compile Include="Data\Enums\Rarity.cs" />
+    <Compile Include="Data\Enums\ThreatLevelEnum.cs" />
+    <Compile Include="Data\Mapping\AttributeBasedConverterFactory.cs" />
+    <Compile Include="Data\Mapping\CustomNamingEnumJsonConverter.cs" />
+    <Compile Include="Data\Mapping\EpochDateTimeJsonConverter.cs" />
+    <Compile Include="Data\Mapping\GuidConverterFactory.cs" />
+    <Compile Include="Data\Mapping\GuidJsonConverter.cs" />
+    <Compile Include="Data\Mapping\INamingPolicy.cs" />
+    <Compile Include="Data\Mapping\LowercaseNamingPolicy.cs" />
+    <Compile Include="Data\Mapping\PrettyDateTimeJsonConverter.cs" />
+    <Compile Include="Data\Mapping\SnakeCaseNamingPolicy.cs" />
+    <Compile Include="Data\Mapping\TextDoubleJsonConverter.cs" />
+    <Compile Include="Data\Profiles\ArmorProperty.cs" />
+    <Compile Include="Data\Profiles\Cosmetic.cs" />
+    <Compile Include="Data\Profiles\Currency.cs" />
+    <Compile Include="Data\Profiles\Difficulties.cs" />
+    <Compile Include="Data\Profiles\Enchantment.cs" />
+    <Compile Include="Data\Profiles\Item.cs" />
+    <Compile Include="Data\Models\MapImageData.cs" />
+    <Compile Include="Data\Profiles\MerchantDef\MerchantDef.cs" />
+    <Compile Include="Data\Profiles\Progress.cs" />
+    <Compile Include="Data\Profiles\LobbyChest.cs" />
+    <Compile Include="Data\Profiles\MapUiState.cs" />
+    <Compile Include="Data\Profiles\ProfileParser.cs" />
+    <Compile Include="Data\Profiles\ProfileSaveFile.cs" />
+    <Compile Include="Data\Profiles\Threats.cs" />
+    <Compile Include="Data\Constants\Constants.cs" />
     <Compile Include="Core\Observables.cs" />
-    <Compile Include="Models\Profiles\UiHintsExpired.cs" />
+    <Compile Include="Data\Profiles\UiHintsExpired.cs" />
     <Compile Include="Core\RegistryTools.cs" />
-    <Compile Include="Screens\InventoryScreen.xaml.cs">
-      <DependentUpon>InventoryScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Data\StaticLevelData.cs" />
-    <Compile Include="Screens\MapScreen.xaml.cs">
+    <Compile Include="Data\Models\StaticLevelData.cs" />
+    <Compile Include="UI\Screens\MapScreen.xaml.cs">
       <DependentUpon>MapScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Screens\MissionScreen.xaml.cs">
+    <Compile Include="UI\Screens\MissionScreen.xaml.cs">
       <DependentUpon>MissionScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logic\ProgressExtensions.cs" />
-    <Compile Include="UserControls\LevelImagePanel.cs" />
-    <Compile Include="UserControls\MissionControl.cs" />
-    <Compile Include="UserControls\BusyIndicator.xaml.cs">
+    <Compile Include="Logic\Extensions\ProgressExtensions.cs" />
+    <Compile Include="UI\UserControls\LevelImagePanel.cs" />
+    <Compile Include="UI\UserControls\MissionControl.cs" />
+    <Compile Include="UI\UserControls\BusyIndicator.xaml.cs">
       <DependentUpon>BusyIndicator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Screens\EnchantmentScreen.xaml.cs">
+    <Compile Include="UI\Screens\EnchantmentScreen.xaml.cs">
       <DependentUpon>EnchantmentScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\EnchantmentSetControl.xaml.cs">
+    <Compile Include="UI\UserControls\EnchantmentSetControl.xaml.cs">
       <DependentUpon>EnchantmentSetControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Enums\ItemFilterEnum.cs" />
+    <Compile Include="Data\Enums\ItemFilterEnum.cs" />
     <Compile Include="Logic\FileProcessHelper.cs" />
-    <Compile Include="Screens\ItemScreen.xaml.cs">
+    <Compile Include="UI\Screens\ItemScreen.xaml.cs">
       <DependentUpon>ItemScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\RelayCommand.cs" />
-    <Compile Include="Logic\StringLibrary.cs" />
+    <Compile Include="Services\Databases\StringLibrary.cs" />
     <Compile Include="Core\Utilities.cs" />
-    <Compile Include="Windows\WindowFactory.cs" />
-    <Page Include="Screens\EquipmentScreen.xaml">
+    <Compile Include="UI\Windows\WindowFactory.cs" />
+    <Page Include="UI\Screens\EquipmentScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AboutWindow.xaml">
+    <Page Include="UI\Screens\ItemListScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Tabs\ChestTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Tabs\InventoryTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\GameFilesWindow.xaml">
+    <Page Include="UI\Tabs\StatsTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\InventoryScreen.xaml">
+    <Page Include="UI\UserControls\StatField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\MapScreen.xaml">
+    <Page Include="UI\Windows\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\MissionScreen.xaml">
+    <Page Include="UI\Windows\GameFilesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BusyIndicator.xaml">
+    <Page Include="UI\Screens\MapScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\EnchantmentScreen.xaml">
+    <Page Include="UI\Screens\MissionScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\EnchantmentSetControl.xaml">
+    <Page Include="UI\UserControls\BusyIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ItemControl.xaml">
+    <Page Include="UI\Screens\EnchantmentScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Screens\ItemScreen.xaml">
+    <Page Include="UI\UserControls\EnchantmentSetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\MainWindow.xaml">
+    <Page Include="UI\UserControls\ItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Screens\ItemScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -416,44 +464,39 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Logic\EnchantmentExtensions.cs" />
-    <Compile Include="Models\Enums\EquipmentSlotEnum.cs" />
+    <Compile Include="Logic\Extensions\EnchantmentExtensions.cs" />
+    <Compile Include="Data\Enums\EquipmentSlotEnum.cs" />
     <Compile Include="Logic\GameCalculator.cs" />
-    <Compile Include="Logic\AppModel.cs" />
-    <Compile Include="UserControls\ItemControl.xaml.cs">
+    <Compile Include="AppModel.cs" />
+    <Compile Include="UI\UserControls\ItemControl.xaml.cs">
       <DependentUpon>ItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logic\ItemExtensions.cs" />
-    <Compile Include="Windows\MainWindow.xaml.cs">
+    <Compile Include="Logic\Extensions\ItemExtensions.cs" />
+    <Compile Include="UI\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\NetheriteEnchantmentControl.xaml">
+    <Page Include="UI\UserControls\NetheriteEnchantmentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Stepper.xaml">
+    <Page Include="UI\UserControls\Stepper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logic\ProfileExtensions.cs" />
-    <Compile Include="Logic\ProfileViewModel.cs" />
-    <Compile Include="UserControls\NetheriteEnchantmentControl.xaml.cs">
+    <Compile Include="Logic\Extensions\ProfileExtensions.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
+    <Compile Include="UI\UserControls\NetheriteEnchantmentControl.xaml.cs">
       <DependentUpon>NetheriteEnchantmentControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SelectionWindow.cs" />
-    <Compile Include="UserControls\Stepper.xaml.cs">
+    <Compile Include="UI\Windows\SelectionWindow.cs" />
+    <Compile Include="UI\UserControls\Stepper.xaml.cs">
       <DependentUpon>Stepper.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -463,8 +506,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Data\Constants.ItemData.cs" />
+    <Compile Include="Data\Constants\Constants.ItemData.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -518,6 +562,9 @@
   <ItemGroup>
     <Resource Include="Properties\icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\BuildOrder.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -528,8 +575,8 @@
     <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Fody.6.6.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.6.0\build\Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\GameAnalytics.Mono.SDK.3.3.1\build\net45\GameAnalytics.Mono.SDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GameAnalytics.Mono.SDK.3.3.1\build\net45\GameAnalytics.Mono.SDK.targets'))" />
-    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets'))" />
+    <Error Condition="!Exists('..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets'))" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
@@ -539,6 +586,6 @@
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" />
   <Import Project="..\packages\Fody.6.6.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.6.0\build\Fody.targets')" />
-  <Import Project="..\packages\GameAnalytics.Mono.SDK.3.3.1\build\net45\GameAnalytics.Mono.SDK.targets" Condition="Exists('..\packages\GameAnalytics.Mono.SDK.3.3.1\build\net45\GameAnalytics.Mono.SDK.targets')" />
-  <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
+  <Import Project="..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets" Condition="Exists('..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets')" />
+  <Import Project="..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets')" />
 </Project>

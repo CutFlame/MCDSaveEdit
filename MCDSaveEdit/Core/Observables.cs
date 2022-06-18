@@ -17,6 +17,22 @@ namespace MCDSaveEdit
             }
         }
 
+        protected void sendError(Exception ex)
+        {
+            foreach (var observer in _observers)
+            {
+                observer.OnError(ex);
+            }
+        }
+
+        protected void sendCompleted()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.OnCompleted();
+            }
+        }
+
         public void subscribe(Action<T> onNext)
         {
             this.subscribe(Observer.Create<T>(onNext));
@@ -68,9 +84,13 @@ namespace MCDSaveEdit
 
     public static class PropertyExtensions
     {
-        public static MappedProperty<THidden, TVisible> map<THidden, TVisible>(this Property<THidden> property, Func<THidden, TVisible>? getMethod, Action<THidden, TVisible>? setMethod = null)
+        public static MappedProperty<THidden, TVisible> map<THidden, TVisible>(this IReadWriteProperty<THidden> property, Func<THidden, TVisible>? getMethod, Action<THidden, TVisible>? setMethod = null)
         {
             return new MappedProperty<THidden, TVisible>(property, getMethod, setMethod);
+        }
+        public static MappedProperty<THidden, TVisible> map<THidden, TVisible>(this IReadProperty<THidden> property, Func<THidden, TVisible>? getMethod)
+        {
+            return new MappedProperty<THidden, TVisible>(property, getMethod);
         }
     }
 

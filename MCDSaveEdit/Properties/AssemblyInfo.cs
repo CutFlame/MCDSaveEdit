@@ -1,7 +1,5 @@
-﻿using MCDSaveEdit;
+﻿using MCDSaveEdit.Data;
 using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -13,7 +11,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct(Constants.APPLICATION_NAME)]
-[assembly: AssemblyCopyright("Copyright © 2020 - 2021 Michael Holt")]
+[assembly: AssemblyCopyright("Copyright © 2020 - 2022 Michael Holt")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

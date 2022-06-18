@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="MCDSaveEdit.UI.ItemScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MCDSaveEdit.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="550">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Height="Auto" VerticalAlignment="Stretch" Margin="0">
+            <Button x:Name="inventoryItemButton" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Height="150" Margin="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="inventoryItemButton_Click">
+                <Image x:Name="inventoryIconImage" Source="../../Images/Armor.png" />
+            </Button>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Margin="0,180,20,0">
+                <StackPanel Orientation="Horizontal" Height="27">
+                    <Button x:Name="duplicateItemButton" Content="*Duplicate*" Width="65" Margin="5,0" IsEnabled="false" Click="duplicateItemButton_Click"/>
+                    <Button x:Name="deleteItemButton" Content="*Delete*" Width="65" Margin="5,0" IsEnabled="false" Click="deleteItemButton_Click"/>
+                </StackPanel>
+                <Label HorizontalContentAlignment="Center" Height="26"></Label>
+                <Button x:Name="moveItemButton" Content="*Transfer to Inventory*" Height="27" Margin="5,2" IsEnabled="false" Click="moveItemButton_Click"/>
+                <Button x:Name="moveItemButtonExtra" Content="*Transfer to Storage*" Height="27" Margin="5,2" IsEnabled="false" Click="moveItemButton_Click"/>
+            </StackPanel>
+            <StackPanel Margin="10,30,170,10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="powerTextBox" TextChanged="powerTextBox_TextChanged" Text="1234567890" FontSize="20" HorizontalAlignment="Center" Width="114" Background="{x:Null}" TextAlignment="Right" VerticalContentAlignment="Center"/>
+                    <local:Stepper UpButtonClick="upButton_Click" DownButtonClick="downButton_Click"/>
+                    <ComboBox x:Name="rarityComboBox" SelectionChanged="rarityComboBox_SelectionChanged" FontSize="18" Width="120" Margin="10,0" SelectedIndex="0" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" >
+                        <ComboBoxItem x:Name="commonComboBoxItem" Content="*Common*"/>
+                        <ComboBoxItem x:Name="rareComboBoxItem" Content="*Rare*"/>
+                        <ComboBoxItem x:Name="uniqueComboBoxItem" Content="*Unique*"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="27" Margin="0,5,0,0">
+                    <Button x:Name="markedNewButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="markedNewButton_Click">
+                        <CheckBox x:Name="markedNewButtonCheckBox" IsEnabled="false">*New*</CheckBox>
+                    </Button>
+                    <Button x:Name="upgradedButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="upgradedButton_Click">
+                        <CheckBox x:Name="upgradedButtonCheckBox" IsEnabled="false">*Upgraded*</CheckBox>
+                    </Button>
+                    <Button x:Name="giftedButton" Padding="5,0" Margin="0,0,5,0" IsEnabled="false" Click="giftedButton_Click">
+                        <CheckBox x:Name="giftedButtonCheckBox" IsEnabled="false">*Gifted*</CheckBox>
+                    </Button>
+                </StackPanel>
+                <Label x:Name="nameLabel" Content="Evocation Robe" FontSize="24"/>
+                <ScrollViewer x:Name="armorPropertiesScrollViewer" MaxHeight="200">
+                    <StackPanel x:Name="armorPropertiesStack" Margin="5">
+                        <Button HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="32" Padding="0" Background="{x:Null}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="20" Height="20" Margin="5"/>
+                                <Label Content="Common Movespeed" FontSize="16" VerticalAlignment="Center" Padding="0"/>
+                            </StackPanel>
+                        </Button>
+                        <Label Content="Common Movespeed" FontSize="16"/>
+                        <Label Content="Common Movespeed" FontSize="16"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <local:NetheriteEnchantmentControl x:Name="netheriteEnchantmentControl" Height="27"/>
+
+                <TextBlock x:Name="descLabel" Text="Evocation Robe" FontSize="16" TextWrapping="Wrap" Padding="5" />
+            </StackPanel>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" Height="160" VerticalAlignment="Bottom" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <local:EnchantmentSetControl x:Name="enchantment1Control" Grid.Column="0"/>
+            <local:EnchantmentSetControl x:Name="enchantment2Control" Grid.Column="1"/>
+            <local:EnchantmentSetControl x:Name="enchantment3Control" Grid.Column="2"/>
+        </Grid>
+    </DockPanel>
+</UserControl>

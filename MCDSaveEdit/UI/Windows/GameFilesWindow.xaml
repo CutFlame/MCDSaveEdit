@@ -1,0 +1,43 @@
+﻿<Window x:Class="MCDSaveEdit.UI.GameFilesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MCDSaveEdit.UI"
+        mc:Ignorable="d"
+        Title="*Launch using game content*"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        Height="200" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="messageTextBlock" Margin="15,5" Grid.Row="0" TextWrapping="Wrap">*Could not find game content files in the default install location. Please provide the path to the game files or launch using no game content.</TextBlock>
+        <GroupBox x:Name="gameFilesGroupBox" Header="*Game Files*" Margin="5" Grid.Row="1">
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="pathLabel" Content="*Path*" Grid.Column="0"/>
+                <TextBox x:Name="pathTextBox" Text="%localappdata%\Mojang\products\dungeons\dungeons\Dungeons\Content\Paks" Width="Auto" Grid.Column="1" Margin="5"/>
+                <Button x:Name="pathBrowseButton" Content="..." Width="30" Grid.Column="2" Margin="5" Click="pathBrowseButton_Click"/>
+            </Grid>
+        </GroupBox>
+        <Grid Margin="5" Height="32" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="exitButton" Content="*Exit*" Grid.Column="0" Margin="5" Padding="5,0" Click="exitButton_Click"/>
+            <Button x:Name="okButton" Content="*OK*" Grid.Column="2" Margin="5" Padding="5,0" IsDefault="True" Click="okButton_Click"/>
+            <Button x:Name="noButton" Content="*No game content*" Grid.Column="3" Margin="5" Padding="5,0" Click="noButton_Click"/>
+        </Grid>
+    </Grid>
+</Window>

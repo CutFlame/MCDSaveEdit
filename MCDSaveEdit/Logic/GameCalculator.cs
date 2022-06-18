@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MCDSaveEdit
+namespace MCDSaveEdit.Logic
 {
     public static class GameCalculator
     {

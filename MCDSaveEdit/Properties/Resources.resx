@@ -137,9 +137,17 @@
     <value>Armor</value>
     <comment>Armor</comment>
   </data>
+  <data name="ARROWS" xml:space="preserve">
+    <value>Arrows</value>
+    <comment>Arrows</comment>
+  </data>
   <data name="ARTIFACT_ITEMS_FILTER" xml:space="preserve">
     <value>Artifact</value>
     <comment>Artifact</comment>
+  </data>
+  <data name="ATTEMPTS_LEFT" xml:space="preserve">
+    <value>Attempts Left</value>
+    <comment>Attempts Left</comment>
   </data>
   <data name="BETA_UPDATE_MENU_ITEM_HEADER" xml:space="preserve">
     <value>Beta _Update</value>
@@ -149,6 +157,10 @@
     <value>Beta</value>
     <comment>Beta</comment>
   </data>
+  <data name="BOSSES_DEFEATED" xml:space="preserve">
+    <value>Bosses Defeated</value>
+    <comment>Bosses Defeated</comment>
+  </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Cancel</value>
     <comment>Cancel</comment>
@@ -156,6 +168,10 @@
   <data name="CHARACTER_FILE_FORMAT_NOT_RECOGNIZED_ERROR_MESSAGE" xml:space="preserve">
     <value>Character File format not recognized. Please select a valid Character File.</value>
     <comment>Character File format not recognized. Please select a valid Character File.</comment>
+  </data>
+  <data name="CHEST" xml:space="preserve">
+    <value>Chest</value>
+    <comment>Chest</comment>
   </data>
   <data name="COMMON" xml:space="preserve">
     <value>Common</value>
@@ -177,6 +193,10 @@
     <value>Creeping Winter</value>
     <comment>Creeping Winter</comment>
   </data>
+  <data name="CURRENT_FLOOR" xml:space="preserve">
+    <value>Current Floor</value>
+    <comment>Current Floor</comment>
+  </data>
   <data name="DECRYPTED_CHARACTER_SAVE_FILES" xml:space="preserve">
     <value>Decrypted Character Save files</value>
     <comment>Decrypted Character Save files</comment>
@@ -184,6 +204,18 @@
   <data name="DELETE" xml:space="preserve">
     <value>Delete</value>
     <comment>Delete</comment>
+  </data>
+  <data name="DIFFICULTY_ADVENTURE" xml:space="preserve">
+    <value>Adventure</value>
+    <comment>Adventure</comment>
+  </data>
+  <data name="DIFFICULTY_APOCALYPSE" xml:space="preserve">
+    <value>Apocalypse</value>
+    <comment>Apocalypse</comment>
+  </data>
+  <data name="DIFFICULTY_DEFAULT" xml:space="preserve">
+    <value>Default</value>
+    <comment>Default</comment>
   </data>
   <data name="DUPLICATE" xml:space="preserve">
     <value>Duplicate</value>
@@ -213,6 +245,10 @@
     <value>Failed to encrypt the json data.</value>
     <comment>Failed to encrypt the json data.</comment>
   </data>
+  <data name="FAILED_TO_LOAD_GAME_CONTENT_ERROR_TITLE" xml:space="preserve">
+    <value>Failed to load game content.</value>
+    <comment>Failed to load game content.</comment>
+  </data>
   <data name="FAILED_TO_PARSE_FILE_ERROR_MESSAGE" xml:space="preserve">
     <value>File was not in an expected format.</value>
     <comment>File was not in an expected format.</comment>
@@ -232,6 +268,26 @@
   <data name="FILE_IN_UNEXPECTED_FORMAT_ERROR_MESSAGE" xml:space="preserve">
     <value>The file \"{0}\" was in an unexpected format.</value>
     <comment>The file \"{0}\" was in an unexpected format.</comment>
+  </data>
+  <data name="FINAL_FLOOR" xml:space="preserve">
+    <value>Final Floor</value>
+    <comment>Final Floor</comment>
+  </data>
+  <data name="FLOOR_CHALLENGES" xml:space="preserve">
+    <value>Challenges</value>
+    <comment>Challenges</comment>
+  </data>
+  <data name="FLOOR_REWARDS" xml:space="preserve">
+    <value>Rewards</value>
+    <comment>Rewards</comment>
+  </data>
+  <data name="FLOOR_TILE" xml:space="preserve">
+    <value>Tile</value>
+    <comment>Tile</comment>
+  </data>
+  <data name="FLOOR_TYPE" xml:space="preserve">
+    <value>Type</value>
+    <comment>Type</comment>
   </data>
   <data name="GAME_FILES_WINDOW_GROUPBOX_HEADER" xml:space="preserve">
     <value>Game Files</value>
@@ -260,6 +316,10 @@
   <data name="GILDED" xml:space="preserve">
     <value>Gilded</value>
     <comment>Gilded</comment>
+  </data>
+  <data name="GIVE_UP_TOWER_RUN" xml:space="preserve">
+    <value>Give up Tower Run</value>
+    <comment>Give up Tower Run</comment>
   </data>
   <data name="HOWLING_PEAKS" xml:space="preserve">
     <value>Howling Peaks</value>
@@ -321,9 +381,21 @@
     <value>Mob Kills</value>
     <comment>Mob Kills</comment>
   </data>
+  <data name="MOVE_TO_INVENTORY" xml:space="preserve">
+    <value>Move to Inventory</value>
+    <comment>Move to Inventory</comment>
+  </data>
+  <data name="MOVE_TO_STORAGE" xml:space="preserve">
+    <value>Move to Storage</value>
+    <comment>Move to Storage</comment>
+  </data>
   <data name="NEW" xml:space="preserve">
     <value>New</value>
     <comment>New</comment>
+  </data>
+  <data name="NEXT_LEVEL_LABEL" xml:space="preserve">
+    <value>Next Floor {0} / {1} : {2}</value>
+    <comment>Next Floor {0} / {1} : {2}</comment>
   </data>
   <data name="NONE" xml:space="preserve">
     <value>None</value>
@@ -336,6 +408,10 @@
   <data name="NO_GAME_FILES_FOUND_ERROR_MESSAGE" xml:space="preserve">
     <value>Could not find game content files at the given path.</value>
     <comment>Could not find game content files at the given path.</comment>
+  </data>
+  <data name="NO_GAME_VERSION_DETECTED" xml:space="preserve">
+    <value>Unknown game version</value>
+    <comment>Unknown game version</comment>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
@@ -368,6 +444,10 @@
   <data name="RARE" xml:space="preserve">
     <value>Rare</value>
     <comment>Rare</comment>
+  </data>
+  <data name="SEED" xml:space="preserve">
+    <value>Seed</value>
+    <comment>Seed</comment>
   </data>
   <data name="SELECT_ARMOR" xml:space="preserve">
     <value>Select Armor</value>
@@ -405,9 +485,17 @@
     <value>Stable</value>
     <comment>Stable</comment>
   </data>
+  <data name="START_TOWER_RUN" xml:space="preserve">
+    <value>Start Tower Run</value>
+    <comment>Start Tower Run</comment>
+  </data>
   <data name="STATS_COUNTERS" xml:space="preserve">
     <value>Stats/Counters</value>
     <comment>Stats/Counters</comment>
+  </data>
+  <data name="THE_TOWER" xml:space="preserve">
+    <value>The Tower</value>
+    <comment>The Tower</comment>
   </data>
   <data name="TIER" xml:space="preserve">
     <value>Tier</value>

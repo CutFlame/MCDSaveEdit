@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="MCDSaveEdit.UI.InventoryTab"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MCDSaveEdit.UI"
+      mc:Ignorable="d" 
+      d:DesignHeight="450"
+      d:DesignWidth="1200">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top"  Height="30" Margin="0" Orientation="Horizontal" VerticalAlignment="Top">
+            <Image x:Name="emeraldsLabelImage" Margin="8,4" Source="../../Images/Emerald.png"/>
+            <TextBox x:Name="emeraldsTextBox" Text="1234567890" TextChanged="emeraldsTextBox_TextChanged" FontSize="14"  Width="100" Height="22" VerticalContentAlignment="Center" Margin="0,4" MaxLength="8" MaxLines="1" IsUndoEnabled="True" Background="{x:Null}" Visibility="Collapsed"/>
+            <Button x:Name="emeraldsAddButton" FontSize="14" Content="+" Width="100" Height="22" Click="emeraldsAddButton_Click" />
+            <Image x:Name="goldLabelImage" Margin="8,4" Source="../../Images/Gold.png"/>
+            <TextBox x:Name="goldTextBox" Text="1234567890" TextChanged="goldTextBox_TextChanged" FontSize="14" Width="100" VerticalContentAlignment="Center" Margin="0,4" MaxLength="8" MaxLines="1" IsUndoEnabled="True" Background="{x:Null}" Visibility="Collapsed"/>
+            <Button x:Name="goldAddButton" FontSize="14" Content="+" Width="100" Height="22" Click="goldAddButton_Click"/>
+            <Image x:Name="eyeOfEnderLabelImage" Margin="8,4" Source="../../Images/EyeOfEnder.png"/>
+            <TextBox x:Name="eyeOfEnderTextBox" Text="1234567890" TextChanged="eyeOfEnderTextBox_TextChanged" FontSize="14" Width="100" VerticalContentAlignment="Center" Margin="0,4" MaxLength="8" MaxLines="1" IsUndoEnabled="True" Background="{x:Null}" Visibility="Collapsed"/>
+            <Button x:Name="eyeOfEnderAddButton" FontSize="14" Content="+" Width="100" Height="22" Click="eyeOfEnderAddButton_Click"/>
+            <Button x:Name="unlockPortalButton" FontSize="14" Content="_Unlock Portal" ToolTip="Unlocking the ability to insert eyes of ender in stronghold" Width="100" Height="22" Margin="4,4" Visibility="Collapsed" Click="unlockPortalButton_Click"/>
+            <Image x:Name="remainingEnchantmentPointsLabelImage" Margin="8,4" Source="../../Images/Points.png"/>
+            <Label x:Name="remainingEnchantmentPointsLabel" Content="1234567890" FontSize="14" Width="100" VerticalContentAlignment="Center" Padding="0" />
+        </StackPanel>
+
+        <Grid DockPanel.Dock="Left" Width="710" Height="Auto" Margin="0" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="77*"/>
+                <ColumnDefinition Width="633*"/>
+            </Grid.ColumnDefinitions>
+            <local:EquipmentScreen x:Name="equipmentScreen" Width="330" Margin="0" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+
+            <local:ItemListScreen x:Name="itemListScreen" HorizontalAlignment="Right" Margin="0" Width="350" Grid.Column="1" />
+
+            <Rectangle x:Name="selectedEnchantmentScreenBackShadowRectangle" Visibility="Collapsed" Fill="#7F000000" Grid.ColumnSpan="2" />
+
+            <local:EnchantmentScreen x:Name="selectedEnchantmentScreen" Visibility="Collapsed" Margin="30" Background="White" Grid.ColumnSpan="2"/>
+
+        </Grid>
+
+        <local:ItemScreen x:Name="selectedItemScreen" DockPanel.Dock="Right" Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+    </DockPanel>
+
+
+</UserControl>

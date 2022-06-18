@@ -1,10 +1,10 @@
-﻿using MCDSaveEdit;
+﻿using MCDSaveEdit.Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 #nullable enable
 
-namespace MCDSaveEditTests
+namespace MCDSaveEditTests.LogicTests
 {
     [TestClass]
     public class GameCalculatorTests {

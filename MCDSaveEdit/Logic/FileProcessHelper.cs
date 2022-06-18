@@ -1,11 +1,11 @@
 ﻿using DungeonTools.Save.File;
+using MCDSaveEdit.Services;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+#nullable enable
 
-
-
-namespace MCDSaveEdit
+namespace MCDSaveEdit.Logic
 {
     public static class FileProcessHelper
     {

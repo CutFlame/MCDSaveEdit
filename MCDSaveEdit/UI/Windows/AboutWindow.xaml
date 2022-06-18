@@ -1,0 +1,39 @@
+﻿<Window x:Class="MCDSaveEdit.UI.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MCDSaveEdit.UI"
+        mc:Ignorable="d"
+        Title="*About MCD Save Editor*"
+        Height="400" Width="500"
+        WindowStyle="ThreeDBorderWindow"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="51" Padding="0">
+            Copyright © 2020-2022 Michael Holt (<Hyperlink NavigateUri="https://github.com/CutFlame">CutFlame</Hyperlink>)<LineBreak/>
+            Source code: <Hyperlink NavigateUri="https://github.com/CutFlame/MCDSaveEdit">GitHub</Hyperlink><LineBreak/>
+            License: <Hyperlink NavigateUri="https://github.com/CutFlame/MCDSaveEdit/blob/master/LICENSE">MIT</Hyperlink><LineBreak/>
+        </TextBlock>
+        <Label x:Name="versionLabel" Content="*Version: Debug 1.0*" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top" Height="20" Padding="0" VerticalContentAlignment="Top"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,66,0,0">
+            <Button Content="BuyMeACoffee!" Padding="6" Click="buyMeACoffeeButton_Click" Margin="5"/>
+            <Button Content="Donate on Ko-Fi!" Padding="6" Click="koFiButton_Click" Margin="5"/>
+            <Button Content="Beta versions on Patreon!" Padding="6" Click="patreonButton_Click" Margin="5"/>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Stretch" Margin="10,116,10,10" VerticalAlignment="Stretch">
+            <Bold>Images imported from Minecraft: Dungeons are Copyright © Mojang</Bold><LineBreak/>
+            <LineBreak/>
+            <Bold>External Credits and Licenses</Bold><LineBreak/>
+            <Hyperlink NavigateUri="https://github.com/HellPie/DungeonTools">DungeonTools</Hyperlink> © Diego Russi (<Hyperlink NavigateUri="https://github.com/HellPie/DungeonTools/blob/master/LICENSE">AGPL 3.0</Hyperlink>)<LineBreak/>
+            <Hyperlink NavigateUri="https://github.com/dotnet/corefx">Microsoft.Bcl.AsyncInterfaces</Hyperlink> © Microsoft (<Hyperlink NavigateUri="https://licenses.nuget.org/MIT">MIT</Hyperlink>)<LineBreak/>
+            <Hyperlink NavigateUri="https://github.com/Fody/Fody">Fody</Hyperlink> © Simon Cropp (<Hyperlink NavigateUri="https://github.com/Fody/Fody/blob/master/License.txt">MIT</Hyperlink>)<LineBreak/>
+            <Hyperlink NavigateUri="https://github.com/Fody/Costura">Costura.Fody</Hyperlink> © Simon Cropp and contributors (<Hyperlink NavigateUri="https://github.com/Fody/Costura/blob/develop/LICENSE">MIT</Hyperlink>)<LineBreak/>
+            <Hyperlink NavigateUri="https://github.com/iAmAsval/FModel">FModel</Hyperlink> © Free Software Foundation, Inc. (<Hyperlink NavigateUri="https://github.com/iAmAsval/FModel/blob/master/LICENSE">GPL 3.0</Hyperlink>)<LineBreak/>
+            <Hyperlink NavigateUri="https://github.com/WorkingRobot/PakReader">PakReader</Hyperlink> © Aleks Margarian (<Hyperlink NavigateUri="https://github.com/WorkingRobot/PakReader/blob/master/LICENSE">MIT</Hyperlink>)<LineBreak/>
+            <Hyperlink NavigateUri="https://game-icons.net/">Game-icons.net</Hyperlink> © Lorc, Delapouite and contributors (<Hyperlink NavigateUri="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</Hyperlink>)<LineBreak/>
+        </TextBlock>
+    </Grid>
+</Window>

@@ -59,16 +59,26 @@ If you see this popup, that means it couldn't find the game content in the defau
 
 <img src="Screenshots/LocatePakFiles.png"/>
 
-The default location for these files is: `%localappdata%\Mojang\products\dungeons\dungeons\Dungeons\Content\Paks`
+##### Default location of pak files
 
-If you have the Microsoft Store version, this will need to be changed to the path you selected when you ran the storepatcher script or wherever you copied your game files to.
+Minecraft Launcher:
 
+`%localappdata%\Mojang\products\dungeons\dungeons\Dungeons\Content\Paks`
+
+Steam:
+
+`%programfiles(x86)%\Steam\steamapps\common\MinecraftDungeons\Dungeons\Content\Paks`
+
+Microsoft Store:
+
+The path that you copied your game files to when you ran the dumper/storepatcher script
 
 ##### Application Stopped Working
 
 If during launch you get a popup saying that MCDSaveEdit has stopped working,
 this means an internal error ocurred and could mean various issues.
 MCDSaveEdit has a dependency on .NET Framework 4.7.1 so you could try installing that.
+
 - [.NET Framework Offline installer](https://support.microsoft.com/en-us/topic/the-net-framework-4-7-1-offline-installer-for-windows-2a7d0d5e-92f2-b12d-aed4-4f5d14c8ef0c)
 
 ---
@@ -77,6 +87,7 @@ MCDSaveEdit has a dependency on .NET Framework 4.7.1 so you could try installing
 This application was developed entirely in Visual Studio 2019.
 
 When cloning be sure to recurse through submodules because there are 2:
+
 - [DungeonTools](https://github.com/CutFlame/DungeonTools/tree/save-file-editor-1.1)
 - [PakReader](https://github.com/CutFlame/PakReader/tree/MCDSaveEdit)
 
@@ -84,13 +95,13 @@ Provide the AES key to decrypt the game files:
 
 `MCDSaveEdit\Data\Secrets.cs`
 ```csharp
-namespace MCDSaveEdit
+namespace MCDSaveEdit.Data
 {
     public static class Secrets
     {
         // Fill in the value for this one
-        public static string[] PAKS_AES_KEY_STRINGS = new string[] {
-            "<AES key for unlocking the MCD .pak files>",
+        public static AesKey[] PAKS_AES_KEYS = new AesKey[] {
+            new AesKey("<AES key for unlocking the MCD .pak files>", ""),
         };
 
         // You can leave these empty, they just need to exist
@@ -101,6 +112,7 @@ namespace MCDSaveEdit
 ```
 
 Another bit of trouble you might run into is the error: "The referenced component 'Windows' could not be found" in `MCDSaveEdit/Data/Constants.cs` line 3: `using Windows.Management.Deployment;`
+
 - Try the accepted answer [here](https://stackoverflow.com/questions/54454214/how-to-access-windows-management-deployment-namespace-in-a-desktop-project-in-vs).
 - This bit of code is only required for the Microsoft Store version, so if you have the launcher version you can just comment out lines 3 and 54 through 61.
 

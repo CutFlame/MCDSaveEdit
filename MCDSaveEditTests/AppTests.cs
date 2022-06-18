@@ -1,14 +1,13 @@
-﻿using DungeonTools.Save.File;
-using MCDSaveEdit;
-using MCDSaveEdit.Save.Models.Enums;
+﻿using MCDSaveEdit;
+using MCDSaveEdit.Data;
 using MCDSaveEdit.Save.Models.Profiles;
+using MCDSaveEdit.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PakReader;
 using PakReader.Pak;
 using PakReader.Parsers.Objects;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,36 +32,36 @@ namespace MCDSaveEditTests
 
             PakFilter? filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
             PakIndex? pakIndex = new PakIndex(path: paksFolderPath!, cacheFiles: true, caseSensitive: true, filter: filter);
-            pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEY_STRINGS[0].Substring(2).ToBytesKey());
-            Assert.AreEqual(76420, pakIndex.Count());
+            pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEYS[0].key.Substring(2).ToBytesKey());
+            Assert.AreEqual(78353, pakIndex.Count());
 
-            var pakImageResolver = new PakImageResolver(pakIndex, null);
+            var pakImageResolver = new PakContentResolver(pakIndex, null);
             pakImageResolver.loadPakFiles();
-            Assert.AreEqual(260, ItemExtensions.all.Count);
-            Assert.AreEqual(118, EnchantmentExtensions.allEnchantments.Count);
+            Assert.AreEqual(260, ItemDatabase.all.Count);
+            Assert.AreEqual(118, EnchantmentDatabase.allEnchantments.Count);
 
             var stringLibrary = pakImageResolver.loadLanguageStrings("ru-RU");
             //Using Russian language in order to guarantee every string will not match the english key
             Assert.IsNotNull(stringLibrary);
             R.loadExternalStrings(stringLibrary);
-            Assert.AreEqual(2391, R.totalStringCount);
+            Assert.AreEqual(2518, R.totalStringCount);
 
             //Find all the missing and mismatched strings
 
-            foreach(var item in ItemExtensions.all)
+            foreach(var item in ItemDatabase.all)
             {
                 Assert.AreNotEqual(item, R.itemName(item), $"itemName({item}) failed");
                 Assert.AreNotEqual(item, R.itemDesc(item), $"itemDesc({item}) failed");
             }
 
-            foreach(var enchantment in EnchantmentExtensions.allEnchantments)
+            foreach(var enchantment in EnchantmentDatabase.allEnchantments)
             {
                 Assert.AreNotEqual(enchantment, R.enchantmentName(enchantment), $"enchantmentName({enchantment}) failed");
                 //R.enchantmentEffect(enchantment); //missing many of these strings
                 Assert.AreNotEqual(enchantment, R.enchantmentDescription(enchantment), $"enchantmentDescription({enchantment}) failed");
             }
 
-            foreach (var armorProperty in ItemExtensions.armorProperties)
+            foreach (var armorProperty in ItemDatabase.armorProperties)
             {
                 Assert.AreNotEqual(armorProperty, R.armorProperty(armorProperty), $"armorProperty({armorProperty}) failed");
                 Assert.AreNotEqual(armorProperty, R.armorPropertyDescription(armorProperty), $"armorPropertyDescription({armorProperty}) failed");
@@ -72,44 +71,16 @@ namespace MCDSaveEditTests
         [TestMethod]
         public async Task TestReadSaveFile()
         {
-            var solutionDirectory = TryGetProjectDirectoryInfo()?.FullName;
+            var solutionDirectory = TestUtilities.tryGetProjectDirectoryInfo()?.FullName;
             Assert.IsNotNull(solutionDirectory);
             var filePath = Path.Combine(solutionDirectory, "TestData", "Blank.dat");
             //var filePath = Path.Combine(Constants.FILE_DIALOG_INITIAL_DIRECTORY, "2533274911688652", "Characters", "Blank.dat");
-            using var stream = await decryptFileIntoStream(filePath);
+            using var stream = await TestUtilities.decryptFileIntoStream(filePath);
             stream!.Seek(0, SeekOrigin.Begin);
             var profile = await ProfileParser.Read(stream!);
-            Assert.AreEqual(0, profile.Xp);
-            Assert.AreEqual(0, profile.TotalGearPower);
-        }
-
-        public static DirectoryInfo? TryGetProjectDirectoryInfo(string? currentPath = null)
-        {
-            var directory = new DirectoryInfo(currentPath ?? Directory.GetCurrentDirectory());
-            while (directory != null && !directory.GetFiles("*.csproj").Any())
-            {
-                directory = directory.Parent;
-            }
-            return directory;
-        }
-
-        private async Task<Stream?> decryptFileIntoStream(string filePath)
-        {
-            var file = new FileInfo(filePath);
-            using FileStream inputStream = file.OpenRead();
-            bool encrypted = SaveFileHandler.IsFileEncrypted(inputStream);
-            if (!encrypted)
-            {
-                Assert.Fail($"The file \"{file.Name}\" was in an unexpected format.");
-                return null;
-            }
-            Stream? stream = await FileProcessHelper.Decrypt(inputStream);
-            if (stream == null)
-            {
-                Assert.Fail($"Content of file \"{file.Name}\" could not be converted to a supported format.");
-                return null;
-            }
-            return stream;
+            Assert.IsNotNull(profile);
+            Assert.AreEqual(0, profile!.Xp);
+            Assert.AreEqual(0, profile!.TotalGearPower);
         }
 
         private const string BLANK = @"
@@ -134,21 +105,10 @@ namespace MCDSaveEditTests
   ""xp"": 0
 }
 ";
-
-        private static Stream GenerateStreamFromString(string s)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-        }
-
         [TestMethod]
         public async Task TestHandleReadAndWriteBlank()
         {
-            using var stream = GenerateStreamFromString(BLANK);
+            using var stream = TestUtilities.generateStreamFromString(BLANK);
 
             var copy = new MemoryStream();
             await stream!.CopyToAsync(copy);
@@ -159,14 +119,18 @@ namespace MCDSaveEditTests
             verifyNoDataLossOnWrite(copy, output);
         }
 
+        [DataRow("NoEnchantments.dat")]
+        [DataRow("ReasonableCheating.dat")]
+        [DataRow("Casual.dat")]
         [DataRow("Power200.dat")]
         [DataRow("Blank.dat")]
+        [DataRow("SwitchFile.dat")]
         [DataRow("UnreasonableCheating.dat")]
         [DataTestMethod]
         public async Task TestNoDataLossOnWrite(string filename)
         {
             var filePath = Path.Combine(Constants.FILE_DIALOG_INITIAL_DIRECTORY, "2533274911688652", "Characters", filename);
-            using var stream = await decryptFileIntoStream(filePath);
+            using var stream = await TestUtilities.decryptFileIntoStream(filePath);
 
             var copy = new MemoryStream();
             await stream!.CopyToAsync(copy);
@@ -181,27 +145,10 @@ namespace MCDSaveEditTests
         {
             var inputLines = getLinesFromJsonStream(input).ToArray();
             var outputLines = getLinesFromJsonStream(output).ToArray();
-            int inputLineIndex = 0;
-            int outputLineIndex = 0;
-            long totalUnequal = 0;
-            for (; inputLineIndex < inputLines.Length && outputLineIndex < outputLines.Length; inputLineIndex++, outputLineIndex++)
-            {
-                if (inputLines[inputLineIndex].EndsWith("null,")) { inputLineIndex++; }
-                if (outputLines[outputLineIndex].EndsWith("null,")) { outputLineIndex++; }
-
-                if (!inputLines[inputLineIndex].Equals(outputLines[outputLineIndex]))
-                {
-                    if (inputLines[inputLineIndex].StartsWith("\"power\"") && outputLines[outputLineIndex].StartsWith("\"power\"")) { continue; }
-                    if (inputLines[inputLineIndex].StartsWith("\"priceMultiplier\"") && outputLines[outputLineIndex].StartsWith("\"priceMultiplier\"")) { continue; }
-                    if (inputLines[inputLineIndex].StartsWith("\"rebateFraction\"") && outputLines[outputLineIndex].StartsWith("\"rebateFraction\"")) { continue; }
-                    totalUnequal++;
-                    Console.WriteLine(">>> {0}:{1}", inputLineIndex, inputLines[inputLineIndex]);
-                    Console.WriteLine("<<< {0}:{1}", outputLineIndex, outputLines[outputLineIndex]);
-                }
-            }
+            var totalUnequal = TestUtilities.countUnequalLines(inputLines, outputLines);
             Assert.AreEqual(0, totalUnequal);
         }
-
+        
         private IEnumerable<string> getLinesFromJsonStream(Stream stream)
         {
             stream.Seek(0, SeekOrigin.Begin);
