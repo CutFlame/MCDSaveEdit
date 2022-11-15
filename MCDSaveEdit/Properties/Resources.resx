@@ -357,6 +357,10 @@
     <value>Mainland</value>
     <comment>Mainland</comment>
   </data>
+  <data name="MCD_VERSION_FORMAT" xml:space="preserve">
+    <value>MCD {0}</value>
+    <comment>MCD {0}</comment>
+  </data>
   <data name="MELEE_ITEMS_FILTER" xml:space="preserve">
     <value>Melee</value>
     <comment>Melee</comment>

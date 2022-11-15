@@ -34,9 +34,10 @@ namespace MCDSaveEdit.Data
         };
 
         public readonly static StaticLevelData[] MAINLAND_LEVEL_DATA = new StaticLevelData[] {
+            new StaticLevelData("squidcoast", new Vector2(.15f, .64f), LevelTypeEnum.mission, alwaysAvailable: true),
+            new StaticLevelData("creeperwoods", new Vector2(.28f, .40f), LevelTypeEnum.mission, alwaysAvailable: true),
             new StaticLevelData("creepycrypt", new Vector2(.19f, .37f), LevelTypeEnum.dungeon),
             new StaticLevelData("mooshroomisland", new Vector2(.26f, .24f), LevelTypeEnum.dungeon),
-            new StaticLevelData("creeperwoods", new Vector2(.28f, .40f), LevelTypeEnum.mission),
             new StaticLevelData("soggycave", new Vector2(.27f, .65f), LevelTypeEnum.dungeon),
             new StaticLevelData("soggyswamp", new Vector2(.29f, .74f), LevelTypeEnum.mission),
             new StaticLevelData("mooncorecaverns", new Vector2(.44f, .35f), LevelTypeEnum.mission),
@@ -49,7 +50,6 @@ namespace MCDSaveEdit.Data
             new StaticLevelData("highblockhalls", new Vector2(.75f, .40f), LevelTypeEnum.mission),
             new StaticLevelData("obsidianpinnacle", new Vector2(.86f, .25f), LevelTypeEnum.mission),
             new StaticLevelData("underhalls", new Vector2(.87f, .49f), LevelTypeEnum.dungeon),
-            new StaticLevelData("squidcoast", new Vector2(.15f, .64f), LevelTypeEnum.mission),
         };
 
         public readonly static MapImageData MAINLAND_MAP_IMAGE_DATA = new MapImageData {
@@ -62,7 +62,7 @@ namespace MCDSaveEdit.Data
         };
 
         public readonly static StaticLevelData[] JUNGLE_AWAKENS_LEVEL_DATA = new StaticLevelData[] {
-            new StaticLevelData("dingyjungle", new Vector2(.24f, .44f), LevelTypeEnum.mission),
+            new StaticLevelData("dingyjungle", new Vector2(.24f, .44f), LevelTypeEnum.mission, alwaysAvailable: true),
             new StaticLevelData("overgrowntemple", new Vector2(.62f, .15f), LevelTypeEnum.mission),
             new StaticLevelData("bamboobluff", new Vector2(.65f, .55f), LevelTypeEnum.dungeon),
         };
@@ -77,7 +77,7 @@ namespace MCDSaveEdit.Data
         };
 
         public readonly static StaticLevelData[] CREEPING_WINTER_LEVEL_DATA = new StaticLevelData[] {
-            new StaticLevelData("frozenfjord", new Vector2(.24f, .44f), LevelTypeEnum.mission),
+            new StaticLevelData("frozenfjord", new Vector2(.24f, .44f), LevelTypeEnum.mission, alwaysAvailable: true),
             new StaticLevelData("lonelyfortress", new Vector2(.62f, .15f), LevelTypeEnum.mission),
             new StaticLevelData("lostsettlement", new Vector2(.65f, .55f), LevelTypeEnum.dungeon),
         };
@@ -92,8 +92,9 @@ namespace MCDSaveEdit.Data
         };
 
         public readonly static StaticLevelData[] HOWLING_PEAKS_LEVEL_DATA = new StaticLevelData[] {
-            new StaticLevelData("windsweptpeaks", new Vector2(.24f, .44f), LevelTypeEnum.mission),
+            new StaticLevelData("windsweptpeaks", new Vector2(.24f, .44f), LevelTypeEnum.mission, alwaysAvailable: true),
             new StaticLevelData("galesanctum", new Vector2(.62f, .15f), LevelTypeEnum.mission),
+            new StaticLevelData("gauntletgales", new Vector2(.62f, .25f), LevelTypeEnum.mission),
             new StaticLevelData("endlessrampart", new Vector2(.65f, .55f), LevelTypeEnum.dungeon),
         };
 
@@ -106,11 +107,75 @@ namespace MCDSaveEdit.Data
             levelData = HOWLING_PEAKS_LEVEL_DATA!,
         };
 
+        public readonly static StaticLevelData[] OCEANS_LEVEL_DATA = new StaticLevelData[] {
+            new StaticLevelData("coralrise", new Vector2(.24f, .44f), LevelTypeEnum.mission, alwaysAvailable: true),
+            new StaticLevelData("abyssalmonument", new Vector2(.62f, .15f), LevelTypeEnum.mission),
+            new StaticLevelData("radiantravine", new Vector2(.65f, .55f), LevelTypeEnum.dungeon),
+        };
+
+        public readonly static MapImageData OCEANS_MAP_IMAGE_DATA = new MapImageData {
+            titleLookupString = "Oceans_name",
+            titleBackupText = "The Hidden Depths", //TODO: put in to resources
+            mapImageSourcePath = "/Dungeons/Content/UI/Materials/MissionSelectMap/background/islands/DLC_Oceans_Island",
+            backgroundColor = new ColorTuple(0xFF, 0xE0, 0xFF, 0xFF),
+            cropToRect = new RectTuple(0, 0, 2900, 2061),
+            levelData = OCEANS_LEVEL_DATA!,
+        };
+
+        public readonly static StaticLevelData[] NETHER_LEVEL_DATA = new StaticLevelData[] {
+            new StaticLevelData("netherwastes", new Vector2(.62f, .15f), LevelTypeEnum.mission, alwaysAvailable: true),
+            new StaticLevelData("warpedforest", new Vector2(.24f, .44f), LevelTypeEnum.mission),
+            new StaticLevelData("basaltdeltas", new Vector2(.65f, .55f), LevelTypeEnum.mission),
+            new StaticLevelData("crimsonforest", new Vector2(.65f, .65f), LevelTypeEnum.dungeon),
+            new StaticLevelData("netherfortress", new Vector2(.65f, .75f), LevelTypeEnum.dungeon),
+            new StaticLevelData("soulsandvalley", new Vector2(.65f, .85f), LevelTypeEnum.dungeon),
+        };
+
+        public readonly static MapImageData NETHER_MAP_IMAGE_DATA = new MapImageData {
+            titleLookupString = "Nether_name",
+            titleBackupText = "Nether", //TODO: put in to resources
+            mapImageSourcePath = "/Dungeons/Content/Content_DLC4/UI/Materials/MissionSelectMap/DLC_NetherIsland",
+            backgroundColor = new ColorTuple(0xFF, 0xC7, 0xB6, 0x99),
+            cropToRect = new RectTuple(0, 0, 3016, 1646),
+            levelData = NETHER_LEVEL_DATA!,
+        };
+
+        public readonly static StaticLevelData[] STRONGHOLD_LEVEL_DATA = new StaticLevelData[] {
+            new StaticLevelData("thestronghold", new Vector2(.50f, .50f), LevelTypeEnum.mission, alwaysAvailable: true),
+        };
+
+        public readonly static MapImageData STRONGHOLD_MAP_IMAGE_DATA = new MapImageData {
+            titleLookupString = "thestronghold_name",
+            titleBackupText = "The Stronghold", //TODO: put in to resources
+            mapImageSourcePath = "/Dungeons/Content/Content_DLC6/UI/Materials/MissionSelectMap/DLC_End_Stronghold_Island",
+            backgroundColor = new ColorTuple(0xFF, 0xC7, 0xB6, 0x99),
+            cropToRect = new RectTuple(0,0,1093,1200),
+            levelData = STRONGHOLD_LEVEL_DATA!,
+        };
+
+        public readonly static StaticLevelData[] THE_END_LEVEL_DATA = new StaticLevelData[] {
+            new StaticLevelData("blightedcitadel", new Vector2(.24f, .44f), LevelTypeEnum.mission),
+            new StaticLevelData("enderwilds", new Vector2(.62f, .15f), LevelTypeEnum.mission),
+        };
+
+        public readonly static MapImageData THE_END_MAP_IMAGE_DATA = new MapImageData {
+            titleLookupString = "End_name",
+            titleBackupText = "Echoing Void", //TODO: put in to resources
+            mapImageSourcePath = "/Dungeons/Content/Content_DLC6/UI/Materials/MissionSelectMap/DLC_End",
+            backgroundColor = new ColorTuple(0xFF, 0xC7, 0xB6, 0x99),
+            cropToRect = new RectTuple(0, 0, 2500, 1951),
+            levelData = THE_END_LEVEL_DATA!,
+        };
+
         public readonly static Dictionary<string, StaticLevelData> LEVEL_DATA_LOOKUP =
             MAINLAND_LEVEL_DATA
             .Concat(JUNGLE_AWAKENS_LEVEL_DATA)
             .Concat(CREEPING_WINTER_LEVEL_DATA)
             .Concat(HOWLING_PEAKS_LEVEL_DATA)
+            .Concat(OCEANS_LEVEL_DATA)
+            .Concat(NETHER_LEVEL_DATA)
+            .Concat(STRONGHOLD_LEVEL_DATA)
+            .Concat(THE_END_LEVEL_DATA)
             .ToDictionary(data=>data.key);
 
         public readonly static List<MapImageData> ALL_MAP_IMAGE_DATA = new List<MapImageData>() {
@@ -118,6 +183,10 @@ namespace MCDSaveEdit.Data
             JUNGLE_AWAKENS_MAP_IMAGE_DATA,
             CREEPING_WINTER_MAP_IMAGE_DATA,
             HOWLING_PEAKS_MAP_IMAGE_DATA,
+            OCEANS_MAP_IMAGE_DATA,
+            NETHER_MAP_IMAGE_DATA,
+            STRONGHOLD_MAP_IMAGE_DATA,
+            THE_END_MAP_IMAGE_DATA,
         };
     }
 }

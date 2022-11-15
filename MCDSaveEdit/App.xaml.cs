@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 #nullable enable
 
 namespace MCDSaveEdit
@@ -34,11 +36,16 @@ namespace MCDSaveEdit
 
             showSplashWindowReplacingOldWindow();
 
-            startAsync(e.Args);
+            var args = e.Args;
+            _ = Application.Current?.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate {
+                startAsync(args);
+            }));
         }
 
         private async void startAsync(string[] args)
         {
+            MainThreadConsoleWriteLine($"{Constants.APPLICATION_NAME} {Constants.CURRENT_VERSION}");
+            
             string? fileName = args.LastOrDefault();
             if(!string.IsNullOrWhiteSpace(fileName) && File.Exists(fileName))
             {
@@ -68,6 +75,7 @@ namespace MCDSaveEdit
 
         private async Task loadAsync(bool askForGameContentLocation)
         {
+            MainThreadConsoleWriteLine("Searching for pak files...");
             bool canContinue = true;
             //check default install locations
             string? paksFolderPath = _model.usableGameContentIfExists();
@@ -79,6 +87,7 @@ namespace MCDSaveEdit
 
             if (!string.IsNullOrWhiteSpace(paksFolderPath))
             {
+                MainThreadConsoleWriteLine($"Pak files path: {paksFolderPath}");
                 try
                 {
                     await loadGameContentAsync(paksFolderPath!);
@@ -100,7 +109,7 @@ namespace MCDSaveEdit
                 _model.unloadGameContent();
             }
 
-            if (!canContinue)
+            if (canContinue == false)
             {
                 //User opted to Exit
                 _splashWindow?.Close();
@@ -111,6 +120,13 @@ namespace MCDSaveEdit
             }
 
             showMainWindow();
+        }
+
+        private void MainThreadConsoleWriteLine(string str)
+        {
+            this.ExecuteOnMainThread(delegate {
+                Console.WriteLine(str);
+            });
         }
 
         private bool showGameFilesWindow(ref string? selectedPath)
@@ -147,19 +163,19 @@ namespace MCDSaveEdit
         {
             var tcs = new TaskCompletionSource<bool>();
             Task.Run(() => {
-#if !HIDE_MAP_SCREENS
-                LevelImagePanel.preload();
-                MapScreen.preload(); //This takes a while
-#endif
+                MainThreadConsoleWriteLine("Loading UI images...");
                 InventoryTab.preload();
-
-#if !HIDE_CHEST_TAB
-                ChestTab.preload();
-#endif
                 EquipmentScreen.preload();
                 ItemListScreen.preload();
-                SelectionWindow.preload();
                 ItemControl.preload();
+#if !HIDE_CHEST_TAB
+                MainThreadConsoleWriteLine("Loading Chest images...");
+                ChestTab.preload();
+#endif
+
+                MainThreadConsoleWriteLine("Loading Equipment images...");
+                BaseSelectionWindow.preload();
+
                 tcs.SetResult(true);
             });
             return tcs.Task;
@@ -168,6 +184,7 @@ namespace MCDSaveEdit
         private void showMainWindow()
         {
             EventLogger.logEvent("showMainWindow", new Dictionary<string, object>() { { "gameContentLoaded", AppModel.gameContentLoaded.ToString() } });
+            MainThreadConsoleWriteLine("Loading Done");
             var mainWindow = WindowFactory.createMainWindow(_model.mainModel);
             mainWindow.onRelaunch = onRelaunch;
             mainWindow.onReload = onReload;
@@ -210,15 +227,19 @@ namespace MCDSaveEdit
 
         private void showSplashWindowReplacingOldWindow()
         {
+            if(_controlWriter != null)
+            {
+                _outputWriter.removeWriter(_controlWriter);
+                _controlWriter.Close();
+            }
+
             var oldMainWindow = this.MainWindow;
             _splashWindow = WindowFactory.createSplashWindow();
-            if (Constants.IS_DEBUG)
-            {
-                //Turning this off for now
-                //stopped working for some reason
-                //_controlWriter = new ControlWriter(_splashWindow.textbox);
-                //_outputWriter.addWriter(_controlWriter);
-            }
+            _controlWriter = new ControlWriter(_splashWindow.textbox);
+            this.ExecuteOnMainThreadWithNonnullThis(nonnullThis => {
+                if(nonnullThis._controlWriter != null)
+                    nonnullThis._outputWriter.addWriter(nonnullThis._controlWriter);
+            });
 
             MainWindow = _splashWindow;
             oldMainWindow?.Close();

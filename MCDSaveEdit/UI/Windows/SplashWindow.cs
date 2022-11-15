@@ -21,14 +21,7 @@ namespace MCDSaveEdit.UI
             textbox.Width = 700;
             textbox.Height = 700;
             textbox.TextWrapping = TextWrapping.NoWrap;
-            if (Constants.IS_DEBUG)
-            {
-                textbox.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                textbox.Visibility = Visibility.Collapsed;
-            }
+            textbox.Visibility = Visibility.Visible;
 
             stack.Orientation = Orientation.Vertical;
             stack.VerticalAlignment = VerticalAlignment.Stretch;

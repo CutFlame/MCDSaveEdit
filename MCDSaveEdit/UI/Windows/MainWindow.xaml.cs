@@ -27,7 +27,6 @@ namespace MCDSaveEdit.UI
 
         private readonly MainViewModel _model;
 
-        private readonly List<MapScreen> _mapScreens = new List<MapScreen>();
         private Window? _busyWindow = null;
 
         public MainWindow(MainViewModel model)
@@ -45,18 +44,13 @@ namespace MCDSaveEdit.UI
             }
             else
             {
-                gameFilesVersionMenuItem.Header = $"MCD {detectedGameVersion}";
+                gameFilesVersionMenuItem.Header = R.formatMCD_VERSION(detectedGameVersion);
             }
 
             refreshRecentFilesList();
 
-#if !HIDE_MAP_SCREENS
-            createMapScreenTabItems();
-#endif
-
             createLangMenuItems();
 
-            checkForNewVersionAsync();
 
 #if HIDE_CHEST_TAB
             chestTab.Visibility = Visibility.Collapsed;
@@ -66,14 +60,15 @@ namespace MCDSaveEdit.UI
 
             inventoryTab.model = _model.profileModel;
             statsTab.model = _model.profileModel;
-            _mapScreens.ForEach(mapScreen => mapScreen.model = _model.profileModel);
             _model.profileModel.profile.subscribe(_ => this.updateUI());
 
             //Clear out design/testing values
             updateUI();
+
+            checkForNewVersionAsync();
         }
 
-#region UI
+        #region UI
 
         public void updateUI()
         {
@@ -81,13 +76,7 @@ namespace MCDSaveEdit.UI
             statsTab.updateUI();
             inventoryTab.updateUI();
             chestTab.updateUI();
-            updateMapScreensUI();
             closeBusyIndicator();
-        }
-
-        private void updateMapScreensUI()
-        {
-            _mapScreens.ForEach(mapScreen => mapScreen.updateUI());
         }
 
         private void updateTitleUI()
@@ -145,20 +134,6 @@ namespace MCDSaveEdit.UI
             chestTabItem.Header = R.getString("StorageChest") ?? R.CHEST;
         }
 
-        private void createMapScreenTabItems()
-        {
-            foreach(var mapImageData in Constants.ALL_MAP_IMAGE_DATA)
-            {
-                var mapScreen = new MapScreen(mapImageData);
-                var mapScreenTabItem = new TabItem() {
-                    Content = mapScreen,
-                    Header = mapImageData.title(),
-                };
-                _mapScreens.Add(mapScreen);
-                mainTabControl.Items.Add(mapScreenTabItem);
-            }
-        }
-
         private void createLangMenuItems()
         {
             langMenuItem.Items.Clear();
@@ -194,8 +169,9 @@ namespace MCDSaveEdit.UI
 
 #region Version Check
 
-        private void checkForNewVersionAsync()
+        private async void checkForNewVersionAsync()
         {
+            await Config.instance.downloadAsync();
             if (Config.instance.isNewBetaVersionAvailable())
             {
                 updateMenuItem.Header = R.BETA_UPDATE_MENU_ITEM_HEADER;

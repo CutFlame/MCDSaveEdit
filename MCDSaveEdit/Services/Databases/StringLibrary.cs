@@ -84,6 +84,7 @@ namespace MCDSaveEdit.Services
         internal static string formatFILE_DECRYPT_ERROR_MESSAGE(string filename) { return string.Format(FILE_DECRYPT_ERROR_MESSAGE, filename); }
         internal static string formatITEMS_COUNT_LABEL(int items, int max) { return string.Format(ITEMS_COUNT_LABEL, items, max); }
         internal static string formatVERSION(string versionLabel, string versionString) { return string.Format(VERSION_FORMAT, versionLabel, versionString); }
+        internal static string formatMCD_VERSION(string versionString) { return string.Format(MCD_VERSION_FORMAT, versionString); }
         internal static string formatNEXT_LEVEL_LABEL(int nextFloor, int totalFloors, string floorType) { return string.Format(NEXT_LEVEL_LABEL, nextFloor, totalFloors, floorType); }
 
         public static string itemName(string type)

@@ -21,6 +21,15 @@ namespace MCDSaveEdit
         {
             var list = collection.ToList();
             var index = list.IndexOf(oldValue);
+            return collection.replacingAtIndex(index, newValue);
+        }
+
+        /// <summary>
+        /// Return a new collection with the given <paramref name="newValue"/> replacing the item at <paramref name="index"/>
+        /// </summary>
+        public static IEnumerable<T> replacingAtIndex<T>(this IEnumerable<T> collection, int index, T newValue)
+        {
+            var list = collection.ToList();
             list.RemoveAt(index);
             list.Insert(index, newValue);
             return list;
@@ -39,7 +48,7 @@ namespace MCDSaveEdit
         /// <summary>
         /// Return a new collection with the given <paramref name="numberToDropFromEnd"/> dropped from the end
         /// </summary>
-        public static IEnumerable<T> dropLast<T>(this IEnumerable<T> enumerable, int numberToDropFromEnd)
+        public static IEnumerable<T> droppingLast<T>(this IEnumerable<T> enumerable, int numberToDropFromEnd)
         {
             var count = enumerable.Count();
             return enumerable.Take(count - numberToDropFromEnd);

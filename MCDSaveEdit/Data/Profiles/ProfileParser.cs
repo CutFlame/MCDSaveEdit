@@ -59,7 +59,16 @@ namespace MCDSaveEdit.Save.Models.Profiles
             }
 
             sanitized.Seek(0, SeekOrigin.Begin);
-            return await JsonSerializer.DeserializeAsync<ProfileSaveFile>(sanitized, _options);
+            ProfileSaveFile? obj = await JsonSerializer.DeserializeAsync<ProfileSaveFile>(sanitized, _options);
+            //TODO: handle migration of Tower data from 1.15.1 to 1.16.2
+            //if(obj?.MissionStatesMap?.TowerMissionContainer?.OldTowerMissionStateData != null && obj!.MissionStatesMap!.TowerMissionContainer!.OldTowerMissionStateData.Count > 0)
+            //{
+            //    var json = JsonSerializer.Serialize(obj!.MissionStatesMap!.TowerMissionContainer!.OldTowerMissionStateData);
+            //    var oldTowerMissionStateData = JsonSerializer.Deserialize<TowerMissionState>(json);
+            //    obj.MissionStatesMap.TowerMissionContainer = new TowerMissionContainer() { TowerMissionStates = new[] { oldTowerMissionStateData } };
+            //    obj!.MissionStatesMap!.TowerMissionContainer!.OldTowerMissionStateData = null;
+            //}
+            return obj;
         }
 
         public static async ValueTask<Stream> Write(ProfileSaveFile settings)

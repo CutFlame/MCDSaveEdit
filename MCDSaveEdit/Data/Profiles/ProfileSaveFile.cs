@@ -87,6 +87,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("skin")]
         public string Skin { get; set; }
 
+        [JsonPropertyName("storageChestAnnouncement")]
+        public object StorageChestAnnouncement { get; set; }
+
         [JsonPropertyName("storageChestItems")]
         public Item[] StorageChestItems { get; set; }
 
@@ -108,6 +111,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("uiHintsExpired")]
         public object[] UiHintsExpired { get; set; }
         //public UiHintsExpired[] UiHintsExpired { get; set; }
+
+        [JsonPropertyName("uniqueSaveId")]
+        public string UniqueSaveId { get; set; }
 
         [JsonPropertyName("version")]
         public long Version { get; set; }

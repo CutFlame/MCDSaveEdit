@@ -45,9 +45,13 @@ namespace MCDSaveEdit.UI
             return mainWindow;
         }
 
-        public static SelectionWindow createSelectionWindow()
+        public static ISelectionWindow createSelectionWindow()
         {
+#if USE_SIMPLE_SELECTION
+            var selectionWindow = new SimpleSelectionWindow();
+#else
             var selectionWindow = new SelectionWindow();
+#endif
             var mainWindow = Application.Current.MainWindow;
             selectionWindow.Owner = mainWindow;
             selectionWindow.Top = mainWindow.Top;

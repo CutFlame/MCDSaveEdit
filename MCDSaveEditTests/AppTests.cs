@@ -33,18 +33,18 @@ namespace MCDSaveEditTests
             PakFilter? filter = new PakFilter(new[] { Constants.PAKS_FILTER_STRING }, false);
             PakIndex? pakIndex = new PakIndex(path: paksFolderPath!, cacheFiles: true, caseSensitive: true, filter: filter);
             pakIndex.UseKey(FGuid.Zero, Secrets.PAKS_AES_KEYS[0].key.Substring(2).ToBytesKey());
-            Assert.AreEqual(78353, pakIndex.Count());
+            Assert.AreEqual(80386, pakIndex.Count());
 
             var pakImageResolver = new PakContentResolver(pakIndex, null);
             pakImageResolver.loadPakFiles();
-            Assert.AreEqual(260, ItemDatabase.all.Count);
+            Assert.AreEqual(269, ItemDatabase.all.Count);
             Assert.AreEqual(118, EnchantmentDatabase.allEnchantments.Count);
 
             var stringLibrary = pakImageResolver.loadLanguageStrings("ru-RU");
             //Using Russian language in order to guarantee every string will not match the english key
             Assert.IsNotNull(stringLibrary);
             R.loadExternalStrings(stringLibrary);
-            Assert.AreEqual(2518, R.totalStringCount);
+            Assert.AreEqual(2537, R.totalStringCount);
 
             //Find all the missing and mismatched strings
 

@@ -19,7 +19,7 @@ namespace MCDSaveEdit.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -597,6 +597,15 @@ namespace MCDSaveEdit.Properties {
         public static string MAINLAND {
             get {
                 return ResourceManager.GetString("MAINLAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MCD {0}.
+        /// </summary>
+        public static string MCD_VERSION_FORMAT {
+            get {
+                return ResourceManager.GetString("MCD_VERSION_FORMAT", resourceCulture);
             }
         }
         

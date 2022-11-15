@@ -9,7 +9,8 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>MCDSaveEdit</RootNamespace>
     <AssemblyName>MCDSaveEdit</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetPlatformVersion>8.0</TargetPlatformVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -24,6 +25,7 @@
     <PublishTrimmed>true</PublishTrimmed>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -62,7 +64,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\ReleaseFree\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS;HIDE_MAP_SCREENS;HIDE_THE_TOWER</DefineConstants>
+    <DefineConstants>TRACE;CODE_ANALYSIS;USE_SIMPLE_SELECTION</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>CS8618</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -94,11 +96,14 @@
       <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.7.15\lib\net45\NLog.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.2.80.3\lib\net462\SkiaSharp.dll</HintPath>
+    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.5.0.4\lib\net46\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp, Version=2.88.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.2.88.3\lib\net462\SkiaSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System" />
@@ -161,7 +166,9 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
@@ -173,7 +180,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive, Version=5.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.5.0.0\lib\netstandard2.0\System.Reactive.dll</HintPath>
+      <HintPath>..\packages\System.Reactive.5.0.0\lib\net472\System.Reactive.dll</HintPath>
     </Reference>
     <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
@@ -228,8 +235,8 @@
     <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Json, Version=6.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.6.0.3\lib\net461\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=6.0.0.6, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.6.0.6\lib\net461\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.RegularExpressions.4.3.1\lib\net463\System.Text.RegularExpressions.dll</HintPath>
@@ -249,6 +256,7 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -262,7 +270,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Windows">
-      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -305,7 +313,11 @@
     <Compile Include="UI\UserControls\StatField.xaml.cs">
       <DependentUpon>StatField.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Windows\BaseSelectionWindow.cs" />
     <Compile Include="UI\Windows\SplashWindow.cs" />
+    <Compile Include="UI\Windows\SelectionWindow.xaml.cs">
+      <DependentUpon>SelectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\EquipmentViewModel.cs" />
     <Compile Include="Interfaces\IEquipItems.cs" />
     <Compile Include="UI\Tabs\InventoryTab.xaml.cs">
@@ -369,15 +381,8 @@
     <Compile Include="Data\Profiles\UiHintsExpired.cs" />
     <Compile Include="Core\RegistryTools.cs" />
     <Compile Include="Data\Models\StaticLevelData.cs" />
-    <Compile Include="UI\Screens\MapScreen.xaml.cs">
-      <DependentUpon>MapScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Screens\MissionScreen.xaml.cs">
-      <DependentUpon>MissionScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Logic\Extensions\ProgressExtensions.cs" />
     <Compile Include="UI\UserControls\LevelImagePanel.cs" />
-    <Compile Include="UI\UserControls\MissionControl.cs" />
     <Compile Include="UI\UserControls\BusyIndicator.xaml.cs">
       <DependentUpon>BusyIndicator.xaml</DependentUpon>
     </Compile>
@@ -425,14 +430,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Windows\GameFilesWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Screens\MapScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Screens\MissionScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -484,6 +481,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Windows\SelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Extensions\ProfileExtensions.cs" />
@@ -491,7 +492,7 @@
     <Compile Include="UI\UserControls\NetheriteEnchantmentControl.xaml.cs">
       <DependentUpon>NetheriteEnchantmentControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Windows\SelectionWindow.cs" />
+    <Compile Include="UI\Windows\SimpleSelectionWindow.cs" />
     <Compile Include="UI\UserControls\Stepper.xaml.cs">
       <DependentUpon>Stepper.xaml</DependentUpon>
     </Compile>
@@ -570,22 +571,24 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\SkiaSharp.2.80.3\build\net462\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.2.80.3\build\net462\SkiaSharp.targets'))" />
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\Fody.6.6.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.6.0\build\Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets'))" />
-    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.6.4\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.6.4\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.6\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.6\build\System.Text.Json.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.macOS.2.88.3\build\net462\SkiaSharp.NativeAssets.macOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.macOS.2.88.3\build\net462\SkiaSharp.NativeAssets.macOS.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.Win32.2.88.3\build\net462\SkiaSharp.NativeAssets.Win32.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.Win32.2.88.3\build\net462\SkiaSharp.NativeAssets.Win32.targets'))" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\SkiaSharp.2.80.3\build\net462\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.2.80.3\build\net462\SkiaSharp.targets')" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" />
-  <Import Project="..\packages\Fody.6.6.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.6.0\build\Fody.targets')" />
   <Import Project="..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets" Condition="Exists('..\packages\GameAnalytics.Mono.SDK.3.3.5\build\net45\GameAnalytics.Mono.SDK.targets')" />
-  <Import Project="..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets')" />
+  <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" />
+  <Import Project="..\packages\Fody.6.6.4\build\Fody.targets" Condition="Exists('..\packages\Fody.6.6.4\build\Fody.targets')" />
+  <Import Project="..\packages\System.Text.Json.6.0.6\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.6\build\System.Text.Json.targets')" />
+  <Import Project="..\packages\SkiaSharp.NativeAssets.macOS.2.88.3\build\net462\SkiaSharp.NativeAssets.macOS.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.macOS.2.88.3\build\net462\SkiaSharp.NativeAssets.macOS.targets')" />
+  <Import Project="..\packages\SkiaSharp.NativeAssets.Win32.2.88.3\build\net462\SkiaSharp.NativeAssets.Win32.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.Win32.2.88.3\build\net462\SkiaSharp.NativeAssets.Win32.targets')" />
 </Project>

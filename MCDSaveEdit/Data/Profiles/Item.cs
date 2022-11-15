@@ -42,6 +42,9 @@ namespace MCDSaveEdit.Save.Models.Profiles
         [JsonPropertyName("rarity")]
         public Rarity Rarity { get; set; }
 
+        [JsonPropertyName("timesmodified")]
+        public int? TimesModified { get; set; }
+
         [JsonPropertyName("type")]
         public string Type { get; set; }
 

@@ -16,7 +16,7 @@ namespace MCDSaveEdit.Services
             GameAnalytics.SetEnabledVerboseLog(false);
             GameAnalytics.SetEnabledEventSubmission(false);
 #else
-            GameAnalytics.SetEnabledInfoLog(true);
+            GameAnalytics.SetEnabledInfoLog(false);
             GameAnalytics.SetEnabledVerboseLog(false);
             GameAnalytics.SetEnabledEventSubmission(true);
 #endif

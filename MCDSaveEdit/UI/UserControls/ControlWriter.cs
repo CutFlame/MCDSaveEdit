@@ -43,14 +43,24 @@ namespace MCDSaveEdit.UI
 
         private void updateUI()
         {
-            this.ExecuteOnMainThreadWithNonnullThis(nonnullThis => {
-                if (!nonnullThis._isDisposed)
-                {
-                    //Update UI here
-                    nonnullThis.textbox.Text = nonnullThis.textBuilder.ToString();
-                    nonnullThis.textbox.ScrollToEnd();
-                }
-            });
+            if (ThreadUtils.IsMainThread())
+            {
+                updateTextBox();
+            }
+            //var nonnullThis = this;
+            //this.ExecuteOnMainThreadWithNonnullThis(nonnullThis => {
+                //nonnullThis.updateTextBox();
+            //});
+        }
+
+        private void updateTextBox()
+        {
+            if (_isDisposed == false && textbox.IsLoaded)
+            {
+                //Update UI here
+                textbox.Text = textBuilder.ToString();
+                textbox.ScrollToEnd();
+            }
         }
 
         public override Encoding Encoding {
@@ -65,8 +75,27 @@ namespace MCDSaveEdit.UI
         }
     }
 
-    public static class MyExtensions
+    public static class ThreadUtils
     {
+        public static bool IsMainThread()
+        {
+            return Application.Current != null && Application.Current.Dispatcher.Thread == Thread.CurrentThread;
+        }
+
+        public static void ExecuteOnMainThread(this object obj, Action funcToRun)
+        {
+            if (IsMainThread())
+            {
+                funcToRun();
+            }
+            else
+            {
+                _ = Application.Current?.Dispatcher.Invoke(DispatcherPriority.Render, new ThreadStart(delegate {
+                    funcToRun();
+                }));
+            }
+        }
+
         public static void ExecuteOnMainThreadWithNonnullThis<T>(this T lhs, Action<T> funcToRun) where T : class
         {
             lhs.ExecuteOnMainThreadWithWeakThis(weakThis => {
@@ -79,9 +108,16 @@ namespace MCDSaveEdit.UI
         public static void ExecuteOnMainThreadWithWeakThis<T>(this T lhs, Action<WeakReference<T>> funcToRun) where T : class
         {
             var weakThis = new WeakReference<T>(lhs);
-            _ = Application.Current?.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate {
+            if (IsMainThread())
+            {
                 funcToRun(weakThis);
-            }));
+            }
+            else
+            {
+                _ = Application.Current?.Dispatcher.Invoke(DispatcherPriority.Render, new ThreadStart(delegate {
+                    funcToRun(weakThis);
+                }));
+            }
         }
     }
 
@@ -100,36 +136,54 @@ namespace MCDSaveEdit.UI
 
         public void addWriter(TextWriter writer)
         {
-            _writers.Add(writer);
+            lock (_writers)
+            {
+                _writers.Add(writer);
+            }
         }
 
         public void removeWriter(TextWriter writer)
         {
-            _writers.Remove(writer);
+            lock(_writers)
+            {
+                _writers.Remove(writer);
+            }
         }
 
         public override void Write(char value)
         {
-            foreach (var writer in _writers)
-                writer.Write(value);
+            lock(_writers)
+            {
+                foreach (var writer in _writers)
+                    writer.Write(value);
+            }
         }
 
         public override void Write(string value)
         {
-            foreach (var writer in _writers)
-                writer.Write(value);
+            lock (_writers)
+            {
+                foreach (var writer in _writers)
+                    writer.Write(value);
+            }
         }
 
         public override void Flush()
         {
-            foreach (var writer in _writers)
-                writer.Flush();
+            lock (_writers)
+            {
+                foreach (var writer in _writers)
+                    writer.Flush();
+            }
         }
 
         public override void Close()
         {
-            foreach (var writer in _writers)
-                writer.Close();
+            lock (_writers)
+            {
+                foreach (var writer in _writers)
+                    writer.Close();
+            }
         }
 
         public override Encoding Encoding {

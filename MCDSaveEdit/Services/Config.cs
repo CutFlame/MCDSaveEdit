@@ -11,11 +11,6 @@ namespace MCDSaveEdit.Services
     {
         public static Config instance = new GameAnalyticsRemoteConfig();
 
-        public Config()
-        {
-            _ = downloadAsync();
-        }
-
         public bool isConfigsReady { get; protected set; }
 
         public bool showInventoryIndexOrEquipmentSlot {
@@ -33,7 +28,7 @@ namespace MCDSaveEdit.Services
         public string? stableReleaseVersionString { get; protected set; }
         public string? betaReleaseVersionString { get; protected set; }
 
-        protected virtual async Task downloadAsync()
+        public virtual async Task downloadAsync()
         {
             //Using GitHub
             try

@@ -6,6 +6,7 @@ namespace MCDSaveEdit.Data
     public partial class Constants
     {
         public static readonly Dictionary<string, string> stringMismatches = new Dictionary<string, string>() {
+            //{"Expected","Actual"},
             //{"Imagefile reference","Game.json reference"},
             { "Unset_desc","Unset" },
 
@@ -124,6 +125,9 @@ namespace MCDSaveEdit.Data
             { "Flavour_LostEvocation","Flavor_LostEvocation" },
             { "Flavour_Elytra","Desc_Elytra" },
             { "Flavour_EyeOfEnder","Desc_EyeOfEnder" },
+            { "Flavour_GhostArmor_Spooky2","Flavour_GhostArmor_Unique1" }, //missing
+            { "Spear_Spooky2","Spear_spooky2" },
+            { "Flavour_Spear_Spooky2","Flavour_Spear_spooky2" },
 
             { "ReviveChance","Unset" }, //missing
             { "ReviveChance_description","Unset" }, //missing

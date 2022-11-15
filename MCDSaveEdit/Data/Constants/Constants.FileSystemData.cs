@@ -27,19 +27,28 @@ namespace MCDSaveEdit.Data
             }
         }
 
+        //NOTE: default location of files for XBoxGames version: C:\XboxGames\Minecraft Dungeons\Content\Dungeons\Content\Paks
+        public static string XBOX_PC_GAMES_PAKS_FOLDER_PATH {
+            get {
+                var folderPath = Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.Windows));
+                return Path.Combine(folderPath, "XboxGames", "Minecraft Dungeons", "Content", "Dungeons", "Content", "Paks");
+            }
+        }
+
         //NOTE: location of files for WinStore version is where ever the UWPDumper script dumped them
         public static string? WINSTORE_PAKS_FOLDER_PATH_IF_EXISTS {
             get {
                 //https://stackoverflow.com/questions/8499593/c-sharp-how-to-check-if-namespace-class-or-method-exists-in-c
                 var packageManagerType = from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                            from type in assembly.GetTypes()
-                            where type.Name == "PackageManager"
-                            select type;
+                        from type in assembly.GetTypes()
+                        where type.FullName == "Windows.Management.Deployment.PackageManager"
+                        select type;
                 //var packageManagerType = Type.GetType("Windows.Management.Deployment.PackageManager"); // THIS SEEMS TO ALWAYS RETURN NULL :-(
                 if (packageManagerType == null)
                 {
                     return null;
                 }
+
                 var pm = new Windows.Management.Deployment.PackageManager();
                 foreach (var pkg in pm.FindPackagesForUser(string.Empty, "Microsoft.Lovika_8wekyb3d8bbwe"))
                 {
@@ -48,6 +57,7 @@ namespace MCDSaveEdit.Data
                         return Path.Combine(pkg.InstalledLocation.Path, "Dungeons", "Content", "Paks");
                     }
                 }
+
                 // Game has not been run through the script, meaning the files are not accessible
                 return null;
             }

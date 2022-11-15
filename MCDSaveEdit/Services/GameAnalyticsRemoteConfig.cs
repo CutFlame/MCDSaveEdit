@@ -11,7 +11,7 @@ namespace MCDSaveEdit.Services
 
         public GameAnalyticsRemoteConfig() : base() { }
 
-        protected override Task downloadAsync()
+        public override Task downloadAsync()
         {
             var tcs = new TaskCompletionSource<bool>();
             Task.Run(() => {

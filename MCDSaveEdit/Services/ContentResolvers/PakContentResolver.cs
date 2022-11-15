@@ -3,6 +3,7 @@ using MCDSaveEdit.Interfaces;
 using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
 using PakReader.Pak;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -91,7 +92,7 @@ namespace MCDSaveEdit.Services
 
         public void loadPakFiles(bool preloadBitmaps = false)
         {
-            Debug.WriteLine($"Loading Pak Files");
+            Console.WriteLine($"Loading Pak Files");
             foreach (var item in _pakIndex)
             {
                 if (item == null) continue;
@@ -222,14 +223,14 @@ namespace MCDSaveEdit.Services
                 }
             }
 
-            Debug.WriteLine($"Found {_localizations.Count()} localizations");
-            Debug.WriteLine($"Found {_levels.Count()} levels");
-            Debug.WriteLine($"Found {ItemDatabase.armorProperties.Count()} armor properties");
-            Debug.WriteLine($"Loaded {_equipment.Count()} equipment images");
-            Debug.WriteLine($"Loaded {_enchantments.Count()} enchantment images");
+            Console.WriteLine($"Found {_localizations.Count()} localizations");
+            Console.WriteLine($"Found {_levels.Count()} levels");
+            Console.WriteLine($"Found {ItemDatabase.armorProperties.Count()} armor properties");
+            Console.WriteLine($"Found {_equipment.Count()} equipment images");
+            Console.WriteLine($"Found {_enchantments.Count()} enchantment images");
             if (preloadBitmaps)
             {
-                Debug.WriteLine($"Preloaded {_bitmaps.Count()} bitmaps");
+                Console.WriteLine($"Preloaded {_bitmaps.Count()} bitmaps");
             }
         }
 
@@ -255,7 +256,7 @@ namespace MCDSaveEdit.Services
             if (stringLibrary != null)
             {
                 long totalStringCount = stringLibrary.Sum(pair => pair.Value.LongCount());
-                Debug.WriteLine($"Loaded {totalStringCount} strings from {langSpecifier} LocRes");
+                Console.WriteLine($"Loaded {totalStringCount} strings from {langSpecifier} LocRes");
 
                 //Fill in any missing strings using the defaultStringLibrary
                 // i.e. fr-FR is missing "Glaive", "Claymore", and "Katana"

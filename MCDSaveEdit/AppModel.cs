@@ -6,6 +6,7 @@ using PakReader;
 using PakReader.Pak;
 using PakReader.Parsers.Objects;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,30 +25,44 @@ namespace MCDSaveEdit
 
         public string? usableGameContentIfExists()
         {
-            string registryPath = RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, string.Empty);
-            if (!string.IsNullOrWhiteSpace(registryPath) && Directory.Exists(registryPath))
+#if DEBUG
+            string? result = null;
+            foreach (var path in contentPathsToCheck())
             {
-                return registryPath;
+                if (string.IsNullOrWhiteSpace(path) == false)
+                {
+                    if (Directory.Exists(path))
+                    {
+                        Console.WriteLine($"{path} exists");
+                        result = result ?? path;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{path} does not exist");
+                    }
+                }
+            }
+            return result;
+#else
+            foreach(var path in contentPathsToCheck())
+            {
+                if (string.IsNullOrWhiteSpace(path) == false && Directory.Exists(path))
+                {
+                    return path;
+                }
             }
 
-            string? winstorePath = Constants.WINSTORE_PAKS_FOLDER_PATH_IF_EXISTS;
-            if (!string.IsNullOrWhiteSpace(winstorePath) && Directory.Exists(winstorePath))
-            {
-                return winstorePath;
-            }
-
-            string launcherPath = Constants.LAUNCHER_PAKS_FOLDER_PATH;
-            if (Directory.Exists(launcherPath))
-            {
-                return launcherPath;
-            }
-
-            string steamPath = Constants.STEAM_PAKS_FOLDER_PATH;
-            if (Directory.Exists(steamPath))
-            {
-                return steamPath;
-            }
             return null;
+#endif
+        }
+
+        private IEnumerable<string?> contentPathsToCheck()
+        {
+            yield return RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, string.Empty);
+            yield return Constants.WINSTORE_PAKS_FOLDER_PATH_IF_EXISTS;
+            yield return Constants.STEAM_PAKS_FOLDER_PATH;
+            yield return Constants.LAUNCHER_PAKS_FOLDER_PATH;
+            yield return Constants.XBOX_PC_GAMES_PAKS_FOLDER_PATH;
         }
 
         public static bool gameContentLoaded { get; private set; } = false;
@@ -59,6 +74,7 @@ namespace MCDSaveEdit
             {
                 throw new NullReferenceException($"PakIndex is null. Cannot Continue.");
             }
+
             var pakContentResolver = new PakContentResolver(pakIndex!, paksFolderPath);
             await pakContentResolver.loadPakFilesAsync(preloadBitmaps: false);
             ImageResolver.instance = pakContentResolver;
@@ -83,9 +99,11 @@ namespace MCDSaveEdit
 
             R.unloadExternalStrings();
 
+            Console.WriteLine($"Extracting '{lang}' language strings...");
             var stringLibrary = LanguageResolver.instance.loadLanguageStrings(lang);
             if (stringLibrary != null)
             {
+                Console.WriteLine($"Loading '{lang}' language strings...");
                 R.loadExternalStrings(stringLibrary);
             }
 
@@ -108,10 +126,13 @@ namespace MCDSaveEdit
                         throw new FileNotFoundException($"No files were found at {paksFolderPath}");
                     }
                     var success = unlockPakIndex(pakIndex);
-                    if (!success)
+                    if (success == false)
                     {
                         throw new InvalidOperationException($"Could not decrypt pak files at {paksFolderPath}");
                     }
+                    var versionStr = R.formatMCD_VERSION(mainModel.detectedGameVersion ?? R.ERROR);
+                    Console.WriteLine($"Detected Pak Files for {versionStr}");
+
                     tcs.SetResult(pakIndex);
                 }
                 catch (Exception e)

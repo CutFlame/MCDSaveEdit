@@ -5,12 +5,12 @@ namespace MCDSaveEdit.Data
 {
     public class ColorTuple : Tuple<byte, byte, byte, byte>
     {
-        public ColorTuple(byte one, byte two, byte three, byte four) : base(one, two, three, four) { }
+        public ColorTuple(byte a, byte r, byte g, byte b) : base(a, r, g, b) { }
     }
 
     public class RectTuple : Tuple<int, int, int, int>
     {
-        public RectTuple(int one, int two, int three, int four) : base(one, two, three, four) { }
+        public RectTuple(int x, int y, int width, int height) : base(x, y, width, height) { }
     }
 
     public struct MapImageData

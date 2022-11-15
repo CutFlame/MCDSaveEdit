@@ -40,16 +40,5 @@ namespace MCDSaveEdit
             }
             return "{}";
         }
-
-        public static string wget(string requestUriString)
-        {
-            var request = WebRequest.Create(requestUriString);
-            using var response = request.GetResponse();
-            using var dataStream = response.GetResponseStream();
-            using var reader = new StreamReader(dataStream);
-            string responseFromServer = reader.ReadToEnd();
-            response.Close();
-            return responseFromServer;
-        }
     }
 }
