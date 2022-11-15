@@ -59,10 +59,10 @@ namespace MCDSaveEdit
         private IEnumerable<string?> contentPathsToCheck()
         {
             yield return RegistryTools.GetSetting(Constants.APPLICATION_NAME, Constants.PAK_FILE_LOCATION_REGISTRY_KEY, string.Empty);
-            yield return Constants.WINSTORE_PAKS_FOLDER_PATH_IF_EXISTS;
             yield return Constants.STEAM_PAKS_FOLDER_PATH;
             yield return Constants.LAUNCHER_PAKS_FOLDER_PATH;
             yield return Constants.XBOX_PC_GAMES_PAKS_FOLDER_PATH;
+            //yield return Constants.WINSTORE_PAKS_FOLDER_PATH_IF_EXISTS;
         }
 
         public static bool gameContentLoaded { get; private set; } = false;
