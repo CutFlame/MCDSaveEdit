@@ -1,11 +1,23 @@
 ﻿using MCDSaveEdit.Save.Models.Enums;
 using MCDSaveEdit.Save.Models.Profiles;
 using MCDSaveEdit.Services;
+using System;
+#nullable enable
 
 namespace MCDSaveEdit.Logic
 {
     public static class ItemExtensions
     {
+        public static bool replaceArmorProperty(this Item item, Armorproperty armorProperty, string? newArmorPropertyId)
+        {
+            if (item.Armorproperties == null || armorProperty == null || newArmorPropertyId == null) { return false; }
+            // Duplicate IDs are valid; only update the exact entry selected by the user.
+            if (!Array.Exists(item.Armorproperties, property => ReferenceEquals(property, armorProperty))) { return false; }
+
+            armorProperty.Id = newArmorPropertyId;
+            return true;
+        }
+
         public static int level(this Item item)
         {
             return GameCalculator.levelFromPower(item.Power);

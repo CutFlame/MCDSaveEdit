@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppTests.cs" />
+    <Compile Include="ItemExtensionsTests.cs" />
     <Compile Include="GameCalculatorTests.cs" />
     <Compile Include="EquipmentViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

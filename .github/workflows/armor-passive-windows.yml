@@ -1,0 +1,115 @@
+name: Armor passive Windows validation
+
+on:
+  push:
+    branches: [fix-selected-armor-passive]
+  pull_request:
+    branches: [master]
+    paths:
+      - '.github/workflows/armor-passive-windows.yml'
+      - '.gitmodules'
+      - 'MCDSaveEdit.sln'
+      - 'MCDSaveEdit/**'
+      - 'MCDSaveEditTests/**'
+      - 'DungeonTools/**'
+      - 'PakReader/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: armor-passive-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: .NET Framework 4.8 build and armor passive tests
+    runs-on: windows-2022
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out source and pinned submodules
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Set up Visual Studio 2022 MSBuild
+        uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce # v2
+        with:
+          vs-version: '[17.0,18.0)'
+
+      - name: Set up NuGet
+        uses: NuGet/setup-nuget@d105a947828025cd7a980103c35ba2bfae586d0f # v2
+        with:
+          nuget-version: '6.14.0'
+
+      - name: Prepare credential-free build and Windows SDK reference
+        run: |
+          # README-required file; no game decryption or analytics credentials are needed.
+          @'
+          namespace MCDSaveEdit.Data
+          {
+              public static class Secrets
+              {
+                  public static AesKey[] PAKS_AES_KEYS = new AesKey[0];
+                  public const string GAME_ANALYTICS_GAME_KEY = "";
+                  public const string GAME_ANALYTICS_SECRET_KEY = "";
+              }
+          }
+          '@ | Set-Content MCDSaveEdit/Data/Secrets.cs
+
+          # The project HintPath refers to SDK 18362 on the author's machine.
+          # Resolve the installed SDK without changing the application or disabling WinRT.
+          $sdkRoot = "${env:ProgramFiles(x86)}\Windows Kits\10\UnionMetadata"
+          $sdk = Get-ChildItem $sdkRoot -Directory |
+            Where-Object { $_.Name -match '^\d+\.\d+\.\d+\.\d+$' -and (Test-Path (Join-Path $_.FullName 'Windows.winmd')) } |
+            Sort-Object { [version]$_.Name } -Descending |
+            Select-Object -First 1
+          if (!$sdk) { throw 'No Windows SDK Windows.winmd found.' }
+          "WINDOWS_SDK_REFERENCE_PATH=$($sdk.FullName)" >> $env:GITHUB_ENV
+          Write-Host "Using Windows SDK metadata: $($sdk.FullName)"
+          New-Item artifacts -ItemType Directory -Force | Out-Null
+
+      - name: Restore packages.config dependencies
+        run: |
+          nuget restore MCDSaveEdit.sln -NonInteractive -Source https://api.nuget.org/v3/index.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Build complete solution (Release, Any CPU)
+        run: |
+          msbuild MCDSaveEdit.sln /m /t:Rebuild /p:Configuration=Release '/p:Platform=Any CPU' "/p:ReferencePath=$env:WINDOWS_SDK_REFERENCE_PATH" /verbosity:minimal /bl:artifacts/build.binlog /fl '/flp:logfile=artifacts/build.log;verbosity=normal'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Run the five armor passive regression tests
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vs = & $vswhere -latest -version '[17.0,18.0)' -products '*' -requires Microsoft.VisualStudio.Workload.ManagedDesktop -property installationPath
+          if (!$vs) { throw 'Visual Studio 2022 desktop test tools not found.' }
+          $vstest = Join-Path $vs 'Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe'
+          if (!(Test-Path $vstest)) { throw "VSTest not found: $vstest" }
+          & $vstest MCDSaveEditTests/bin/Release/MCDSaveEditTests.dll '/Platform:x64' '/Framework:.NETFramework,Version=v4.8' '/TestAdapterPath:packages/MSTest.TestAdapter.2.2.10/build/_common' '/TestCaseFilter:FullyQualifiedName~MCDSaveEditTests.LogicTests.ItemExtensionsTests' '/Logger:trx;LogFileName=armor-passive.trx' '/ResultsDirectory:artifacts/TestResults'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          # VSTest can exit successfully when no tests match: require all five to pass.
+          [xml]$trx = Get-Content artifacts/TestResults/armor-passive.trx -Raw
+          $counters = $trx.TestRun.ResultSummary.Counters
+          if ($counters.total -ne '5' -or $counters.executed -ne '5' -or $counters.passed -ne '5') {
+            throw "Expected five passing regression tests; counters: $($counters.OuterXml)"
+          }
+          '### Automated Windows validation' >> $env:GITHUB_STEP_SUMMARY
+          '- Full Release solution build: passed (.NET Framework 4.8, Visual Studio 2022).' >> $env:GITHUB_STEP_SUMMARY
+          '- Armor passive MSTest regression tests: 5/5 passed against the built application.' >> $env:GITHUB_STEP_SUMMARY
+          '- In-app WPF verification: not performed. No game files or credentials are used.' >> $env:GITHUB_STEP_SUMMARY
+
+      - name: Preserve build logs and test results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: armor-passive-windows-validation
+          path: artifacts/
+          if-no-files-found: warn
+          retention-days: 7

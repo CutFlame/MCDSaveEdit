@@ -274,7 +274,7 @@ namespace MCDSaveEdit.UI
             var selectionWindow = WindowFactory.createSelectionWindow();
             selectionWindow.loadArmorProperties(armorProperty.Id);
             selectionWindow.onSelection = newArmorPropertyId => {
-                this.replaceArmorProperty(armorProperty.Id, newArmorPropertyId);
+                this.replaceArmorProperty(armorProperty, newArmorPropertyId);
             };
             //selectionWindow.onSelection = selectedArmorPropertyId;
             selectionWindow.Show();
@@ -291,15 +291,13 @@ namespace MCDSaveEdit.UI
             updateArmorPropertiesUI();
         }
 
-        private void replaceArmorProperty(string oldArmorPropertyId, string? newArmorPropertyId)
+        private void replaceArmorProperty(Armorproperty armorProperty, string? newArmorPropertyId)
         {
-            if (_item?.Armorproperties == null) { return; }
+            if (_item == null) { return; }
             if (newArmorPropertyId == null) { return; }
+            var oldArmorPropertyId = armorProperty.Id;
+            if (!_item.replaceArmorProperty(armorProperty, newArmorPropertyId)) { return; }
             EventLogger.logEvent("replaceArmorProperty", new Dictionary<string, object>() { { "oldArmorPropertyId", oldArmorPropertyId }, { "newArmorPropertyId", newArmorPropertyId } });
-            var index = _item!.Armorproperties!.ToList().FindIndex(prop => prop.Id == oldArmorPropertyId);
-            _item!.Armorproperties![index].Id = newArmorPropertyId;
-            //var newProperty = new Armorproperty() { Id = newArmorPropertyId, Rarity = Rarity.Common };
-            //_item!.Armorproperties[index] = newProperty;
             updateArmorPropertiesUI();
         }
 
